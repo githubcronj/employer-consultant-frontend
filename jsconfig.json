@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@homePage/*": ["src/components/homePage/*"],
+      "@blogPage/*": ["src/components/blogPage/*"],
+      "@styles/*": ["src/styles/*"]
+    },
+    "allowJs": true
+  }
+}
