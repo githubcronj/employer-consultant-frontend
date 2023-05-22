@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../Components/Button/buttonComponent';
+import InputComponent from '../Components/Input/inputComponent';
 function home() {
-  const handleclick = () => {
-    console.log("button clicked")
-  }
+  
   return <div>
-    <button>hi</button>
-    <Button onClick={handleclick} className="mt-4">Hello</Button>
+    Home
     </div>;
 }
 
