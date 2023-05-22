@@ -1,13 +1,8 @@
-import React from 'react';
-import Button from '../Components/Button/buttonComponent';
+import React, { useState } from "react";
+import Button from "../Components/Button/buttonComponent";
+import InputComponent from "../Components/Input/inputComponent";
 function home() {
-  const handleclick = () => {
-    console.log("button clicked")
-  }
-  return <div>
-    <button>hi</button>
-    <Button onClick={handleclick} className="mt-4">Hello</Button>
-    </div>;
+  return <div>Home</div>;
 }
 
 export default home;
