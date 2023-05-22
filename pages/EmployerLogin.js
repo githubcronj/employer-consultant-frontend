@@ -11,36 +11,63 @@ const EmployerLogin = () => {
   return (
     <>
       <div className="flex h-screen">
-        <div className="w-1/2 flex flex-col justify-center items-center p-6">
+        <div className="w-1/2 flex flex-col justify-center items-center p-6 gap-8">
           <h1 className="text-2xl font-bold text-indigo-900 mb-4">LOGO</h1>
-          <div className="flex overflow-hidden rounded-10 transition-all duration-300 gap-4">
-            <button
-              className={`${
-                alignment === 'web'
-                  ? 'bg-primary text-white'
-                  : 'bg-white text-primary'
-              } flex-1 py-2 px-4 rounded-20 transition-all duration-300`}
-              onClick={(e) => handleChange(e, 'web')}
-            >
-              Web
-            </button>
-            <button
-              className={`${
-                alignment === 'android'
-                  ? 'bg-primary text-white'
-                  : 'bg-white text-primary'
-              } flex-1 py-2 px-4 rounded-20 transition-all duration-300`}
-              onClick={(e) => handleChange(e, 'android')}
-            >
-              Android
-            </button>
-          </div>
+          <div style={{borderRadius:"20px",
+        backgroundColor:"#EEEFEF"}} className="flex overflow-hidden rounded-20 transition-all duration-300 gap-4 w-100% border-radius-2 p-0"
+>
+  <button
+    style={{
+      
+      borderRadius: "15px",
+      backgroundColor: alignment === 'web' ? '#ffffff' : '#EEEFEF',
+      padding:alignment === 'web' ? '12px' : '12px',
+      fontWeight: "700",
+      margin:"5px",
+      width:"200px"
+    }}
+    className={`${
+      alignment === 'web'
+        ? 'bg-primary'
+        : 'bg-white'
+    } flex-1 py-2 px-4 rounded-20 transition-all duration-300 ${
+      alignment === 'web' ? 'bg-primary' : 'bg-white border-primary'
+    }`}
+    onClick={(e) => handleChange(e, 'web')}
+  >
+    Employer
+  </button>
+  <button
+    style={{
+    padding:alignment === 'android' ? '12px' : '12px',
+      borderRadius: "15px",
+      backgroundColor: alignment === 'android' ? '#ffffff' : '#EEEFEF',
+      fontWeight: "700",
+      margin:"5px",
+      width:"200px"
+    }}
+    className={`${
+      alignment === 'android'
+        ? 'bg-primary '
+        : 'bg-white'
+    } flex-1 py-2 px-4 rounded-20 transition-all duration-300 ${
+      alignment === 'android' ? 'bg-primary' : 'bg-white border-primary'
+    }`}
+    onClick={(e) => handleChange(e, 'android')}
+  >
+   Consultant
+  </button>
+</div>
+<div> <h1 className="text-3xl font-bold text-indigo-900 mb-4">Log In</h1></div>
+
         </div>
-        <div className="w-1/2 p-6 bg-gray-300">
+        <div className="w-1/2 p-1">
           <img
             src="/Assets/employerLoginimg.png"
+            width={"680px"}
+            height={"600px"}
             alt="Employer Login Image"
-            className="h-800 w-700 fixed"
+            className=" fixed"
           />
         </div>
       </div>
