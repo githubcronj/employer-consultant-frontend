@@ -4,12 +4,13 @@ import { Navbar } from 'Components/Navbar/Navbar';
 
 function Layout(props) {
   const router = useRouter();
-  const isLoginPage = router.pathname === '/login';
+  const isLoginPage = router.pathname === '/EmployerLogin';
+  const isSignupPage = router.pathname === '/register';
 
   const { children } = props;
   return (
     <>
-      {!isLoginPage ? <Navbar /> : null}
+      {!(isLoginPage || isSignupPage) ? <Navbar /> : null}
       {children}
     </>
   );
