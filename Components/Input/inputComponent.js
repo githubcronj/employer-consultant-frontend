@@ -8,7 +8,9 @@ const InputComponent = ({
   lefticon,
   righticon,
   className,
+  showpassword
 }) => {
+  
   return (
     <div className='relative'>
      {lefticon && <div className='absolute left-2 top-2  px-2 py-2 ml-2 mt-2 '>
@@ -29,7 +31,7 @@ const InputComponent = ({
       />
       
       {righticon &&  <div className='absolute top-2 left-80  px-2 py-2 ml-2 mt-2'>
-          <img src={righticon} alt='rightIcon' className="w-5 h-5"/>
+          <img src={righticon} alt='rightIcon' className="w-5 h-5" onClick={showpassword}/>
         </div>}
     </div>
   );
