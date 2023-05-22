@@ -19,4 +19,8 @@
     padding: 20px;
     background-color: #e0e0e0;
   }
-  
+  .bigimg{
+    width: 680px;
+    height: 600px;
+    position: fixed;
+  }
