@@ -11,18 +11,27 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const [displayPassword, setDisplayPassword] = useState("password");
+  const [displayConfirmPassword, setDisplayConfirmPassword] =
+    useState("password");
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
-
+  const confirmPasswordclick = () => {
+    setDisplayConfirmPassword(
+      displayConfirmPassword == "password" ? "text" : "password"
+    );
+  };
+  const passwordclick = () => {
+    setDisplayPassword(displayPassword == "password" ? "text" : "password");
+  };
   return (
     <div
       className='flex items-start justify-center'
       style={{ height: "900px" }}
     >
-      <div className='pl-20'>
-        <div className='w-1/2 flex flex-col justify-center items-center p-4 gap-4 pl-40'>
+      <div className='flex flex-col items-center pr-10 pt-2'>
+        <div className='w-1/2 flex flex-col justify-center items-center p-2 gap-4 pl-10'>
           <h1 className='text-2xl font-bold text-black mb-2'>LOGO</h1>
           <div
             style={{ borderRadius: "20px", backgroundColor: "#EEEFEF" }}
@@ -69,8 +78,8 @@ const Register = () => {
             </button>
           </div>
           <div>
-            {" "}
-            <h1 className='text-3xl font-bold text-black '>Register</h1>
+            
+            <h1 className='text-3xl font-bold text-black pb-2 '>Register</h1>
           </div>
         </div>
 
@@ -84,38 +93,40 @@ const Register = () => {
           />
 
           <InputComponent
-            type='password'
+            type={displayPassword}
             value={password}
             placeholder='Set Password'
             lefticon={lock.src}
             righticon={eye.src}
+            showpassword={passwordclick}
             onchange={(e) => setPassword(e.target.value)}
           />
 
           <InputComponent
-            type='password'
+            type={displayConfirmPassword}
             value={confirmPassword}
             placeholder='Confirm Password'
             lefticon={lock.src}
             righticon={eye.src}
+            showpassword={confirmPasswordclick}
             onchange={(e) => setConfirmPassword(e.target.value)}
           />
 
           <Button>Register</Button>
         </div>
 
-        <div className='flex items-center w-96 pl-20 mt-4 '>
+        <div className='flex items-center w-96 pl-10 mt-4 '>
           <hr className='flex-grow border-t-2 border-gray-300 w-48 mr-5' />
           <span className='text-black'>OR</span>
           <hr className='flex-grow border-t-2 border-gray-300 w-48 ml-5' />
         </div>
-        <div className='flex items-center pl-16 ml-14 gap-5 mt-4 '>
+        <div className='flex items-center  ml-10 gap-5 mt-4 '>
           <img src='/Assets/googleIcon.png' alt='googleIcon' />
           <img src='/Assets/facebookIcon.png' alt='facebookIcon' />
           <img src='/Assets/appleIcon.png' alt='appleIcon' />
         </div>
 
-        <h3 className='pl-20 ml-10 mt-5'>
+        <h3 className='ml-9 mt-5'>
           Already have account?
           <span
             style={{ color: "#F9342E", cursor: "pointer", fontWeight: "bold" }}
@@ -139,7 +150,7 @@ const Register = () => {
         )}
         {alignment != "web" && (
           <img
-            src='/Assets/employerLoginimg.png'
+            src='/Assets/consultantimg.png'
             width={"680px"}
             height={"600px"}
             alt='Employer Login Image'
