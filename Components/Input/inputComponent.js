@@ -19,7 +19,7 @@ const InputComponent = ({
          border-gray-400 w-0 h-7 absolute top-5 left-16'
       ></div>
       <input
-        className={`bg-transparent text-black rounded-2xl h-16 w-96 font-semibold
+        className={`bg-transparent text-black rounded-2xl h-16 w-full sm:w-96 font-semibold
          py-2 px-4 border
          border-gray-400 pl-20 mb-3`}
         type={type}
