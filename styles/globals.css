@@ -1,4 +1,6 @@
-@import "tailwindcss/tailwind.css";
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
 html,
 body {
   padding: 0;
