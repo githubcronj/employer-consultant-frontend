@@ -46,6 +46,16 @@ const profile = () => {
       }));
     
   };
+  const handlePaste = async (event) => {
+    event.preventDefault();
+  
+    try {
+      const text = await navigator.clipboard.readText();
+      setFormValues((prevValues) => ({ ...prevValues, companyURL: text }));
+    } catch (error) {
+      console.error('Failed to read clipboard content:', error);
+    }
+  };
 
   return (
     <div className="bg-[#2B373C1C] py-10 px-2 sm:px-10">
@@ -92,7 +102,7 @@ const profile = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="relative">
               <label
-                className="absolute top-[-8px] left-0 ml-2 mt-px  bg-white px-1 text-gray-600 text-xs"
+                className="absolute top-[-8px] left-0 ml-2 mt-px  bg-white px-1 text-[#1E0F3B] text-xs font-bold"
                 for="companyName"
               >
                 Company Name
@@ -142,7 +152,7 @@ const profile = () => {
                 value={formValues.companyURL}
                 onChange={handleChange}
               />
-              <button className=" absolute right-2 px-8 py-3 bg-red-500 text-white rounded-[10px]">
+              <button className=" absolute right-2 px-6 sm:px-8 py-3 bg-red-500 text-white rounded-[10px]" onClick={handlePaste}>
                 Paste
               </button>
             </div>
