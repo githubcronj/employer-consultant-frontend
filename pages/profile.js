@@ -19,9 +19,6 @@ const profile = () => {
     const fileInput = document.getElementById("image-preview");
     fileInput.click();
   };
-//   const handleImageChange = (e) => {
-//     setSelectedImage(URL.createObjectURL(e.target.files[0]));
-//   };
 const handleImageChange = (e) => {
     const file = e.target.files[0];
   
