@@ -114,7 +114,7 @@ const Register = () => {
           />
 
 <div className="flex justify-end">
-  <div style={{marginLeft:"280px" , marginTop:"-10px",fontWeight:"bold"}} className="text-right">
+  <div style={{marginLeft:"auto" , marginTop:"-10px",fontWeight:"bold"}} className="text-right">
     <h3>Forget Password?</h3>
   </div>
 </div>
