@@ -21,8 +21,8 @@ const EmployerLogin = () => {
 
   return (
     <>
-      <div className="flex flex-col  xl:flex-row md:flex-col">
-        <div className=" xl:w-1/2  md:w-full  flex flex-col justify-flex-start items-center p-6 gap-8 mt-5 sm:w-1">
+      <div className="flex flex-col xl:flex-row md:flex-col h-screen overflow-hidden">
+        <div className=" xl:w-1/2  md:w-full  flex flex-col justify-flex-start items-center p-6 gap-4 mt-5 sm:w-1">
           <h1 className="text-2xl font-bold text-#1E0F3B mb-4">LOGO</h1>
           <div
             style={{ borderRadius: '20px', backgroundColor: '#EEEFEF' }}
@@ -97,9 +97,9 @@ const EmployerLogin = () => {
 
           <Button>Log In</Button>
           <div className="flex items-center">
-            <hr className="flex-grow border-t-2 border-gray-300  w-24 sm:w-48 mr-5" />
+            <hr className="flex-grow border-t-2 border-gray-300  w-24 sm:w-40 mr-5" />
             <span className="text-black">OR</span>
-            <hr className="flex-grow border-t-2 border-gray-300 w-24 sm:w-48 ml-5" />
+            <hr className="flex-grow border-t-2 border-gray-300 w-24 sm:w-40 ml-5" />
           </div>
           <div className="flex items-center justify-evenly gap-3">
             <img src="/Assets/googleIcon.png" alt="googleIcon" />
@@ -118,7 +118,13 @@ const EmployerLogin = () => {
         </div>
         <div className="  xl:w-1/2 md:w-full p-1">
         <img
-  className="bigimg h-auto w-full bg-fixed"
+        style={{
+          height: "700px",
+          width: "701px",
+          marginLeft: "50px",
+          padding: "0px",
+        }}
+  className=""
   src="/Assets/employerLoginimg.png"
   alt="Employer Login Image"
 />
