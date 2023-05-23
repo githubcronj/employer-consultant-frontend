@@ -105,6 +105,7 @@ const confirmPasswordclick = () => {
               onchange={(e) => setPassword(e.target.value)}
             />
           </div>
+          
           <div className="flex justify-end">
   <div style={{marginLeft:"280px",marginTop:"-22px"}} className="text-right">
     <h3>Forget Password?</h3>

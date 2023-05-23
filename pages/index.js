@@ -5,10 +5,5 @@ import styles from "../styles/Home.module.css";
 import Register from "./register";
 import EmployerLogin from "./EmployerLogin";
 export default function Home() {
-  return (
-    <div>
-      <Register />
-      <EmployerLogin />
-    </div>
-  );
+  return <div></div>;
 }
