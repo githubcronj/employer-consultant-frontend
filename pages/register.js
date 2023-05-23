@@ -6,6 +6,7 @@ import envelope from "../public/Assets/envelope.svg";
 import lock from "../public/Assets/lock.svg";
 import eye from "../public/Assets/eye.svg";
 import Link from "next/link";
+import styles from "../styles/LoginPage.module.css";
 
 const Register = () => {
   const [alignment, setAlignment] = useState("web");
@@ -28,10 +29,9 @@ const Register = () => {
   };
   return (
     <div
-      className='flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row lg:items-center lg:justify-center md:flex-col'
-      style={{ marginLeft: "38px", marginTop: "0px" }}
+      className={`flex flex-col  xl:flex-row xl:items-center -mt-2 justify-center lg:flex-row lg:items-center lg:justify-center  md:flex-col ${styles.mainBox}`}
     >
-      <div className='flex flex-col items-center justify-center sm:pl-0  sm:mr-[2px] md:mr-[2px]'>
+      <div className='flex flex-col items-center justify-center sm:pl-0  sm:mr-[2px] md:mr-[2px] mb-3'>
         <div
           style={{ marginTop: "20px" }}
           className=' xl:w-1/2  md:w-full   flex flex-col justify-center items-center pt-0  gap-4 '
@@ -133,7 +133,7 @@ const Register = () => {
 
         <div
           className='flex items-center xl:pl-10 lg:pl-10 mt-3 '
-          style={{ width: "412px" }}
+          style={{ width: "440px" }}
         >
           <hr className='flex-grow border-t-2 border-gray-300 w-48 mr-5' />
           <span className='text-black'>OR</span>
@@ -183,7 +183,7 @@ const Register = () => {
           <img
             src='/Assets/employerLoginimg.png'
             alt='Employer Login Image'
-            className='xl:h-[601px] xl:w-[600px] xl:p-0 xl:ml-[95px] lg:h-[601px] lg:w-[600px]  md:w-full lg:ml-[137px] sm:ml-0 sm:pl-0  sm:w-full mx-auto md:w-[750px] md:h-[750px]'
+            className='xl:h-[609px] xl:w-[600px] xl:p-0 xl:ml-[101px] lg:h-[600px] lg:w-[600px]  md:w-full lg:ml-[137px] sm:ml-0 sm:pl-0  sm:w-full mx-auto md:w-[750px] md:h-[750px]'
           />
         )}
         {alignment != "web" && (
