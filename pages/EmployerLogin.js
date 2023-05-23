@@ -1,32 +1,44 @@
-import InputComponent from 'Components/Input/inputComponent';
+import InputComponent from "Components/Input/inputComponent";
 
-import React from 'react';
-import { useState } from 'react';
-import envelope from '../public/Assets/envelope.svg';
-import lock from '../public/Assets/lock.svg';
-import eye from '../public/Assets/eye.svg';
-import { Typography } from '@mui/material';
-import styled from '@emotion/styled';
-import Button from 'Components/Button/buttonComponent';
-import Link from 'next/link';
+import React from "react";
+import { useState } from "react";
+import envelope from "../public/Assets/envelope.svg";
+import lock from "../public/Assets/lock.svg";
+import eye from "../public/Assets/eye.svg";
+import Button from "Components/Button/buttonComponent";
+import Link from "next/link";
 
 const EmployerLogin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [alignment, setAlignment] = useState('web');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [alignment, setAlignment] = useState("web");
+  const [displayPassword, setDisplayPassword] = useState("password");
+  const [displayConfirmPassword, setDisplayConfirmPassword] =
+  useState("password");
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
+ 
 
+const confirmPasswordclick = () => {
+  setDisplayConfirmPassword(
+    displayConfirmPassword == "password" ? "text" : "password"
+  );
+};
+
+        
+  const passwordclick = () => {
+    setDisplayPassword(displayPassword == "password" ? "text" : "password");
+  };
   return (
     <>
-      <div className="flex flex-col xl:flex-row md:flex-col h-screen overflow-hidden">
-        <div className=" xl:w-1/2  md:w-full  flex flex-col justify-flex-start items-center p-6 gap-4 mt-5 sm:w-1">
+      <div className="flex flex-col xl:flex-row md:flex-col  overflow-hidden min-h-screen">
+        <div className=" xl:w-1/2  md:w-full  flex flex-col justify-flex-start items-center p-6 gap-4 mt-5 sm:w-1 overflow-auto">
           <h1 className="text-2xl font-bold text-#1E0F3B mb-4">LOGO</h1>
           <div
-            style={{ borderRadius: '20px', backgroundColor: '#EEEFEF' }}
-            className="flex  rounded-20 transition-all duration-300 gap-4 w-100% border-radius-2 p-0"
+            style={{ borderRadius: "20px", backgroundColor: "#EEEFEF" }}
+            className='flex  rounded-20 transition-all duration-300 gap-4 w-100% border-radius-2 p-0'
           >
             <button
               style={{
@@ -38,18 +50,18 @@ const EmployerLogin = () => {
                width:"140px"
               }}
               className={`${
-                alignment === 'web' ? 'bg-primary' : 'bg-white'
+                alignment === "web" ? "bg-primary" : "bg-white"
               } flex-1 py-2 px-4 rounded-20 transition-all duration-300 ${
-                alignment === 'web' ? 'bg-primary' : 'bg-white border-primary'
+                alignment === "web" ? "bg-primary" : "bg-white border-primary"
               }  sm:w-auto md:w-1/4 lg:w-1/5`}
-              onClick={(e) => handleChange(e, 'web')}
+              onClick={(e) => handleChange(e, "web")}
             >
               Employer
             </button>
             <button
               style={{
-                padding: alignment === 'android' ? '12px' : '12px',
-                borderRadius: '15px',
+                padding: alignment === "android" ? "12px" : "12px",
+                borderRadius: "15px",
                 backgroundColor:
                   alignment === "android" ? "#ffffff" : "#EEEFEF",
                 fontWeight: alignment === "android" ? "700": "400",
@@ -58,13 +70,13 @@ const EmployerLogin = () => {
               
               }}
               className={`${
-                alignment === 'android' ? 'bg-primary ' : 'bg-white'
+                alignment === "android" ? "bg-primary " : "bg-white"
               } flex-1 py-2 px-4 rounded-20 transition-all duration-300 ${
-                alignment === 'android'
-                  ? 'bg-primary'
-                  : 'bg-white border-primary'
+                alignment === "android"
+                  ? "bg-primary"
+                  : "bg-white border-primary"
               }  sm:w-auto md:w-1/4 lg:w-1/5`}
-              onClick={(e) => handleChange(e, 'android')}
+              onClick={(e) => handleChange(e, "android")}
             >
               Consultant
             </button>
@@ -75,24 +87,25 @@ const EmployerLogin = () => {
           </div>
           <div>
             <InputComponent
-              type="email"
+              type='email'
               value={email}
-              placeholder="Email address"
+              placeholder='Email address'
               onchange={(e) => setEmail(e.target.value)}
               lefticon={envelope.src}
             />
 
             <InputComponent
-              type="password"
+              type={displayPassword}
               value={password}
-              placeholder="Set Password"
+              placeholder='Set Password'
               lefticon={lock.src}
               righticon={eye.src}
+              showpassword={passwordclick}
               onchange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="flex justify-end">
-            <Typography className="text-right">Forget Password?</Typography>
+          <div className='flex justify-end'>
+            <h3 className='text-right'>Forget Password?</h3>
           </div>
 
           <Button>Log In</Button>
@@ -101,33 +114,47 @@ const EmployerLogin = () => {
             <span className="text-black">OR</span>
             <hr className="flex-grow border-t-2 border-gray-300 w-24 sm:w-40 ml-5" />
           </div>
-          <div className="flex items-center justify-evenly gap-3">
-            <img src="/Assets/googleIcon.png" alt="googleIcon" />
-            <img src="/Assets/facebookIcon.png" alt="facebookIcon" />
-            <img src="/Assets/appleIcon.png" alt="appleIcon" />
+          <div className='flex items-center justify-evenly gap-3'>
+            <img src='/Assets/googleIcon.png' alt='googleIcon' />
+            <img src='/Assets/facebookIcon.png' alt='facebookIcon' />
+            <img src='/Assets/appleIcon.png' alt='appleIcon' />
           </div>
 
-          <Typography>
-            Create new account?{' '}
-            <Link href="/register">
-              <span style={{ color: '#F9342E', fontWeight: 'bold' }}>
+          <h3>
+            Create new account?{" "}
+            <Link href='/register'>
+              <span style={{ color: "#F9342E", fontWeight: "bold" }}>
                 Register
               </span>
             </Link>
-          </Typography>
+          </h3>
         </div>
         <div className="  xl:w-1/2 md:w-full p-1">
-        <img
-        style={{
-          height: "700px",
-          width: "701px",
-          marginLeft: "50px",
-          padding: "0px",
-        }}
-  className=""
-  src="/Assets/employerLoginimg.png"
-  alt="Employer Login Image"
-/>
+      { alignment == 'web' && (
+       <img
+       style={{
+        height: "650px",
+       }}
+       className=" md:w-full lg:w-full  xl:w-11/12 mx-auto md:mx-0"
+       src="/Assets/employerLoginimg.png"
+       alt="Employer Login Image"
+     />
+      ) }  
+      {
+        alignment !== 'web' && (
+          <img
+          style={{
+            height: "650px",
+            width: "651px",
+            marginLeft: "-50px",
+            padding: "0px",
+          }}
+  
+    src="/Assets/consultantimg.png"
+    alt="Employer Login Image"
+  />
+        )
+      }
 
         </div>
       </div>
