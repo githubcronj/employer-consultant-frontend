@@ -29,7 +29,7 @@ const Register = () => {
   };
   return (
     <div
-      className={`max-w-[1536px] mx-auto flex flex-col  xl:flex-row xl:items-center -mt-2 justify-center lg:flex-row lg:items-center lg:justify-center lg:gap-12 xl:gap-0 h-[100%] lg:h-auto md:flex-col ${styles.mainBox}`}
+      className={`max-w-[1536px] mx-auto flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row lg:items-center lg:justify-center lg:gap-12 xl:gap-0 h-[100%] lg:h-auto md:flex-col ${styles.mainBox}`}
     >
       <div className="flex flex-col items-center justify-center sm:pl-0  sm:mr-[2px] md:mr-[2px] mb-3 flex-1">
         <div
