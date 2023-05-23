@@ -61,3 +61,43 @@ a {
     background: black;
   }
 }
+
+.container__class {
+  margin: 0 auto;
+  padding: 0 auto;
+}
+@media (max-width: 640px) {
+  .container__class {
+    max-width: 640px;
+  }
+}
+@media (max-width: 768px) {
+  .container__class {
+    max-width: 768px;
+  }
+}
+@media (max-width: 992px) {
+  .container__class {
+    max-width: 992px;
+  }
+}
+@media (max-width: 1024px) {
+  .container__class {
+    max-width: 1024px;
+  }
+}
+@media (max-width: 1280px) {
+  .container__class {
+    max-width: 1210px;
+  }
+}
+@media (max-width: 1535px) {
+  .container__class {
+    max-width: 1500px;
+  }
+}
+@media (min-width: 1536px) {
+  .container__class {
+    max-width: 1500px;
+  }
+}
