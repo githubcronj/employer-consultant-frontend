@@ -20,9 +20,9 @@ const EmployerLogin = () => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row h-screen sm:px-3">
-        <div className=" md:w-1/2  flex flex-col justify-flex-start items-center p-6 gap-8 mt-5 sm:w-1">
-          <h1 className="text-2xl font-bold text-indigo-900 mb-4">LOGO</h1>
+      <div className="flex flex-col  xl:flex-row md:flex-col">
+        <div className=" xl:w-1/2  md:w-full  flex flex-col justify-flex-start items-center p-6 gap-8 mt-5 sm:w-1">
+          <h1 className="text-2xl font-bold text-#1E0F3B mb-4">LOGO</h1>
           <div
             style={{ borderRadius: "20px", backgroundColor: "#EEEFEF" }}
             className="flex  rounded-20 transition-all duration-300 gap-4 w-100% border-radius-2 p-0"
@@ -32,7 +32,7 @@ const EmployerLogin = () => {
                 borderRadius: "15px",
                 backgroundColor: alignment === "web" ? "#ffffff" : "#EEEFEF",
                 padding: alignment === "web" ? "12px" : "12px",
-                fontWeight: "700",
+                fontWeight: alignment === "web" ? "700": "400",
                 margin: "5px",
                width:"140px"
               }}
@@ -51,7 +51,7 @@ const EmployerLogin = () => {
                 borderRadius: "15px",
                 backgroundColor:
                   alignment === "android" ? "#ffffff" : "#EEEFEF",
-                fontWeight: "700",
+                fontWeight: alignment === "android" ? "700": "400",
                 margin: "5px",
                 width:"140px"
               
@@ -70,7 +70,7 @@ const EmployerLogin = () => {
           </div>
           <div>
           
-            <h1 className="text-3xl font-bold text-indigo-900 mb-4">Log In</h1>
+            <h1 className="text-3xl font-bold text-#1E0F3B mb-4">Log In</h1>
           </div>
           <div>
           <InputComponent
@@ -113,14 +113,13 @@ const EmployerLogin = () => {
             </span>
           </Typography>
         </div>
-        <div className=" md:w-1/2 p-1 sm:w-1">
-          <img
-       className="bigimg h-auto w-full"
-            src="/Assets/employerLoginimg.png"
-           
-            alt="Employer Login Image"
-           
-          />
+        <div className="  xl:w-1/2 md:w-full p-1">
+        <img
+  className="bigimg h-auto w-full bg-fixed"
+  src="/Assets/employerLoginimg.png"
+  alt="Employer Login Image"
+/>
+
         </div>
       </div>
     </>
