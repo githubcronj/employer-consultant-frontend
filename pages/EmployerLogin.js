@@ -8,6 +8,7 @@ import eye from "../public/Assets/eye.svg";
 import Button from "Components/Button/buttonComponent";
 import Link from "next/link";
 
+
 const EmployerLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,8 +38,8 @@ const confirmPasswordclick = () => {
         <div className=" xl:w-1/2  md:w-full  flex flex-col justify-flex-start items-center p-6 gap-4 mt-5 sm:w-1 overflow-auto">
           <h1 className="text-2xl font-bold text-#1E0F3B mb-4">LOGO</h1>
           <div
-            style={{ borderRadius: "20px", backgroundColor: "#EEEFEF" }}
-            className='flex  rounded-20 transition-all duration-300 gap-4 w-100% border-radius-2 p-0'
+            style={{ borderRadius: "20px", backgroundColor: "#EEEFEF"}}
+            className='flex  rounded-20 transition-all duration-300 gap-4  xl:w-96 xl:h-16 md:w-96 sm:w-64 border-radius-2 p-0'
           >
             <button
               style={{
@@ -47,7 +48,7 @@ const confirmPasswordclick = () => {
                 padding: alignment === "web" ? "12px" : "12px",
                 fontWeight: alignment === "web" ? "700": "400",
                 margin: "5px",
-               width:"140px"
+              
               }}
               className={`${
                 alignment === "web" ? "bg-primary" : "bg-white"
@@ -66,7 +67,7 @@ const confirmPasswordclick = () => {
                   alignment === "android" ? "#ffffff" : "#EEEFEF",
                 fontWeight: alignment === "android" ? "700": "400",
                 margin: "5px",
-                width:"140px"
+               
               
               }}
               className={`${
@@ -104,10 +105,11 @@ const confirmPasswordclick = () => {
               onchange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className='flex justify-end'>
-            <h3 className='text-right'>Forget Password?</h3>
-          </div>
-
+          <div className="flex justify-end">
+  <div style={{marginLeft:"280px",marginTop:"-22px"}} className="text-right">
+    <h3>Forget Password?</h3>
+  </div>
+</div>
           <Button>Log In</Button>
           <div className="flex items-center">
             <hr className="flex-grow border-t-2 border-gray-300  w-24 sm:w-40 mr-5" />
@@ -129,13 +131,11 @@ const confirmPasswordclick = () => {
             </Link>
           </h3>
         </div>
-        <div className="  xl:w-1/2 md:w-full p-1">
+        <div className="p-0 xl:ml-22 lg:ml-16  md:w-full xl:w-[50%]">
       { alignment == 'web' && (
        <img
-       style={{
-        height: "650px",
-       }}
-       className=" md:w-full lg:w-full  xl:w-11/12 mx-auto md:mx-0"
+       
+       className='xl:h-[601px] xl:w-[600px] xl:p-0 xl:ml-[95px] lg:h-[601px] lg:w-[600px]  md:w-full lg:ml-[137px] sm:ml-0 sm:pl-0  sm:w-full mx-auto md:w-[750px] md:h-[750px]'
        src="/Assets/employerLoginimg.png"
        alt="Employer Login Image"
      />
@@ -143,16 +143,14 @@ const confirmPasswordclick = () => {
       {
         alignment !== 'web' && (
           <img
-          style={{
-            height: "650px",
-            width: "651px",
-            marginLeft: "-50px",
-            padding: "0px",
-          }}
-  
-    src="/Assets/consultantimg.png"
-    alt="Employer Login Image"
-  />
+       style={{
+        height: "650px",
+       }}
+       className=" md:w-full lg:w-full  xl:w-11/12 mx-auto md:mx-0"
+       src="/Assets/consultantimg.png"
+       alt="Employer Login Image"
+     />
+       
         )
       }
 
