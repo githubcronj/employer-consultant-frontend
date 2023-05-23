@@ -21,7 +21,10 @@ const EmployerLogin = () => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row h-screen sm:px-3">
+      <div
+        className="flex flex-col md:flex-row h-screen sm:px-3"
+        style={{ height: '900px' }}
+      >
         <div className=" md:w-1/2  flex flex-col justify-flex-start items-center p-6 gap-8 mt-5 sm:w-1">
           <h1 className="text-2xl font-bold text-indigo-900 mb-4">LOGO</h1>
           <div
@@ -119,6 +122,8 @@ const EmployerLogin = () => {
             className="bigimg h-auto w-full"
             src="/Assets/employerLoginimg.png"
             alt="Employer Login Image"
+            width={'680px'}
+            height={'600px'}
           />
         </div>
       </div>

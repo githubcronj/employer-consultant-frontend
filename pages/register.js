@@ -148,8 +148,8 @@ const Register = () => {
         {alignment == 'web' && (
           <img
             src="/Assets/employerLoginimg.png"
-            width={'680px'}
-            height={'600px'}
+            // width={'680px'}
+            // height={'600px'}
             alt="Employer Login Image"
             className=" fixed"
           />
