@@ -19,8 +19,14 @@ const profile = () => {
     const fileInput = document.getElementById("image-preview");
     fileInput.click();
   };
-  const handleImageChange = (e) => {
-    setSelectedImage(URL.createObjectURL(e.target.files[0]));
+const handleImageChange = (e) => {
+    const file = e.target.files[0];
+  
+    if (file) {
+      setSelectedImage(URL.createObjectURL(file));
+    } else {
+      setSelectedImage(null);
+    }
   };
   const handleSave = () => {
     console.log(formValues);
@@ -37,6 +43,7 @@ const profile = () => {
     };
     setFormValues(initialFormValues);
     setSelectedImage(null);
+
   };
   const handleChange = (e) => {
     const { id, value } = e.target; 
@@ -79,7 +86,7 @@ const profile = () => {
             onClick={handleCameraIconClick}
           >
             {selectedImage ? (
-              <img src={selectedImage} alt="selectedImage" />
+              <img src={selectedImage} style={{ width: "120px", height: "120px"}} alt="selectedImage" />
             ) : (
               <img src="/Assets/camera-icon.svg" alt="cameraIcon" />
             )}
