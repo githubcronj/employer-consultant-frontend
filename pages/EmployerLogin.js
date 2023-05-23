@@ -132,10 +132,8 @@ const confirmPasswordclick = () => {
         <div className="  xl:w-1/2 md:w-full p-1">
       { alignment == 'web' && (
        <img
-       style={{
-        height: "650px",
-       }}
-       className=" md:w-full lg:w-full  xl:w-11/12 mx-auto md:mx-0"
+      
+       className="h-[650px] md:w-full lg:w-full  xl:w-11/12 mx-auto md:mx-0"
        src="/Assets/employerLoginimg.png"
        alt="Employer Login Image"
      />

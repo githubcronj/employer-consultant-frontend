@@ -28,16 +28,16 @@ const Register = () => {
   };
   return (
     <div
-      className='flex flex-col  xl:flex-row xl:items-center justify-evenly md:flex-col'
+      className='flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row lg:items-center lg:justify-center md:flex-col'
       style={{ marginLeft: "38px", marginTop: "0px" }}
     >
-      <div className='flex flex-col items-center justify-center'>
+      <div className='flex flex-col items-center justify-center sm:pl-0  sm:mr-[2px] md:mr-[2px]'>
         <div
           style={{ marginTop: "20px" }}
-          className=' xl:w-1/2  md:w-full  flex flex-col justify-flex-start items-center pt-0 ml-2 gap-4 sm:w-1'
+          className=' xl:w-1/2  md:w-full   flex flex-col justify-center items-center pt-0  gap-4 '
         >
           <h1
-            className='text-2xl font-bold text-#1E0F3B mb-1 ml-6'
+            className='text-2xl font-bold text-#1E0F3B mb-1 xl:ml-6 lg:ml-6'
             style={{ width: "72px", height: "29px", fontSize: "24px" }}
           >
             LOGO
@@ -99,7 +99,7 @@ const Register = () => {
           </div>
         </div>
 
-        <div className='pl-10'>
+        <div className='xl:pl-10 lg:pl-10'>
           <InputComponent
             type='email'
             value={email}
@@ -132,7 +132,7 @@ const Register = () => {
         </div>
 
         <div
-          className='flex items-center pl-10 mt-3 '
+          className='flex items-center xl:pl-10 lg:pl-10 mt-3 '
           style={{ width: "412px" }}
         >
           <hr className='flex-grow border-t-2 border-gray-300 w-48 mr-5' />
@@ -176,32 +176,21 @@ const Register = () => {
       </div>
 
       <div
-        className='w-1/2 p-0 ml-16'
-        style={{ width: "50%", objectFit: "contain" }}
+        className=' p-0 xl:ml-22 lg:ml-16  md:w-full xl:w-[50%] '
+        style={{ objectFit: "contain" }}
       >
         {alignment == "web" && (
           <img
             src='/Assets/employerLoginimg.png'
-            style={{
-              height: "601px",
-              width: "630px",
-              padding: "0px",
-              marginLeft: "35px",
-            }}
             alt='Employer Login Image'
+            className='xl:h-[601px] xl:w-[600px] xl:p-0 xl:ml-[95px] lg:h-[601px] lg:w-[600px]  md:w-full lg:ml-[137px] sm:ml-0 sm:pl-0  sm:w-full mx-auto md:w-[750px] md:h-[750px]'
           />
         )}
         {alignment != "web" && (
           <img
             src='/Assets/consultantimg.png'
-            className='bigimg h-auto w-full'
             alt='Employer Login Image'
-            style={{
-              height: "601px",
-              width: "630px",
-              padding: "0px",
-              marginLeft: "35px",
-            }}
+            className='xl:h-[601px] xl:w-[600px] xl:p-0 xl:ml-[95px] lg:h-[601px] lg:w-[600px]  md:w-full lg:ml-[137px] sm:ml-0 sm:pl-0  sm:w-full mx-auto md:w-[750px] md:h-[750px]'
           />
         )}
       </div>
