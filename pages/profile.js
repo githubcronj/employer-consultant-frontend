@@ -1,17 +1,53 @@
 import InputComponent from "Components/Input/inputComponent";
-import React from "react";
+import React, { useState } from "react";
 
 const profile = () => {
+    const [selectedImage, setSelectedImage] = useState(null);
+    const handleCameraIconClick = () => {
+        const fileInput = document.getElementById("image-preview");
+        fileInput.click();
+      };
+      const handleImageChange = (e) => {
+        setSelectedImage(URL.createObjectURL(e.target.files[0]));
+      };
   return (
-    <>
-      {/* <div>profile</div> */}
+    <div className="bg-[#2B373C1C] py-10 px-10">
+        <div className="flex justify-between mx-9">
+            <div className="my-3 m">
+                <p className="text-2xl font-bold	">Set Employer Profile</p>
+            </div>
+        <button className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
+            <img src="/Assets/check.svg" alt="save"/>
+              Save
+            </button></div>
+    <div className=" bg-white px-4 py-12 mx-8 border rounded-xl">
 
-      <div
-        className="bg-[#2B373C1C] flex justify-center items-center"
-        style={{ width: "120px", height: "120px", borderRadius: "24px" }}
-      >
-        <img src="/Assets/camera-icon.svg" alt="cameraIcon" />
+      <div className="flex items-center flex-col">
+        <div
+          className="bg-[#2B373C1C] flex justify-center items-center"
+          style={{ width: "120px", height: "120px", borderRadius: "24px" }}
+          onClick={handleCameraIconClick}
+        >
+          {selectedImage ? (
+            <img src={selectedImage} alt="selectedImage" />
+          ) : (
+            <img src="/Assets/camera-icon.svg" alt="cameraIcon" />
+          )}
+          <input
+                        id="image-preview"
+                        type="file"
+                        name="company_logo"
+                        accept=".jpg,.jpeg,.png,.svg"
+                        hidden
+                        onChange={handleImageChange}
+                      />
+        </div>
+        <p className="py-5" style={{ color: "#2B373C", opacity: "56%" }}>
+          Upload Company Logo
+        </p>
       </div>
+
+      {/* form */}
       <form>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
           <div className="relative">
@@ -50,7 +86,7 @@ const profile = () => {
             />
           </div>
           {/*  */}
-          <div className="relative flex items-center col-span-2">
+          <div className="relative flex items-center col-span-4">
             <input
               type="text"
               id="companyURL"
@@ -58,7 +94,7 @@ const profile = () => {
               required
               className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
             />
-            <button className=" absolute right-2 px-5 py-3 bg-red-500 text-white rounded-[10px]">
+            <button className=" absolute right-2 px-8 py-3 bg-red-500 text-white rounded-[10px]">
               Paste
             </button>
           </div>
@@ -112,14 +148,14 @@ const profile = () => {
               className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
             />
           </div>
-        
-        </div> 
+        </div>
         {/* main div  */}
-        
 
         {/*  */}
       </form>
-    </>
+
+    </div>
+    </div>
   );
 };
 
