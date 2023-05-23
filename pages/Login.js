@@ -6,32 +6,26 @@ import envelope from "../public/Assets/envelope.svg";
 import lock from "../public/Assets/lock.svg";
 import eye from "../public/Assets/eye.svg";
 import Link from "next/link";
-
+import styles from "../styles/LoginPage.module.css";
 const Register = () => {
   const [alignment, setAlignment] = useState("web");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [displayPassword, setDisplayPassword] = useState("password");
-  const [displayConfirmPassword, setDisplayConfirmPassword] =
-    useState("password");
+ 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
-  const confirmPasswordclick = () => {
-    setDisplayConfirmPassword(
-      displayConfirmPassword == "password" ? "text" : "password"
-    );
-  };
+
   const passwordclick = () => {
     setDisplayPassword(displayPassword == "password" ? "text" : "password");
   };
   return (
     <div
-      className='flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row lg:items-center lg:justify-center md:flex-col'
-      style={{ marginLeft: "38px", marginTop: "0px" }}
+      className={`flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row lg:items-center lg:justify-center md:flex-col ${styles.mainBox}`}
+     
     >
-      <div className='flex flex-col items-center justify-center sm:pl-0  sm:mr-[2px] md:mr-[2px]'>
+      <div className='flex flex-col items-center justify-center sm:pl-0  sm:mr-[2px] md:mr-[2px] mb-3'>
         <div
           style={{ marginTop: "20px" }}
           className=' xl:w-1/2  md:w-full   flex flex-col justify-center items-center pt-0  gap-4 '
@@ -44,6 +38,7 @@ const Register = () => {
           </h1>
           <div
             style={{
+                marginTop:"15px",
               borderRadius: "20px",
               backgroundColor: "#EEEFEF",
               width: "412px",
@@ -94,7 +89,7 @@ const Register = () => {
 
           <div>
             <h1 className='text-3xl font-bold text-black pb-4 ml-2 '>
-              Register
+            Log In
             </h1>
           </div>
         </div>
@@ -111,33 +106,31 @@ const Register = () => {
           <InputComponent
             type={displayPassword}
             value={password}
-            placeholder='Set Password'
+            placeholder='Password'
             lefticon={lock.src}
             righticon={eye.src}
             showpassword={passwordclick}
             onchange={(e) => setPassword(e.target.value)}
           />
 
-          <InputComponent
-            type={displayConfirmPassword}
-            value={confirmPassword}
-            placeholder='Confirm Password'
-            lefticon={lock.src}
-            righticon={eye.src}
-            showpassword={confirmPasswordclick}
-            onchange={(e) => setConfirmPassword(e.target.value)}
-          />
-
-          <Button>Register</Button>
+<div className="flex justify-end">
+  <div style={{marginLeft:"280px" , marginTop:"-10px",fontWeight:"bold"}} className="text-right">
+    <h3>Forget Password?</h3>
+  </div>
+</div>
+              <div style={{marginTop:"15px"}}>
+              <Button>Log In</Button>
+              </div>
+         
         </div>
 
         <div
-          className='flex items-center xl:pl-10 lg:pl-10 mt-3 '
-          style={{ width: "412px" }}
+          className='flex items-center xl:pl-10 lg:pl-10 mt-3 sm:w-96'
+          style={{ width: "435px" }}
         >
-          <hr className='flex-grow border-t-2 border-gray-300 w-48 mr-5' />
+          <hr className='flex-grow border-t-2 border-gray-300 w-24 sm:w-40 mr-5' />
           <span className='text-black'>OR</span>
-          <hr className='flex-grow border-t-2 border-gray-300 w-48 ml-5' />
+          <hr className='flex-grow border-t-2 border-gray-300 w-24 sm:w-40 ml-5' />
         </div>
         <div className='flex items-center  ml-10 gap-5 mt-3 '>
           <img
@@ -159,7 +152,7 @@ const Register = () => {
 
         <h3 className='ml-9 mt-4'>
           Already have account?
-          <Link href='/EmployerLogin'>
+          <Link href='/register'>
             <span
               style={{
                 color: "#F9342E",
@@ -169,7 +162,7 @@ const Register = () => {
               onClick={() => console.log("signup clicked")}
               className='pl-4'
             >
-              Log In
+              Register
             </span>
           </Link>
         </h3>

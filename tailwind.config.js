@@ -3,7 +3,13 @@
 module.exports = {
   content: ['./pages/**/*.{html,js}', './components/**/*.{html,js}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        Conthrax: ['Conthrax'],
+        Helvetica: ['Helvetica', 'Arial', 'sans-serif'],
+        ProductSans: ['Product Sans'],
+      },
+    },
   },
   plugins: [],
 };
