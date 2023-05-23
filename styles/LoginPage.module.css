@@ -1,26 +1,5 @@
-.container {
-    display: flex;
-    
+@media (min-width: 1536px){
+  .mainBox{
     height: 100vh;
   }
-  
-  .loginSection {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    gap:1rem;
-    
-  }
-  
-  .registrationSection {
-    width: 50%;
-    padding: 20px;
-    background-color: #e0e0e0;
-  }
-  .bigimg{
-    width: 680px;
-    height: 600px;
-    position: fixed;
-  }
+}
