@@ -215,6 +215,7 @@ const handleImageChange = (e) => {
                 src="/Assets/calendar.svg"
                 alt="calendar"
                 className="absolute right-2"
+                onClick={() => document.getElementById("founded").click()}
               />{" "}
             </div>
             {/*  */}
