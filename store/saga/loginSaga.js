@@ -4,7 +4,7 @@ import * as types from '../type/logintype';
 
 import { LOGIN_SUCCESS, LOGIN_ERROR } from '../type/logintype';
 import { makeApiRequest } from '../../utils/api';
-
+import { toast } from 'react-toastify';
 function* loginSaga(action) {
   try {
     const payload = {
@@ -29,11 +29,13 @@ function* loginSaga(action) {
     } else {
       
       yield put({ type: LOGIN_ERROR, payload: 'Login failed' });
+      toast.error('Login failed'); 
     }
   } catch (error) {
     console.log(error);
     
     yield put({ type: LOGIN_ERROR, payload: error.message });
+    toast.error('An error occurred'); 
   }
 }
 
