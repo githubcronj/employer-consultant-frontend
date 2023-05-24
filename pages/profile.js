@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const profile = () => {
-    const router = useRouter();
+  const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(null);
   const [formValues, setFormValues] = useState({
     companyName: "",
@@ -21,9 +21,9 @@ const profile = () => {
     const fileInput = document.getElementById("image-preview");
     fileInput.click();
   };
-const handleImageChange = (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
-  
+
     if (file) {
       setSelectedImage(URL.createObjectURL(file));
     } else {
@@ -41,41 +41,40 @@ const handleImageChange = (e) => {
   const handleSave = (e) => {
     e.preventDefault();
     if (isFormValid()) {
-        console.log(formValues);
-        const initialFormValues = {
-          companyName: "",
-          industry: "",
-          companyId: "",
-          companyURL: "",
-          email: "",
-          companyDetail: "",
-          companySize: "",
-          founded: "",
-          companyLocation: "",
-        };
-        setFormValues(initialFormValues);
-        setSelectedImage(null);
-        router.push("/");
-      } else {
-        alert("Please fill in all the required fields.");
-      }
-    };
+      console.log(formValues);
+      const initialFormValues = {
+        companyName: "",
+        industry: "",
+        companyId: "",
+        companyURL: "",
+        email: "",
+        companyDetail: "",
+        companySize: "",
+        founded: "",
+        companyLocation: "",
+      };
+      setFormValues(initialFormValues);
+      setSelectedImage(null);
+      router.push("/");
+    } else {
+      alert("Please fill in all the required fields.");
+    }
+  };
   const handleChange = (e) => {
-    const { id, value } = e.target; 
-      setFormValues((prevValues) => ({
-        ...prevValues,
-        [id]: value,
-      }));
-    
+    const { id, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [id]: value,
+    }));
   };
   const handlePaste = async (event) => {
     event.preventDefault();
-  
+
     try {
       const text = await navigator.clipboard.readText();
       setFormValues((prevValues) => ({ ...prevValues, companyURL: text }));
     } catch (error) {
-      console.error('Failed to read clipboard content:', error);
+      console.error("Failed to read clipboard content:", error);
     }
   };
 
@@ -101,7 +100,11 @@ const handleImageChange = (e) => {
             onClick={handleCameraIconClick}
           >
             {selectedImage ? (
-              <img src={selectedImage} style={{ width: "120px", height: "120px"}} alt="selectedImage" />
+              <img
+                src={selectedImage}
+                style={{ width: "120px", height: "120px" }}
+                alt="selectedImage"
+              />
             ) : (
               <img src="/Assets/camera-icon.svg" alt="cameraIcon" />
             )}
@@ -174,7 +177,10 @@ const handleImageChange = (e) => {
                 value={formValues.companyURL}
                 onChange={handleChange}
               />
-              <button className=" absolute right-2 px-6 sm:px-8 py-3 bg-red-500 text-white rounded-[10px]" onClick={handlePaste}>
+              <button
+                className=" absolute right-2 px-6 sm:px-8 py-3 bg-red-500 text-white rounded-[10px]"
+                onClick={handlePaste}
+              >
                 Paste
               </button>
             </div>
