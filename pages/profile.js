@@ -17,6 +17,13 @@ const profile = () => {
     founded: "",
     companyLocation: "",
   });
+  const [errors, setErrors] = useState({});
+  const renderErrorMessage = (fieldName) => {
+    if (errors[fieldName]) {
+      return <p className="text-red-500 text-xs">{errors[fieldName]}</p>;
+    }
+    return null;
+  };
   const handleCameraIconClick = () => {
     const fileInput = document.getElementById("image-preview");
     fileInput.click();
@@ -31,14 +38,33 @@ const handleImageChange = (e) => {
     }
   };
   const isFormValid = () => {
-    for (const key in formValues) {
-      if (formValues.hasOwnProperty(key) && formValues[key] === "") {
-        return false;
+    const requiredFields = ["companyName", "industry", "companyId", "companyURL", "email", "companyDetail", "companySize", "founded", "companyLocation"];
+    const errors = {};
+
+    requiredFields.forEach((field) => {
+      console.log(formValues)
+      if (formValues[field] === "") {
+        errors[field] = "This field is required";
       }
+    });
+    console.log(errors)
+    console
+
+    if (formValues.email !== "" && !/^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(formValues.email)) {
+      errors.email = "Invalid email format";
     }
-    return true;
+
+
+    setErrors(errors);
+
+    return Object.keys(errors).length === 0;
   };
+  console.log(Object.keys(errors).length === 0,'validity')
+ 
+
   const handleSave = (e) => {
+    console.log(Object.keys(errors).length === 0,'validity')
+    console.log(isFormValid)
     e.preventDefault();
     if (isFormValid()) {
         console.log(formValues);
@@ -53,11 +79,12 @@ const handleImageChange = (e) => {
           founded: "",
           companyLocation: "",
         };
+        
         setFormValues(initialFormValues);
         setSelectedImage(null);
         router.push("/");
       } else {
-        alert("Please fill in all the required fields.");
+        return;
       }
     };
   const handleChange = (e) => {
@@ -138,33 +165,40 @@ const handleImageChange = (e) => {
                 value={formValues.companyName}
                 onChange={handleChange}
               />
+              {renderErrorMessage("companyName")}
             </div>
             {/*  */}
-            <div>
+            <div className="relative">
               <input
                 type="text"
                 id="industry"
-                placeholder="Industry Type"
+                placeholder=" "
                 required
-                className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                className="block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.industry}
                 onChange={handleChange}
               />
+              {renderErrorMessage("industry")}
+              <label for="industry" className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Industry Type</label>
             </div>
+            
             {/*  */}
-            <div>
+            <div className="relative">
               <input
                 type="text"
                 id="companyId"
-                placeholder="Company ID number"
+                placeholder=" "
                 required
-                className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                className="block py-5 px-4  w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companyId}
                 onChange={handleChange}
               />
+              {renderErrorMessage("companyId")}
+              <label for="companyId" className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Company ID number</label>
             </div>
             {/*  */}
             <div className="relative flex items-center sm:col-span-2">
+            {renderErrorMessage("companyURL")}
               <input
                 type="text"
                 id="companyURL"
@@ -177,42 +211,51 @@ const handleImageChange = (e) => {
               <button className=" absolute right-2 px-6 sm:px-8 py-3 bg-red-500 text-white rounded-[10px]" onClick={handlePaste}>
                 Paste
               </button>
+              
             </div>
             {/*  */}
-            <div>
+            <div className="relative">
               <input
                 type="text"
                 id="email"
-                placeholder="Email"
+                placeholder=" "
                 required
-                className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                className="block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.email}
                 onChange={handleChange}
               />
+              {renderErrorMessage("email")}
+              <label for="email" className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Email</label>
+
             </div>
             {/*  */}
-            <div className="sm:col-span-3">
+            <div className="sm:col-span-3 relative">
               <textarea
                 type="text"
                 id="companyDetail"
-                placeholder="Write about company..."
+                placeholder=" "
                 required
-                className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companyDetail}
                 onChange={handleChange}
               />
+              <label for="companyDetail" className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Write about company...</label>
+
             </div>
             {/*  */}
-            <div>
+            <div className="relative">
               <input
                 type="text"
                 id="companySize"
-                placeholder="Company Size"
+                placeholder=" "
                 required
-                className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companySize}
                 onChange={handleChange}
               />
+              {renderErrorMessage("companySize")}
+              <label for="companySize" className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Company Size</label>
+
             </div>
             {/*  */}
             <div className="relative flex items-center">
@@ -234,16 +277,18 @@ const handleImageChange = (e) => {
               />{" "}
             </div>
             {/*  */}
-            <div>
+            <div className="relative">
               <input
                 type="text"
                 id="companyLocation"
-                placeholder="Company Location"
+                placeholder=" "
                 required
-                className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companyLocation}
                 onChange={handleChange}
               />
+              {renderErrorMessage("companyLocation")}
+              <label for="companyLocation" className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Company Location</label>
             </div>
           </div>
 
