@@ -29,7 +29,7 @@ const Register = () => {
   const [emailErr, setEmailErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
   const [confirmPasswordErr, setConfirmPasswordErr] = useState("");
-  const [iconsetone, setIconsetOne] = useState(falseg);
+  const [iconsetone, setIconsetOne] = useState(false);
   const [iconsettwo, setIconsetTwo] = useState(false);
   const data = useSelector((state) =>
     console.log(state.registerReducer?.data?.status)
@@ -293,28 +293,41 @@ const Register = () => {
 
       {isOpen && (
         <div className='fixed inset-0 flex items-center justify-center z-50'>
-          <div className='absolute inset-0 bg-gray-200 backdrop-filter backdrop-blur-sm backdrop-opacity-50'></div>
+          <div
+            className='absolute inset-0 bg-black opacity-70
+ backdrop-opacity-100'
+          ></div>
 
-          <div className='bg-white h-[180px] p-6 rounded shadow-xl relative'>
+          <div className='bg-white h-[180px] p-6 rounded shadow-xl relative flex flex-col items-center'>
             <h3 className='text-xl font-bold mb-4'>Please enter the OTP</h3>
             <input
               type='text'
               placeholder='OTP'
               style={{
                 border: "2px solid black",
-                width: "200px",
+                width: "250px",
                 height: "40px",
                 borderRadius: "8px",
               }}
             />
+
             <button
-              className='mt-4 bg-white text-black font-bold py-2 px-4 rounded absolute bottom-0 left-0 m-4 border-black'
+              className='mt-4 bg-white text-black font-bold py-2 px-4 rounded p-1 absolute bottom-0 left-0 m-3 mt-8'
+              style={{ border: "2px solid black" }}
               onClick={closeModal}
             >
-              Cancel
+              cancel
             </button>
+
             <button
-              className='mt-4 bg-red-500 hover:bg-red-700  text-white font-bold py-2 px-4 rounded absolute bottom-0 right-0 m-4'
+              className='mt-4 bg-white text-black font-bold py-2 px-4 rounded absolute p-1 bottom-0 left-[84px] m-3'
+              style={{ border: "2px solid black" }}
+            >
+              Resend
+            </button>
+
+            <button
+              className='mt-4 bg-red-500 hover:bg-red-700  text-white font-bold py-2 px-4 rounded absolute bottom-0 right-0 m-3'
               onClick={otpconfirm}
             >
               Confirm
