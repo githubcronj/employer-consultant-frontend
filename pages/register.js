@@ -29,7 +29,7 @@ const Register = () => {
   const [emailErr, setEmailErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
   const [confirmPasswordErr, setConfirmPasswordErr] = useState("");
-  const [iconsetone, setIconsetOne] = useState(falseg);
+  const [iconsetone, setIconsetOne] = useState(false);
   const [iconsettwo, setIconsetTwo] = useState(false);
   const data = useSelector((state) =>
     console.log(state.registerReducer?.data?.status)
