@@ -20,3 +20,8 @@ export function loginError(payload) {
     payload: payload,
   };
 }
+export function logout() {
+  return {
+    type:types.LOGOUT,
+  }
+}

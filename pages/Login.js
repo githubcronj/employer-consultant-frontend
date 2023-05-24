@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Button from "../Components/Button/buttonComponent";
 import InputComponent from "../Components/Input/inputComponent";
@@ -7,16 +7,17 @@ import lock from "../public/Assets/lock.svg";
 import eye from "../public/Assets/eye.svg";
 import Link from "next/link";
 import styles from "../styles/LoginPage.module.css";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../store/action/loginaction';
-
+import { useRouter } from 'next/router';
 const Login = () => {
   const [alignment, setAlignment] = useState("web");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayPassword, setDisplayPassword] = useState("password");
+const router = useRouter();
   const dispatch = useDispatch();
-
+const isLoggedIn = useSelector(state => state.LoginReducer.isLoggedIn);
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
@@ -32,7 +33,14 @@ const Login = () => {
     };
   
     dispatch(login(payload));
+    
   };
+  useEffect(() => {
+    if (isLoggedIn) {
+      
+      router.push('/profile');
+    }
+  }, [isLoggedIn,router]);
   return (
     <div
       className={`max-w-[1536px] mx-auto flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row lg:items-center lg:justify-center md:flex-col lg:gap-12 xl:gap-0 h-[100%] lg:h-auto ${styles.mainBox}`}

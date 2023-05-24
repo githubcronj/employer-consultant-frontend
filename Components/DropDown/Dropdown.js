@@ -3,11 +3,14 @@ import Avatar from 'public/Assets/man.png';
 import DownArrow from 'public/Assets/down-arrow.svg';
 import UpArrow from 'public/Assets/up-arrow.svg';
 import RightArrow from 'public/Assets/right-arrow.svg';
-
+import { useDispatch } from 'react-redux';
+import { logout } from '../../store/action/loginaction';
+import { useRouter } from 'next/router';
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-
+const dispatch = useDispatch();
+const router = useRouter();
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -17,7 +20,10 @@ const Dropdown = () => {
       setIsOpen(false);
     }
   };
-
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push('/login');
+  };
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
     return () => {
@@ -53,7 +59,7 @@ const Dropdown = () => {
               </a>
             </li>
             <li>
-              <a className="flex flex-row px-4 py-2 text-gray-800" href="#">
+              <a className="flex flex-row px-4 py-2 text-gray-800"  onClick={handleLogout}>
                 <span className="flex-1 text-[#F9342E] ">Logout</span>
               </a>
             </li>
