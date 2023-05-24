@@ -2,7 +2,7 @@ import * as types from "../type/logintype";
 const INITIAL_STATE = {
   CurrentUser: [],
   isLoggedIn: false,
- isLoggedOut:false
+ isLoggedOut:false,
 };
 
 export function LoginReducer(state = INITIAL_STATE, action) {

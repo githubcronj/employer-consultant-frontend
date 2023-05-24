@@ -7,18 +7,30 @@ import lock from "../public/Assets/lock.svg";
 import eye from "../public/Assets/eye.svg";
 import Link from "next/link";
 import styles from "../styles/LoginPage.module.css";
-const Register = () => {
+import { useDispatch } from 'react-redux';
+import { login } from '../store/action/loginaction';
+
+const Login = () => {
   const [alignment, setAlignment] = useState("web");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayPassword, setDisplayPassword] = useState("password");
- 
+  const dispatch = useDispatch();
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
 
   const passwordclick = () => {
     setDisplayPassword(displayPassword == "password" ? "text" : "password");
+  };
+
+  const handleLogin = () => {
+    const payload = {
+      email: email,
+      password: password,
+    };
+  
+    dispatch(login(payload));
   };
   return (
     <div
@@ -119,7 +131,7 @@ const Register = () => {
   </div>
 </div>
               <div style={{marginTop:"15px"}}>
-              <Button>Log In</Button>
+              <Button onClick={handleLogin}>Log In</Button>
               </div>
          
         </div>
@@ -159,6 +171,7 @@ const Register = () => {
                 cursor: "pointer",
                 fontWeight: "bold",
               }}
+              
               onClick={() => console.log("signup clicked")}
               className='pl-4'
             >
@@ -190,4 +203,4 @@ const Register = () => {
     </div>
   );
 };
-export default Register;
+export default Login;

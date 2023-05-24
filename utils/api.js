@@ -1,6 +1,27 @@
-import axios from 'axios';
+import axios from "axios";
+
 const api = axios.create({
-  baseURL: 'http://localhost:3001', // Replace with your base URL
-  // Other configuration options (headers, timeout, etc.) can be added here
+  baseURL: "http://localhost:3001",
 });
+
+export const makeApiRequest = async ({
+  endpoint,
+  method,
+  data,
+  headers = {},
+}) => {
+  try {
+    const response = await api({
+      url: endpoint,
+      method,
+      data,
+      headers,
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error.response ? error.response.data : error;
+  }
+};
+
 export default api;
