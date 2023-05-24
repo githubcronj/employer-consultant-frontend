@@ -1,19 +1,42 @@
+
 import { takeLatest, call, put } from 'redux-saga/effects';
 import * as types from '../type/logintype';
-import api from '../../utils/api'; // Replace with the correct path to your api file
 
-// Worker saga for handling the login request
+import { LOGIN_SUCCESS, LOGIN_ERROR } from '../type/logintype';
+import { makeApiRequest } from '../../utils/api';
+
 function* loginSaga(action) {
   try {
-    const response = yield call(api.post, '/login', action.payload); // Make the login request using the api
-    yield put({ type: types.LOGIN_SUCCESS, payload: response.data }); // Dispatch the login success action with the response data
+    const payload = {
+      email: action.payload.email,
+      password: action.payload.password,
+    };
+
+    const response = yield call(makeApiRequest, {
+      endpoint: '/login',
+      method: 'POST',
+      data: payload,
+    });
+
+    
+    if (response.status === 200) {
+      
+      localStorage.setItem('CurrentUser', JSON.stringify(response.data));
+      localStorage.setItem('isLoggedIn', 'true');
+      
+      
+      yield put({ type: LOGIN_SUCCESS, payload: response });
+    } else {
+      
+      yield put({ type: LOGIN_ERROR, payload: 'Login failed' });
+    }
   } catch (error) {
-    yield put({ type: types.LOGIN_ERROR, payload: error.message }); // Dispatch the login error action with the error message
+    console.log(error);
+    
+    yield put({ type: LOGIN_ERROR, payload: error.message });
   }
 }
 
-// Watcher saga that listens for the login action
 export default function* watchLogin() {
   yield takeLatest(types.LOGIN, loginSaga);
 }
-
