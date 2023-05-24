@@ -1,8 +1,10 @@
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const profile = () => {
+    const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(null);
   const [formValues, setFormValues] = useState({
     companyName: "",
@@ -28,23 +30,36 @@ const handleImageChange = (e) => {
       setSelectedImage(null);
     }
   };
-  const handleSave = () => {
-    console.log(formValues);
-    const initialFormValues = {
-      companyName: "",
-      industry: "",
-      companyId: "",
-      companyURL: "",
-      email: "",
-      companyDetail: "",
-      companySize: "",
-      founded: "",
-      companyLocation: "",
-    };
-    setFormValues(initialFormValues);
-    setSelectedImage(null);
-
+  const isFormValid = () => {
+    for (const key in formValues) {
+      if (formValues.hasOwnProperty(key) && formValues[key] === "") {
+        return false;
+      }
+    }
+    return true;
   };
+  const handleSave = (e) => {
+    e.preventDefault();
+    if (isFormValid()) {
+        console.log(formValues);
+        const initialFormValues = {
+          companyName: "",
+          industry: "",
+          companyId: "",
+          companyURL: "",
+          email: "",
+          companyDetail: "",
+          companySize: "",
+          founded: "",
+          companyLocation: "",
+        };
+        setFormValues(initialFormValues);
+        setSelectedImage(null);
+        router.push("/");
+      } else {
+        alert("Please fill in all the required fields.");
+      }
+    };
   const handleChange = (e) => {
     const { id, value } = e.target; 
       setFormValues((prevValues) => ({
