@@ -8,8 +8,11 @@ export default function* watchRegister() {
 }
 function* register(action) {
   try {
+    const { history } = action.payload;
     const response = yield call(api.post, "/register", action.payload);
-    yield put({ type: types.REGISTER_SUCCESS, payload: response.data })
+    yield put({ type: types.REGISTER_SUCCESS, payload: response.data });
+    yield put(push("/home"));
+          
   } catch (error) {
     yield put({ type: types.REGISTER_ERROR, payload: error.message });
   }

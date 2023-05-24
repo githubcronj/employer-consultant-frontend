@@ -25,7 +25,8 @@ const Login = () => {
     <div
       className={`max-w-[1536px] mx-auto flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row lg:items-center lg:justify-center md:flex-col lg:gap-12 xl:gap-0 h-[100%] lg:h-auto ${styles.mainBox}`}
     >
-      <div className="flex flex-col items-center justify-center sm:pl-0  sm:mr-[2px] md:mr-[2px] mb-3 flex-1 ">
+      <div 
+      className="flex flex-col items-center justify-center sm:pl-0  sm:mr-[2px] md:mr-[2px] mb-3 flex-1 ">
         <div
           style={{ marginTop: '20px' }}
           className=" xl:w-1/2  md:w-full   flex flex-col justify-center items-center pt-0  gap-4 "
@@ -172,7 +173,8 @@ const Login = () => {
         </h3>
       </div>
 
-      <div className="hidden lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] ">
+      <div 
+      className="hidden lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] ">
         {alignment == 'web' && (
           <img
             src="/Assets/employerLoginimg.png"

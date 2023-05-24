@@ -3,23 +3,13 @@
     height: 100vh;
   }
 }
-@media (min-width: 414px) {
-  .mobile {
-    margin-left: 20px;
+@media (max-width: 410px) {
+  .desk {
+    margin-left: 56px;
   }
 }
-@media (min-width: 1536px) {
-  .mainBox {
-    height: 100vh;
-  }
-}
-@media (min-width: 1536px) {
-  .mainBox {
-    height: 100vh;
-  }
-}
-@media (min-width: 1536px) {
-  .mainBox {
-    height: 100vh;
+@media (max-width:320px){
+  .desk {
+    margin-left : 107px;
   }
 }
