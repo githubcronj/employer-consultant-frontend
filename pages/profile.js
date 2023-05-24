@@ -48,7 +48,6 @@ const handleImageChange = (e) => {
       }
     });
     console.log(errors)
-    console
 
     if (formValues.email !== "" && !/^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(formValues.email)) {
       errors.email = "Invalid email format";
@@ -59,12 +58,9 @@ const handleImageChange = (e) => {
 
     return Object.keys(errors).length === 0;
   };
-  console.log(Object.keys(errors).length === 0,'validity')
  
 
   const handleSave = (e) => {
-    console.log(Object.keys(errors).length === 0,'validity')
-    console.log(isFormValid)
     e.preventDefault();
     if (isFormValid()) {
         console.log(formValues);
@@ -161,6 +157,7 @@ const handleImageChange = (e) => {
                 id="companyName"
                 placeholder="Google"
                 required
+                style={errors.companyName ? { borderColor: 'red' } : {}}
                 className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
                 value={formValues.companyName}
                 onChange={handleChange}
@@ -174,6 +171,7 @@ const handleImageChange = (e) => {
                 id="industry"
                 placeholder=" "
                 required
+                style={errors.industry ? { borderColor: 'red' } : {}}
                 className="block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.industry}
                 onChange={handleChange}
@@ -189,6 +187,7 @@ const handleImageChange = (e) => {
                 id="companyId"
                 placeholder=" "
                 required
+                style={errors.companyId ? { borderColor: 'red' } : {}}
                 className="block py-5 px-4  w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companyId}
                 onChange={handleChange}
@@ -204,6 +203,7 @@ const handleImageChange = (e) => {
                 id="companyURL"
                 placeholder="Company website URL"
                 required
+                style={errors.companyURL ? { borderColor: 'red' } : {}}
                 className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
                 value={formValues.companyURL}
                 onChange={handleChange}
@@ -220,6 +220,7 @@ const handleImageChange = (e) => {
                 id="email"
                 placeholder=" "
                 required
+                style={errors.email ? { borderColor: 'red' } : {}}
                 className="block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.email}
                 onChange={handleChange}
@@ -235,6 +236,7 @@ const handleImageChange = (e) => {
                 id="companyDetail"
                 placeholder=" "
                 required
+                style={errors.companyDetail ? { borderColor: 'red' } : {}}
                 className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companyDetail}
                 onChange={handleChange}
@@ -249,6 +251,7 @@ const handleImageChange = (e) => {
                 id="companySize"
                 placeholder=" "
                 required
+                style={errors.companySize ? { borderColor: 'red' } : {}}
                 className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companySize}
                 onChange={handleChange}
@@ -263,6 +266,7 @@ const handleImageChange = (e) => {
                 id="founded"
                 placeholderText="Founded in"
                 required
+                style={errors.founded ? { borderColor: 'red' } : {}}
                 className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
                 selected={formValues.founded}
                 onChange={(date) =>
@@ -283,6 +287,7 @@ const handleImageChange = (e) => {
                 id="companyLocation"
                 placeholder=" "
                 required
+                style={errors.companyLocation ? { borderColor: 'red' } : {}}
                 className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companyLocation}
                 onChange={handleChange}
