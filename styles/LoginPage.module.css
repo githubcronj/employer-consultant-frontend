@@ -1,5 +1,15 @@
-@media (min-width: 1536px){
-  .mainBox{
+@media (min-width: 1536px) {
+  .desk {
     height: 100vh;
+  }
+}
+@media (max-width: 410px) {
+  .desk {
+    margin-left: 56px;
+  }
+}
+@media (max-width:320px){
+  .desk {
+    margin-left : 107px;
   }
 }

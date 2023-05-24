@@ -1,8 +1,9 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import { LoginReducer } from './loginReducer';
+import { combineReducers } from "@reduxjs/toolkit";
+import registerReducer from "./registerReducer";
+import { LoginReducer } from "./loginReducer";
 const rootReducer = combineReducers({
-  // Define your reducers here
-  LoginReducer
+  LoginReducer,
+  registerReducer,
 });
 
 export default rootReducer;
