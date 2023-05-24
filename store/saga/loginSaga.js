@@ -18,19 +18,21 @@ function* loginSaga(action) {
       data: payload,
     });
 
-    if (response.status === 200) {
     
+    if (response.status === 200) {
+      
       localStorage.setItem('CurrentUser', JSON.stringify(response.data));
       localStorage.setItem('isLoggedIn', 'true');
       
+      
       yield put({ type: LOGIN_SUCCESS, payload: response });
     } else {
-     
+      
       yield put({ type: LOGIN_ERROR, payload: 'Login failed' });
     }
   } catch (error) {
     console.log(error);
-   
+    
     yield put({ type: LOGIN_ERROR, payload: error.message });
   }
 }

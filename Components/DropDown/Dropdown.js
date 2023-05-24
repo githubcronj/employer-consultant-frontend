@@ -20,7 +20,8 @@ const router = useRouter();
       setIsOpen(false);
     }
   };
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault()
     dispatch(logout());
     router.push('/login');
   };
