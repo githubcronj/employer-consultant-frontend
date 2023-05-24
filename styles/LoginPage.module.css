@@ -1,5 +1,25 @@
-@media (min-width: 1536px){
-  .mainBox{
+@media (min-width: 1536px) {
+  .desk {
+    height: 100vh;
+  }
+}
+@media (min-width: 414px) {
+  .mobile {
+    margin-left: 20px;
+  }
+}
+@media (min-width: 1536px) {
+  .mainBox {
+    height: 100vh;
+  }
+}
+@media (min-width: 1536px) {
+  .mainBox {
+    height: 100vh;
+  }
+}
+@media (min-width: 1536px) {
+  .mainBox {
     height: 100vh;
   }
 }

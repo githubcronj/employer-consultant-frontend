@@ -11,7 +11,7 @@ const InputComponent = ({
   showpassword,
 }) => {
   return (
-    <div className='relative'>
+    <div className='relative mb-3'>
       {lefticon && (
         <div className='absolute left-2 top-0.5  px-2 py-2 ml-2 mt-2 '>
           <img src={lefticon} alt='lefticon' className='w-5 h-5' />
@@ -24,7 +24,7 @@ const InputComponent = ({
       <input
         className={`bg-transparent text-black rounded-2xl sm:w-96 font-semibold
          py-2 px-4 border
-         border-gray-400 pl-20 mb-3`}
+         border-gray-400 pl-20 mb-3 `}
         style={{ width: "412px", height: "56px" }}
         type={type}
         value={value}
