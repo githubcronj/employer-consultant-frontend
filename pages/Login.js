@@ -11,12 +11,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/action/loginaction";
 import { useRouter } from "next/router";
 import validator from "validator";
+import closedeye from "../public/Assets/closedeye.svg";
 const Login = () => {
   const [alignment, setAlignment] = useState("web");
   const [email, setEmail] = useState("");
   const [emailErr, setEmailError] = useState("");
   const [pasErr, setPasswordErr] = useState("");
   const [password, setPassword] = useState("");
+  const [iconsetone, setIconsetOne] = useState(false);
   const [displayPassword, setDisplayPassword] = useState("password");
 
   const router = useRouter();
@@ -27,8 +29,10 @@ const Login = () => {
     setAlignment(newAlignment);
   };
 
+ 
   const passwordclick = () => {
     setDisplayPassword(displayPassword == "password" ? "text" : "password");
+    setIconsetOne(!iconsetone);
   };
   const handleLogin = () => {
     if (emailErr === "") {
@@ -62,9 +66,12 @@ const Login = () => {
   }, [isLoggedIn, router]);
   return (
     <div
-      className={`max-w-[1536px] mx-auto flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row lg:items-center lg:justify-center md:flex-col lg:gap-12 xl:gap-0 h-[100%] lg:h-auto ${styles.mainBox}`}
+      className={`max-w-[1536px] xl:-mt-4  mx-auto flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row 
+      lg:items-center lg:justify-center md:flex-col
+       lg:gap-12 xl:gap-0 h-[100%] lg:h-auto ${styles.desk}`}
     >
-      <div className="flex flex-col items-center justify-center sm:pl-0  sm:mr-[2px] md:mr-[2px] mb-3 flex-1 ">
+      <div 
+      className="flex flex-col items-center justify-center sm:pl-0  sm:mr-[2px] md:mr-[2px] mb-3 flex-1 ">
         <div
           style={{ marginTop: "20px" }}
           className=" xl:w-1/2  md:w-full   flex flex-col justify-center items-center pt-0  gap-4 "
@@ -155,7 +162,8 @@ const Login = () => {
                 value={password}
                 placeholder="Password"
                 lefticon={lock.src}
-                righticon={eye.src}
+               
+                righticon={iconsetone ? eye.src : closedeye.src}
                 showpassword={passwordclick}
                 onchange={(e) => setPassword(e.target.value)}
               />
@@ -169,7 +177,9 @@ const Login = () => {
                   }}
                   className="text-right"
                 >
+                     <Link href="/forgotPassword">
                   <h3 className="whitespace-nowrap">Forgot Password?</h3>
+                  </Link>
                 </div>
               </div>
               <div style={{ marginTop: "15px" }}>
@@ -246,7 +256,7 @@ const Login = () => {
                 value={password}
                 placeholder="Password"
                 lefticon={lock.src}
-                righticon={eye.src}
+                righticon={iconsetone ? eye.src : closedeye.src}
                 showpassword={passwordclick}
                 onchange={(e) => setPassword(e.target.value)}
               />

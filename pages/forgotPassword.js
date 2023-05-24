@@ -30,7 +30,9 @@ const isLoggedIn = useSelector(state => state.LoginReducer.isLoggedIn);
 
   return (
     <div
-      className={`max-w-[1536px] mx-auto flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row lg:items-center lg:justify-center md:flex-col lg:gap-12 xl:gap-0 h-[100%] lg:h-auto ${styles.mainBox}`}
+      className={`max-w-[1536px] xl:-mt-4  mx-auto flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row 
+      lg:items-center lg:justify-center md:flex-col
+       lg:gap-12 xl:gap-0 h-[100%] lg:h-auto ${styles.desk}`}
     >
       <div className="flex flex-col items-center justify-center sm:pl-0  sm:mr-[2px] md:mr-[2px] mb-3 flex-1 ">
         <div
