@@ -8,13 +8,12 @@ export default function* watchRegister() {
   yield takeLatest(types.REGISTER_REQUEST, register);
 }
 function* register(action) {
+  const url = "/verifyotp";
   try {
-    const { history } = action.payload;
-    const response = yield call(api.post, '/register', action.payload);
+    const response = yield call(api.post, "/register", action.payload);
     yield put({ type: types.REGISTER_SUCCESS, payload: response.data });
-    // yield put(push("/home"));
   } catch (error) {
     yield put({ type: types.REGISTER_ERROR, payload: error.message });
-    toast.error(error.message);
+    toast.error("signup unsuccessfull");
   }
 }

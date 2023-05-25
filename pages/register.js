@@ -1,19 +1,17 @@
-import React from 'react';
-import { useState } from 'react';
-import Button from '../Components/Button/buttonComponent';
-import InputComponent from '../Components/Input/inputComponent';
-import envelope from '../public/Assets/envelope.svg';
-import lock from '../public/Assets/lock.svg';
-import eye from '../public/Assets/eye.svg';
-import closedeye from '../public/Assets/closedeye.svg';
-import Link from 'next/link';
-import styles from '../styles/LoginPage.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { registerReducer } from '../store/reducer/registerReducer';
-import { REGISTER_REQUEST } from 'store/type/registerType';
-import validator from 'validator';
-import { useRouter } from 'next/router';
-
+import React, { useEffect } from "react";
+import { useState } from "react";
+import Button from "../Components/Button/buttonComponent";
+import InputComponent from "../Components/Input/inputComponent";
+import envelope from "../public/Assets/envelope.svg";
+import lock from "../public/Assets/lock.svg";
+import eye from "../public/Assets/eye.svg";
+import closedeye from "../public/Assets/closedeye.svg";
+import Link from "next/link";
+import styles from "../styles/LoginPage.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { REGISTER_REQUEST } from "store/type/registerType";
+import validator from "validator";
+import { useRouter } from "next/router";
 const Register = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -24,22 +22,22 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [displayPassword, setDisplayPassword] = useState('password');
   const [displayConfirmPassword, setDisplayConfirmPassword] =
-    useState('password');
-  const [success, setSuccess] = useState(false);
-  const [emailErr, setEmailErr] = useState('');
-  const [passwordErr, setPasswordErr] = useState('');
-  const [confirmPasswordErr, setConfirmPasswordErr] = useState('');
+    useState("password");
+  const [emailErr, setEmailErr] = useState("");
+  const [passwordErr, setPasswordErr] = useState("");
+  const [confirmPasswordErr, setConfirmPasswordErr] = useState("");
   const [iconsetone, setIconsetOne] = useState(false);
-  const [iconsettwo, setIconsetTwo] = useState(false);
-  const data = useSelector((state) =>
-    console.log(state.registerReducer?.data?.status)
-  );
+ const [iconsettwo, setIconsetTwo] = useState(false);
+  const [enterOtp, setEnterOtp] = useState("");
 
-  const [isOpen, setIsOpen] = useState(false);
+  const data = useSelector((state) => state.registerReducer?.data?.status);
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  useEffect(() => {
+    if (data == 200) {
+      router.push("/verifyotp");
+    }
+  }, [data]);
+
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
     if (newAlignment == 'android') {
@@ -80,20 +78,12 @@ const Register = () => {
     }
     if (password === confirmPassword) {
       if (isEmailValid && isPasswordValid) {
-        //,role: "employer"
         const payload = { email, password, role };
         dispatch({ type: REGISTER_REQUEST, payload });
-
-        setIsOpen(true);
       }
     } else {
       setConfirmPasswordErr('Passwords does not match');
     }
-  };
-  const otpconfirm = () => {
-    setIsOpen(false);
-    7;
-    router.push('/Login');
   };
 
   return (
@@ -290,53 +280,8 @@ const Register = () => {
           )}
         </div>
       </div>
-
-      {isOpen && (
-        <div className='fixed inset-0 flex items-center justify-center z-50'>
-          <div
-            className='absolute inset-0 bg-black opacity-70
- backdrop-opacity-100'
-          ></div>
-
-          <div className='bg-white h-[180px] p-6 rounded shadow-xl relative flex flex-col items-center'>
-            <h3 className='text-xl font-bold mb-4'>Please enter the OTP</h3>
-            <input
-              type='text'
-              placeholder='OTP'
-              style={{
-                border: '2px solid black',
-                width: '250px',
-                height: '40px',
-                borderRadius: '8px',
-              }}
-            />
-
-            <button
-              className='mt-4 bg-white text-black font-bold py-2 px-4 rounded p-1 absolute bottom-0 left-0 m-3 mt-8'
-              style={{ border: '2px solid black' }}
-              onClick={closeModal}
-            >
-              cancel
-            </button>
-
-            <button
-              className='mt-4 bg-white text-black font-bold py-2 px-4 rounded absolute p-1 bottom-0 left-[84px] m-3'
-              style={{ border: '2px solid black' }}
-            >
-              Resend
-            </button>
-
-            <button
-              className='mt-4 bg-red-500 hover:bg-red-700  text-white font-bold py-2 px-4 rounded absolute bottom-0 right-0 m-3'
-              onClick={otpconfirm}
-            >
-              Confirm
-            </button>
-          </div>
-        </div>
-      )}
     </>
   );
-};
+}
 
 export default Register;

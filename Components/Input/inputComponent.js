@@ -30,8 +30,9 @@ const InputComponent = ({
        py-2 px-4 border
        border-red-500 pl-20 mb-3 `}
           style={{
-            width: "412px",
+            maxWidth: "412px",
             height: "56px",
+            width: "100%",
           }}
           type={type}
           value={value}
