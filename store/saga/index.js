@@ -1,9 +1,8 @@
 import { all } from "redux-saga/effects";
 import watchRegister from "./registerSaga";
-import watchLogin from "./loginSaga"
+import watchLogin from "./loginSaga";
+import watchOtp from "./otpSaga";
+import watchReOtp from "./reOtpSaga";
 export default function* rootSaga() {
-  yield all([
-    watchLogin(),
-    watchRegister()
-  ]);
+  yield all([watchLogin(), watchRegister(), watchOtp(), watchReOtp()]);
 }

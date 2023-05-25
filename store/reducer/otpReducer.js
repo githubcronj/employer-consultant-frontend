@@ -1,30 +1,28 @@
-import {
-  REGISTER_REQUEST,
-  REGISTER_SUCCESS,
-  REGISTER_FAILURE,
-} from "../type/registerType";
+import { OTP_REQUEST, OTP_SUCCESS, OTP_FAILURE } from "../type/otpType";
 
+// Initial state
 const initialState = {
   data: {},
   loading: false,
   error: null,
 };
 
+// Reducer
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case REGISTER_REQUEST:
+    case OTP_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case REGISTER_SUCCESS:
+    case OTP_SUCCESS:
       return {
         ...state,
         loading: false,
         data: action.payload,
       };
-    case REGISTER_FAILURE:
+    case OTP_FAILURE:
       return {
         ...state,
         loading: false,

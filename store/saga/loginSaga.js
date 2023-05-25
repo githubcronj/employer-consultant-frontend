@@ -5,6 +5,7 @@ import * as types from '../type/logintype';
 import { LOGIN_SUCCESS, LOGIN_ERROR } from '../type/logintype';
 import { makeApiRequest } from '../../utils/api';
 import { toast } from 'react-toastify';
+
 function* loginSaga(action) {
   try {
     const payload = {

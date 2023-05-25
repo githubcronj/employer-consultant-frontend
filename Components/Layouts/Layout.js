@@ -9,10 +9,12 @@ function Layout(props) {
   const isForgotpsw = router.pathname === '/forgotPassword';
   const isresetpsw = router.pathname === '/resetPassword';
   const isconfirmPassword = router.pathname === '/confirmPassword';
+  const isverifypsw = router.pathname === '/verifyotp';
+  
   const { children } = props;
   return (
     <>
-      {!(isLoginPage || isSignupPage || isForgotpsw || isresetpsw || isconfirmPassword) ? <Navbar /> : null}
+      {!(isLoginPage || isSignupPage || isForgotpsw || isresetpsw || isconfirmPassword || isverifypsw) ? <Navbar /> : null}
       {children}
     </>
   );
