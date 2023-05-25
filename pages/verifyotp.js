@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-const verifyotp = () => {
+const Verifyotp = () => {
   const [otp, setOtp] = useState("");
   const [inputOtpErr, setInputOtpErr] = useState("");
   const dispatch = useDispatch();
@@ -78,4 +78,4 @@ const verifyotp = () => {
     </div>
   );
 };
-export default verifyotp;
+export default Verifyotp;
