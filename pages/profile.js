@@ -4,8 +4,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const profile = () => {
-    const router = useRouter();
-    const [isFieldChanged, setIsFieldChanged] = useState(false);
+  const router = useRouter();
+  const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [formValues, setFormValues] = useState({
     companyName: "",
@@ -29,9 +29,9 @@ const profile = () => {
     const fileInput = document.getElementById("image-preview");
     fileInput.click();
   };
-const handleImageChange = (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
-  
+
     if (file) {
       setSelectedImage(URL.createObjectURL(file));
     } else {
@@ -39,74 +39,87 @@ const handleImageChange = (e) => {
     }
   };
   const isFormValid = () => {
-    const requiredFields = ["companyName", "industry", "companyId", "companyURL", "email", "companyDetail", "companySize", "founded", "companyLocation"];
+    const requiredFields = [
+      "companyName",
+      "industry",
+      "companyId",
+      "companyURL",
+      "email",
+      "companyDetail",
+      "companySize",
+      "founded",
+      "companyLocation",
+    ];
     const errors = {};
 
     requiredFields.forEach((field) => {
-      console.log(formValues)
+      console.log(formValues);
       if (formValues[field] === "") {
         errors[field] = "This field is required";
       }
     });
-    console.log(errors)
+    console.log(errors);
 
-    if (formValues.email !== "" && !/^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(formValues.email)) {
+    if (
+      formValues.email !== "" &&
+      !/^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(formValues.email)
+    ) {
       errors.email = "Invalid email format";
     }
-
 
     setErrors(errors);
 
     return Object.keys(errors).length === 0;
   };
- 
 
   const handleSave = (e) => {
     e.preventDefault();
     if (isFormValid()) {
-        console.log(formValues);
-        const initialFormValues = {
-          companyName: "",
-          industry: "",
-          companyId: "",
-          companyURL: "",
-          email: "",
-          companyDetail: "",
-          companySize: "",
-          founded: "",
-          companyLocation: "",
-        };
-        
-        setFormValues(initialFormValues);
-        setSelectedImage(null);
-        router.push("/");
-      } else {
-        return;
-      }
-    };
+      console.log(formValues);
+      const initialFormValues = {
+        companyName: "",
+        industry: "",
+        companyId: "",
+        companyURL: "",
+        email: "",
+        companyDetail: "",
+        companySize: "",
+        founded: "",
+        companyLocation: "",
+      };
+
+      setFormValues(initialFormValues);
+      setSelectedImage(null);
+      router.push("/");
+    } else {
+      return;
+    }
+  };
   const handleChange = (e) => {
-    const { id, value } = e.target; 
-      setFormValues((prevValues) => ({
-        ...prevValues,
-        [id]: value,
+    const { id, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [id]: value,
+    }));
+    setIsFieldChanged(true);
+    if (id === "email") {
+      const isValidEmail = /^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(
+        value
+      );
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: isValidEmail ? "" : "Invalid email format",
       }));
-      setIsFieldChanged(true);
-      if (id === "email") {
-        const isValidEmail = /^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(value);
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: isValidEmail ? "" : "Invalid email format",
-        }));
-      }
+    }
   };
   const handlePaste = async (event) => {
     event.preventDefault();
-  
+
     try {
       const text = await navigator.clipboard.readText();
       setFormValues((prevValues) => ({ ...prevValues, companyURL: text }));
     } catch (error) {
-      console.error('Failed to read clipboard content:', error);
+      console.error("Failed to read clipboard content:", error);
     }
   };
 
@@ -132,7 +145,11 @@ const handleImageChange = (e) => {
             onClick={handleCameraIconClick}
           >
             {selectedImage ? (
-              <img src={selectedImage} style={{ width: "120px", height: "120px"}} alt="selectedImage" />
+              <img
+                src={selectedImage}
+                style={{ width: "120px", height: "120px" }}
+                alt="selectedImage"
+              />
             ) : (
               <img src="/Assets/camera-icon.svg" alt="cameraIcon" />
             )}
@@ -165,7 +182,7 @@ const handleImageChange = (e) => {
                 id="companyName"
                 placeholder="Google"
                 required
-                style={errors.companyName ? { borderColor: 'red' } : {}}
+                style={errors.companyName ? { borderColor: "red" } : {}}
                 className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
                 value={formValues.companyName}
                 onChange={handleChange}
@@ -176,18 +193,23 @@ const handleImageChange = (e) => {
             <div className="relative">
               <input
                 type="text"
-                id="industry"
+                id="indu  stry"
                 placeholder=" "
                 required
-                style={errors.industry ? { borderColor: 'red' } : {}}
+                style={errors.industry ? { borderColor: "red" } : {}}
                 className="block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.industry}
                 onChange={handleChange}
               />
               {renderErrorMessage("industry")}
-              <label for="industry" className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Industry Type</label>
+              <label
+                for="industry"
+                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              >
+                Industry Type
+              </label>
             </div>
-            
+
             {/*  */}
             <div className="relative">
               <input
@@ -195,31 +217,40 @@ const handleImageChange = (e) => {
                 id="companyId"
                 placeholder=" "
                 required
-                style={errors.companyId ? { borderColor: 'red' } : {}}
+                style={errors.companyId ? { borderColor: "red" } : {}}
                 className="block py-5 px-4  w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companyId}
                 onChange={handleChange}
               />
               {renderErrorMessage("companyId")}
-              <label for="companyId" className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Company ID number</label>
+              <label
+                for="companyId"
+                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              >
+                Company ID number
+              </label>
             </div>
             {/*  */}
-            <div className="relative flex items-center sm:col-span-2">
-            {renderErrorMessage("companyURL")}
-              <input
-                type="text"
-                id="companyURL"
-                placeholder="Company website URL"
-                required
-                style={errors.companyURL ? { borderColor: 'red' } : {}}
-                className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                value={formValues.companyURL}
-                onChange={handleChange}
-              />
-              <button className=" absolute right-2 px-6 sm:px-8 py-3 bg-red-500 text-white rounded-[10px]" onClick={handlePaste}>
-                Paste
-              </button>
-              
+            <div className="sm:col-span-2">
+              <div className="relative flex items-center">
+                <input
+                  type="text"
+                  id="companyURL"
+                  placeholder="Company website URL"
+                  required
+                  style={errors.companyURL ? { borderColor: "red" } : {}}
+                  className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                  value={formValues.companyURL}
+                  onChange={handleChange}
+                />
+                <button
+                  className=" absolute right-2 px-6 sm:px-8 py-3 bg-red-500 text-white rounded-[10px]"
+                  onClick={handlePaste}
+                >
+                  Paste
+                </button>
+              </div>
+              {renderErrorMessage("companyURL")}
             </div>
             {/*  */}
             <div className="relative">
@@ -228,15 +259,20 @@ const handleImageChange = (e) => {
                 id="email"
                 placeholder=" "
                 required
-                style={errors.email ? { borderColor: 'red' } : {}}
+                style={errors.email ? { borderColor: "red" } : {}}
                 className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
-                  isFieldChanged && errors.email ? "border-red-500" : ""}`}
+                  isFieldChanged && errors.email ? "border-red-500" : ""
+                }`}
                 value={formValues.email}
                 onChange={handleChange}
               />
               {renderErrorMessage("email")}
-              <label for="email" className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Email</label>
-
+              <label
+                for="email"
+                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              >
+                Email
+              </label>
             </div>
             {/*  */}
             <div className="sm:col-span-3 relative">
@@ -245,13 +281,17 @@ const handleImageChange = (e) => {
                 id="companyDetail"
                 placeholder=" "
                 required
-                style={errors.companyDetail ? { borderColor: 'red' } : {}}
+                style={errors.companyDetail ? { borderColor: "red" } : {}}
                 className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companyDetail}
                 onChange={handleChange}
               />
-              <label for="companyDetail" className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Write about company...</label>
-
+              <label
+                for="companyDetail"
+                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              >
+                Write about company...
+              </label>
             </div>
             {/*  */}
             <div className="relative">
@@ -260,35 +300,43 @@ const handleImageChange = (e) => {
                 id="companySize"
                 placeholder=" "
                 required
-                style={errors.companySize ? { borderColor: 'red' } : {}}
+                style={errors.companySize ? { borderColor: "red" } : {}}
                 className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companySize}
                 onChange={handleChange}
               />
               {renderErrorMessage("companySize")}
-              <label for="companySize" className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Company Size</label>
-
+              <label
+                for="companySize"
+                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              >
+                Company Size
+              </label>
             </div>
             {/*  */}
-            <div className="relative flex items-center">
-              <DatePicker
-                id="founded"
-                placeholderText="Founded in"
-                required
-                style={errors.founded ? { borderColor: 'red' } : {}}
-                className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                selected={formValues.founded}
-                onChange={(date) =>
-                  handleChange({ target: { id: "founded", value: date } })
-                }
-              />
-              <img
-                src="/Assets/calendar.svg"
-                alt="calendar"
-                className="absolute right-2"
-                onClick={() => document.getElementById("founded").click()}
-              />{" "}
+            <div>
+              <div className="relative flex items-center">
+                <DatePicker
+                  id="founded"
+                  placeholderText="Founded in"
+                  required
+                  style={errors.founded ? { borderColor: "red" } : {}}
+                  className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                  selected={formValues.founded}
+                  onChange={(date) =>
+                    handleChange({ target: { id: "founded", value: date } })
+                  }
+                />
+                <img
+                  src="/Assets/calendar.svg"
+                  alt="calendar"
+                  className="absolute right-2"
+                  onClick={() => document.getElementById("founded").click()}
+                />{" "}
+              </div>{" "}
+              {renderErrorMessage("founded")}{" "}
             </div>
+
             {/*  */}
             <div className="relative">
               <input
@@ -296,13 +344,18 @@ const handleImageChange = (e) => {
                 id="companyLocation"
                 placeholder=" "
                 required
-                style={errors.companyLocation ? { borderColor: 'red' } : {}}
+                style={errors.companyLocation ? { borderColor: "red" } : {}}
                 className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companyLocation}
                 onChange={handleChange}
               />
               {renderErrorMessage("companyLocation")}
-              <label for="companyLocation" className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Company Location</label>
+              <label
+                for="companyLocation"
+                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              >
+                Company Location
+              </label>
             </div>
           </div>
 

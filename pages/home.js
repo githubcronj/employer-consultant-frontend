@@ -74,8 +74,7 @@ const tableHeading = [
   "Job Type",
   "Salary",
   "Created date",
-  "Credit(Cr.)",
-  "Admin",
+  "Deadline date",
 ];
 const home = () => {
   return (
