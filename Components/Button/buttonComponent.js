@@ -6,7 +6,7 @@ const Button = ({ children, onClick, className, width }) => {
       <button
         className='bg-red-500 text-white-200 font-semibold py-2 px-4 border
          border-red-500  sm:w-96 rounded-2xl text-white	'
-        style={{ height: "56px ", width: "412px" }}
+        style={{ height: "56px ", maxWidth: "412px", width: "100%" }}
         onClick={onClick}
         width='auto'
       >
