@@ -1,49 +1,280 @@
-import React, { useState } from "react";
-import InputComponent from "Components/Input/inputComponent";
-import Button from "Components/Button/buttonComponent";
-function home() {
-  const [isOpen, setIsOpen] = useState(false);
+import React from "react";
 
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-   setIsOpen(false);
-  };
-  return (
-    <>
-      <button
-        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-        onClick={openModal}
-      >
-        Open Modal
-      </button>
-      {isOpen && (
-        <div className='fixed inset-0 flex flex-col items-center justify-center z-50'>
-          <div className='absolute inset-0 bg-gray-100 opacity-50 flex flex-col'></div>
-
-          <h3>Please enter the OTP</h3>
-          <input
-            type='text'
-            placeholder='OTP'
-            style={{
-              border: "2px solid black",
-              width: "200px",
-              height: "40px",
-              borderRadius: "8px",
-            }}
-          />
-          <button
-            className='mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'
-            onClick={closeModal}
-          >
-            Confirm
-          </button>
-        </div>
-      )}
-    </>
-  );
+function createData(appliedconsultant, jobtitle, experience, jobtype, salary,createdate,deadlinedate) {
+  return { appliedconsultant, jobtitle, experience, jobtype, salary,createdate,deadlinedate};
 }
+
+const rows = [
+  createData(34, "UX Designer", "1961", "Full Time", "$10-15 /hr","12-09-2023", "12-09-2023"),
+  createData(34, "UX Designer", "1961", "Full Time", "$10-15 /hr","12-09-2023", "12-09-2023"),
+  createData(34, "UX Designer", "1961", "Full Time", "$10-15 /hr","12-09-2023", "12-09-2023"),
+  createData(34, "UX Designer", "1961", "Full Time", "$10-15 /hr","12-09-2023", "12-09-2023"),
+  createData(34, "UX Designer", "1961", "Full Time", "$10-15 /hr","12-09-2023", "12-09-2023"),
+
+];
+const tableHeading = ["Applied Consultant","Job Title","Experience","Job Type","Salary","Created date","Credit(Cr.)","Admin"]
+const home = () => {
+  return (
+    <div className="flex">
+      <div style={{ width: "220px" }}>hello</div>
+      {/* home */}
+      <div className="flex-1 bg-[#2B373C1C] py-4 px-2 sm:px-4">
+        <div className="bg-white pt-3">
+          <div className="flex justify-between items-center mx-5 sm:mx-9 ">
+            <div className="my-3 flex gap-4">
+              <p className="text-lg sm:text-2xl font-bold mr-4">Home</p>
+              <div className="relative w-full">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <svg
+                    aria-hidden="true"
+                    className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  id="simple-search"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                  placeholder="Search"
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <button className="m-3">
+                <img src="/Assets/filter.svg" alt="save" />
+              </button>
+              <button className="m-3">
+                <img src="/Assets/download.svg" alt="save" />
+              </button>
+              <button className="m-3">
+                <img src="/Assets/add.svg" alt="save" />
+              </button>
+            </div>
+          </div>
+          {/* table */}
+          <div className="my-3 relative overflow-x-auto">
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 bg-white">
+              <thead className="text-xs text-white uppercase bg-[#1E0F3B] dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" className="px-6 py-5">
+                    Applied Consultant
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Job Title
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Experience
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Job Type
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Salary
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Created date
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Deadline date
+                  </th>
+                  <th className="text-transparent">icon</th>
+                </tr>
+              </thead>
+              <tbody className=" text-black text-md">
+                <tr className="border-slate-200 border rounded-lg">
+                  <td className="px-6 py-4">34</td>
+                  <td className="px-6 py-4">UX Designer</td>
+                  <td className="px-6 py-4">1961</td>
+                  <td className="px-6 py-4">Full Time</td>
+                  <td className="px-6 py-4">$10-15 /hr</td>
+                  <td className="px-6 py-4">12-09-2023</td>
+                  <td className="px-6 py-4 flex items-center justify-evenly">
+                    12-09-2023
+                  </td>
+                  <td>
+                    <img src="/Assets/arrow-blue.svg" alt="save" />
+                  </td>
+                </tr>
+                <tr className="border-slate-200 border rounded-lg bg-[#EEEFEF]">
+                  <td className="px-6 py-4">34</td>
+                  <td className="px-6 py-4">UX Designer</td>
+                  <td className="px-6 py-4">1961</td>
+                  <td className="px-6 py-4">Full Time</td>
+                  <td className="px-6 py-4">$10-15 /hr</td>
+                  <td className="px-6 py-4">12-09-2023</td>
+                  <td className="px-6 py-4 flex items-center justify-evenly">
+                    12-09-2023
+                  </td>
+                  <td>
+                    <img src="/Assets/arrow-blue.svg" alt="save" />
+                  </td>
+                </tr>
+                <tr className="border-slate-200 border rounded-lg">
+                  <td className="px-6 py-4">34</td>
+                  <td className="px-6 py-4">UX Designer</td>
+                  <td className="px-6 py-4">1961</td>
+                  <td className="px-6 py-4">Full Time</td>
+                  <td className="px-6 py-4">$10-15 /hr</td>
+                  <td className="px-6 py-4">12-09-2023</td>
+                  <td className="px-6 py-4 flex items-center justify-evenly">
+                    12-09-2023
+                  </td>
+                  <td>
+                    <img src="/Assets/arrow-blue.svg" alt="save" />
+                  </td>
+                </tr>
+                <tr className="border-slate-200 border rounded-lg bg-[#EEEFEF]">
+                  <td className="px-6 py-4">34</td>
+                  <td className="px-6 py-4">UX Designer</td>
+                  <td className="px-6 py-4">1961</td>
+                  <td className="px-6 py-4">Full Time</td>
+                  <td className="px-6 py-4">$10-15 /hr</td>
+                  <td className="px-6 py-4">12-09-2023</td>
+                  <td className="px-6 py-4 flex items-center justify-evenly">
+                    12-09-2023
+                  </td>
+                  <td>
+                    <img src="/Assets/arrow-blue.svg" alt="save" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {/* new table */}
+
+          <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    Product name
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Color
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Category
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Price
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Apple MacBook Pro 17"
+                  </th>
+                  <td className="px-6 py-4">Silver</td>
+                  <td className="px-6 py-4">Laptop</td>
+                  <td className="px-6 py-4">$2999</td>
+                  <td className="px-6 py-4">
+                    <a
+                      href="#"
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+                <tr className="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Microsoft Surface Pro
+                  </th>
+                  <td className="px-6 py-4">White</td>
+                  <td className="px-6 py-4">Laptop PC</td>
+                  <td className="px-6 py-4">$1999</td>
+                  <td className="px-6 py-4">
+                    <a
+                      href="#"
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+                <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Magic Mouse 2
+                  </th>
+                  <td className="px-6 py-4">Black</td>
+                  <td className="px-6 py-4">Accessories</td>
+                  <td className="px-6 py-4">$99</td>
+                  <td className="px-6 py-4">
+                    <a
+                      href="#"
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+                <tr className="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Google Pixel Phone
+                  </th>
+                  <td className="px-6 py-4">Gray</td>
+                  <td className="px-6 py-4">Phone</td>
+                  <td className="px-6 py-4">$799</td>
+                  <td className="px-6 py-4">
+                    <a
+                      href="#"
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Apple Watch 5
+                  </th>
+                  <td className="px-6 py-4">Red</td>
+                  <td className="px-6 py-4">Wearables</td>
+                  <td className="px-6 py-4">$999</td>
+                  <td className="px-6 py-4">
+                    <a
+                      href="#"
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default home;

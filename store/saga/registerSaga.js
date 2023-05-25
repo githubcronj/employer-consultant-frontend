@@ -1,8 +1,8 @@
-import { takeLatest, call, put } from "redux-saga/effects";
-import * as types from "../type/registerType";
-import api from "../../utils/api";
-import { useRouter } from "next/router";
-import { toast } from "react-toastify";
+import { takeLatest, call, put } from 'redux-saga/effects';
+import * as types from '../type/registerType';
+import api from '../../utils/api';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 export default function* watchRegister() {
   yield takeLatest(types.REGISTER_REQUEST, register);

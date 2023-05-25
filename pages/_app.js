@@ -5,6 +5,7 @@ import Layout from 'Components/Layouts/Layout';
 import Toast from 'Components/Toast/toast';
 
 function MyApp({ Component, pageProps }) {
+  
   return (
     <Provider store={store}>
       <Layout>
