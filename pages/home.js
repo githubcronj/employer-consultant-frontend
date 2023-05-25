@@ -66,6 +66,33 @@ const rows = [
     "12-09-2023",
     "12-09-2023"
   ),
+  createData(
+    34,
+    "UX Designer",
+    "1961",
+    "Full Time",
+    "$10-15 /hr",
+    "12-09-2023",
+    "12-09-2023"
+  ),
+  createData(
+    34,
+    "UX Designer",
+    "1961",
+    "Full Time",
+    "$10-15 /hr",
+    "12-09-2023",
+    "12-09-2023"
+  ),
+  createData(
+    34,
+    "UX Designer",
+    "1961",
+    "Full Time",
+    "$10-15 /hr",
+    "12-09-2023",
+    "12-09-2023"
+  ),
 ];
 const tableHeading = [
   "Applied Consultant",
@@ -126,10 +153,10 @@ const home = () => {
           {/* table */}
           <div className="my-3 relative overflow-x-auto">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 bg-white">
-              <thead className="text-xs text-white uppercase bg-[#1E0F3B] dark:bg-gray-700 dark:text-gray-400">
+              <thead className="text-sm text-white  bg-[#1E0F3B] dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                   {tableHeading.map((heading, index) => (
-                    <th key={index} scope="col" className="px-6 py-3">
+                    <th key={index} scope="col" className="px-6 py-5">
                       {heading}
                     </th>
                   ))}
@@ -146,8 +173,9 @@ const home = () => {
                         : "border-slate-200 border rounded-lg bg-[#EEEFEF]"
                     }
                   >
+                    
                     {Object.values(row).map((value, index) => (
-                      <td key={index} className="px-6 py-8">
+                      <td key={index} className="px-6 py-7">
                         {value}
                       </td>
                     ))}
