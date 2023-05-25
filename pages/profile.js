@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const profile = () => {
+const Profile = () => {
   const router = useRouter();
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -378,4 +378,4 @@ const profile = () => {
   );
 };
 
-export default profile;
+export default Profile;
