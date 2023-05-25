@@ -10,7 +10,7 @@ const ResumeUpload = () => {
   const fileInputRef = useRef(null);
 
   const navigateToNext = () => {
-    router.push("//setup-details");
+    router.push("/setup-details");
   };
 
   const handleFileUpload = () => {
