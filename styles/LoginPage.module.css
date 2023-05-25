@@ -8,8 +8,8 @@
     margin-left: 56px;
   }
 }
-@media (max-width:320px){
+@media (max-width: 320px) {
   .desk {
-    margin-left : 107px;
+    margin-left: 107px;
   }
 }

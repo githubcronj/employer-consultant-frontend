@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const profile = () => {
     const router = useRouter();
+    const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [formValues, setFormValues] = useState({
     companyName: "",
@@ -89,7 +90,14 @@ const handleImageChange = (e) => {
         ...prevValues,
         [id]: value,
       }));
-    
+      setIsFieldChanged(true);
+      if (id === "email") {
+        const isValidEmail = /^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(value);
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: isValidEmail ? "" : "Invalid email format",
+        }));
+      }
   };
   const handlePaste = async (event) => {
     event.preventDefault();
@@ -221,7 +229,8 @@ const handleImageChange = (e) => {
                 placeholder=" "
                 required
                 style={errors.email ? { borderColor: 'red' } : {}}
-                className="block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                  isFieldChanged && errors.email ? "border-red-500" : ""}`}
                 value={formValues.email}
                 onChange={handleChange}
               />
