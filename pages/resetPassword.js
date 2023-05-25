@@ -1,43 +1,35 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import Button from "../Components/Button/buttonComponent";
-import InputComponent from "../Components/Input/inputComponent";
-import envelope from "../public/Assets/envelope.svg";
-import lock from "../public/Assets/lock.svg";
-import eye from "../public/Assets/eye.svg";
-import closedeye from "../public/Assets/closedeye.svg";
-import Link from "next/link";
-import styles from "../styles/LoginPage.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { REGISTER_REQUEST } from "store/type/registerType";
-import validator from "validator";
-import { useRouter } from "next/router";
-const Register = () => {
+import React from 'react';
+import { useState } from 'react';
+import Button from '../Components/Button/buttonComponent';
+import InputComponent from '../Components/Input/inputComponent';
+import envelope from '../public/Assets/envelope.svg';
+import lock from '../public/Assets/lock.svg';
+import eye from '../public/Assets/eye.svg';
+import closedeye from '../public/Assets/closedeye.svg';
+import Link from 'next/link';
+import styles from '../styles/LoginPage.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerReducer } from '../store/reducer/registerReducer';
+import { REGISTER_REQUEST } from 'store/type/registerType';
+import validator from 'validator';
+import { useRouter } from 'next/router';
+
+const ConfirmPassword = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [role, setRole] = useState('employer');
   const [alignment, setAlignment] = useState('web');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const [displayPassword, setDisplayPassword] = useState('password');
-  const [displayConfirmPassword, setDisplayConfirmPassword] =
-    useState("password");
-  const [emailErr, setEmailErr] = useState("");
-  const [passwordErr, setPasswordErr] = useState("");
-  const [confirmPasswordErr, setConfirmPasswordErr] = useState("");
+  const [displayNewPassword, setDisplayNewPassword] =
+    useState('password');
+  const [success, setSuccess] = useState(false);
+  const [confirmPasswordErr, setConfirmedPasswordErr] = useState('');
+  const [newPasswordErr, setNewPasswordErr] = useState('');
   const [iconsetone, setIconsetOne] = useState(false);
- const [iconsettwo, setIconsetTwo] = useState(false);
-  const [enterOtp, setEnterOtp] = useState("");
-
-  const data = useSelector((state) => state.registerReducer?.data?.status);
-
-  useEffect(() => {
-    if (data == 200) {
-      router.push("/verifyotp");
-    }
-  }, [data]);
-
+  const [iconsettwo, setIconsetTwo] = useState(false);
+ 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
     if (newAlignment == 'android') {
@@ -46,50 +38,45 @@ const Register = () => {
       setRole('employer');
     }
   };
-  const confirmPasswordclick = () => {
-    setDisplayConfirmPassword(
-      displayConfirmPassword == 'password' ? 'text' : 'password'
+  const NewPasswordclick = () => {
+    setDisplayNewPassword(
+      displayNewPassword == 'password' ? 'text' : 'password'
     );
     setIconsetTwo(!iconsettwo);
   };
-  const passwordclick = () => {
+  const confirmPasswordclick = () => {
     setDisplayPassword(displayPassword == 'password' ? 'text' : 'password');
     setIconsetOne(!iconsetone);
   };
-  const emailclicked = (e) => {
-    setEmail(e.target.value);
-  };
-  const registerClicked = () => {
-    let isEmailValid = validator.isEmail(email);
 
-    let isPasswordValid =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(password);
+  const resetPasswordClicked = () => {
+  
 
-    if (!isEmailValid) {
-      setEmailErr('please enter valid email');
+    let isConfirmPasswordValid =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(confirmPassword);
+      
+    let isNewPasswordValid =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(newPassword);
+
+  
+
+    if (!isConfirmPasswordValid) {
+        setConfirmedPasswordErr('please enter your password');
     } else {
-      setEmailErr('');
+        setConfirmedPasswordErr('');
     }
-
-    if (!isPasswordValid) {
-      setPasswordErr('please enter a valid password');
+    if (!isNewPasswordValid) {
+    setNewPasswordErr('please enter your new password')
     } else {
-      setPasswordErr('');
-    }
-    if (password === confirmPassword) {
-      if (isEmailValid && isPasswordValid) {
-        const payload = { email, password, role };
-        dispatch({ type: REGISTER_REQUEST, payload });
-      }
-    } else {
-      setConfirmPasswordErr('Passwords does not match');
+      setNewPasswordErr('');
     }
   };
+ 
 
   return (
     <>
       <div
-        className={`max-w-[1536px] xl:-mt-4 mx-auto flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row
+        className={`max-w-[1536px] xl:-mt-4  mx-auto flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row
         lg:items-center lg:justify-center md:flex-col
          lg:gap-12 xl:gap-0 h-[100%] lg:h-auto ${styles.desk}`}
       >
@@ -157,68 +144,56 @@ const Register = () => {
 
             <div>
               <h1 className='text-3xl font-bold text-black pb-4 ml-2 mt-5 mb-5 '>
-                REGISTER
+              RESET PASSWORD
               </h1>
             </div>
           </div>
 
           <div className='xl:pl-10 lg:pl-10 relative'>
-            <InputComponent
-              type='email'
-              value={email}
-              placeholder='Email address'
-              onchange={(e) => emailclicked(e)}
-              lefticon={envelope.src}
-              emailstyle={emailErr ? true : false}
-            />
-            {emailErr && (
-              <h6
-                variant='h6'
-                className='text-red-500 absolute top-[54px] left-[40px]'
-              >
-                {emailErr}
-              </h6>
-            )}
-
-            <InputComponent
-              type={displayPassword}
-              value={password}
-              placeholder='Set Password'
-              lefticon={lock.src}
-              righticon={iconsetone ? eye.src : closedeye.src}
-              showpassword={passwordclick}
-              onchange={(e) => setPassword(e.target.value)}
-              passwordstyle={passwordErr ? true : false}
-            />
-            {passwordErr && (
-              <h6
-                variant='h6'
-                className='text-red-500 absolute top-[134px] left-[40px] w-[620px]'
-              >
-                {passwordErr}
-              </h6>
-            )}
-            <InputComponent
-              type={displayConfirmPassword}
-              value={confirmPassword}
-              placeholder='Confirm Password'
+        
+          <InputComponent
+              type={displayNewPassword}
+              value={newPassword}
+              placeholder='New Password'
               lefticon={lock.src}
               righticon={iconsettwo ? eye.src : closedeye.src}
-              showpassword={confirmPasswordclick}
-              onchange={(e) => setConfirmPassword(e.target.value)}
-              confirmpasswordstyle={confirmPasswordErr ? true : false}
+              showpassword={NewPasswordclick}
+              onchange={(e) => setNewPassword(e.target.value)}
+              newpasswordstyle={newPasswordErr ? true : false}
             />
-            {confirmPasswordErr && (
+            {newPasswordErr && (
               <h6
                 variant='h6'
                 className='text-red-500 absolute top-[214px] left-[40px] w-[620px]'
               >
+                {newPasswordErr}
+              </h6>
+            )}
+            <InputComponent
+              type={displayPassword}
+              value={confirmPassword}
+              placeholder='confirm Password'
+              lefticon={lock.src}
+              righticon={iconsetone ? eye.src : closedeye.src}
+              showpassword={confirmPasswordclick}
+              onchange={(e) => setConfirmPassword(e.target.value)}
+              passwordstyle={confirmPasswordErr ? true : false}
+            />
+            {confirmPasswordErr && (
+              <h6
+                variant='h6'
+                className='text-red-500 absolute top-[134px] left-[40px] w-[620px]'
+              >
                 {confirmPasswordErr}
               </h6>
             )}
-            <Button onClick={registerClicked}>Register</Button>
+          
+           
+           
           </div>
-
+          <div className='xl:pl-10 lg:pl-10 relative mt-4'>
+          <Button onClick={resetPasswordClicked}>Reset Password</Button>
+          </div>
           <div
             className='flex items-center xl:pl-10 lg:pl-10 mt-3 sm:w-96'
             style={{ width: '435px' }}
@@ -270,8 +245,10 @@ const Register = () => {
      <div className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg2}` }></div>
   )}
       </div>
+
+      
     </>
   );
-}
+};
 
-export default Register;
+export default ConfirmPassword;
