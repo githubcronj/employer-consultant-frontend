@@ -14,32 +14,22 @@ import { REGISTER_REQUEST } from 'store/type/registerType';
 import validator from 'validator';
 import { useRouter } from 'next/router';
 
-const ForgotPassword= () => {
+const ConfirmPassword = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [role, setRole] = useState('employer');
   const [alignment, setAlignment] = useState('web');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [displayPassword, setDisplayPassword] = useState('password');
   const [displayNewPassword, setDisplayNewPassword] =
     useState('password');
   const [success, setSuccess] = useState(false);
-  const [emailErr, setEmailErr] = useState('');
-  const [passwordErr, setPasswordErr] = useState('');
+  const [confirmPasswordErr, setConfirmedPasswordErr] = useState('');
   const [newPasswordErr, setNewPasswordErr] = useState('');
   const [iconsetone, setIconsetOne] = useState(false);
   const [iconsettwo, setIconsetTwo] = useState(false);
-  const data = useSelector((state) =>
-    console.log(state.registerReducer?.data?.status)
-  );
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+ 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
     if (newAlignment == 'android') {
@@ -48,20 +38,38 @@ const ForgotPassword= () => {
       setRole('employer');
     }
   };
-  const emailclicked = (e) => {
-    setEmail(e.target.value);
+  const NewPasswordclick = () => {
+    setDisplayNewPassword(
+      displayNewPassword == 'password' ? 'text' : 'password'
+    );
+    setIconsetTwo(!iconsettwo);
   };
+  const confirmPasswordclick = () => {
+    setDisplayPassword(displayPassword == 'password' ? 'text' : 'password');
+    setIconsetOne(!iconsetone);
+  };
+
+  const resetPasswordClicked = () => {
   
-  const ForgotPswClicked = () => {
-    let isEmailValid = validator.isEmail(email);
 
-    if (!isEmailValid) {
-      setEmailErr('please enter valid email');
+    let isConfirmPasswordValid =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(confirmPassword);
+      
+    let isNewPasswordValid =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(newPassword);
+
+  
+
+    if (!isConfirmPasswordValid) {
+        setConfirmedPasswordErr('please enter your password');
     } else {
-      setEmailErr('');
+        setConfirmedPasswordErr('');
     }
-
-    
+    if (!isNewPasswordValid) {
+    setNewPasswordErr('please enter your new password')
+    } else {
+      setNewPasswordErr('');
+    }
   };
  
 
@@ -136,34 +144,56 @@ const ForgotPassword= () => {
 
             <div>
               <h1 className='text-3xl font-bold text-black pb-4 ml-2 mt-5 mb-5 '>
-                FORGOT PASSWORD
+              RESET PASSWORD
               </h1>
             </div>
           </div>
 
           <div className='xl:pl-10 lg:pl-10 relative'>
-            <InputComponent
-              type='email'
-              value={email}
-              placeholder='Email address'
-              onchange={(e) => emailclicked(e)}
-              lefticon={envelope.src}
-              emailstyle={emailErr ? true : false}
+        
+          <InputComponent
+              type={displayNewPassword}
+              value={newPassword}
+              placeholder='New Password'
+              lefticon={lock.src}
+              righticon={iconsettwo ? eye.src : closedeye.src}
+              showpassword={NewPasswordclick}
+              onchange={(e) => setNewPassword(e.target.value)}
+              newpasswordstyle={newPasswordErr ? true : false}
             />
-            {emailErr && (
+            {newPasswordErr && (
               <h6
                 variant='h6'
-                className='text-red-500 absolute top-[54px] left-[40px]'
+                className='text-red-500 absolute top-[214px] left-[40px] w-[620px]'
               >
-                {emailErr}
+                {newPasswordErr}
               </h6>
             )}
-
+            <InputComponent
+              type={displayPassword}
+              value={confirmPassword}
+              placeholder='confirm Password'
+              lefticon={lock.src}
+              righticon={iconsetone ? eye.src : closedeye.src}
+              showpassword={confirmPasswordclick}
+              onchange={(e) => setConfirmPassword(e.target.value)}
+              passwordstyle={confirmPasswordErr ? true : false}
+            />
+            {confirmPasswordErr && (
+              <h6
+                variant='h6'
+                className='text-red-500 absolute top-[134px] left-[40px] w-[620px]'
+              >
+                {confirmPasswordErr}
+              </h6>
+            )}
+          
            
-            <Button onClick={ForgotPswClicked}>Continue</Button>
            
           </div>
-    
+          <div className='xl:pl-10 lg:pl-10 relative mt-4'>
+          <Button onClick={resetPasswordClicked}>Reset Password</Button>
+          </div>
           <div
             className='flex items-center xl:pl-10 lg:pl-10 mt-3 sm:w-96'
             style={{ width: '435px' }}
@@ -216,9 +246,9 @@ const ForgotPassword= () => {
   )}
       </div>
 
-    
+      
     </>
   );
 };
 
-export default ForgotPassword;
+export default ConfirmPassword;

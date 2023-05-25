@@ -14,7 +14,7 @@ import { REGISTER_REQUEST } from 'store/type/registerType';
 import validator from 'validator';
 import { useRouter } from 'next/router';
 
-const ForgotPassword= () => {
+const ConfirmPassword = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [role, setRole] = useState('employer');
@@ -31,9 +31,7 @@ const ForgotPassword= () => {
   const [newPasswordErr, setNewPasswordErr] = useState('');
   const [iconsetone, setIconsetOne] = useState(false);
   const [iconsettwo, setIconsetTwo] = useState(false);
-  const data = useSelector((state) =>
-    console.log(state.registerReducer?.data?.status)
-  );
+ 
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -48,12 +46,27 @@ const ForgotPassword= () => {
       setRole('employer');
     }
   };
+  const NewPasswordclick = () => {
+    setDisplayNewPassword(
+      displayNewPassword == 'password' ? 'text' : 'password'
+    );
+    setIconsetTwo(!iconsettwo);
+  };
+  const passwordclick = () => {
+    setDisplayPassword(displayPassword == 'password' ? 'text' : 'password');
+    setIconsetOne(!iconsetone);
+  };
   const emailclicked = (e) => {
     setEmail(e.target.value);
   };
-  
-  const ForgotPswClicked = () => {
+  const cofirmPasswordClicked = () => {
     let isEmailValid = validator.isEmail(email);
+
+    let isPasswordValid =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(password);
+      
+    let isNewPasswordValid =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(password);
 
     if (!isEmailValid) {
       setEmailErr('please enter valid email');
@@ -61,9 +74,22 @@ const ForgotPassword= () => {
       setEmailErr('');
     }
 
-    
+    if (!isPasswordValid) {
+      setPasswordErr('please enter previous password');
+    } else {
+      setPasswordErr('');
+    }
+    if (!isNewPasswordValid) {
+    setNewPasswordErr('please enter your new password')
+    } else {
+      setNewPasswordErr('');
+    }
   };
- 
+  const otpconfirm = () => {
+    setIsOpen(false);
+    7;
+    router.push('/Login');
+  };
 
   return (
     <>
@@ -136,7 +162,7 @@ const ForgotPassword= () => {
 
             <div>
               <h1 className='text-3xl font-bold text-black pb-4 ml-2 mt-5 mb-5 '>
-                FORGOT PASSWORD
+                REGISTER
               </h1>
             </div>
           </div>
@@ -159,53 +185,47 @@ const ForgotPassword= () => {
               </h6>
             )}
 
-           
-            <Button onClick={ForgotPswClicked}>Continue</Button>
-           
-          </div>
-    
-          <div
-            className='flex items-center xl:pl-10 lg:pl-10 mt-3 sm:w-96'
-            style={{ width: '435px' }}
-          >
-            <hr className='flex-grow border-t-2 border-gray-300 w-24 sm:w-40 mr-5' />
-            <span className='text-black'>OR</span>
-            <hr className='flex-grow border-t-2 border-gray-300 w-24 sm:w-40 ml-5' />
-          </div>
-          <div className='flex items-center ml-0 gap-5 mt-3 '>
-            <img
-              src='/Assets/googleIcon.png'
-              alt='googleIcon'
-              style={{ width: '50px', height: '50px' }}
+            <InputComponent
+              type={displayPassword}
+              value={password}
+              placeholder='Old Password'
+              lefticon={lock.src}
+              righticon={iconsetone ? eye.src : closedeye.src}
+              showpassword={passwordclick}
+              onchange={(e) => setPassword(e.target.value)}
+              passwordstyle={passwordErr ? true : false}
             />
-            <img
-              src='/Assets/facebookIcon.png'
-              alt='facebookIcon'
-              style={{ width: '50px', height: '50px' }}
-            />
-            <img
-              src='/Assets/appleIcon.png'
-              alt='appleIcon'
-              style={{ width: '50px', height: '50px' }}
-            />
-          </div>
-
-          <h3 className='ml-9 mt-4 '>
-            Already have account?
-            <Link href='/Login'>
-              <span
-                style={{
-                  color: '#F9342E',
-                  cursor: 'pointer',
-                  fontWeight: 'bold',
-                }}
-                onClick={() => console.log('signup clicked')}
-                className='pl-4'
+            {passwordErr && (
+              <h6
+                variant='h6'
+                className='text-red-500 absolute top-[134px] left-[40px] w-[620px]'
               >
-                Login
-              </span>
-            </Link>
-          </h3>
+                {passwordErr}
+              </h6>
+            )}
+            <InputComponent
+              type={displayNewPassword}
+              value={newPassword}
+              placeholder='New Password'
+              lefticon={lock.src}
+              righticon={iconsettwo ? eye.src : closedeye.src}
+              showpassword={NewPasswordclick}
+              onchange={(e) => setNewPassword(e.target.value)}
+              newpasswordstyle={newPasswordErr ? true : false}
+            />
+            {newPasswordErr && (
+              <h6
+                variant='h6'
+                className='text-red-500 absolute top-[214px] left-[40px] w-[620px]'
+              >
+                {newPasswordErr}
+              </h6>
+            )}
+            <Button onClick={cofirmPasswordClicked}>Confirm Password</Button>
+           
+          </div>
+        
+         
         </div>
 
         {alignment == "web" && (
@@ -216,9 +236,9 @@ const ForgotPassword= () => {
   )}
       </div>
 
-    
+     
     </>
   );
 };
 
-export default ForgotPassword;
+export default ConfirmPassword;
