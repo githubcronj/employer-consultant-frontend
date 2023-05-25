@@ -193,7 +193,7 @@ const profile = () => {
             <div className="relative">
               <input
                 type="text"
-                id="indu  stry"
+                id="industry"
                 placeholder=" "
                 required
                 style={errors.industry ? { borderColor: "red" } : {}}
@@ -236,13 +236,18 @@ const profile = () => {
                 <input
                   type="text"
                   id="companyURL"
-                  placeholder="Company website URL"
+                  placeholder=" "
                   required
                   style={errors.companyURL ? { borderColor: "red" } : {}}
-                  className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                  // className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                  className="block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   value={formValues.companyURL}
                   onChange={handleChange}
                 />
+                <label
+                for="companyUR"
+                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              >Company website URL</label>
                 <button
                   className=" absolute right-2 px-6 sm:px-8 py-3 bg-red-500 text-white rounded-[10px]"
                   onClick={handlePaste}
@@ -316,17 +321,23 @@ const profile = () => {
             {/*  */}
             <div>
               <div className="relative flex items-center">
+              
                 <DatePicker
                   id="founded"
-                  placeholderText="Founded in"
+                  placeholderText=" "
                   required
                   style={errors.founded ? { borderColor: "red" } : {}}
-                  className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                  // className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                  className={`block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${errors.founded ? "border-[#ff0000]" : ""}`}
                   selected={formValues.founded}
                   onChange={(date) =>
                     handleChange({ target: { id: "founded", value: date } })
                   }
                 />
+                <label
+                for="founded"
+                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              >Founded In </label>
                 <img
                   src="/Assets/calendar.svg"
                   alt="calendar"
@@ -335,6 +346,7 @@ const profile = () => {
                 />{" "}
               </div>{" "}
               {renderErrorMessage("founded")}{" "}
+              
             </div>
 
             {/*  */}
