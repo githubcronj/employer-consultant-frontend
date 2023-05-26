@@ -65,9 +65,9 @@ const UploadCSVModal = () => {
         <>
           <div className="flex bg-black bg-opacity-50 justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl ">
-              <div className="w-auto bg-white py-1 rounded-[15px] md:w-[281px] lg:w-[690px] text-center">
-                <div className="flex justify-between items-center mx-3">
-                  <div className="flex items-center gap-5">
+              <div className="w-auto bg-white py-1 rounded-[15px] sm:w-[500px] lg:w-[690px] text-center">
+                <div className="sm:flex justify-between items-center mx-3 my-3 sm:my-0">
+                  <div className="flex items-center gap-5 ">
                     <img
                       src="/Assets/cancel.svg"
                       alt="cancel"
@@ -91,7 +91,7 @@ const UploadCSVModal = () => {
                   onDragOver={handleDragOver}
                   onDrop={handleDrop}
                 >
-                  <div className="bg-[#5E9AF814] mx-20 mt-4 mb-9 py-10 rounded-xl border-dashed border border-1 border-[#5E9AF8]">
+                  <div className="bg-[#5E9AF814] mx-4 sm:mx-6 md:mx-20 mt-4 mb-9 py-10 rounded-xl border-dashed border border-1 border-[#5E9AF8]">
                     <div className="flex justify-center">
                       <Image
                         src="/Assets/csvupload.svg"
@@ -100,7 +100,7 @@ const UploadCSVModal = () => {
                         height={80}
                       />
                     </div>
-                    <p className="pt-3 text-lg font-bold">
+                    <p className="pt-3 px-1 text-lg font-bold">
                       Select a CSV file to upload
                     </p>
                     <p className="text-sm text-[#6C627F] px-2">

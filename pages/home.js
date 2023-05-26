@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import UploadCSVModal from "./uploadCSVModal";
+import FilterModal from "./filterModal";
 
 function createData(
   appliedconsultant,
@@ -142,9 +143,10 @@ const home = () => {
             </div>
             <div className="flex">
               <div>
-                <button className="m-3">
+                {/* <button className="m-3">
                   <img src="/Assets/filter.svg" alt="save" />
-                </button>
+                </button> */}
+                <FilterModal/>
               </div>
               <div>
                 <UploadCSVModal />
