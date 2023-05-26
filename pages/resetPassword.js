@@ -25,10 +25,10 @@ const ConfirmPassword = () => {
   const [displayNewPassword, setDisplayNewPassword] =
     useState('password');
   const [success, setSuccess] = useState(false);
-  const [confirmPasswordErr, setConfirmedPasswordErr] = useState('');
-  const [newPasswordErr, setNewPasswordErr] = useState('');
-  const [iconsetone, setIconsetOne] = useState(false);
-  const [iconsettwo, setIconsetTwo] = useState(false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [newPasswordError, setNewPasswordError] = useState('');
+  const [iconSetOne, setIconSetOne] = useState(false);
+  const [iconSetTwo, setIconSetTwo] = useState(false);
  
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
@@ -38,37 +38,36 @@ const ConfirmPassword = () => {
       setRole('employer');
     }
   };
-  const NewPasswordclick = () => {
+  
+  const toggleNewPasswordVisibility = () => {
     setDisplayNewPassword(
-      displayNewPassword == 'password' ? 'text' : 'password'
+      displayNewPassword === 'password' ? 'text' : 'password'
     );
-    setIconsetTwo(!iconsettwo);
+    setIconSetTwo(!iconSetTwo);
   };
-  const confirmPasswordclick = () => {
-    setDisplayPassword(displayPassword == 'password' ? 'text' : 'password');
-    setIconsetOne(!iconsetone);
+  
+  const toggleConfirmPasswordVisibility = () => {
+    setDisplayPassword(displayPassword === 'password' ? 'text' : 'password');
+    setIconSetOne(!iconSetOne);
   };
 
   const resetPasswordClicked = () => {
-  
-
     let isConfirmPasswordValid =
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(confirmPassword);
       
     let isNewPasswordValid =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(newPassword);
-
-  
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(newPassword);
 
     if (!isConfirmPasswordValid) {
-        setConfirmedPasswordErr('please enter your password');
+        setConfirmPasswordError('Please enter a valid new password');
     } else {
-        setConfirmedPasswordErr('');
+        setConfirmPasswordError('');
     }
+    
     if (!isNewPasswordValid) {
-    setNewPasswordErr('please enter your new password')
+      setNewPasswordError('Please enter a valid confirm password');
     } else {
-      setNewPasswordErr('');
+      setNewPasswordError('');
     }
   };
  
@@ -76,14 +75,14 @@ const ConfirmPassword = () => {
   return (
     <>
       <div
-        className={`max-w-[1536px]   mx-auto flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row
+        className={`max-w-[1536px] mx-auto flex flex-col xl:flex-row xl:items-center justify-center lg:flex-row
         lg:items-center lg:justify-center md:flex-col
-         lg:gap-12 xl:gap-0 h-[100%] lg:h-auto ${styles.desk}`}
+        lg:gap-12 xl:gap-0 h-[100%] lg:h-auto ${styles.desk}`}
       >
-        <div className='xl:mt-0  flex flex-col items-center justify-center align-middle sm:pl-0  sm:mr-[2px] md:mr-[2px] mb-3 xl:-mb-7 flex-1 '>
+        <div className='xl:mt-0 flex flex-col items-center justify-center align-middle sm:pl-0 sm:mr-[2px] md:mr-[2px] mb-3 xl:-mb-7 flex-1 '>
           <div
             style={{ marginTop: '20px' }}
-            className=' xl:w-1/2  md:w-full -ml-[36px] xl:ml-[0px] flex flex-col justify-center items-center pt-0  gap-4 '
+            className='xl:w-1/2 md:w-full -ml-[36px] xl:ml-[0px] flex flex-col justify-center items-center pt-0 gap-4 '
           >
             <h1
               className='text-2xl font-bold text-#1E0F3B mb-1 xl:-mt-1 xl:-mb-5 xl:ml-6 lg:ml-6'
@@ -99,7 +98,7 @@ const ConfirmPassword = () => {
                 width: '412px',
                 height: '60px',
               }}
-              className='flex  rounded-20 transition-all duration-300 ml-8 gap-3  border-radius-2 pl-1'
+              className='flex rounded-20 transition-all duration-300 ml-8 gap-3 border-radius-2 pl-1'
             >
               <button
                 style={{
@@ -144,55 +143,51 @@ const ConfirmPassword = () => {
 
             <div>
               <h1 className='text-3xl font-bold text-black pb-4 ml-2 mt-5 mb-5 '>
-              RESET PASSWORD
+                RESET PASSWORD
               </h1>
             </div>
           </div>
 
           <div className='xl:pl-10 lg:pl-10 relative'>
-        
-          <InputComponent
+            <InputComponent
               type={displayNewPassword}
               value={newPassword}
               placeholder='New Password'
               lefticon={lock.src}
-              righticon={iconsettwo ? eye.src : closedeye.src}
-              showpassword={NewPasswordclick}
+              righticon={iconSetTwo ? eye.src : closedeye.src}
+              showpassword={toggleNewPasswordVisibility}
               onchange={(e) => setNewPassword(e.target.value)}
-              newpasswordstyle={newPasswordErr ? true : false}
+              newpasswordstyle={newPasswordError ? true : false}
             />
-            {newPasswordErr && (
+            {newPasswordError && (
               <h6
                 variant='h6'
-                className='text-red-500 absolute top-[214px] left-[40px] w-[620px]'
+                className='text-red-500 absolute top-[136px] left-[40px] w-[620px]'
               >
-                {newPasswordErr}
+                {newPasswordError}
               </h6>
             )}
             <InputComponent
               type={displayPassword}
               value={confirmPassword}
-              placeholder='confirm Password'
+              placeholder='Confirm Password'
               lefticon={lock.src}
-              righticon={iconsetone ? eye.src : closedeye.src}
-              showpassword={confirmPasswordclick}
+              righticon={iconSetOne ? eye.src : closedeye.src}
+              showpassword={toggleConfirmPasswordVisibility}
               onchange={(e) => setConfirmPassword(e.target.value)}
-              passwordstyle={confirmPasswordErr ? true : false}
+              passwordstyle={confirmPasswordError ? true : false}
             />
-            {confirmPasswordErr && (
+            {confirmPasswordError && (
               <h6
                 variant='h6'
-                className='text-red-500 absolute top-[134px] left-[40px] w-[620px]'
+                className='text-red-500 absolute top-[54px] left-[40px] w-[620px]'
               >
-                {confirmPasswordErr}
+                {confirmPasswordError}
               </h6>
             )}
-          
-           
-           
           </div>
           <div className='xl:pl-10 lg:pl-10 relative mt-4'>
-          <Button onClick={resetPasswordClicked}>Reset Password</Button>
+            <Button onClick={resetPasswordClicked}>Reset Password</Button>
           </div>
           <div
             className='flex items-center xl:pl-10 lg:pl-10 mt-3 sm:w-96'
@@ -221,7 +216,7 @@ const ConfirmPassword = () => {
           </div>
 
           <h3 className='ml-9 mt-4 '>
-            Already have account?
+            Already have an account?
             <Link href='/Login'>
               <span
                 style={{
@@ -239,14 +234,16 @@ const ConfirmPassword = () => {
         </div>
 
         {alignment == "web" && (
- <div className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg}` }></div>
-)}
-  {alignment != "web" && (
-     <div className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg2}` }></div>
-  )}
+          <div
+            className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg}`}
+          ></div>
+        )}
+        {alignment != "web" && (
+          <div
+            className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg2}`}
+          ></div>
+        )}
       </div>
-
-      
     </>
   );
 };
