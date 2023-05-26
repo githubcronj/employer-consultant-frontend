@@ -68,7 +68,7 @@ const ForgotPassword= () => {
   return (
     <>
       <div
-        className={`max-w-[1536px] xl:-mt-4  mx-auto flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row
+        className={`max-w-[1536px] mx-auto flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row
         lg:items-center lg:justify-center md:flex-col
          lg:gap-12 xl:gap-0 h-[100%] lg:h-auto ${styles.desk}`}
       >
@@ -160,7 +160,10 @@ const ForgotPassword= () => {
             )}
 
            
-            <Button onClick={ForgotPswClicked}>Continue</Button>
+           <div>
+           <Button onClick={ForgotPswClicked}>Continue</Button>
+           </div>
+            
            
           </div>
     
