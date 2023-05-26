@@ -1,16 +1,20 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { detailsInfo, removeData } from "store/action/setupDetails";
 
 const SetupEducation = () => {
-const router = useRouter();
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const selector = useSelector((state) => state.setupReducer.data);
   const [educationdata, SetupEducationData] = useState({
     eduLevel: "",
     institutionName: "",
     degree: "",
     passingyear: "",
   });
-  const [infodata, setInfoData] = useState([]);
+  console.log("selector", selector);
 
   function eduHandleChage(e) {
     const { id, value } = e.target;
@@ -29,7 +33,8 @@ const router = useRouter();
       degree: educationdata.degree,
       passingyear: educationdata.passingyear,
     };
-    setInfoData([...infodata, info]);
+
+    dispatch(detailsInfo([...selector, info]));
     SetupEducationData({
       eduLevel: "",
       institutionName: "",
@@ -37,13 +42,9 @@ const router = useRouter();
       passingyear: "",
     });
   };
-  console.log("====", infodata);
-  const removeData = (index) => {
-    const newData = [...infodata];
-    newData.splice(index, 1);
-    setInfoData(newData);
+  const handleRemoveData = (index) => {
+    dispatch(removeData(index));
   };
-  console.log("====", infodata);
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
       <div className="flex justify-between items-center mx-5 sm:mx-9">
@@ -69,12 +70,12 @@ const router = useRouter();
           className="flex flex-col lg:col-span-3 py-6 px-6"
           style={{ borderRight: "2px solid #D8D8DD" }}
         >
-          <div className="flex items-center gap-x-4 pb-6" >
+          <div className="flex items-center gap-x-4 pb-6">
             <Image
               src="/Assets/backbtn.svg"
               alt="back button"
-              width={35}
-              height={35}
+              width={34}
+              height={34}
               className="cursor-pointer"
               onClick={navigateToNext}
             />
@@ -168,7 +169,7 @@ const router = useRouter();
           </form>
           {/* block display */}
           <div className="py-4 grid sm:grid-cols-2 gap-7">
-            {infodata.map((item, index) => {
+            {selector.map((item, index) => {
               return (
                 <div
                   key={index}
@@ -185,7 +186,7 @@ const router = useRouter();
                     alt="cameraIcon"
                     className=" justify-end"
                     style={{ position: "absolute", top: "11%", right: "2%" }}
-                    onClick={() => removeData(index)}
+                    onClick={() => handleRemoveData(index)}
                   />
                 </div>
               );

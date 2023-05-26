@@ -3,11 +3,13 @@ import registerReducer from "./registerReducer";
 import { LoginReducer } from "./loginReducer";
 import otpReducer from "./otpReducer";
 import reOtpReducer from "./reOtpReducer";
+import setupReducer from "./setupReducer";
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
   otpReducer,
   reOtpReducer,
+  setupReducer,
 });
 
 export default rootReducer;
