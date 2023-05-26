@@ -5,14 +5,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const NewJobPost = () => {
+    const [errors, setErrors] = useState({});
   const [jobPostData, setJobPostData] = useState({
     jobTitle: "",
     experience: "",
     applicationDeadline: "",
     jobType: "",
-    hourly: "",
-    monthly: "",
-    yearly: "",
     min: "",
     max: "",
     jobDescription: "",
@@ -27,7 +25,21 @@ const NewJobPost = () => {
       [id]: value,
     }));
   };
-
+  const handleSave = (e) => {
+    const initialJobPostData = {
+      jobTitle: "",
+      experience: "",
+      applicationDeadline: "",
+      jobType: "",
+      min: "",
+      max: "",
+      jobDescription: "",
+      email: "",
+      phoneNumber: "",
+    };
+    setJobPostData(initialJobPostData);
+    console.log(jobPostData);
+  };
   return (
     <div className="bg-[#2B373C1C] py-4 px-2 sm:px-4">
       <div className="bg-white">
@@ -45,7 +57,10 @@ const NewJobPost = () => {
             <p className="text-lg sm:text-2xl font-bold">Create New Job Post</p>
           </div>
           <div className="flex gap-2 sm:gap-5">
-            <button className="px-11 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
+            <button
+              onClick={handleSave}
+              className="px-11 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3"
+            >
               Save
             </button>
             <button className="px-8 py-3 bg-white border border-red-500 text-red-500 rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
@@ -88,6 +103,8 @@ const NewJobPost = () => {
                 backgroundPosition: "95% center",
                 paddingRight: "20px",
               }}
+              value={jobPostData.experience}
+              onChange={handleChange}
             >
               <option value="">Experience</option>
               <option value="one">1 year</option>
@@ -96,7 +113,7 @@ const NewJobPost = () => {
             </select>
           </div>
           {/*  */}
-          
+
           <div className="relative flex items-center">
             <DatePicker
               id="applicationDeadline"
@@ -127,7 +144,7 @@ const NewJobPost = () => {
 
           <div>
             <select
-              id="jobtype"
+              id="jobType"
               required
               className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select"
               style={{
@@ -140,6 +157,8 @@ const NewJobPost = () => {
                 backgroundPosition: "95% center",
                 paddingRight: "20px",
               }}
+              value={jobPostData.jobType}
+              onChange={handleChange}
             >
               <option value="">Job Type</option>
               <option value="UI">UX Designer</option>
@@ -161,7 +180,11 @@ const NewJobPost = () => {
                 <ul className="justify-center md:justify-normal flex gap-3 sm:gap-8 md:gap-3 items-center">
                   <li>
                     <div className="flex">
-                      <input type="checkbox" id="hourly" className="peer hidden" />
+                      <input
+                        type="checkbox"
+                        id="hourly"
+                        className="peer hidden"
+                      />
                       <label
                         for="hourly"
                         className="select-none cursor-pointer rounded-lg bg-gray-200 py-5 text-md sm:text-lg px-3 sm:px-6 text-gray-700 transition-colors duration-200 ease-in-out peer-checked:bg-[#5E9AF8] peer-checked:text-white peer-checked:border-0 "
@@ -285,7 +308,7 @@ const NewJobPost = () => {
           <div className="relative">
             <input
               type="text"
-              id="email"
+              id="phoneNumber"
               placeholder=" "
               required
               className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
