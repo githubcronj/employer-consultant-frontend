@@ -4,13 +4,17 @@ import { Navbar } from 'Components/Navbar/Navbar';
 
 function Layout(props) {
   const router = useRouter();
-  const isLoginPage = router.pathname === '/login';
+  const isLoginPage = router.pathname === '/Login';
   const isSignupPage = router.pathname === '/register';
-
+  const isForgotpsw = router.pathname === '/forgotPassword';
+  const isresetpsw = router.pathname === '/resetPassword';
+  const isconfirmPassword = router.pathname === '/confirmPassword';
+  const isverifypsw = router.pathname === '/verifyotp';
+  
   const { children } = props;
   return (
     <>
-      {!(isLoginPage || isSignupPage) ? <Navbar /> : null}
+      {!(isLoginPage || isSignupPage || isForgotpsw || isresetpsw || isconfirmPassword || isverifypsw) ? <Navbar /> : null}
       {children}
     </>
   );

@@ -1,15 +1,25 @@
+
+.loginimgbg{
+  background: url("/Assets/employerLoginimg.png")no-repeat center center/cover;
+ 
+}
+.loginimgbg2{
+  background: url("/Assets/consultantimg.png")no-repeat center center/cover;
+ 
+}
 @media (min-width: 1536px) {
   .desk {
     height: 100vh;
   }
+  
 }
 @media (max-width: 410px) {
   .desk {
     margin-left: 56px;
   }
 }
-@media (max-width:320px){
+@media (max-width: 320px) {
   .desk {
-    margin-left : 107px;
+    margin-left: 107px;
   }
 }

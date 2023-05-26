@@ -17,7 +17,7 @@ const InputComponent = ({
     <div className='relative mb-3'>
       {lefticon && (
         <div className='absolute left-2 top-0.5  px-2 py-2 ml-2 mt-2 '>
-          <img src={lefticon} alt='lefticon' className='w-5 h-5' />
+          <img src={lefticon} alt='lefticon' className='w-5 h-5'/>
         </div>
       )}
       <div
@@ -30,8 +30,9 @@ const InputComponent = ({
        py-2 px-4 border
        border-red-500 pl-20 mb-3 `}
           style={{
-            width: "412px",
+            maxWidth: "412px",
             height: "56px",
+            width: "100%",
           }}
           type={type}
           value={value}
