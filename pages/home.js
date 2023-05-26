@@ -106,7 +106,7 @@ const tableHeading = [
 const home = () => {
   return (
     <div className="flex">
-      <div style={{ width: "220px" }}>hello</div>
+      {/* <div style={{ width: "220px" }}>hello</div> */}
       {/* home */}
       <div className="flex-1 bg-[#2B373C1C] py-4 px-2 sm:px-4">
         <div className="bg-white pt-3">
