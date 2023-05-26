@@ -1,0 +1,12 @@
+<svg id="calendar_3_" data-name="calendar (3)" xmlns="http://www.w3.org/2000/svg" width="19.993" height="19.993" viewBox="0 0 19.993 19.993">
+  <g id="Group_35828" data-name="Group 35828">
+    <g id="Group_35827" data-name="Group 35827">
+      <path id="Path_34628" data-name="Path 34628" d="M17.994,2h-1V1a1,1,0,1,0-2,0V2H5V1A.944.944,0,0,0,4,0,.944.944,0,0,0,3,1V2H1A1,1,0,0,0,0,3v14a1,1,0,0,0,1,1H7.1a7.957,7.957,0,0,1,11.9-10.2V3A1.075,1.075,0,0,0,17.994,2Z" fill="#1e0f3b"/>
+    </g>
+  </g>
+  <g id="Group_35830" data-name="Group 35830" transform="translate(7.997 7.997)">
+    <g id="Group_35829" data-name="Group 35829">
+      <path id="Path_34629" data-name="Path 34629" d="M210.8,204.8a6,6,0,1,0,6,6A6.016,6.016,0,0,0,210.8,204.8Zm2,7h-2a.944.944,0,0,1-1-1v-3a1,1,0,0,1,2,0v2h1a1,1,0,0,1,0,2Z" transform="translate(-204.8 -204.8)" fill="#1e0f3b"/>
+    </g>
+  </g>
+</svg>
