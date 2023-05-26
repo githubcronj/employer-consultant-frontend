@@ -13,33 +13,28 @@ import { registerReducer } from '../store/reducer/registerReducer';
 import { REGISTER_REQUEST } from 'store/type/registerType';
 import validator from 'validator';
 import { useRouter } from 'next/router';
-
+import { forgotPassword } from '../store/action/forgetPasAction';
+import Modal from '../Components/Modals/Modals';
 const ForgotPassword= () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [role, setRole] = useState('employer');
   const [alignment, setAlignment] = useState('web');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [displayPassword, setDisplayPassword] = useState('password');
-  const [displayNewPassword, setDisplayNewPassword] =
-    useState('password');
-  const [success, setSuccess] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [emailErr, setEmailErr] = useState('');
-  const [passwordErr, setPasswordErr] = useState('');
-  const [newPasswordErr, setNewPasswordErr] = useState('');
-  const [iconsetone, setIconsetOne] = useState(false);
-  const [iconsettwo, setIconsetTwo] = useState(false);
-  const data = useSelector((state) =>
-    console.log(state.registerReducer?.data?.status)
+
+  const isEmailSent = useSelector(
+    (state) => state.forgotPasswordReducer?.Password
   );
+  
+  const [modalValue, setModalValue] = useState(false);
+  if (isEmailSent && !modalValue) {
+    setShowModal(true);
+    setModalValue(true);
+  }
 
-  const [isOpen, setIsOpen] = useState(false);
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
     if (newAlignment == 'android') {
@@ -61,7 +56,12 @@ const ForgotPassword= () => {
       setEmailErr('');
     }
 
-    
+  const payload = {
+    email: email,
+  }    
+
+  dispatch(forgotPassword(payload));
+    setShowModal(true);
   };
  
 
@@ -161,7 +161,7 @@ const ForgotPassword= () => {
 
            
            <div>
-           <Button onClick={ForgotPswClicked}>Continue</Button>
+           <Button onClick={ForgotPswClicked}>Send Email</Button>
            </div>
             
            
@@ -219,7 +219,13 @@ const ForgotPassword= () => {
   )}
       </div>
 
-    
+      {showModal ? (
+        <Modal
+        mobpadding="1rem 1rem"
+          title={"We just sent you an email!"}
+          content={"Please check your email for resetting your password"}
+        />
+      ) : null}
     </>
   );
 };
