@@ -22,6 +22,7 @@ import { toast } from 'react-toastify';
             yield put({ type:FORGOT_PASSWORD_SUCCESS, payload: {
               token: response.token.accessToken,
             }, });
+            window.location.href = `/reset-password?token=${response.token.accessToken}`;
           } else {
             
             yield put({ type: FORGOT_PASSWORD_ERROR, payload: 'something went wrong' });
@@ -44,29 +45,26 @@ import { toast } from 'react-toastify';
           token: action.payload.token,
           newPassword: action.payload.newPassword,
         };
-        const endpoint = `/reset-password?token=${encodeURIComponent(action.payload.token)}`;
+    
         const response = yield call(makeApiRequest, {
-          endpoint,
+          endpoint: `/reset-password?token=${action.payload.token}`,
           method: 'PUT',
           data: payload,
         });
     
         if (response.status === 200) {
-          yield put({ type:types.RESET_PASSWORD_SUCCESS, payload: response.data });
-       
-         
+          yield put({ type: types.RESET_PASSWORD_SUCCESS, payload: response.data });
         } else {
-          yield put({ type:types.RESET_PASSWORD_ERROR, payload: 'something went wrong' });
-      
+          yield put({ type: types.RESET_PASSWORD_ERROR, payload: 'something went wrong' });
           toast.error('something went wrong');
         }
       } catch (error) {
         console.log(error);
-        yield put({ type:types.RESET_PASSWORD_ERROR, payload: error.message });
-      
-        toast.error('An error occurred'); 
+        yield put({ type: types.RESET_PASSWORD_ERROR, payload: error.message });
+        toast.error('An error occurred');
       }
     }
+    
     
 
 

@@ -28,9 +28,8 @@ const ResetPassword = () => {
   const [iconSetOne, setIconSetOne] = useState(false);
   const [iconSetTwo, setIconSetTwo] = useState(false);
  
-  const token = useSelector((state) => state.forgotPasswordReducer.token);
-  const password = useSelector((state) => state.forgotPasswordReducer.password);
   
+  const token = router.query.token; 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
     if (newAlignment == 'android') {
