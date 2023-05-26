@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import UploadCSVModal from "./uploadCSVModal";
 
 function createData(
   appliedconsultant,
@@ -139,18 +140,22 @@ const home = () => {
                 />
               </div>
             </div>
-            <div>
-              <button className="m-3">
-                <img src="/Assets/filter.svg" alt="save" />
-              </button>
-              <button className="m-3">
-                <img src="/Assets/download.svg" alt="save" />
-              </button>
-              <Link href="/newJobPost">
-              <button className="m-3">
-                <img src="/Assets/add.svg" alt="save" />
-              </button>
-              </Link>
+            <div className="flex">
+              <div>
+                <button className="m-3">
+                  <img src="/Assets/filter.svg" alt="save" />
+                </button>
+              </div>
+              <div>
+                <UploadCSVModal />
+              </div>
+              <div>
+                <Link href="/newJobPost">
+                  <button className="m-3">
+                    <img src="/Assets/add.svg" alt="save" />
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
           {/* table */}
@@ -176,7 +181,6 @@ const home = () => {
                         : "border-slate-200 border rounded-lg bg-[#EEEFEF]"
                     }
                   >
-                    
                     {Object.values(row).map((value, index) => (
                       <td key={index} className="px-6 py-7">
                         {value}

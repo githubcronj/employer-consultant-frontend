@@ -71,9 +71,11 @@ const NewJobPost = () => {
             >
               Save
             </button>
+            <Link href="/home">
             <button className="px-8 py-3 bg-white border border-red-500 text-red-500 rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
               Cancel
             </button>
+            </Link>
           </div>
         </div>
         {/* form section */}
