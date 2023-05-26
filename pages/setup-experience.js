@@ -11,7 +11,12 @@ const SetupExperience = () => {
     emptype: "",
     joindate: "",
   });
-  
+  const checkboxStyle = {
+    accentColor: "#F9342E",
+    width: "20px",
+    height: "20px",
+  };
+
   function expHandleChange(e) {
     const { id, value } = e.target;
     setExperienceData((prevValues) => ({
@@ -19,7 +24,7 @@ const SetupExperience = () => {
       [id]: value,
     }));
   }
-  console.log("----",experienceData)
+  console.log("----", experienceData);
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
       <div className="flex justify-between items-center mx-5 sm:mx-9">
@@ -46,7 +51,7 @@ const SetupExperience = () => {
           className="flex flex-col lg:col-span-3 py-6 px-6"
           style={{ borderRight: "2px solid #D8D8DD" }}
         >
-          <div className="flex justify-between">
+          <div className="flex justify-between  flex-col sm:flex-rowit">
             <div className="flex items-center gap-x-4 pb-6">
               <Image
                 src="/Assets/backbtn.svg"
@@ -61,18 +66,22 @@ const SetupExperience = () => {
               </p>
             </div>
             <div class="flex items-center mb-4">
-              <input
-                id="default-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 bg-gray-100 border-gray-300 rounded appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              />
-              <label
-                for="default-checkbox"
-                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Fresher
-              </label>
+              <div class="flex  items-center mb-4">
+                <input
+                  type="checkbox"
+                  id="default-checkbox"
+                  name="default-checkbox"
+                  value="Mango"
+                  style={checkboxStyle}
+                />
+
+                <label
+                  for="default-checkbox"
+                  class="ml-2 text-[#1E0F3B] font-bold dark:text-gray-300"
+                >
+                  Fresher
+                </label>
+              </div>
             </div>
           </div>
 
