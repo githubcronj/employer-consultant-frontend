@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const NewJobPost = () => {
-    const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
   const [jobPostData, setJobPostData] = useState({
     jobTitle: "",
     experience: "",
@@ -24,6 +24,14 @@ const NewJobPost = () => {
       ...prevValues,
       [id]: value,
     }));
+    if (id === "email") {
+      const isValid = /^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: !isValid,
+        
+      }));
+    }
   };
   const handleSave = (e) => {
     const initialJobPostData = {
@@ -198,7 +206,7 @@ const NewJobPost = () => {
                       <input type="checkbox" id="monthly" class="peer hidden" />
                       <label
                         for="monthly"
-                        className="select-none cursor-pointer rounded-lg bg-gray-200 py-5 text-md sm:text-lg px-3 sm:px-5 text-gray-700 transition-colors duration-200 ease-in-out peer-checked:bg-[#5E9AF8] peer-checked:text-white peer-checked:border-0 "
+                        className="select-none cursor-pointer rounded-lg bg-gray-200 py-5 text-md sm:text-lg px-3 sm:px-5 text-gray-700 transition-colors duration-200 ease-in-out peer-checked:bg-[#5E9AF8] peer-checked:text-white peer-checked:border-0"
                       >
                         Monthly
                       </label>
@@ -292,17 +300,20 @@ const NewJobPost = () => {
               placeholder=" "
               required
               className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
-                `}
+              ${errors.email ? "border-red-500" : ""} `}
               value={jobPostData.email}
               onChange={handleChange}
             />
 
             <label
-              for="email"
+              htmlFor="email"
               className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
             >
               Email
             </label>
+            {errors.email && (
+              <p className="text-red-500 text-xs">Invalid email</p>
+            )}
           </div>
           {/* phone number */}
           <div className="relative">
