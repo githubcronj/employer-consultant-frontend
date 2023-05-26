@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 function createData(
@@ -105,10 +106,10 @@ const tableHeading = [
 ];
 const home = () => {
   return (
-    <div className="flex">
+    <div>
       {/* <div style={{ width: "220px" }}>hello</div> */}
       {/* home */}
-      <div className="flex-1 bg-[#2B373C1C] py-4 px-2 sm:px-4">
+      <div className="bg-[#2B373C1C] py-4 px-2 sm:px-4">
         <div className="bg-white pt-3">
           <div className="flex justify-between items-center mx-5 sm:mx-9 ">
             <div className="my-3 flex gap-4">
@@ -145,9 +146,11 @@ const home = () => {
               <button className="m-3">
                 <img src="/Assets/download.svg" alt="save" />
               </button>
+              <Link href="/newJobPost">
               <button className="m-3">
                 <img src="/Assets/add.svg" alt="save" />
               </button>
+              </Link>
             </div>
           </div>
           {/* table */}
