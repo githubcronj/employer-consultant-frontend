@@ -1,4 +1,7 @@
+import Link from "next/link";
 import React from "react";
+import UploadCSVModal from "./uploadCSVModal";
+import FilterModal from "./filterModal";
 
 function createData(
   appliedconsultant,
@@ -105,10 +108,10 @@ const tableHeading = [
 ];
 const home = () => {
   return (
-    <div className="flex">
-    
+    <div>
+      {/* <div style={{ width: "220px" }}>hello</div> */}
       {/* home */}
-      <div className="flex-1 bg-[#2B373C1C] py-4 px-2 sm:px-4">
+      <div className="bg-[#2B373C1C] py-4 px-2 sm:px-4">
         <div className="bg-white pt-3">
           <div className="flex justify-between items-center mx-5 sm:mx-9 ">
             <div className="my-3 flex gap-4">
@@ -138,16 +141,23 @@ const home = () => {
                 />
               </div>
             </div>
-            <div>
-              <button className="m-3">
-                <img src="/Assets/filter.svg" alt="save" />
-              </button>
-              <button className="m-3">
-                <img src="/Assets/download.svg" alt="save" />
-              </button>
-              <button className="m-3">
-                <img src="/Assets/add.svg" alt="save" />
-              </button>
+            <div className="flex">
+              <div>
+                {/* <button className="m-3">
+                  <img src="/Assets/filter.svg" alt="save" />
+                </button> */}
+                <FilterModal/>
+              </div>
+              <div>
+                <UploadCSVModal />
+              </div>
+              <div>
+                <Link href="/newJobPost">
+                  <button className="m-3">
+                    <img src="/Assets/add.svg" alt="save" />
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
           {/* table */}
@@ -173,7 +183,6 @@ const home = () => {
                         : "border-slate-200 border rounded-lg bg-[#EEEFEF]"
                     }
                   >
-                    
                     {Object.values(row).map((value, index) => (
                       <td key={index} className="px-6 py-7">
                         {value}
