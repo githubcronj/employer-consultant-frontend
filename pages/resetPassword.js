@@ -9,12 +9,10 @@ import closedeye from '../public/Assets/closedeye.svg';
 import Link from 'next/link';
 import styles from '../styles/LoginPage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerReducer } from '../store/reducer/registerReducer';
-import { REGISTER_REQUEST } from 'store/type/registerType';
-import validator from 'validator';
+import { resetPassword } from '../store/action/forgetPasAction';
 import { useRouter } from 'next/router';
 
-const ConfirmPassword = () => {
+const ResetPassword = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [role, setRole] = useState('employer');
@@ -30,6 +28,9 @@ const ConfirmPassword = () => {
   const [iconSetOne, setIconSetOne] = useState(false);
   const [iconSetTwo, setIconSetTwo] = useState(false);
  
+  const token = useSelector((state) => state.forgotPasswordReducer.token);
+  const password = useSelector((state) => state.forgotPasswordReducer.password);
+  
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
     if (newAlignment == 'android') {
@@ -69,6 +70,12 @@ const ConfirmPassword = () => {
     } else {
       setNewPasswordError('');
     }
+
+    const payload = {
+      token: token,
+      newPassword: newPassword,
+    }
+    dispatch(resetPassword(payload));
   };
  
 
@@ -248,4 +255,4 @@ const ConfirmPassword = () => {
   );
 };
 
-export default ConfirmPassword;
+export default ResetPassword;
