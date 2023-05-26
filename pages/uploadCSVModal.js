@@ -4,28 +4,19 @@ import { useRef } from "react";
 
 const UploadCSVModal = () => {
   const [showModal, setShowModal] = useState(false);
-  // funnccc
-  // const router = useRouter();
+
   const [uploadedFile, setUploadedFile] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const fileInputRef = useRef(null);
 
-  //   const navigateToNext = () => {
-  //     router.push("/setup-details");
-  //   };
-
   const handleFileUpload = () => {
     const file = fileInputRef.current.files[0];
     if (file) {
-      // Validate file type
-      const allowedTypes = [
-        "application/pdf",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "application/msword",
-      ];
+      const allowedTypes = ["text/csv"];
+
       if (!allowedTypes.includes(file.type)) {
         setErrorMessage(
-          "Invalid file type. Only PDF, DOCX, and DOC files are allowed."
+          "Invalid file type. Only CSV is allowed."
         );
         return;
       }
