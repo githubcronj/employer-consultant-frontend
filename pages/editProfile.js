@@ -90,7 +90,7 @@ const EditProfile = () => {
 
       setFormValues(initialFormValues);
       setSelectedImage(null);
-      router.push("/");
+      router.push("/home");
     } else {
       return;
     }
