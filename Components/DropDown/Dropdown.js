@@ -56,7 +56,7 @@ const Dropdown = () => {
               </Link>
             </li>
             <li>
-              <Link className='flex flex-row px-4 py-2 text-gray-800' href='#'>
+              <Link className='flex flex-row px-4 py-2 text-gray-800' href='/editProfile'>
                 <span className='flex-1 text-[#1E0F3B] '>Edit Profile</span>
                 <img src={RightArrow.src} alt='' />
               </Link>
