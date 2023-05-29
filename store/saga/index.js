@@ -4,6 +4,7 @@ import watchLogin from "./loginSaga";
 import watchOtp from "./otpSaga";
 import watchReOtp from "./reOtpSaga";
 import watchforgotpasSaga from "./forgotPasSaga"
+import watchProfileSaveRequest from "./profileSaga";
 export default function* rootSaga() {
-  yield all([watchLogin(), watchRegister(), watchOtp(), watchReOtp(),watchforgotpasSaga()]);
+  yield all([watchLogin(), watchRegister(), watchOtp(), watchReOtp(),watchforgotpasSaga(),watchProfileSaveRequest()]);
 }
