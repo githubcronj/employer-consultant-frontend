@@ -14,8 +14,30 @@ const SetupEducation = () => {
     degree: "",
     passingyear: "",
   });
-  console.log("selector", selector);
+  const [errors, setErrors] = useState({});
+  const renderErrorMessage = (fieldName) => {
+    if (errors[fieldName]) {
+      return <p className="text-red-500 text-xs font-bold">{errors[fieldName]}</p>;
+    }
+    return null;
+  };
+  const isFormValid = () => {
+    const requiredFields = [
+      "eduLevel",
+      "institutionName",
+      "degree",
+      "passingyear",
+    ];
+    const errors = {};
 
+    requiredFields.forEach((field) => {
+      if (educationdata[field] === "") {
+        errors[field] = "This field is required";
+      }
+    });
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
   function eduHandleChage(e) {
     const { id, value } = e.target;
     SetupEducationData((prevValues) => ({
@@ -26,21 +48,42 @@ const SetupEducation = () => {
   const navigateToNext = () => {
     router.push("/setup-details");
   };
-  const addData = () => {
-    let info = {
-      eduLevel: educationdata.eduLevel,
-      institutionName: educationdata.institutionName,
-      degree: educationdata.degree,
-      passingyear: educationdata.passingyear,
-    };
 
-    dispatch(detailsInfo([...selector, info]));
-    SetupEducationData({
-      eduLevel: "",
-      institutionName: "",
-      degree: "",
-      passingyear: "",
-    });
+  const addData = () => {
+    if (isFormValid()){
+      let info = {
+        eduLevel: educationdata.eduLevel,
+        institutionName: educationdata.institutionName,
+        degree: educationdata.degree,
+        passingyear: educationdata.passingyear,
+      };
+      dispatch(detailsInfo([...selector, info]));
+      SetupEducationData({
+        eduLevel: "",
+        institutionName: "",
+        degree: "",
+        passingyear: "",
+      });
+    }
+  };
+  const handleSave = (e) => {
+    e.preventDefault();
+    if (isFormValid()){
+      let info = {
+        eduLevel: educationdata.eduLevel,
+        institutionName: educationdata.institutionName,
+        degree: educationdata.degree,
+        passingyear: educationdata.passingyear,
+      };
+      dispatch(detailsInfo([...selector, info]));
+      router.push("/setup-experience");
+      SetupEducationData({
+        eduLevel: "",
+        institutionName: "",
+        degree: "",
+        passingyear: "",
+      });
+    }
   };
   const handleRemoveData = (index) => {
     dispatch(removeData(index));
@@ -60,7 +103,7 @@ const SetupEducation = () => {
             Setup details
           </p>
         </div>
-        <button className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
+        <button onClick={handleSave} className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
           <img src="/Assets/check.svg" alt="save" />
           Save
         </button>
@@ -108,6 +151,7 @@ const SetupEducation = () => {
                   <option value="BE">BE</option>
                   <option value="B.Tech">B.Tech</option>
                 </select>
+                {renderErrorMessage("eduLevel")}
               </div>
               <div>
                 <input
@@ -118,7 +162,8 @@ const SetupEducation = () => {
                   className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
                   value={educationdata.institutionName}
                   onChange={eduHandleChage}
-                />
+                />                {renderErrorMessage("institutionName")}
+
               </div>
               <div>
                 <select
@@ -143,7 +188,7 @@ const SetupEducation = () => {
                   <option value="Associate degree">Associate degree</option>
                   <option value="Bachelor degree">Bachelor degree</option>
                   <option value="Master degree">Master degree</option>
-                </select>
+                </select>{renderErrorMessage("degree")}
               </div>
               <div>
                 <input
@@ -154,7 +199,7 @@ const SetupEducation = () => {
                   className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
                   value={educationdata.passingyear}
                   onChange={eduHandleChage}
-                />
+                />{renderErrorMessage("passingyear")}
               </div>
             </div>
             <div className="flex justify-end">
