@@ -1,13 +1,13 @@
-import { FACEBOOK_SUCCESS } from "../type/facebookType";
-const initialState = {
+import * as types from "../type/facebookType";
+
+const INITIAL_STATE = {
   CurrentUser: null,
   isLoggedIn: false,
   isLoggedOut: false,
 };
-
-export function facebookReducer(state = initialState, action) {
+export function facebookReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case FACEBOOK_SUCCESS:
+    case types.FACEBOOK_LOGIN_SUCCESS:
       return {
         ...state,
         data: action.payload,

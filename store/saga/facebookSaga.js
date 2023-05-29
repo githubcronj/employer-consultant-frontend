@@ -1,28 +1,31 @@
-import * as types from "../type/facebookType";
 import { takeLatest, call, put } from "redux-saga/effects";
+import * as types from "../type/facebookType";
+import axios from "axios";
+import { makeApiRequest } from "../../utils/api";
+import { toast } from "react-toastify";
 
-function* facebookSaga(action) {
-  try {
-    const response = yield call(makeApiRequest, {
-      endpoint: "/facebook/callback",
-      method: "GET",
-    });
-
-    if (response.status === 200) {
-      yield put({ type: "FACEBOOK_SUCCESS", payload: response.data });
-      window.location.href = "/auth/login/success";
-    } else {
-      yield put({ type: FACEBOOK_ERROR, payload: " facebook Login failed" });
-      toast.error(" facebook Login failed");
-    }
-  } catch (error) {
-    console.log(error);
-
-    yield put({ type: FACEBOOK_ERROR, payload: error.message });
-    toast.error("An error occurred");
-  }
+function* facebookSaga() {
+  yield takeLatest("FACEBOOK_LOGIN", function* () {
+    window.open(`http://localhost:3001/facebook/callback`, "_self");
+  });
 }
 
+function* facebookLoginRedirectSaga() {
+  yield takeLatest("FACEBOOK_LOGIN_REDIRECT", function* () {
+    try {
+      const url = `http://localhost:3001/login/success`;
+      const response = yield call(axios.get, url, { withCredentials: true });
+      yield put({
+        type: types.FACEBOOK_LOGIN_SUCCESS,
+        payload: response.data.user,
+      });
+    } catch (error) {
+      yield call(toast.error, "Something went wrong");
+    } finally {
+    }
+  });
+}
 export default function* watchfacebookSaga() {
-  yield takeLatest(types.FACEBOOK_REQUEST, facebookSaga);
+  yield takeLatest(types.FACEBOOK_LOGIN, facebookSaga);
+  yield takeLatest(types.FACEBOOK_LOGIN_REDIRECT, facebookLoginRedirectSaga);
 }

@@ -13,6 +13,7 @@ import { REGISTER_REQUEST } from "store/type/registerType";
 import validator from "validator";
 import { facebookLogin } from "store/action/facebookAction";
 import { useRouter } from "next/router";
+import {googleLogin} from '../store/action/loginaction';
 import { FACEBOOK_REQUEST } from "store/type/facebookType";
 const Register = () => {
   const router = useRouter();
@@ -40,12 +41,14 @@ const Register = () => {
   }, [data]);
 
   const facebookClick = () => {
-    window.open(`http://localhost:3001/auth/facebook/callback`, "_self");
-    dispatch(facebookLogin());
+    dispatch({ type: facebookLogin });
+
+    window.open(`http://localhost:3001/facebook/callback`, "_self");
   };
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
     if (newAlignment == "android") {
+      
       setRole("consultant");
     } else {
       setRole("employer");
@@ -91,7 +94,12 @@ const Register = () => {
       setConfirmPasswordErr("Passwords does not match");
     }
   };
-
+  const handleGoogleLogin = () => {
+    dispatch(googleLogin());
+    
+      window.open(`http://localhost:3001/auth/google/callback`, "_self");
+  
+  };
   return (
     <>
       <div
@@ -231,11 +239,13 @@ const Register = () => {
             <hr className='flex-grow border-t-2 border-gray-300 w-24 sm:w-40 ml-5' />
           </div>
           <div className='flex items-center ml-0 gap-5 mt-3 '>
+            <div onClick={handleGoogleLogin}>
             <img
               src='/Assets/googleIcon.png'
               alt='googleIcon'
               style={{ width: "50px", height: "50px" }}
             />
+            </div>
             <img
               src='/Assets/facebookIcon.png'
               alt='facebookIcon'
