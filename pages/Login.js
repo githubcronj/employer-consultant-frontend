@@ -198,6 +198,11 @@ const Login = () => {
               </h6>
             )}
            
+           <Link href='/forgotPassword'>
+              <h3 className='w-full text-right text-[#2B373C] text-[13px] mb-4 font-bold tracking-[0.13px] '>
+                Forgot Password?
+              </h3>
+            </Link>
             <Button onClick={handleLogin}>Login</Button>
           </div>
 
