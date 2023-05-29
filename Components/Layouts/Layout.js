@@ -25,7 +25,7 @@ function Layout(props) {
         <Navbar />
       ) : null}
       {children}
-      {!(
+      {/* {!(
         isLoginPage ||
         isSignupPage ||
         isForgotpsw ||
@@ -35,7 +35,7 @@ function Layout(props) {
       ) ? (
         <SideBar />
       ) : null}
-      {children}
+      {children} */}
     </>
   );
 }

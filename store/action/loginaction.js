@@ -20,8 +20,25 @@ export function loginError(payload) {
     payload: payload,
   };
 }
-export function logout() {
+//Google Login
+
+export function googleLogin(payload) {
   return {
-    type:types.LOGOUT,
-  }
+    type: types.GOOGLE_LOGIN,
+    payload: payload,
+  };
+}
+
+export function googleLoginSuccess(payload) {
+  return {
+    type: types.GOOGLE_LOGIN_SUCCESS,
+    payload: payload,
+  };
+}
+
+export function googleLoginError(error) {
+  return {
+    type: types.GOOGLE_LOGIN_ERROR,
+    payload: error,
+  };
 }

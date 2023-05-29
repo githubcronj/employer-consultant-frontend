@@ -29,7 +29,7 @@ export function forgotPassword(payload) {
     };
   }
   
-  export function resetPasswordSucces(data) {
+  export function resetPasswordSuccess(data) {
     return {
       type: types.RESET_PASSWORD_SUCCESS,
       payload: data,
