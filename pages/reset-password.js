@@ -11,6 +11,8 @@ import styles from '../styles/LoginPage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetPassword } from '../store/action/forgetPasAction';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+
 
 const ResetPassword = () => {
   const router = useRouter();
@@ -29,6 +31,9 @@ const ResetPassword = () => {
   const [iconSetTwo, setIconSetTwo] = useState(false);
  
   
+
+ 
+
   const token = router.query.token; 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
@@ -53,29 +58,39 @@ const ResetPassword = () => {
 
   const resetPasswordClicked = () => {
     let isConfirmPasswordValid =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(confirmPassword);
-      
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(
+        confirmPassword
+      );
+  
     let isNewPasswordValid =
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(newPassword);
-
+  
     if (!isConfirmPasswordValid) {
-        setConfirmPasswordError('Please enter a valid new password');
+      setConfirmPasswordError('Please enter a valid new password');
     } else {
-        setConfirmPasswordError('');
+      setConfirmPasswordError('');
     }
-    
+  
     if (!isNewPasswordValid) {
       setNewPasswordError('Please enter a valid confirm password');
     } else {
       setNewPasswordError('');
     }
-
-    const payload = {
-      token: token,
-      newPassword: newPassword,
+  
+    if (newPassword === confirmPassword && isConfirmPasswordValid && isNewPasswordValid) {
+      const payload = {
+        token: token,
+        password: newPassword,
+      };
+      dispatch(resetPassword(payload));
+      setSuccess(true);
     }
-    dispatch(resetPassword(payload));
   };
+  useEffect(() => {
+    if (success) {
+      router.push('/Login');
+    }
+  }, [success]);
  
 
   return (

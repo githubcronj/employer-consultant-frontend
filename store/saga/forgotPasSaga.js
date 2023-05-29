@@ -43,12 +43,12 @@ import { toast } from 'react-toastify';
       try {
         const payload = {
           token: action.payload.token,
-          newPassword: action.payload.newPassword,
+          password: action.payload.password,
         };
     
         const response = yield call(makeApiRequest, {
           endpoint: `/reset-password?token=${action.payload.token}`,
-          method: 'PUT',
+          method: 'POST',
           data: payload,
         });
     
