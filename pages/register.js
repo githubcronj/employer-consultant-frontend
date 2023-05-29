@@ -11,8 +11,10 @@ import styles from "../styles/LoginPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { REGISTER_REQUEST } from "store/type/registerType";
 import validator from "validator";
+import { facebookLogin } from "store/action/facebookAction";
 import { useRouter } from "next/router";
 import {googleLogin} from '../store/action/loginaction';
+import { FACEBOOK_REQUEST } from "store/type/facebookType";
 const Register = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -38,14 +40,21 @@ const Register = () => {
     }
   }, [data]);
 
+  const facebookClick = () => {
+    dispatch({ type: facebookLogin });
+
+    window.open(`http://localhost:3001/facebook/callback`, "_self");
+  };
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
     if (newAlignment == "android") {
+      
       setRole("consultant");
     } else {
       setRole("employer");
     }
   };
+
   const confirmPasswordclick = () => {
     setDisplayConfirmPassword(
       displayConfirmPassword == "password" ? "text" : "password"
@@ -241,6 +250,7 @@ const Register = () => {
               src='/Assets/facebookIcon.png'
               alt='facebookIcon'
               style={{ width: "50px", height: "50px" }}
+              onClick={facebookClick}
             />
             <img
               src='/Assets/appleIcon.png'

@@ -8,7 +8,6 @@ export default function* watchRegister() {
   yield takeLatest(types.REGISTER_REQUEST, register);
 }
 function* register(action) {
-  const url = "/verifyotp";
   try {
     const response = yield call(api.post, "/register", action.payload);
     yield put({ type: types.REGISTER_SUCCESS, payload: response.data });
