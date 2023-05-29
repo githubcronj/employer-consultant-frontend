@@ -9,10 +9,10 @@ import closedeye from '../public/Assets/closedeye.svg';
 import Link from 'next/link';
 import styles from '../styles/LoginPage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerReducer } from '../store/reducer/registerReducer';
-import { REGISTER_REQUEST } from 'store/type/registerType';
 import validator from 'validator';
 import { useRouter } from 'next/router';
+import { changePassword } from '../store/action/changePaswordAction';
+
 
 const ConfirmPassword = () => {
   const router = useRouter();
@@ -61,30 +61,40 @@ const ConfirmPassword = () => {
   };
   const cofirmPasswordClicked = () => {
     let isEmailValid = validator.isEmail(email);
-
+  
     let isPasswordValid =
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(password);
-      
+        
     let isNewPasswordValid =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(password);
-
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(newPassword);
+  
     if (!isEmailValid) {
-      setEmailErr('please enter valid email');
+      setEmailErr('Please enter a valid email');
     } else {
       setEmailErr('');
     }
-
+  
     if (!isPasswordValid) {
-      setPasswordErr('please enter previous password');
+      setPasswordErr('Please enter your previous password');
     } else {
       setPasswordErr('');
     }
+  
     if (!isNewPasswordValid) {
-    setNewPasswordErr('please enter your new password')
+      setNewPasswordErr('Please enter your new password');
     } else {
       setNewPasswordErr('');
     }
+  
+    if (isEmailValid && isPasswordValid && isNewPasswordValid) {
+      const payload = {
+        oldPassword: password,
+        newPassword: newPassword,
+      };
+      dispatch(changePassword(payload));
+    }
   };
+  
   const otpconfirm = () => {
     setIsOpen(false);
     7;
@@ -168,22 +178,7 @@ const ConfirmPassword = () => {
           </div>
 
           <div className='xl:pl-10 lg:pl-10 relative'>
-            <InputComponent
-              type='email'
-              value={email}
-              placeholder='Email address'
-              onchange={(e) => emailclicked(e)}
-              lefticon={envelope.src}
-              emailstyle={emailErr ? true : false}
-            />
-            {emailErr && (
-              <h6
-                variant='h6'
-                className='text-red-500 absolute top-[54px] left-[40px]'
-              >
-                {emailErr}
-              </h6>
-            )}
+            
 
             <InputComponent
               type={displayPassword}
