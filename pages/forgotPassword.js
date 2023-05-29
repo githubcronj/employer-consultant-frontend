@@ -15,7 +15,7 @@ import validator from 'validator';
 import { useRouter } from 'next/router';
 import { forgotPassword } from '../store/action/forgetPasAction';
 import Modal from '../Components/Modals/Modals';
-const ForgotPassword= () => {
+const ForgotPassword = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [role, setRole] = useState('employer');
@@ -27,13 +27,12 @@ const ForgotPassword= () => {
   const isEmailSent = useSelector(
     (state) => state.forgotPasswordReducer?.Password
   );
-  
+
   const [modalValue, setModalValue] = useState(false);
   if (isEmailSent && !modalValue) {
     setShowModal(true);
     setModalValue(true);
   }
-
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
@@ -46,7 +45,7 @@ const ForgotPassword= () => {
   const emailclicked = (e) => {
     setEmail(e.target.value);
   };
-  
+
   const ForgotPswClicked = () => {
     let isEmailValid = validator.isEmail(email);
 
@@ -56,14 +55,13 @@ const ForgotPassword= () => {
       setEmailErr('');
     }
 
-  const payload = {
-    email: email,
-  }    
+    const payload = {
+      email: email,
+    };
 
-  dispatch(forgotPassword(payload));
+    dispatch(forgotPassword(payload));
     setShowModal(true);
   };
- 
 
   return (
     <>
@@ -159,14 +157,11 @@ const ForgotPassword= () => {
               </h6>
             )}
 
-           
-           <div>
-           <Button onClick={ForgotPswClicked}>Send Email</Button>
-           </div>
-            
-           
+            <div>
+              <Button onClick={ForgotPswClicked}>Send Email</Button>
+            </div>
           </div>
-    
+
           <div
             className='flex items-center xl:pl-10 lg:pl-10 mt-3 sm:w-96'
             style={{ width: '435px' }}
@@ -211,19 +206,23 @@ const ForgotPassword= () => {
           </h3>
         </div>
 
-        {alignment == "web" && (
- <div className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg}` }></div>
-)}
-  {alignment != "web" && (
-     <div className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg2}` }></div>
-  )}
+        {alignment == 'web' && (
+          <div
+            className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg}`}
+          ></div>
+        )}
+        {alignment != 'web' && (
+          <div
+            className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg2}`}
+          ></div>
+        )}
       </div>
 
       {showModal ? (
         <Modal
-        mobpadding="1rem 1rem"
-          title={"We just sent you an email!"}
-          content={"Please check your email for resetting your password"}
+          mobpadding='1rem 1rem'
+          title={'We just sent you an email!'}
+          content={'Please check your email for resetting your password'}
         />
       ) : null}
     </>
