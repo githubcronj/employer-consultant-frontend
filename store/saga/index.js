@@ -14,6 +14,7 @@ export default function* rootSaga() {
     watchOtp(),
     watchReOtp(),
     watchforgotpasSaga(),
+    watchProfileSaveRequest(),
     watchChangePasswordSaga(),
     watchfacebookSaga(),
   ]);

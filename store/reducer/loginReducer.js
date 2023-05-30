@@ -1,4 +1,5 @@
-import * as types from "../type/logintype";
+import * as types from '../type/logintype';
+
 const INITIAL_STATE = {
   CurrentUser: null,
   isLoggedIn: false,

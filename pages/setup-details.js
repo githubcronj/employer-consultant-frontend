@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-
 const Setupdetails = () => {
   const router = useRouter();
   const [resumeForm, setResumeForm] = useState({
@@ -14,15 +13,116 @@ const Setupdetails = () => {
     location: "",
     role: "",
   });
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [errors, setErrors] = useState({});
+  const handleCameraIconClick = () => {
+    const fileInput = document.getElementById("imageview");
+    fileInput.click();
+  };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      setSelectedImage(URL.createObjectURL(file));
+    } else {
+      setSelectedImage(null);
+    }
+  };
   function dataHandleChage(e) {
     const { id, value } = e.target;
     setResumeForm((prevValues) => ({
       ...prevValues,
       [id]: value,
     }));
+    if (id === "email") {
+      const isValidEmail = /^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(
+        value
+      );
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: isValidEmail ? "" : "Invalid email format",
+      }));
+    }
   }
-  const navigateToNext = () => {
-    router.push("/setup-education");
+  const renderErrorMessage = (fieldName) => {
+    if (errors[fieldName]) {
+      return (
+        <p className="text-red-500 text-xs font-bold">{errors[fieldName]}</p>
+      );
+    }
+    return null;
+  };
+  const isFormValid = () => {
+    const requiredFields = [
+      "fullName",
+      "email",
+      "phoneNumber",
+      "gender",
+      "birth",
+      "location",
+      "role",
+    ];
+    const errors = {};
+
+    requiredFields.forEach((field) => {
+      if (resumeForm[field] === "") {
+        errors[field] = "This field is required";
+      }
+    });
+    if (
+      resumeForm.email !== "" &&
+      !/^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(resumeForm.email)
+    ) {
+      errors.email = "Invalid email format";
+    }
+    console.log(errors);
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+  const handleSave = (e) => {
+    e.preventDefault();
+    if (isFormValid()) {
+      console.log(resumeForm);
+      const initialFormValues = {
+        fullName: "",
+        email: "",
+        phoneNumber: "",
+        gender: "",
+        birth: "",
+        location: "",
+        role: "",
+      };
+      setResumeForm(initialFormValues);
+      setSelectedImage(null);
+      router.push("/setup-education");
+    } else {
+      return;
+    }
+  };
+  const NavidationToEducation = () => {
+    if (isFormValid()) {
+      router.push("/setup-education");
+    }
+  };
+  const NavidationToExperience = () => {
+    if (isFormValid()) {
+      router.push("/setup-experience");
+    }
+  };
+  const NavidationToSkill = () => {
+    if (isFormValid()) {
+      router.push("/setup-skill");
+    }
+  };
+  const NavidationToProject = () => {
+    if (isFormValid()) {
+      router.push("/setup-project");
+    }
+  };
+  const NavidationToCertification = () => {
+    if (isFormValid()) {
+      router.push("/setup-certification");
+    }
   };
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
@@ -39,7 +139,10 @@ const Setupdetails = () => {
             Setup details
           </p>
         </div>
-        <button className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
+        <button
+          onClick={handleSave}
+          className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3"
+        >
           <img src="/Assets/check.svg" alt="save" />
           Save
         </button>
@@ -52,8 +155,25 @@ const Setupdetails = () => {
           <div
             className="bg-[#2B373C1C] flex justify-center items-center mb-7 mx-auto px-4 mt-6"
             style={{ width: "80px", height: "80px", borderRadius: "24px" }}
+            onClick={handleCameraIconClick}
           >
-            <img src="/Assets/camera-icon.svg" alt="cameraIcon" />
+            {selectedImage ? (
+              <img
+                src={selectedImage}
+                style={{ width: "fit-content", height: "auto" }}
+                alt="selectedImage"
+              />
+            ) : (
+              <img src="/Assets/camera-icon.svg" alt="cameraIcon" />
+            )}{" "}
+            <input
+              id="imageview"
+              type="file"
+              name="company_logo"
+              accept=".jpg,.jpeg,.png,.svg"
+              hidden
+              onChange={handleImageChange}
+            />
           </div>
           <form>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 px-4">
@@ -73,6 +193,7 @@ const Setupdetails = () => {
                   value={resumeForm.fullName}
                   onChange={dataHandleChage}
                 />
+                {renderErrorMessage("fullName")}
               </div>
               <div>
                 <input
@@ -84,10 +205,11 @@ const Setupdetails = () => {
                   value={resumeForm.email}
                   onChange={dataHandleChage}
                 />
+                {renderErrorMessage("email")}
               </div>
               <div>
                 <input
-                  type="text"
+                  type="number"
                   id="phoneNumber"
                   placeholder="Phone Number"
                   required
@@ -95,6 +217,7 @@ const Setupdetails = () => {
                   value={resumeForm.phoneNumber}
                   onChange={dataHandleChage}
                 />
+                {renderErrorMessage("phoneNumber")}
               </div>
               <div>
                 <select
@@ -119,10 +242,11 @@ const Setupdetails = () => {
                   <option value="female">Female</option>
                   <option value="other">Other</option>
                 </select>
+                {renderErrorMessage("gender")}
               </div>
               <div>
                 <input
-                  type="text"
+                  type="number"
                   id="birth"
                   placeholder="Date of Birth"
                   required
@@ -130,6 +254,7 @@ const Setupdetails = () => {
                   value={resumeForm.birth}
                   onChange={dataHandleChage}
                 />
+                {renderErrorMessage("birth")}
               </div>
               <div>
                 <input
@@ -141,6 +266,7 @@ const Setupdetails = () => {
                   value={resumeForm.location}
                   onChange={dataHandleChage}
                 />
+                {renderErrorMessage("location")}
               </div>
               <div>
                 <input
@@ -152,31 +278,47 @@ const Setupdetails = () => {
                   value={resumeForm.role}
                   onChange={dataHandleChage}
                 />
+                {renderErrorMessage("role")}
               </div>
             </div>
           </form>
-          <hr className="bg-[#15223214] " onClick={navigateToNext}/>
-          <div className=" py-5 px-4 flex justify-between" onClick={navigateToNext}>
+          <hr className="bg-[#15223214] " />
+          <div
+            className=" py-5 px-4 flex justify-between"
+            onClick={NavidationToEducation}
+          >
             <p className="text-[#1E0F3B] font-bold text-lg">Education</p>
             <img src="/Assets/plusSign.svg" alt="cameraIcon" />
           </div>
           <hr className="bg-[#15223214] " />
-          <div className=" py-5 px-4 flex justify-between">
+          <div
+            className=" py-5 px-4 flex justify-between"
+            onClick={NavidationToExperience}
+          >
             <p className="text-[#1E0F3B] font-bold text-lg">Experience</p>
-            <img src="/Assets/plusSign.svg" alt="cameraIcon" onClick={navigateToNext} />
+            <img src="/Assets/plusSign.svg" alt="cameraIcon" />
           </div>
           <hr className="bg-[#15223214] " />
-          <div className=" py-5 px-4 flex justify-between">
+          <div
+            className=" py-5 px-4 flex justify-between"
+            onClick={NavidationToSkill}
+          >
             <p className="text-[#1E0F3B] font-bold text-lg">Skill</p>
             <img src="/Assets/plusSign.svg" alt="cameraIcon" />
           </div>
           <hr className="bg-[#15223214] " />
-          <div className=" py-5 px-4 flex justify-between">
+          <div
+            className=" py-5 px-4 flex justify-between"
+            onClick={NavidationToProject}
+          >
             <p className="text-[#1E0F3B] font-bold text-lg">Project</p>
             <img src="/Assets/plusSign.svg" alt="cameraIcon" />
           </div>
           <hr className="bg-[#15223214] " />
-          <div className=" py-5 px-4 flex justify-between">
+          <div
+            className=" py-5 px-4 flex justify-between"
+            onClick={NavidationToCertification}
+          >
             <p className="text-[#1E0F3B] font-bold text-lg">Certification</p>
             <img src="/Assets/plusSign.svg" alt="cameraIcon" />
           </div>

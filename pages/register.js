@@ -47,7 +47,6 @@ const Register = () => {
       setRole("employer");
     }
   };
-
   const confirmPasswordclick = () => {
     setDisplayConfirmPassword(
       displayConfirmPassword == "password" ? "text" : "password"
