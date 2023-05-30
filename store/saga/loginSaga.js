@@ -12,6 +12,7 @@ function* loginSaga(action) {
     const payload = {
       email: action.payload.email,
       password: action.payload.password,
+      role:action.payload.role,
     };
 
     const response = yield call(makeApiRequest, {
@@ -28,6 +29,7 @@ function* loginSaga(action) {
       
       
       yield put({ type: LOGIN_SUCCESS, payload: response });
+      toast.error('Login successful'); 
     } else {
       
       yield put({ type: LOGIN_ERROR, payload: 'Login failed' });
@@ -42,19 +44,28 @@ function* loginSaga(action) {
 }
 
 function* googleloginSaga(action) {
+
   try {
  
-
+    const payload = {
+     
+      role:action.payload.role,
+    };
     const response = yield call(makeApiRequest, {
       endpoint: '/auth/google',
       method: 'GET',
-   
+      data:payload,
     });
 
     
     if (response.status === 200) {
+    yield call(makeApiRequest, {
+        endpoint: '/auth/login/success',
+        method: 'GET',
+        data:payload,
+      });
        yield put({ type: 'GOOGLE_LOGIN_SUCCESS', payload: response.data });
-      window.location.href = '/auth/login/success';
+      // window.location.href = '/auth/login/success';
     } else {
       
       yield put({ type: GOOGLE_LOGIN_ERROR, payload: ' google Login failed' });

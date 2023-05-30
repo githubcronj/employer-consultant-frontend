@@ -9,8 +9,7 @@ import closedeye from '../public/Assets/closedeye.svg';
 import Link from 'next/link';
 import styles from '../styles/LoginPage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerReducer } from '../store/reducer/registerReducer';
-import { REGISTER_REQUEST } from 'store/type/registerType';
+import { googleLogin } from 'store/action/loginaction';
 import validator from 'validator';
 import { useRouter } from 'next/router';
 import { forgotPassword } from '../store/action/forgetPasAction';
@@ -64,6 +63,12 @@ const ForgotPassword= () => {
     setShowModal(true);
   };
  
+  const handleGoogleLogin = () => {
+    dispatch(googleLogin());
+    
+      window.open(`http://localhost:3001/auth/google/callback`, "_self");
+  
+  };
 
   return (
     <>
@@ -176,11 +181,13 @@ const ForgotPassword= () => {
             <hr className='flex-grow border-t-2 border-gray-300 w-24 sm:w-40 ml-5' />
           </div>
           <div className='flex items-center ml-0 gap-5 mt-3 '>
+            <div onClick={handleGoogleLogin}>
             <img
               src='/Assets/googleIcon.png'
               alt='googleIcon'
               style={{ width: '50px', height: '50px' }}
             />
+            </div>
             <img
               src='/Assets/facebookIcon.png'
               alt='facebookIcon'

@@ -86,13 +86,13 @@ const ConfirmPassword = () => {
       setNewPasswordErr('');
     }
   
-    if (isEmailValid && isPasswordValid && isNewPasswordValid) {
+   
       const payload = {
         oldPassword: password,
         newPassword: newPassword,
       };
       dispatch(changePassword(payload));
-    }
+    
   };
   
   const otpconfirm = () => {

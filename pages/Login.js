@@ -69,6 +69,7 @@ const Login = () => {
     const payload = {
       email: email,
       password: password,
+      role:role,
     };
 
     dispatch(login(payload));
@@ -80,7 +81,10 @@ const Login = () => {
   }, [isLoggedIn, router]);
 
   const handleGoogleLogin = () => {
-    dispatch(googleLogin());
+     const payload = {
+      role:role,
+     }
+    dispatch(googleLogin(payload));
     
       window.open(`http://localhost:3001/auth/google/callback`, "_self");
   
