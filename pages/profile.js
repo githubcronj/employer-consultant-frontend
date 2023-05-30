@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { profileSaveRequest } from "../store/action/profileAction";
 
 const Profile = () => {
+  // const profileData = useSelector((state) => state.profile.data);
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [data, setData] = useState(null);

@@ -1,6 +1,6 @@
 import * as types from '../type/profileActionType';
 const initialState = {
-    data: [],
+    data: null,
     error: null,
   };
   
@@ -15,7 +15,7 @@ const initialState = {
       case types.PROFILE_SAVE_FAILURE:
         return {
           ...state,
-          data: [],
+          data: null,
           error: action.payload,
         };
       default:
