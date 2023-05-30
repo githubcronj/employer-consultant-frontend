@@ -3,9 +3,19 @@ import watchRegister from "./registerSaga";
 import watchLogin from "./loginSaga";
 import watchOtp from "./otpSaga";
 import watchReOtp from "./reOtpSaga";
-import watchforgotpasSaga from "./forgotPasSaga"
+import watchforgotpasSaga from "./forgotPasSaga";
 import watchProfileSaveRequest from "./profileSaga";
-import watchChangePasswordSaga from "./changePasSaga"
+import watchChangePasswordSaga from "./changePasSaga";
+import watchfacebookSaga from "./fbSaga";
 export default function* rootSaga() {
-  yield all([watchLogin(), watchRegister(), watchOtp(), watchReOtp(),watchforgotpasSaga(),watchProfileSaveRequest(),watchChangePasswordSaga()]);
+  yield all([
+    watchLogin(),
+    watchRegister(),
+    watchOtp(),
+    watchReOtp(),
+    watchforgotpasSaga(),
+    watchProfileSaveRequest(),
+    watchChangePasswordSaga(),
+    watchfacebookSaga(),
+  ]);
 }

@@ -4,7 +4,6 @@ const INITIAL_STATE = {
   CurrentUser: null,
   isLoggedIn: false,
   isLoggedOut: false,
- 
 };
 
 export function LoginReducer(state = INITIAL_STATE, action) {
