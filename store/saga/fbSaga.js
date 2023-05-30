@@ -1,5 +1,5 @@
 import { takeLatest, call, put } from "redux-saga/effects";
-import * as types from "../type/facebookType";
+import * as types from "../type/fbType";
 import axios from "axios";
 import { makeApiRequest } from "../../utils/api";
 import { toast } from "react-toastify";

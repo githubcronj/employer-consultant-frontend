@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import validator from "validator";
 import { useRouter } from "next/router";
 import { login, googleLogin } from "../store/action/loginaction";
-import { facebookLogin } from "store/action/facebookAction";
+import { facebookLogin } from "store/action/fbAction";
 
 const Login = () => {
   const router = useRouter();
@@ -221,23 +221,17 @@ const Login = () => {
               <img
                 src='/Assets/googleIcon.png'
                 alt='googleIcon'
-                style={{ width: "50px", height: "50px",cursor:"pointer" }}
+                style={{ width: "50px", height: "50px", cursor: "pointer" }}
                 onClick={handleGoogleLogin}
-                
               />
             </div>
 
             <img
               src='/Assets/facebookIcon.png'
               alt='facebookIcon'
-              style={{ width: "50px", height: "50px" ,cursor:"pointer"}}
+              style={{ width: "50px", height: "50px", cursor: "pointer" }}
               onClick={facebookClick}
             />
-            {/* <img
-              src='/Assets/appleIcon.png'
-              alt='appleIcon'
-              style={{ width: "50px", height: "50px" }}
-            /> */}
           </div>
 
           <h3 className='ml-9 mt-4 '>

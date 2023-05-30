@@ -1,5 +1,4 @@
-import * as types from "../type/facebookType";
-
+import * as types from "../type/fbType";
 export function facebookLogin(payload) {
   return {
     type: types.FACEBOOK_REQUEST,

@@ -1,4 +1,4 @@
-import * as types from "../type/facebookType";
+import * as types from "../type/fbType";
 
 const INITIAL_STATE = {
   CurrentUser: null,
