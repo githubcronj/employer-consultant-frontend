@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import SetupEducation from "./setup-education";
+// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const Setupdetails = () => {
   const router = useRouter();
@@ -99,31 +105,7 @@ const Setupdetails = () => {
       return;
     }
   };
-  const NavidationToEducation = () => {
-    if (isFormValid()) {
-      router.push("/setup-education");
-    }
-  };
-  const NavidationToExperience = () => {
-    if (isFormValid()) {
-      router.push("/setup-experience");
-    }
-  };
-  const NavidationToSkill = () => {
-    if (isFormValid()) {
-      router.push("/setup-skill");
-    }
-  };
-  const NavidationToProject = () => {
-    if (isFormValid()) {
-      router.push("/setup-project");
-    }
-  };
-  const NavidationToCertification = () => {
-    if (isFormValid()) {
-      router.push("/setup-certification");
-    }
-  };
+
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
       <div className="flex justify-between items-center mx-5 sm:mx-9">
@@ -282,46 +264,68 @@ const Setupdetails = () => {
               </div>
             </div>
           </form>
-          <hr className="bg-[#15223214] " />
-          <div
+          <div>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <p className="text-[#1E0F3B] font-bold text-lg">Education</p>
+              </AccordionSummary>
+              <AccordionDetails>
+                <SetupEducation/>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
+                aria-controls="panel2a-content"
+                id="panel2a-header"
+              >
+                <p className="text-[#1E0F3B] font-bold text-lg">Experience</p>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                  eget.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </div>
+          {/* <div
             className=" py-5 px-4 flex justify-between"
-            onClick={NavidationToEducation}
+            
           >
             <p className="text-[#1E0F3B] font-bold text-lg">Education</p>
             <img src="/Assets/plusSign.svg" alt="cameraIcon" />
           </div>
-          <hr className="bg-[#15223214] " />
           <div
             className=" py-5 px-4 flex justify-between"
-            onClick={NavidationToExperience}
+            
           >
             <p className="text-[#1E0F3B] font-bold text-lg">Experience</p>
             <img src="/Assets/plusSign.svg" alt="cameraIcon" />
           </div>
-          <hr className="bg-[#15223214] " />
           <div
             className=" py-5 px-4 flex justify-between"
-            onClick={NavidationToSkill}
           >
             <p className="text-[#1E0F3B] font-bold text-lg">Skill</p>
             <img src="/Assets/plusSign.svg" alt="cameraIcon" />
           </div>
-          <hr className="bg-[#15223214] " />
           <div
             className=" py-5 px-4 flex justify-between"
-            onClick={NavidationToProject}
           >
             <p className="text-[#1E0F3B] font-bold text-lg">Project</p>
             <img src="/Assets/plusSign.svg" alt="cameraIcon" />
           </div>
-          <hr className="bg-[#15223214] " />
           <div
             className=" py-5 px-4 flex justify-between"
-            onClick={NavidationToCertification}
           >
             <p className="text-[#1E0F3B] font-bold text-lg">Certification</p>
             <img src="/Assets/plusSign.svg" alt="cameraIcon" />
-          </div>
+          </div> */}
         </div>
         {/* section 2 */}
         <div className="lg:col-span-2">
