@@ -1,9 +1,8 @@
-import * as types from '../type/logintype';
+import * as types from "../type/logintype";
 const INITIAL_STATE = {
   CurrentUser: null,
   isLoggedIn: false,
   isLoggedOut: false,
- 
 };
 
 export function LoginReducer(state = INITIAL_STATE, action) {
@@ -30,10 +29,10 @@ export function LoginReducer(state = INITIAL_STATE, action) {
     case types.LOGOUT:
       return {
         ...state,
-        isLoggedIn:false,
-        isLoggedOut:true,
-      } 
-     
+        isLoggedIn: false,
+        isLoggedOut: true,
+      };
+
     default:
       return state;
   }

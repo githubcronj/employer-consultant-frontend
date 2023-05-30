@@ -96,9 +96,8 @@ const Register = () => {
   };
   const handleGoogleLogin = () => {
     dispatch(googleLogin());
-    
-      window.open(`http://localhost:3001/auth/google/callback`, "_self");
-  
+
+    window.open(`http://localhost:3001/auth/google/callback`, "_self");
   };
   return (
     <>
@@ -240,23 +239,19 @@ const Register = () => {
           </div>
           <div className='flex items-center ml-0 gap-5 mt-3 '>
             <div onClick={handleGoogleLogin}>
-            <img
-              src='/Assets/googleIcon.png'
-              alt='googleIcon'
-              style={{ width: "50px", height: "50px" }}
-            />
+              <img
+                src='/Assets/googleIcon.png'
+                alt='googleIcon'
+                style={{ width: "50px", height: "50px", cursor: "pointer" }}
+              />
             </div>
             <img
               src='/Assets/facebookIcon.png'
               alt='facebookIcon'
-              style={{ width: "50px", height: "50px" }}
+              style={{ width: "50px", height: "50px", cursor: "pointer" }}
               onClick={facebookClick}
             />
-            <img
-              src='/Assets/appleIcon.png'
-              alt='appleIcon'
-              style={{ width: "50px", height: "50px" }}
-            />
+           
           </div>
 
           <h3 className='ml-9 mt-4 '>
