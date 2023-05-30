@@ -18,6 +18,7 @@ export const SideBar = () => {
   const [subscriptionbg, setSubscriptionbg] = useState(false);
   const [scheduledbg, setScheduledbg] = useState(false);
   const [modal, setModal] = useState(false);
+  const [isfixed, setIsfixed] = useState(false);
   const click = (id) => {
     if (id == 0) {
       setCommunicationbg(false);
@@ -90,8 +91,26 @@ export const SideBar = () => {
   useEffect(() => {
     window.addEventListener("resize", handleResize);
   });
+  useEffect(() => {
+    const handleScroll = () => {
+      const scroll = window.scrollY;
+
+      if (scroll > 10) {
+        setIsfixed(true);
+      } else {
+        setIsfixed(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className='z-1'>
+    <div>
       <div
         className='cursor-pointer mt-3 ml-3 z-0 xl:hidden lg:hidden md:hidden sm:hidden'
         onClick={() => setDisplay(!display)}
@@ -100,9 +119,12 @@ export const SideBar = () => {
         <h3 className='w-5 h-[1px] border border-black mb-1'></h3>
         <h3 className='w-5 h-[1px] border border-black mb-1'></h3>
       </div>
-
       {display && (
-        <div className='fixed w-[220px] max-h-[832px] h-[100%] pt-[38px] shadow-[0px_1px_1px_rgba(21,34,50,0.08)]'>
+        <div
+          className={`bg-white w-[220px] max-h-[832px] h-[100%] shadow-[0px_1px_1px_rgba(21,34,50,0.08)] fixed  ${
+            isfixed ? "top-0" : "top-15"
+          }`}
+        >
           <div
             className='flex items-center align-middle  justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[220px]'
             style={{
