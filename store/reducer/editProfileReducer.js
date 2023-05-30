@@ -12,23 +12,35 @@ export const initialState = {
     founded: "",
     companyLocation: "",
   },
+  data: []
 };
 
-const reducer = (state = initialState, action) => {
+ const editProfileReducer = (state = initialState, action) => {
+
   switch (action.type) {
+    
     case types.SET_FORM_DATA:
+      
       return {
         ...state,
         formData: action.payload,
       };
     case types.SET_FORM_SUCCESS:
+    
       return{
         ...state,
-        formData: action.payload,
+        data: action.payload,
+      }
+      case types.PROFILE_EDIT_SUCCESS:
+    
+      return{
+        ...state,
+        data: action.payload,
       }
     default:
       return state;
   }
 };
 
-export default reducer;
+
+export default editProfileReducer;
