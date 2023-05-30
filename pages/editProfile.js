@@ -140,7 +140,7 @@ const EditProfile = () => {
     e.preventDefault();
     if (isFormValid() && data?.token?.accessToken) {
       dispatch(submitFormData(formValues));
-      console.log('ttttttttttttttttfffffffffffffffffffffffffffff',formValues);
+      // console.log('ttttttttttttttttfffffffffffffffffffffffffffff',formValues);
       const initialFormValues = {
         companyName: "",
         industry: "",
