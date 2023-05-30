@@ -11,6 +11,7 @@ function* loginSaga(action) {
     const payload = {
       email: action.payload.email,
       password: action.payload.password,
+      role:"employer"
     };
 
     const response = yield call(makeApiRequest, {
