@@ -1,23 +1,28 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch, useSelector } from "react-redux";
+import { profileSaveRequest } from "../store/action/profileAction";
 
 const Profile = () => {
-  const router = useRouter();
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [data, setData] = useState(null);
+
   const [formValues, setFormValues] = useState({
     companyName: "",
-    industry: "",
+    industryType: "",
     companyId: "",
-    companyURL: "",
+    companyWebsiteUrl: "",
     email: "",
-    companyDetail: "",
+    aboutCompany: "",
     companySize: "",
-    founded: "",
     companyLocation: "",
+    companyFoundedDate: "",
+    accessToken: "",
   });
+  // console.log(formValues.accessToken)
   const [errors, setErrors] = useState({});
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
@@ -38,16 +43,36 @@ const Profile = () => {
       setSelectedImage(null);
     }
   };
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      setData(JSON.parse(storedData));
+      
+    }
+  }, []);
+  useEffect(() => {
+    if (data && data.token && data.token.accessToken) {
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        accessToken: data.token.accessToken,
+      }));
+    }
+  }, [data]);
+
   const isFormValid = () => {
     const requiredFields = [
       "companyName",
-      "industry",
+      "industryType",
       "companyId",
-      "companyURL",
+      "companyWebsiteUrl",
       "email",
-      "companyDetail",
+      "aboutCompany",
       "companySize",
-      "founded",
+      "companyFoundedDate",
       "companyLocation",
     ];
     const errors = {};
@@ -74,18 +99,20 @@ const Profile = () => {
 
   const handleSave = (e) => {
     e.preventDefault();
-    if (isFormValid()) {
-      console.log(formValues);
+    if (isFormValid() && data?.token?.accessToken) {
+      dispatch(profileSaveRequest(formValues));
+      console.log(dispatch(profileSaveRequest(formValues)))
       const initialFormValues = {
         companyName: "",
-        industry: "",
+        industryType: "",
         companyId: "",
-        companyURL: "",
+        companyWebsiteUrl: "",
         email: "",
-        companyDetail: "",
+        aboutCompany: "",
         companySize: "",
-        founded: "",
+        companyFoundedDate: "",
         companyLocation: "",
+        accessToken:""
       };
 
       setFormValues(initialFormValues);
@@ -94,6 +121,19 @@ const Profile = () => {
     } else {
       return;
     }
+  };
+  const handleDateChange = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    // Format the date as "yyyy-mm-dd"
+    const formattedDate = `${year}-${month}-${day}`;
+
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      companyFoundedDate: formattedDate, // Update the companyFoundedDate field in formValues with the formatted date
+    }));
   };
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -117,7 +157,7 @@ const Profile = () => {
 
     try {
       const text = await navigator.clipboard.readText();
-      setFormValues((prevValues) => ({ ...prevValues, companyURL: text }));
+      setFormValues((prevValues) => ({ ...prevValues, companyWebsiteUrl: text }));
     } catch (error) {
       console.error("Failed to read clipboard content:", error);
     }
@@ -193,17 +233,17 @@ const Profile = () => {
             <div className="relative">
               <input
                 type="text"
-                id="industry"
+                id="industryType"
                 placeholder=" "
                 required
-                style={errors.industry ? { borderColor: "red" } : {}}
+                style={errors.industryType ? { borderColor: "red" } : {}}
                 className="block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                value={formValues.industry}
+                value={formValues.industryType}
                 onChange={handleChange}
               />
-              {renderErrorMessage("industry")}
+              {renderErrorMessage("industryType")}
               <label
-                for="industry"
+                for="industryType"
                 className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Industry Type
@@ -235,19 +275,21 @@ const Profile = () => {
               <div className="relative flex items-center">
                 <input
                   type="text"
-                  id="companyURL"
+                  id="companyWebsiteUrl"
                   placeholder=" "
                   required
-                  style={errors.companyURL ? { borderColor: "red" } : {}}
+                  style={errors.companyWebsiteUrl ? { borderColor: "red" } : {}}
                   // className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
                   className="block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  value={formValues.companyURL}
+                  value={formValues.companyWebsiteUrl}
                   onChange={handleChange}
                 />
                 <label
-                for="companyUR"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
-              >Company website URL</label>
+                  for="companyWebsiteUrl"
+                  className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                >
+                  Company website URL
+                </label>
                 <button
                   className=" absolute right-2 px-6 sm:px-8 py-3 bg-red-500 text-white rounded-[10px]"
                   onClick={handlePaste}
@@ -255,7 +297,7 @@ const Profile = () => {
                   Paste
                 </button>
               </div>
-              {renderErrorMessage("companyURL")}
+              {renderErrorMessage("companyWebsiteUrl")}
             </div>
             {/*  */}
             <div className="relative">
@@ -283,16 +325,16 @@ const Profile = () => {
             <div className="sm:col-span-3 relative">
               <textarea
                 type="text"
-                id="companyDetail"
+                id="aboutCompany"
                 placeholder=" "
                 required
-                style={errors.companyDetail ? { borderColor: "red" } : {}}
+                style={errors.aboutCompany ? { borderColor: "red" } : {}}
                 className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                value={formValues.companyDetail}
+                value={formValues.aboutCompany}
                 onChange={handleChange}
               />
               <label
-                for="companyDetail"
+                for="aboutCompany"
                 className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Write about company...
@@ -321,30 +363,37 @@ const Profile = () => {
             {/*  */}
             <div>
               <div className="relative flex items-center">
-              
                 <DatePicker
-                  id="founded"
+                  id="companyFoundedDate"
                   placeholderText=" "
                   required
-                  className={`block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${errors?.founded ? "border-red-600" : ""}`}
-                  selected={formValues.founded}
-                  onChange={(date) =>
-                    handleChange({ target: { id: "founded", value: date } })
+                  className={`block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                    errors?.companyFoundedDate ? "border-red-600" : ""
+                  }`}
+                  // selected={formValues.companyFoundedDate}
+
+                  // onChange={(date) =>
+                  //   handleChange({ target: { id: "companyFoundedDate", value: date } })
+                  // }
+                  selected={
+                    formValues.companyFoundedDate ? new Date(formValues.companyFoundedDate) : null
                   }
+                  onChange={handleDateChange}
                 />
                 <label
-                for="founded"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
-              >Founded In </label>
+                  for="companyFoundedDate"
+                  className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                >
+                  Founded In{" "}
+                </label>
                 <img
                   src="/Assets/calendar.svg"
                   alt="calendar"
                   className="absolute right-2"
-                  onClick={() => document.getElementById("founded").click()}
+                  onClick={() => document.getElementById("companyFoundedDate").click()}
                 />{" "}
               </div>{" "}
-              {renderErrorMessage("founded")}{" "}
-              
+              {renderErrorMessage("companyFoundedDate")}{" "}
             </div>
 
             {/*  */}

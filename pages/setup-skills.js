@@ -1,10 +1,35 @@
 import Image from "next/image";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 const SetupSkills = () => {
+  const router = useRouter();
+
   const [skillData, setSkilleData] = useState({
     skillName: "",
-  });
+  }); const [errors, setErrors] = useState({});
+  const renderErrorMessage = (fieldName) => {
+    if (errors[fieldName]) {
+      return (
+        <p className="text-red-500 text-xs font-bold">{errors[fieldName]}</p>
+      );
+    }
+    return null;
+  };
+  const isFormValid = () => {
+    const requiredFields = [
+      "skillName"
+    ];
+    const errors = {};
+
+    requiredFields.forEach((field) => {
+      if (skillData[field] === "") {
+        errors[field] = "This field is required";
+      }
+    });
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
   function skillHandleChange(e) {
     const { id, value } = e.target;
     setSkilleData((prevValues) => ({
@@ -12,6 +37,26 @@ const SetupSkills = () => {
       [id]: value,
     }));
   }
+  const addData = () => {
+    if (isFormValid()) {
+      const initialFormValues = {
+        skillName: "",
+        
+      };
+      setSkilleData(initialFormValues);
+    } else {
+      return;
+    }
+  };
+  const handleSave = (e) => {
+    e.preventDefault();
+    if (isFormValid()){
+      router.push("/setup-project");
+    }
+  };
+  const navigateToNext = () => {
+    router.push("/setup-details");
+  };
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
       <div className="flex justify-between items-center mx-5 sm:mx-9">
@@ -27,7 +72,7 @@ const SetupSkills = () => {
             Setup details
           </p>
         </div>
-        <button className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
+        <button onClick={handleSave} className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
           <img src="/Assets/check.svg" alt="save" />
           Save
         </button>
@@ -45,7 +90,7 @@ const SetupSkills = () => {
               width={34}
               height={34}
               className="cursor-pointer"
-              // onClick={navigateToNext}
+              onClick={navigateToNext}
             />
             <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
               Skill{" "}
@@ -60,17 +105,18 @@ const SetupSkills = () => {
                   id="skillName"
                   placeholder="Skill name"
                   required
-                  className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                  className="py-5 pl-4 pr-32 border rounded-[10px] border-[#D8D8DD] w-full"
                   value={skillData.skillName}
                   onChange={skillHandleChange}
                 />
                 <button
-                  type="submit"
+                  type="submit" onClick={addData}
                   className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase absolute top-0 right-0 mt-2 mr-1 sm:mr-3 sm:mt-2"
                 >
                   Add
                 </button>
               </div>
+              {renderErrorMessage("skillName")}
             </div>
             <div className="flex justify-end"></div>
           </form>

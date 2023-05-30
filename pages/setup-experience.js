@@ -5,6 +5,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const SetupExperience = () => {
+  const router = useRouter();
+
   const [experienceData, setExperienceData] = useState({
     companyName: "",
     jobposition: "",
@@ -16,6 +18,32 @@ const SetupExperience = () => {
     width: "20px",
     height: "20px",
   };
+  const [errors, setErrors] = useState({});
+  const renderErrorMessage = (fieldName) => {
+    if (errors[fieldName]) {
+      return (
+        <p className="text-red-500 text-xs font-bold">{errors[fieldName]}</p>
+      );
+    }
+    return null;
+  };
+  const isFormValid = () => {
+    const requiredFields = [
+      "companyName",
+      "jobposition",
+      "emptype",
+      "joindate",
+    ];
+    const errors = {};
+
+    requiredFields.forEach((field) => {
+      if (experienceData[field] === "") {
+        errors[field] = "This field is required";
+      }
+    });
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   function expHandleChange(e) {
     const { id, value } = e.target;
@@ -24,7 +52,34 @@ const SetupExperience = () => {
       [id]: value,
     }));
   }
-  console.log("----", experienceData);
+  const experiChecked = (e) => {
+    if (e.target.checked == true) {
+      router.push("/setup-details");
+    }
+  };
+  const addData = () => {
+    if (isFormValid()) {
+      const initialFormValues = {
+        companyName: "",
+        jobposition: "",
+        emptype: "",
+        joindate: "",
+      };
+      setExperienceData(initialFormValues);
+    } else {
+      return;
+    }
+  };
+  const handleSave = (e) => {
+    e.preventDefault();
+    if (isFormValid()){
+      router.push("/setup-skills");
+    }
+  };
+  const navigateToNext = () => {
+    router.push("/setup-details");
+  };
+  console.log(experienceData,"hey");
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
       <div className="flex justify-between items-center mx-5 sm:mx-9">
@@ -40,7 +95,7 @@ const SetupExperience = () => {
             Setup details
           </p>
         </div>
-        <button className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
+        <button onClick={handleSave} className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
           <img src="/Assets/check.svg" alt="save" />
           Save
         </button>
@@ -51,7 +106,7 @@ const SetupExperience = () => {
           className="flex flex-col lg:col-span-3 py-6 px-6"
           style={{ borderRight: "2px solid #D8D8DD" }}
         >
-          <div className="flex justify-between  flex-col sm:flex-rowit">
+          <div className="flex justify-between  flex-col sm:flex-row">
             <div className="flex items-center gap-x-4 pb-6">
               <Image
                 src="/Assets/backbtn.svg"
@@ -59,7 +114,7 @@ const SetupExperience = () => {
                 width={34}
                 height={34}
                 className="cursor-pointer"
-                // onClick={navigateToNext}
+                onClick={navigateToNext}
               />
               <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
                 Experience
@@ -71,8 +126,9 @@ const SetupExperience = () => {
                   type="checkbox"
                   id="default-checkbox"
                   name="default-checkbox"
-                  value="Mango"
+                  value="checked"
                   style={checkboxStyle}
+                  onChange={experiChecked}
                 />
 
                 <label
@@ -97,6 +153,7 @@ const SetupExperience = () => {
                   value={experienceData.companyName}
                   onChange={expHandleChange}
                 />
+                {renderErrorMessage("companyName")}
               </div>
               <div>
                 <input
@@ -108,6 +165,7 @@ const SetupExperience = () => {
                   value={experienceData.jobposition}
                   onChange={expHandleChange}
                 />
+                {renderErrorMessage("jobposition")}
               </div>
               <div>
                 <select
@@ -133,29 +191,35 @@ const SetupExperience = () => {
                   <option value="Full Time">Full Time </option>
                   <option value="Part Time">Part Time</option>
                 </select>
+                {renderErrorMessage("emptype")}
               </div>
-              <div className="relative flex items-center">
-                <DatePicker
-                  id="joindate"
-                  placeholderText="Date of Joined"
-                  required
-                  className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  selected={experienceData.joindate}
-                  onChange={(date) =>
-                    expHandleChange({ target: { id: "joindate", value: date } })
-                  }
-                />
-                <img
-                  src="/Assets/calendar.svg"
-                  alt="calendar"
-                  className="absolute right-2"
-                  onClick={() => document.getElementById("joindate").click()}
-                />
+              <div>
+                <div className="relative flex items-center">
+                  <DatePicker
+                    id="joindate"
+                    placeholderText="Date of Joined"
+                    required
+                    className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    selected={experienceData.joindate}
+                    onChange={(date) =>
+                      expHandleChange({
+                        target: { id: "joindate", value: date },
+                      })
+                    }
+                  />
+                  <img
+                    src="/Assets/calendar.svg"
+                    alt="calendar"
+                    className="absolute right-2"
+                    onClick={() => document.getElementById("joindate").click()}
+                  />
+                </div>{" "}
+                {renderErrorMessage("joindate")}
               </div>
             </div>
             <div className="flex justify-end">
               <button
-                //   onClick={addData}
+                onClick={addData}
                 type="submit"
                 className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase"
               >

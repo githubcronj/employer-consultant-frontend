@@ -4,6 +4,7 @@ import * as types from '../type/logintype';
 
 import { LOGIN_SUCCESS, LOGIN_ERROR } from '../type/logintype';
 import { GOOGLE_LOGIN_SUCCESS, GOOGLE_LOGIN_ERROR } from '../type/logintype';
+
 import { makeApiRequest } from '../../utils/api';
 import { toast } from 'react-toastify';
 
@@ -29,13 +30,14 @@ function* loginSaga(action) {
       
       
       yield put({ type: LOGIN_SUCCESS, payload: response });
-      toast.error('Login successful'); 
+      toast.success('Login successful', { autoClose: 3000 });
     } else {
       
       yield put({ type: LOGIN_ERROR, payload: 'Login failed' });
       toast.error('Login failed'); 
     }
   } catch (error) {
+
     console.log(error);
     
     yield put({ type: LOGIN_ERROR, payload: error.message });
@@ -43,39 +45,33 @@ function* loginSaga(action) {
   }
 }
 
-function* googleloginSaga(action) {
-
-  try {
- 
-    const payload = {
-     
-      role:action.payload.role,
-    };
-    const response = yield call(makeApiRequest, {
-      endpoint: '/auth/google',
-      method: 'GET',
-      data:payload,
-    });
-
+// function* googleloginSaga(action) {
+//   try{
+//     yield call(makeApiRequest, {
+//       endpoint: `/auth/login/success/${action.payload.role}`,
+//       method: 'GET',
     
-    if (response.status === 200) {
+//     });
+//   }catch(error){
+//     toast.error('An error occurred'); 
+//   }
+ 
+   
+
+ 
+// }
+function* googleloginSaga(action) {
+  try {
     yield call(makeApiRequest, {
-        endpoint: '/auth/login/success',
-        method: 'GET',
-        data:payload,
-      });
-       yield put({ type: 'GOOGLE_LOGIN_SUCCESS', payload: response.data });
-      // window.location.href = '/auth/login/success';
-    } else {
-      
-      yield put({ type: GOOGLE_LOGIN_ERROR, payload: ' google Login failed' });
-      toast.error(' google Login failed'); 
-    }
+      endpoint: `/auth/login/success?role=${action.payload.role}`,
+      method: 'GET',
+    });
+    yield put({ type: GOOGLE_LOGIN_SUCCESS});
+   
   } catch (error) {
-    console.log(error);
     
     yield put({ type: GOOGLE_LOGIN_ERROR, payload: error.message });
-    toast.error('An error occurred'); 
+    toast.error('An error occurred');
   }
 }
 

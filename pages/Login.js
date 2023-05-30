@@ -11,7 +11,8 @@ import styles from "../styles/LoginPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import validator from "validator";
 import { useRouter } from "next/router";
-import { login ,googleLogin} from '../store/action/loginaction';
+import { login, googleLogin } from "../store/action/loginaction";
+import { facebookLogin } from "store/action/fbAction";
 
 const Login = () => {
   const router = useRouter();
@@ -20,28 +21,27 @@ const Login = () => {
   const [alignment, setAlignment] = useState("web");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
- 
+
   const [displayPassword, setDisplayPassword] = useState("password");
- 
- 
+
   const [emailErr, setEmailErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
 
   const [iconsetone, setIconsetOne] = useState(false);
-  
- 
-  const isLoggedIn = useSelector((state) => state.LoginReducer.isLoggedIn);
 
+  const isLoggedIn = useSelector((state) => state.LoginReducer.isLoggedIn);
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
     if (newAlignment == "android") {
       setRole("consultant");
+      localStorage.setItem("role","consultant")
     } else {
       setRole("employer");
+      localStorage.setItem("role","employer")
     }
   };
- 
+
   const passwordclick = () => {
     setDisplayPassword(displayPassword == "password" ? "text" : "password");
     setIconsetOne(!iconsetone);
@@ -76,18 +76,23 @@ const Login = () => {
   };
   useEffect(() => {
     if (isLoggedIn) {
-      router.push('/profile');
+      router.push("/profile");
     }
   }, [isLoggedIn, router]);
 
-  const handleGoogleLogin = () => {
-     const payload = {
-      role:role,
-     }
-    dispatch(googleLogin(payload));
-    
-      window.open(`http://localhost:3001/auth/google/callback`, "_self");
-  
+  const handleGoogleLogin = (e) => {
+    // e.preventDefault()
+    //  const payload = {
+    //   role:role,
+    //  }
+    // dispatch(googleLogin(payload));
+
+    window.open(`http://localhost:3001/auth/google/callback`, "_self");
+  };
+  const facebookClick = () => {
+    dispatch({ type: facebookLogin });
+
+    window.open(`http://localhost:3001/facebook/callback`, "_self");
   };
   return (
     <>
@@ -160,7 +165,7 @@ const Login = () => {
 
             <div>
               <h1 className='text-3xl font-bold text-black pb-4 ml-2 xl:-mt-2 xl:-mb-2'>
-            Log In
+                Log In
               </h1>
             </div>
           </div>
@@ -201,8 +206,8 @@ const Login = () => {
                 {passwordErr}
               </h6>
             )}
-           
-           <Link href='/forgotPassword'>
+
+            <Link href='/forgotPassword'>
               <h3 className='w-full text-right text-[#2B373C] text-[13px] mb-4 font-bold tracking-[0.13px] '>
                 Forgot Password?
               </h3>
@@ -219,23 +224,20 @@ const Login = () => {
             <hr className='flex-grow border-t-2 border-gray-300 w-24 sm:w-40 ml-5' />
           </div>
           <div className='flex items-center ml-0 gap-5 mt-3 '>
-            <div onClick={handleGoogleLogin}>
-            <img
-              src='/Assets/googleIcon.png'
-              alt='googleIcon'
-              style={{ width: "50px", height: "50px" }}
-            />
+            <div>
+              <img
+                src='/Assets/googleIcon.png'
+                alt='googleIcon'
+                style={{ width: "50px", height: "50px", cursor: "pointer" }}
+                onClick={handleGoogleLogin}
+              />
             </div>
-            
+
             <img
               src='/Assets/facebookIcon.png'
               alt='facebookIcon'
-              style={{ width: "50px", height: "50px" }}
-            />
-            <img
-              src='/Assets/appleIcon.png'
-              alt='appleIcon'
-              style={{ width: "50px", height: "50px" }}
+              style={{ width: "50px", height: "50px", cursor: "pointer" }}
+              onClick={facebookClick}
             />
           </div>
 
@@ -257,16 +259,17 @@ const Login = () => {
           </h3>
         </div>
 
-{alignment == "web" && (
- <div className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg}` }></div>
-)}
-  {alignment != "web" && (
-     <div className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg2}` }></div>
-  )}
-      
+        {alignment == "web" && (
+          <div
+            className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg}`}
+          ></div>
+        )}
+        {alignment != "web" && (
+          <div
+            className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg2}`}
+          ></div>
+        )}
       </div>
-
-     
     </>
   );
 };

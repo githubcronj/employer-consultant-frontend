@@ -4,7 +4,6 @@ const INITIAL_STATE = {
   CurrentUser: null,
   isLoggedIn: false,
   isLoggedOut: false,
- 
 };
 
 export function LoginReducer(state = INITIAL_STATE, action) {
@@ -37,13 +36,28 @@ export function LoginReducer(state = INITIAL_STATE, action) {
 
       //google login
    
-
-    case types.GOOGLE_LOGIN_SUCCESS:
+      case types.GOOGLE_LOGIN:
+        return {
+          ...state,
+         
+          isLoggedOut: false,
+         
+        };
+        case types.GOOGLE_LOGIN_SUCCESS:
+          return {
+            ...state,
+            // data: action.payload,
+            CurrentUser: action.payload.data,
+            isLoggedIn: true,
+            isLoggedOut: false,
+           
+          };
+    case types.GOOGLE_LOGIN_ERROR:
       return {
         ...state,
-        data: action.payload,
-        isLoggedIn: true,
-        isLoggedOut: false,
+        CurrentUser: null,
+        isLoggedIn: false,
+        isLoggedOut: true,
        
       };
    

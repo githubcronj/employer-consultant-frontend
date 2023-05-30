@@ -54,6 +54,7 @@ import { toast } from 'react-toastify';
     
         if (response.status === 200) {
           yield put({ type: types.RESET_PASSWORD_SUCCESS, payload: response.data });
+          toast.success('Password has been reset successfully', { autoClose: 3000 });
         } else {
           yield put({ type: types.RESET_PASSWORD_ERROR, payload: 'something went wrong' });
           toast.error('something went wrong');

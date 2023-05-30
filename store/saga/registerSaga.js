@@ -12,6 +12,7 @@ function* register(action) {
   try {
     const response = yield call(api.post, "/register", action.payload);
     yield put({ type: types.REGISTER_SUCCESS, payload: response.data });
+    toast.success('Signup successful', { autoClose: 3000 });
   } catch (error) {
     yield put({ type: types.REGISTER_ERROR, payload: error.message });
     toast.error("signup unsuccessfull");

@@ -4,8 +4,8 @@ import  { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { put } from 'redux-saga/effects';
-import { googleLoginRedirectAction } from '../store/action/loginaction';
-import { useRouter } from 'next/router';
+import { googleLogin } from '../store/action/loginaction';
+
 import { Typography } from '@mui/material';
 const googleAuth = () => {
 
@@ -13,16 +13,18 @@ const googleAuth = () => {
     
   
     const router = useRouter();
+    
 
     useEffect(() => {
-      dispatch(put(googleLoginRedirectAction()))
-        .then(() => {
-          router.push('/profile');
-        })
-        .catch((error) => {
-          // Handle error
-        });
-    }, [dispatch, router]);
+      const role = localStorage.getItem("role")
+      
+    const payload = {
+  role:role,
+    };
+   
+      dispatch(googleLogin(payload));
+      router.push('/profile');
+    }, [dispatch,router]);
   return (
 
     <div
