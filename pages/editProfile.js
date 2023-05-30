@@ -1,23 +1,28 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { fetchFormData } from "store/action/editProfileAction";
+import { initialState } from "store/reducer/editProfileReducer";
+
+// ...
 
 const EditProfile = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchFormData());
+    console.log('Fetching form data');
+
+  }, []);
+
+  const formDataa = useSelector((state) => state.formData);
+  // console.log(formDataa)
   const router = useRouter();
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [selectedImage, setSelectedImage] = useState("Assets/newCronjLogo.svg");
-  const [formValues, setFormValues] = useState({
-    companyName: "ABC",
-    industry: "Textile",
-    companyId: "12345",
-    companyURL: "https://www.cronj.com/",
-    email: "test@gmail.com",
-    companyDetail: "ABC Textiles: A leading global textile company specializing in high-quality fabrics and innovative design solutions.",
-    companySize: "56 Employee",
-    founded: new Date("2002-08-25"),
-        companyLocation: "Banglore",
-  });
+  const [formValues, setFormValues] = useState(formDataa || {});
   const [errors, setErrors] = useState({});
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
