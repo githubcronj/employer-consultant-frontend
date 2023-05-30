@@ -13,7 +13,7 @@ import { REGISTER_REQUEST } from "store/type/registerType";
 import validator from "validator";
 import { facebookLogin } from "store/action/facebookAction";
 import { useRouter } from "next/router";
-import {googleLogin} from '../store/action/loginaction';
+import { googleLogin } from "../store/action/loginaction";
 import { FACEBOOK_REQUEST } from "store/type/facebookType";
 const Register = () => {
   const router = useRouter();
@@ -48,7 +48,6 @@ const Register = () => {
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
     if (newAlignment == "android") {
-      
       setRole("consultant");
     } else {
       setRole("employer");

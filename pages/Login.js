@@ -158,7 +158,7 @@ const Login = () => {
 
             <div>
               <h1 className='text-3xl font-bold text-black pb-4 ml-2 xl:-mt-2 xl:-mb-2'>
-            Log In
+                Log In
               </h1>
             </div>
           </div>
@@ -199,8 +199,8 @@ const Login = () => {
                 {passwordErr}
               </h6>
             )}
-           
-           <Link href='/forgotPassword'>
+
+            <Link href='/forgotPassword'>
               <h3 className='w-full text-right text-[#2B373C] text-[13px] mb-4 font-bold tracking-[0.13px] '>
                 Forgot Password?
               </h3>
