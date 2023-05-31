@@ -1,7 +1,7 @@
-import React from "react";
-import { useRouter } from "next/router";
-import { Navbar } from "Components/Navbar/Navbar";
-import { SideBar } from "Components/Sidebar/sideBar";
+import React from 'react';
+import { useRouter } from 'next/router';
+import { Navbar } from 'Components/Navbar/Navbar';
+import { SideBar } from 'Components/Sidebar/sideBar';
 function Layout(props) {
   const router = useRouter();
 
@@ -9,12 +9,17 @@ function Layout(props) {
   const { pathname } = router;
 
   const shouldRenderComponents = ![
-    "/Login",
-    "/register",
-    "/forgotPassword",
-    "/resetPassword",
-    "/confirmPassword",
-    "/verifyotp",
+    '/Login',
+    '/register',
+    '/profile',
+    '/forgotPassword',
+    '/resetPassword',
+    '/confirmPassword',
+    '/verifyotp',
+    '/resumeUpload',
+    '/resume-json',
+    '/setup-details',
+    '/editProfile',
   ].includes(pathname);
 
   return (
