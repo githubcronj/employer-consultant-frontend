@@ -7,6 +7,14 @@ import { Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useSession } from "next-auth/react";
 
+<<<<<<< HEAD
+import { put } from 'redux-saga/effects';
+import { googleLogin } from '../store/action/loginaction';
+
+import { Typography } from '@mui/material';
+const googleAuth = () => {
+=======
+>>>>>>> 55a6df321b3ce1b6af47f97d1b0391f55e84b8da
 
 const GoogleAuth = () => {
 
@@ -48,6 +56,21 @@ try{
     }
     
   
+<<<<<<< HEAD
+    const router = useRouter();
+    
+
+    useEffect(() => {
+      const role = localStorage.getItem("role")
+      
+    const payload = {
+  role:role,
+    };
+   
+      dispatch(googleLogin(payload));
+      router.push('/profile');
+    }, [dispatch,router]);
+=======
   useEffect(()=>{
     setUserData()
   },[session])
@@ -55,6 +78,7 @@ try{
 
 
 
+>>>>>>> 55a6df321b3ce1b6af47f97d1b0391f55e84b8da
   return (
     <div
       style={{
