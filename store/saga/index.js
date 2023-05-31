@@ -8,6 +8,7 @@ import watchProfileSaveRequest from "./profileSaga";
 import watchChangePasswordSaga from "./changePasSaga";
 import watchfacebookSaga from "./fbSaga";
 import watchgetProfileRequest from "./getProfileSaga";
+import watchFetchFormData from "./editProfileSaga";
 export default function* rootSaga() {
   yield all([
     watchLogin(),
@@ -17,6 +18,7 @@ export default function* rootSaga() {
     watchforgotpasSaga(),
     watchProfileSaveRequest(),
     watchChangePasswordSaga(),
+    watchFetchFormData(),
     watchfacebookSaga(),
     watchgetProfileRequest(),
   ]);

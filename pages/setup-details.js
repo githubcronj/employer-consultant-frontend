@@ -1,9 +1,22 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import SetupEducation from "./setup-education";
+import SetupExperience from "./setup-experience";
+import SetupSkills from "./setup-skills";
+import SetupProject from "./setup-project";
+import SetupCertificate from "./setup-certification";
 
 const Setupdetails = () => {
   const router = useRouter();
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
   const [resumeForm, setResumeForm] = useState({
     fullName: "",
     email: "",
@@ -99,31 +112,7 @@ const Setupdetails = () => {
       return;
     }
   };
-  const NavidationToEducation = () => {
-    if (isFormValid()) {
-      router.push("/setup-education");
-    }
-  };
-  const NavidationToExperience = () => {
-    if (isFormValid()) {
-      router.push("/setup-experience");
-    }
-  };
-  const NavidationToSkill = () => {
-    if (isFormValid()) {
-      router.push("/setup-skill");
-    }
-  };
-  const NavidationToProject = () => {
-    if (isFormValid()) {
-      router.push("/setup-project");
-    }
-  };
-  const NavidationToCertification = () => {
-    if (isFormValid()) {
-      router.push("/setup-certification");
-    }
-  };
+
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
       <div className="flex justify-between items-center mx-5 sm:mx-9">
@@ -149,11 +138,14 @@ const Setupdetails = () => {
       </div>
       <div className=" bg-white   mx-2 sm:mx-6 lg-mx-8 border rounded-xl grid lg:grid-cols-5">
         <div
-          className="flex flex-col justify-center lg:col-span-3"
-          style={{ borderRight: "2px solid #D8D8DD" }}
+          className="flex flex-col lg:col-span-3 lg:max-h-[719px] lg:overflow-y-scroll"
+          style={{
+            borderRight: "2px solid #D8D8DD",
+            marginTop:"1.5rem",
+          }}
         >
           <div
-            className="bg-[#2B373C1C] flex justify-center items-center mb-7 mx-auto px-4 mt-6"
+            className="bg-[#2B373C1C] flex justify-center items-center mb-7 mx-auto px-4 lg:py-4"
             style={{ width: "80px", height: "80px", borderRadius: "24px" }}
             onClick={handleCameraIconClick}
           >
@@ -282,49 +274,89 @@ const Setupdetails = () => {
               </div>
             </div>
           </form>
-          <hr className="bg-[#15223214] " />
-          <div
-            className=" py-5 px-4 flex justify-between"
-            onClick={NavidationToEducation}
-          >
-            <p className="text-[#1E0F3B] font-bold text-lg">Education</p>
-            <img src="/Assets/plusSign.svg" alt="cameraIcon" />
-          </div>
-          <hr className="bg-[#15223214] " />
-          <div
-            className=" py-5 px-4 flex justify-between"
-            onClick={NavidationToExperience}
-          >
-            <p className="text-[#1E0F3B] font-bold text-lg">Experience</p>
-            <img src="/Assets/plusSign.svg" alt="cameraIcon" />
-          </div>
-          <hr className="bg-[#15223214] " />
-          <div
-            className=" py-5 px-4 flex justify-between"
-            onClick={NavidationToSkill}
-          >
-            <p className="text-[#1E0F3B] font-bold text-lg">Skill</p>
-            <img src="/Assets/plusSign.svg" alt="cameraIcon" />
-          </div>
-          <hr className="bg-[#15223214] " />
-          <div
-            className=" py-5 px-4 flex justify-between"
-            onClick={NavidationToProject}
-          >
-            <p className="text-[#1E0F3B] font-bold text-lg">Project</p>
-            <img src="/Assets/plusSign.svg" alt="cameraIcon" />
-          </div>
-          <hr className="bg-[#15223214] " />
-          <div
-            className=" py-5 px-4 flex justify-between"
-            onClick={NavidationToCertification}
-          >
-            <p className="text-[#1E0F3B] font-bold text-lg">Certification</p>
-            <img src="/Assets/plusSign.svg" alt="cameraIcon" />
+          <div>
+            <hr className="bg-[#15223214] " />
+            <Accordion
+              expanded={expanded === "panel1"}
+              onChange={handleChange("panel1")}
+            >
+              <AccordionSummary
+                expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <p className="text-[#1E0F3B] font-bold text-lg">Education</p>
+              </AccordionSummary>
+              <AccordionDetails>
+                <SetupEducation />
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              expanded={expanded === "panel2"}
+              onChange={handleChange("panel2")}
+            >
+              <AccordionSummary
+                expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
+                aria-controls="panel2a-content"
+                id="panel2a-header"
+              >
+                <p className="text-[#1E0F3B] font-bold text-lg">Experience</p>
+              </AccordionSummary>
+              <AccordionDetails>
+                <SetupExperience />
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              expanded={expanded === "panel3"}
+              onChange={handleChange("panel3")}
+            >
+              <AccordionSummary
+                expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
+                aria-controls="panel2a-content"
+                id="panel2a-header"
+              >
+                <p className="text-[#1E0F3B] font-bold text-lg">Skill</p>
+              </AccordionSummary>
+              <AccordionDetails>
+                <SetupSkills />
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              expanded={expanded === "panel4"}
+              onChange={handleChange("panel4")}
+            >
+              <AccordionSummary
+                expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
+                aria-controls="panel2a-content"
+                id="panel2a-header"
+              >
+                <p className="text-[#1E0F3B] font-bold text-lg">Project</p>
+              </AccordionSummary>
+              <AccordionDetails>
+                <SetupProject />
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              expanded={expanded === "panel5"}
+              onChange={handleChange("panel5")}
+            >
+              <AccordionSummary
+                expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
+                aria-controls="panel2a-content"
+                id="panel2a-header"
+              >
+                <p className="text-[#1E0F3B] font-bold text-lg">
+                  Certification
+                </p>
+              </AccordionSummary>
+              <AccordionDetails>
+                <SetupCertificate />
+              </AccordionDetails>
+            </Accordion>
           </div>
         </div>
         {/* section 2 */}
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0">
           <img src="/Assets/resumeTemplate.png" alt="cameraIcon" />
         </div>
       </div>

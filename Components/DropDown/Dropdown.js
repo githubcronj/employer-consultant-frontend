@@ -52,14 +52,9 @@ const Dropdown = () => {
             <li>
               <Link
                 className='flex flex-row  px-4 py-2 text-gray-800 '
-                href='#'
+                href='view-profile'
               >
-                <span
-                  className='flex-1 text-[#1E0F3B]'
-                  onClick={() => router.push("/view-profile")}
-                >
-                  View Profile
-                </span>
+                <span className='flex-1 text-[#1E0F3B]'>View Profile</span>
                 <img src={RightArrow.src} alt='' />
               </Link>
             </li>
