@@ -50,13 +50,19 @@ const Dropdown = () => {
         {isOpen && (
           <ul className='dropdown-content absolute bg-[#F9F6EE] mt-[0.8rem] py-1 whitespace-nowrap shadow-[0px_6px_16px_rgba(0,0,0,0.16)] opacity-100 z-50 right-0 w-[146px] rounded-[10px] '>
             <li>
-              <Link className='flex flex-row  px-4 py-2 text-gray-800 ' href='#'>
+              <Link
+                className='flex flex-row  px-4 py-2 text-gray-800 '
+                href='view-profile'
+              >
                 <span className='flex-1 text-[#1E0F3B]'>View Profile</span>
                 <img src={RightArrow.src} alt='' />
               </Link>
             </li>
             <li>
-              <Link className='flex flex-row px-4 py-2 text-gray-800' href='/editProfile'>
+              <Link
+                className='flex flex-row px-4 py-2 text-gray-800'
+                href='/editProfile'
+              >
                 <span className='flex-1 text-[#1E0F3B] '>Edit Profile</span>
                 <img src={RightArrow.src} alt='' />
               </Link>
