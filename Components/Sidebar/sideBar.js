@@ -8,9 +8,10 @@ import communication from "../../public/Assets/communication.svg";
 import subscription from "../../public/Assets/subscription.svg";
 import { useRef } from "react";
 import { useEffect } from "react";
+import cross from "../../public/Assets/x.png";
 export const SideBar = () => {
   const [display, setDisplay] = useState(true);
-  const [homebg, setHomebg] = useState(false);
+  const [homebg, setHomebg] = useState(true);
   const [shortlistedbg, setShortlistedbg] = useState(false);
   const [taskbg, setTaskbg] = useState(false);
   const [consultantbg, setConsultantbg] = useState(false);
@@ -18,6 +19,7 @@ export const SideBar = () => {
   const [subscriptionbg, setSubscriptionbg] = useState(false);
   const [scheduledbg, setScheduledbg] = useState(false);
   const [modal, setModal] = useState(false);
+  const [isfixed, setIsfixed] = useState(false);
   const click = (id) => {
     if (id == 0) {
       setCommunicationbg(false);
@@ -89,20 +91,53 @@ export const SideBar = () => {
   };
   useEffect(() => {
     window.addEventListener("resize", handleResize);
-  });
+  }, [setDisplay]);
+  useEffect(() => {
+    const handleScroll = () => {
+      const scroll = window.scrollY;
+
+      if (scroll > 10) {
+        setIsfixed(true);
+      } else {
+        setIsfixed(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className='z-1'>
+    <div className='w-auto z-10'>
       <div
         className='cursor-pointer mt-3 ml-3 z-0 xl:hidden lg:hidden md:hidden sm:hidden'
         onClick={() => setDisplay(!display)}
       >
-        <h3 className='w-5 h-[1px] border border-black mb-1'></h3>
-        <h3 className='w-5 h-[1px] border border-black mb-1'></h3>
-        <h3 className='w-5 h-[1px] border border-black mb-1'></h3>
+        {!display && (
+          <div>
+            <h3 className='w-5 h-[1px] border border-black mb-1'></h3>
+            <h3 className='w-5 h-[1px] border border-black mb-1'></h3>
+            <h3 className='w-5 h-[1px] border border-black mb-1'></h3>
+          </div>
+        )}
+        {display && (
+          <div>
+            <img src={cross.src} alt='x' className='w-5 h-5' />
+          </div>
+        )}
       </div>
-
       {display && (
-        <div className='fixed w-[220px] max-h-[832px] h-[100%] pt-[38px] shadow-[0px_1px_1px_rgba(21,34,50,0.08)]'>
+        <div
+          className={`bg-white w-[220px] max-h-[832px] h-[100%] 
+         
+           fixed  ${isfixed ? "top-0" : "top-15"} `}
+          style={{
+            boxShadow: modal ? "rgba(0, 0, 0, 0.20) 212px 38px 0px 220px" : "",
+          }}
+        >
           <div
             className='flex items-center align-middle  justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[220px]'
             style={{
@@ -237,10 +272,6 @@ export const SideBar = () => {
           </div>
         </div>
       )}
-
-      {/* {modal && (
-        <div className=' bg-black bg-opacity-50 justify-end overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none'></div>
-      )} */}
     </div>
   );
 };

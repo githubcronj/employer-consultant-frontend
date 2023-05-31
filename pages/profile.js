@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { profileSaveRequest } from "../store/action/profileAction";
 
 const Profile = () => {
+  // const profileData = useSelector((state) => state.profile.data);
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [data, setData] = useState(null);
@@ -165,7 +166,7 @@ const Profile = () => {
 
   return (
     <div className="bg-[#2B373C1C] py-10 px-2 sm:px-10">
-      <div className="flex justify-between items-center mx-5 sm:mx-9">
+      <div className="sm:flex justify-between items-center mx-5 sm:mx-9">
         <div className="my-3 m">
           <p className="text-lg sm:text-2xl font-bold">Set Employer Profile</p>
         </div>

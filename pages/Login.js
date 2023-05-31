@@ -13,8 +13,11 @@ import validator from "validator";
 import { useRouter } from "next/router";
 import { login, googleLogin } from "../store/action/loginaction";
 import { facebookLogin } from "store/action/fbAction";
+import { useSession, signIn, signOut } from "next-auth/react"
 
 const Login = () => {
+  const { data: session } = useSession()
+  console.log("🚀 ~ file: Login.js:20 ~ Login ~ session:", session)
   const router = useRouter();
   const dispatch = useDispatch();
   const [role, setRole] = useState("employer");
@@ -74,26 +77,25 @@ const Login = () => {
 
     dispatch(login(payload));
   };
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push("/profile");
-    }
-  }, [isLoggedIn, router]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     router.push("/profile");
+  //   }
+  // }, [isLoggedIn, router]);
 
-  const handleGoogleLogin = (e) => {
-    // e.preventDefault()
-    //  const payload = {
-    //   role:role,
-    //  }
-    // dispatch(googleLogin(payload));
-
-    window.open(`http://localhost:3001/auth/google/callback`, "_self");
+  const handleGoogleLogin = async(e) => {
+    e.preventDefault();
+    const callbackUrl = "/googleAuth"; 
+    await signIn("google",{role, callbackUrl })
+    
   };
   const facebookClick = () => {
     dispatch({ type: facebookLogin });
 
     window.open(`http://localhost:3001/facebook/callback`, "_self");
   };
+
+
   return (
     <>
       <div
@@ -229,7 +231,7 @@ const Login = () => {
                 src='/Assets/googleIcon.png'
                 alt='googleIcon'
                 style={{ width: "50px", height: "50px", cursor: "pointer" }}
-                onClick={handleGoogleLogin}
+                onClick={ handleGoogleLogin}
               />
             </div>
 
@@ -237,7 +239,8 @@ const Login = () => {
               src='/Assets/facebookIcon.png'
               alt='facebookIcon'
               style={{ width: "50px", height: "50px", cursor: "pointer" }}
-              onClick={facebookClick}
+              // onClick={facebookClick}
+              onClick={() => signIn("facebook",{ callbackUrl: "/googleAuth",role })}
             />
           </div>
 
