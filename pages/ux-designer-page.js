@@ -79,7 +79,7 @@ const uxDesigner = () => {
   </div>
   <div className="col-span-1 sm:col-span-1 lg:col-span-2">
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-      <div className="col-span-2 sm:col-span-1">
+      <div className="lg:col-span-2 md:col-span-2 sm:col-span-1">
         <select
           id="experience1"
           required
@@ -102,7 +102,7 @@ const uxDesigner = () => {
           <option value="three">3 years</option>
         </select>
       </div>
-      <div className="col-span-2 sm:col-span-1">
+      <div className="lg:col-span-2 md:col-span-2 sm:col-span-1">
         <select
           id="experience2"
           required
@@ -125,7 +125,7 @@ const uxDesigner = () => {
           <option value="three">3 years</option>
         </select>
       </div>
-      <div className="col-span-2 sm:col-span-1">
+      <div className="lg:col-span-2 md:col-span-2 sm:col-span-1">
         <select
           id="experience3"
           required
@@ -148,7 +148,7 @@ const uxDesigner = () => {
           <option value="three">3 years</option>
         </select>
       </div>
-      <div className="col-span-2 sm:col-span-1">
+      <div className="lg:col-span-2  md:col-span-2 sm:col-span-1">
         <button
           type="submit"
           className="flex items-center gap-2 px-8 py-2 bg-transparent text-[#A7A7A7] border border-[#A7A7A7] rounded-[16px] inline-flex gap-4 items-center tracking-wide  mr-1 sm:mr-3"
