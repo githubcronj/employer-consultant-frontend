@@ -10,7 +10,6 @@ function* otp(action) {
   try {
     const response = yield call(api.post, "/verify-otp", action.payload);
     yield put({ type: types.OTP_SUCCESS, payload: response.data });
-    toast.success('Signup successful', { autoClose: 3000 });
   } catch (error) {
     yield put({ type: types.OTP_ERROR, payload: error.message });
     toast.error("otp unsuccesfull");

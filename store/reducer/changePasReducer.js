@@ -2,9 +2,8 @@ import * as types from "../type/changePasword";
 
 const INITIAL_STATE = {
   createPassword: false,
-  isLoggedIn: false,
-  isLoggedOut: false,
-  token: null,
+  signUp: [],
+  isSignUp: false,
 }
 
 export function changePasswordReducer(state = INITIAL_STATE, action) {
@@ -12,15 +11,14 @@ export function changePasswordReducer(state = INITIAL_STATE, action) {
     case types.CHANGE_PASSWORD_REQUEST:
       return {
         ...state,
-        isLoggedIn: false,
-     
+        isSignUp: false,
       };
     case types.CHANGE_PASSWORD_SUCCESS:
       return {
         ...state,
-        
+        signUp: action.payload,
+        isSignUp: true,
         createPassword: true,
-        
       };
     case types.CHANGE_PASSWORD_ERROR:
       return {

@@ -32,7 +32,6 @@ const ConfirmPassword = () => {
   const [iconsetone, setIconsetOne] = useState(false);
   const [iconsettwo, setIconsetTwo] = useState(false);
  
-  const createPassword = useSelector(state => state.changePasswordReducer.createPassword);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -87,16 +86,15 @@ const ConfirmPassword = () => {
       setNewPasswordErr('');
     }
   
-   
+    if (isEmailValid && isPasswordValid && isNewPasswordValid) {
       const payload = {
         oldPassword: password,
         newPassword: newPassword,
       };
-      console.log('Payload:', payload);
       dispatch(changePassword(payload));
-    
+    }
   };
- 
+  
   const otpconfirm = () => {
     setIsOpen(false);
     7;
