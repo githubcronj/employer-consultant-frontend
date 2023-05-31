@@ -92,7 +92,7 @@ const NewJobPost = () => {
       };
       setJobPostData(initialJobPostData);
       console.log(jobPostData);
-      router.push("/home");
+      router.push("/");
     } else {
       return;
     }
@@ -102,7 +102,7 @@ const NewJobPost = () => {
       <div className='bg-white'>
         <div className='md:flex justify-between items-center mx-5 sm:mx-9 py-1'>
           <div className='my-3 flex gap-6'>
-            <Link href='/home'>
+            <Link href='/'>
               <Image
                 src='/Assets/backbtn.svg'
                 alt='back button'
@@ -120,7 +120,7 @@ const NewJobPost = () => {
             >
               Save
             </button>
-            <Link href='/home'>
+            <Link href='/'>
               <button className='px-8 py-3 bg-white border border-red-500 text-red-500 rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3'>
                 Cancel
               </button>
