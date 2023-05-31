@@ -32,6 +32,7 @@ const Register = () => {
   const [iconsettwo, setIconsetTwo] = useState(false);
 
   const data = useSelector((state) => state.registerReducer?.data?.status);
+ 
 
   useEffect(() => {
     if (data == 200) {

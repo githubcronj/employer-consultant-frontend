@@ -67,6 +67,7 @@ const Login = () => {
     const payload = {
       email: email,
       password: password,
+      role: role,
     };
 
     dispatch(login(payload));

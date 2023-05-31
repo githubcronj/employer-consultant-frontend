@@ -1,12 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
-import Avatar from 'public/Assets/man.png';
-import DownArrow from 'public/Assets/down-arrow.svg';
-import UpArrow from 'public/Assets/up-arrow.svg';
-import RightArrow from 'public/Assets/right-arrow.svg';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../store/action/loginaction';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import { useState, useEffect, useRef } from "react";
+import Avatar from "public/Assets/man.png";
+import DownArrow from "public/Assets/down-arrow.svg";
+import UpArrow from "public/Assets/up-arrow.svg";
+import RightArrow from "public/Assets/right-arrow.svg";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/action/loginaction";
+import { useRouter } from "next/router";
+import Link from "next/link";
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -28,9 +28,9 @@ const Dropdown = () => {
     localStorage.clear();
   };
   useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, []);
 
@@ -50,13 +50,24 @@ const Dropdown = () => {
         {isOpen && (
           <ul className='dropdown-content absolute bg-[#F9F6EE] mt-[0.8rem] py-1 whitespace-nowrap shadow-[0px_6px_16px_rgba(0,0,0,0.16)] opacity-100 z-50 right-0 w-[146px] rounded-[10px] '>
             <li>
-              <Link className='flex flex-row  px-4 py-2 text-gray-800 ' href='#'>
-                <span className='flex-1 text-[#1E0F3B]'>View Profile</span>
+              <Link
+                className='flex flex-row  px-4 py-2 text-gray-800 '
+                href='#'
+              >
+                <span
+                  className='flex-1 text-[#1E0F3B]'
+                  onClick={() => router.push("/view-profile")}
+                >
+                  View Profile
+                </span>
                 <img src={RightArrow.src} alt='' />
               </Link>
             </li>
             <li>
-              <Link className='flex flex-row px-4 py-2 text-gray-800' href='/editProfile'>
+              <Link
+                className='flex flex-row px-4 py-2 text-gray-800'
+                href='/editProfile'
+              >
                 <span className='flex-1 text-[#1E0F3B] '>Edit Profile</span>
                 <img src={RightArrow.src} alt='' />
               </Link>

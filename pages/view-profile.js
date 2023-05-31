@@ -1,27 +1,70 @@
-import React from "react";
-import { SideBar } from "Components/Sidebar/sideBar";
+import React, { useEffect, useState } from "react";
 import backbtn from "../public/Assets/backbtn.svg";
 import edit from "../public/Assets/edit.svg";
 import google from "../public/Assets/googleIcon.png";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { PROFILE_REQUEST } from "store/type/getProfileType";
+import { useSelector } from "react-redux";
 const viewProfile = () => {
+  const [flexing, setFlexing] = useState(false);
   const route = useRouter();
+  const dispatch = useDispatch();
   const editClick = () => {
     route.push("/editProfile");
   };
+  const backClicked = () => {
+    route.push("/");
+  };
+  let payload;
+  useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      const tokenset = JSON.parse(storedData);
+      payload = tokenset.token.accessToken;
+    }
+  });
+  useEffect(() => {
+    dispatch({ type: PROFILE_REQUEST, payload });
+  }, []);
+  const data = useSelector((state) => state.getProfileReducer?.CurrentUser);
+
+  useEffect(() => {
+    if (window.innerWidth < 394) {
+      setFlexing(true);
+    } else {
+      setFlexing(false);
+    }
+  }, []);
   return (
-    <div>
-      <div className='bg-[#2B373C1C] py-1 px-2 ml-6'>
+    <div
+      className={`w-[100%] xl:w-[1040px] lg:w-[1000px] sm:w-[720px] md:w-[900px]`}
+    >
+      <div
+        className={`bg-[#2B373C1C] 
+       xl:py-2 lg:py-2 md:py-2 sm:py-2 py-2 xl:px-4 md:px-4 sm:px-4 lg:px-4 ${
+         flexing ? " ml-1" : ""
+       } 
+       `}
+      >
         <div
           className='bg-white'
           style={{
             boxShadow: " 0px 2px 10px #4C4E641A",
             borderRadius: "4px",
-            maxWidth: "1030px",
+            // maxWidth: "1030px",
             width: "100%",
           }}
         >
-          <div className='flex justify-between mt-[12px] pt-[10px] items-center mx-5 sm:mr-9 sm:ml-[10px] '>
+          <div
+            className={`justify-between xl:mt-[10px] lg:mt-[10px] md:mt-[10px] sm:mt-[10px]
+           pt-[10px] -mt-[10px] xl:pt-[10px] mb-4
+           lg:pt-[10px] md:pt-[10px] sm:pt-[10px] items-center mx-4 sm:mr-9 sm:ml-[10px] flex ${
+             flexing ? "flex-col" : "flex-row"
+           }
+           `}
+          >
             <div className='flex items-center gap-x-4 '>
               <img
                 src={backbtn.src}
@@ -29,6 +72,7 @@ const viewProfile = () => {
                 width={46}
                 height={46}
                 className='cursor-pointer'
+                onClick={backClicked}
               />
               <p className=' text-[26px] text-[#2B373C] sm:text-2xl font-bold'>
                 View Profile
@@ -38,124 +82,99 @@ const viewProfile = () => {
               <img src={edit.src} alt='edit' className='w-[125px] h-[51px]' />
             </button>
           </div>
-          <hr className='mt-[25px]'></hr>
-          <div className='mt-[19px] mx-5 sm:mx-9 flex justify-between'>
-            <div style={{ maxWidth: "462px", width: "100%" }}>
-              <div className='flex items-center mb-[15px] '>
+          <hr className='mt-[25px]xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
+          <div className='mt-[19px] mx-3 flex justify-between'>
+            <div style={{ width: "100%" }}>
+              <div
+                className={`flex items-center mb-[15px] ${
+                  flexing ? "flex-col" : "flex-row"
+                }`}
+              >
                 <img
                   src={google.src}
                   alt='googleIcon'
                   className='w-[60px] h-[60px]'
                 />
-                <p className='w-[54px] pl-[17px] font-bold h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans'>
+                <p className='w-[54px] xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px] font-bold h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans'>
                   Google
                 </p>
               </div>
 
-              <hr
-                className=' '
-                style={{ width: "100%", maxWidth: "462px" }}
-              ></hr>
+              <hr className=' ' style={{ width: "100%" }}></hr>
               <div className='flex justify-between'>
                 <h4 className='h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1'>
                   Company ID
                 </h4>
                 <p className='h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1'>
-                  #54236
+                  {data?.companyId}
                 </p>
               </div>
-              <hr className=''></hr>
+              <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
               <div className='flex justify-between'>
                 <h4 className='h-[19px] mb-[18px] mt-[15px]  text-left font-bold font-sans text-[#000000] opacity-1'>
                   Industry type
                 </h4>
                 <p className='h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1'>
-                  IT Services & Technology
+                  {data?.industryType}
                 </p>
               </div>
-              <hr className=''></hr>
+              <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
               <div className='flex justify-between'>
                 <h4 className='h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1'>
                   Email
                 </h4>
                 <p className='h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1'>
-                  Google@gmail.com
+                  {data?.email}
                 </p>
               </div>
-              <hr className=''></hr>
+              <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
               <div className='flex justify-between'>
                 <h4 className='h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1'>
                   Website URL
                 </h4>
                 <p className='h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1'>
-                  https://google.com
+                  {data?.companyWebsiteUrl}
                 </p>
               </div>
-              <hr className=''></hr>
+              <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
               <div className='flex justify-between'>
                 <h4 className='h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1'>
                   Company Size
                 </h4>
                 <p className='h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1'>
-                  500 Employees
+                  {data?.companySize}
                 </p>
               </div>
-              <hr className=''></hr>
+              <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
               <div className='flex justify-between'>
                 <h4 className='h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1'>
                   Company Location
                 </h4>
                 <p className='h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1'>
-                  Bengaluru,India
+                  {data?.companyLocation}
                 </p>
               </div>
-              <hr className=''></hr>
+              <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
               <div className='flex justify-between'>
                 <h4 className='h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1'>
                   Founded In
                 </h4>
                 <p className='h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1'>
-                  12-14-2002
+                  {data?.companyFoundedDate}
                 </p>
               </div>
-              <hr className=''></hr>
+              <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[25px]'></hr>
             </div>
             <div className='border w-[1px] h-[100vh] -mt-[19px] ml-[5px]'></div>
-            <div className='w-[530px] pl-[30px]'>
+            <div className='w-[100%] pl-[30px]'>
               <h1 className='text-[#1E0F3B] mb-[20px] w-[152px] h-[24px] font-bold tracking-[0.2px]'>
                 About Company
               </h1>
               <p
                 className=' h-auto text-[#1E0F3B] opacity-[0.7] font-normal font-sans text-left'
-                style={{ width: "100%", maxWidth: "533px" }}
+                style={{ width: "100%" }}
               >
-                About Accenture: Accenture is a global professional services
-                company with leading capabilities in digital, cloud and
-                security. Combining unmatched experience and specialized skills
-                across more than 40 industries, we offer Strategy and
-                Consulting, Technology and Operations services and Accenture
-                Song-all powered by the world's largest network of Advanced
-                Technology and Intelligent Operations centers. Our 699,000
-                people deliver on the promise of technology and human ingenuity
-                every day, serving clients in more than 120 countries. We
-                embrace the power of change to create value and shared success
-                for our clients, people, shareholders, partners and communities.
-                Visit us at accenture.com
-              </p>
-              <p
-                className=' h-auto text-[#1E0F3B] opacity-[0.7] font-normal font-sans text-left'
-                style={{ width: "100%", maxWidth: "533px" }}
-              >
-                About Accenture: Accenture is a global professional services
-                company with leading capabilities in digital, cloud and
-                security. Combining unmatched experience and specialized skills
-                across more than 40 industries, we offer Strategy and
-                Consulting, Technology and Operations services and Accenture
-                Song-all powered by the world's largest network of Advanced
-                Technology and Intelligent Operations centers. Our 699,000
-                people deliver on the promise of technology and human ingenuity
-                every day, serving clients in more than 120 countries. We
-                embrace
+                {data?.aboutCompany}
               </p>
             </div>
           </div>
