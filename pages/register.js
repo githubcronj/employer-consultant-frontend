@@ -14,6 +14,7 @@ import validator from "validator";
 import { useRouter } from "next/router";
 import { googleLogin } from "../store/action/loginaction";
 import { facebookLogin } from "store/action/fbAction";
+import { useSession, signIn, signOut } from "next-auth/react"
 const Register = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -87,10 +88,11 @@ const Register = () => {
       setConfirmPasswordErr("Passwords does not match");
     }
   };
-  const handleGoogleLogin = () => {
-    dispatch(googleLogin());
-
-    window.open(`http://localhost:3001/auth/google/callback`, "_self");
+  const handleGoogleLogin = async(e) => {
+    e.preventDefault();
+    const callbackUrl = "/googleAuth"; 
+    await signIn("google",{role, callbackUrl })
+    
   };
   const facebookClick = () => {
     dispatch({ type: facebookLogin });
@@ -238,7 +240,7 @@ const Register = () => {
           <div className='flex items-center ml-0 gap-5 mt-3 '>
             <div>
               <img
-                onClick={handleGoogleLogin}
+                 onClick={ handleGoogleLogin}
                 src='/Assets/googleIcon.png'
                 alt='googleIcon'
                 style={{ width: "50px", height: "50px", cursor: "pointer" }}

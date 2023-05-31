@@ -1,13 +1,16 @@
-import { useState, useEffect, useRef } from "react";
-import Avatar from "public/Assets/man.png";
-import DownArrow from "public/Assets/down-arrow.svg";
-import UpArrow from "public/Assets/up-arrow.svg";
-import RightArrow from "public/Assets/right-arrow.svg";
-import { useDispatch } from "react-redux";
-import { logout } from "../../store/action/loginaction";
-import { useRouter } from "next/router";
-import Link from "next/link";
+import { useState, useEffect, useRef } from 'react';
+import Avatar from 'public/Assets/man.png';
+import DownArrow from 'public/Assets/down-arrow.svg';
+import UpArrow from 'public/Assets/up-arrow.svg';
+import RightArrow from 'public/Assets/right-arrow.svg';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../store/action/loginaction';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { signOut } from 'next-auth/react';
+import { useSession, signIn} from "next-auth/react"
 const Dropdown = () => {
+  const { data: session } = useSession()
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const dispatch = useDispatch();
@@ -21,11 +24,10 @@ const Dropdown = () => {
       setIsOpen(false);
     }
   };
-  const handleLogout = (e) => {
-    // e.preventDefault();
-    dispatch(logout());
-    // router.push('/login');
-    localStorage.clear();
+  const handleLogout = async(e) => {
+    e.preventDefault();
+   await signOut({ callbackUrl: '/Login' });
+   router.push('/Login');
   };
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
@@ -33,6 +35,9 @@ const Dropdown = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  const nameParts =session?.user?.name?.split(" ");
+  const firstName= nameParts && nameParts.length > 0 ? nameParts[0] : "User";
 
   return (
     <div className='flex flex-row'>
@@ -44,7 +49,7 @@ const Dropdown = () => {
           className='text-[#131523] text-[14px] py-2 px-4 pl-2 rounded inline-flex items-center'
           onClick={toggleDropdown}
         >
-          <span className='text-[#131523] mr-2 '>NAME</span>
+          <span className='text-[#131523] mr-2 '>{firstName}</span>
           <img src={isOpen ? UpArrow.src : DownArrow.src} alt='Arrow' />
         </button>
         {isOpen && (
