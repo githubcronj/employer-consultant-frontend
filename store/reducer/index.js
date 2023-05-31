@@ -7,6 +7,7 @@ import {forgotPasswordReducer} from "./forgotpasReducer";
 import setupReducer from "./setupReducer";
 import {changePasswordReducer} from "./changePasReducer";
 import { facebookReducer } from "./fbReducer";
+import editProfileReducer from "./editProfileReducer";
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   setupReducer,
   changePasswordReducer,
   facebookReducer,
+  editProfileReducer,
 });
 
 export default rootReducer;

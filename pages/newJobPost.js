@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import Image from "next/image";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const NewJobPost = () => {
   const router = useRouter();
@@ -11,15 +11,15 @@ const NewJobPost = () => {
   const [errors, setErrors] = useState({});
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [jobPostData, setJobPostData] = useState({
-    jobTitle: '',
-    experience: '',
-    applicationDeadline: '',
-    jobType: '',
-    min: '',
-    max: '',
-    jobDescription: '',
-    email: '',
-    phoneNumber: '',
+    jobTitle: "",
+    experience: "",
+    applicationDeadline: "",
+    jobType: "",
+    min: "",
+    max: "",
+    jobDescription: "",
+    email: "",
+    phoneNumber: "",
   });
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
@@ -35,40 +35,40 @@ const NewJobPost = () => {
       [id]: value,
     }));
     setIsFieldChanged(true);
-    if (id === 'email') {
+    if (id === "email") {
       const isValidEmail = /^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(
         value
       );
       setErrors((prevErrors) => ({
         ...prevErrors,
-        email: isValidEmail ? '' : 'Invalid email format',
+        email: isValidEmail ? "" : "Invalid email format",
       }));
     }
   };
   const isFormValid = () => {
     const requiredFields = [
-      'jobTitle',
-      'experience',
-      'applicationDeadline',
-      'jobType',
-      'min',
-      'max',
-      'jobDescription',
-      'email',
-      'phoneNumber',
+      "jobTitle",
+      "experience",
+      "applicationDeadline",
+      "jobType",
+      "min",
+      "max",
+      "jobDescription",
+      "email",
+      "phoneNumber",
     ];
     const errors = {};
 
     requiredFields.forEach((field) => {
-      if (jobPostData[field] === '') {
-        errors[field] = 'This field is required';
+      if (jobPostData[field] === "") {
+        errors[field] = "This field is required";
       }
     });
     if (
-      jobPostData.email !== '' &&
+      jobPostData.email !== "" &&
       !/^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(jobPostData.email)
     ) {
-      errors.email = 'Invalid email format';
+      errors.email = "Invalid email format";
     }
 
     setErrors(errors);
@@ -80,19 +80,19 @@ const NewJobPost = () => {
     if (isFormValid()) {
       console.log(jobPostData);
       const initialJobPostData = {
-        jobTitle: '',
-        experience: '',
-        applicationDeadline: '',
-        jobType: '',
-        min: '',
-        max: '',
-        jobDescription: '',
-        email: '',
-        phoneNumber: '',
+        jobTitle: "",
+        experience: "",
+        applicationDeadline: "",
+        jobType: "",
+        min: "",
+        max: "",
+        jobDescription: "",
+        email: "",
+        phoneNumber: "",
       };
       setJobPostData(initialJobPostData);
       console.log(jobPostData);
-      router.push('/home');
+      router.push("/");
     } else {
       return;
     }
@@ -140,13 +140,13 @@ const NewJobPost = () => {
               type='text'
               id='jobTitle'
               placeholder='UX Designer'
-              style={errors.jobTitle ? { borderColor: 'red' } : {}}
+              style={errors.jobTitle ? { borderColor: "red" } : {}}
               required
               className='py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full'
               value={jobPostData.jobTitle}
               onChange={handleChange}
             />
-            {renderErrorMessage('jobTitle')}
+            {renderErrorMessage("jobTitle")}
           </div>
           {/*  */}
           <div>
@@ -155,15 +155,15 @@ const NewJobPost = () => {
               required
               className='py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select '
               style={{
-                WebkitAppearance: 'none',
-                MozAppearance: 'none',
-                appearance: 'none',
-                backgroundImage: 'none',
-                backgroundImage: 'url(/Assets/down-arrow.svg)',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: '95% center',
-                paddingRight: '20px',
-                ...(errors.experience ? { borderColor: 'red' } : {}),
+                WebkitAppearance: "none",
+                MozAppearance: "none",
+                appearance: "none",
+                backgroundImage: "none",
+                backgroundImage: "url(/Assets/down-arrow.svg)",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "95% center",
+                paddingRight: "20px",
+                ...(errors.experience ? { borderColor: "red" } : {}),
               }}
               value={jobPostData.experience}
               onChange={handleChange}
@@ -173,7 +173,7 @@ const NewJobPost = () => {
               <option value='two'>2 year</option>
               <option value='three'>3 year</option>
             </select>
-            {renderErrorMessage('experience')}
+            {renderErrorMessage("experience")}
           </div>
           {/*  */}
           <div>
@@ -183,12 +183,12 @@ const NewJobPost = () => {
                 placeholderText='Application Deadline'
                 required
                 className={`block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
-                  errors.applicationDeadline ? 'border-red-500' : ''
+                  errors.applicationDeadline ? "border-red-500" : ""
                 }`}
                 selected={jobPostData.applicationDeadline}
                 onChange={(date) =>
                   handleChange({
-                    target: { id: 'applicationDeadline', value: date },
+                    target: { id: "applicationDeadline", value: date },
                   })
                 }
               />
@@ -196,16 +196,16 @@ const NewJobPost = () => {
                 for='applicationDeadline'
                 className='absolute hidden my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
               >
-                Founded In{' '}
+                Founded In{" "}
               </label>
               <img
                 src='/Assets/calendar.svg'
                 alt='calendar'
                 className='absolute right-2'
-                onClick={() => document.getElementById('founded').click()}
-              />{' '}
+                onClick={() => document.getElementById("founded").click()}
+              />{" "}
             </div>
-            {renderErrorMessage('applicationDeadline')}
+            {renderErrorMessage("applicationDeadline")}
           </div>
           {/*  */}
 
@@ -215,15 +215,15 @@ const NewJobPost = () => {
               required
               className='py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select'
               style={{
-                WebkitAppearance: 'none',
-                MozAppearance: 'none',
-                appearance: 'none',
-                backgroundImage: 'none',
-                backgroundImage: 'url(/Assets/down-arrow.svg)',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: '95% center',
-                paddingRight: '20px',
-                ...(errors.jobType ? { borderColor: 'red' } : {}),
+                WebkitAppearance: "none",
+                MozAppearance: "none",
+                appearance: "none",
+                backgroundImage: "none",
+                backgroundImage: "url(/Assets/down-arrow.svg)",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "95% center",
+                paddingRight: "20px",
+                ...(errors.jobType ? { borderColor: "red" } : {}),
               }}
               value={jobPostData.jobType}
               onChange={handleChange}
@@ -233,7 +233,7 @@ const NewJobPost = () => {
               <option value='React'>React Developer</option>
               <option value='Devops'>Dev Ops Engineer</option>
             </select>
-            {renderErrorMessage('jobType')}
+            {renderErrorMessage("jobType")}
           </div>
 
           {/*  salary starts here  */}
@@ -294,7 +294,7 @@ const NewJobPost = () => {
                     type='text'
                     id='min'
                     placeholder=' '
-                    style={errors.min ? { borderColor: 'red' } : {}}
+                    style={errors.min ? { borderColor: "red" } : {}}
                     required
                     className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
@@ -308,7 +308,7 @@ const NewJobPost = () => {
                   >
                     Min
                   </label>
-                  {renderErrorMessage('min')}
+                  {renderErrorMessage("min")}
                 </div>
                 {/* max */}
                 <div className='relative'>
@@ -317,7 +317,7 @@ const NewJobPost = () => {
                     id='max'
                     placeholder=' '
                     required
-                    style={errors.max ? { borderColor: 'red' } : {}}
+                    style={errors.max ? { borderColor: "red" } : {}}
                     className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
                         `}
                     value={jobPostData.max}
@@ -330,7 +330,7 @@ const NewJobPost = () => {
                   >
                     Max
                   </label>
-                  {renderErrorMessage('max')}
+                  {renderErrorMessage("max")}
                 </div>
               </div>
               {/* min max ends here */}
@@ -345,7 +345,7 @@ const NewJobPost = () => {
               id='jobDescription'
               placeholder=' '
               required
-              style={errors.jobDescription ? { borderColor: 'red' } : {}}
+              style={errors.jobDescription ? { borderColor: "red" } : {}}
               className='block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
               value={jobPostData.jobDescription}
               onChange={handleChange}
@@ -356,7 +356,7 @@ const NewJobPost = () => {
             >
               Job Description
             </label>
-            {renderErrorMessage('jobDescription')}
+            {renderErrorMessage("jobDescription")}
           </div>
           {/* jd ends here */}
           {/* email */}
@@ -366,9 +366,9 @@ const NewJobPost = () => {
               id='email'
               placeholder=' '
               required
-              style={errors.email ? { borderColor: 'red' } : {}}
+              style={errors.email ? { borderColor: "red" } : {}}
               className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
-              ${isFieldChanged && errors.email ? 'border-red-500' : ''} `}
+              ${isFieldChanged && errors.email ? "border-red-500" : ""} `}
               value={jobPostData.email}
               onChange={handleChange}
             />
@@ -380,7 +380,7 @@ const NewJobPost = () => {
               Email
             </label>
 
-            {renderErrorMessage('email')}
+            {renderErrorMessage("email")}
           </div>
           {/* phone number */}
           <div className='relative'>
@@ -391,7 +391,7 @@ const NewJobPost = () => {
               required
               //   minlength="10"
               //   maxlength="12"
-              style={errors.phoneNumber ? { borderColor: 'red' } : {}}
+              style={errors.phoneNumber ? { borderColor: "red" } : {}}
               className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
               value={jobPostData.phoneNumber}
@@ -404,7 +404,7 @@ const NewJobPost = () => {
             >
               Phone Number
             </label>
-            {renderErrorMessage('phoneNumber')}
+            {renderErrorMessage("phoneNumber")}
           </div>
         </div>
         {/* form section ends here */}
