@@ -77,11 +77,11 @@ const Login = () => {
 
     dispatch(login(payload));
   };
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     router.push("/profile");
-  //   }
-  // }, [isLoggedIn, router]);
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/profile");
+    }
+  }, [isLoggedIn, router]);
 
   const handleGoogleLogin = async(e) => {
     e.preventDefault();

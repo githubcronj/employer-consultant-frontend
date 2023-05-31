@@ -443,7 +443,7 @@ console.log('formvalues',formValues)
                   src='/Assets/blue-calendar.svg'
                   alt='calendar'
                   className='absolute right-2'
-                  onClick={() => document.getElementById("founded").click()}
+                  onClick={() => document.getElementById("companyFoundedDate").click()}
                 />{" "}
               </div>{" "}
               {renderErrorMessage("founded")}{" "}
