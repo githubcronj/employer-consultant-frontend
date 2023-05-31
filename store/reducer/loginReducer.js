@@ -36,28 +36,13 @@ export function LoginReducer(state = INITIAL_STATE, action) {
 
       //google login
    
-      case types.GOOGLE_LOGIN:
-        return {
-          ...state,
-         
-          isLoggedOut: false,
-         
-        };
-        case types.GOOGLE_LOGIN_SUCCESS:
-          return {
-            ...state,
-            // data: action.payload,
-            CurrentUser: action.payload.data,
-            isLoggedIn: true,
-            isLoggedOut: false,
-           
-          };
-    case types.GOOGLE_LOGIN_ERROR:
+
+    case types.GOOGLE_LOGIN_SUCCESS:
       return {
         ...state,
-        CurrentUser: null,
-        isLoggedIn: false,
-        isLoggedOut: true,
+        data: action.payload,
+        isLoggedIn: true,
+        isLoggedOut: false,
        
       };
    

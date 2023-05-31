@@ -7,11 +7,6 @@
   background: url("/Assets/consultantimg.png")no-repeat center center/cover;
  
 }
-
-.uxCard:hover {
-  background-image: linear-gradient(to right,#5E9AF833,#5E9AF800);
-  border-left: "2px solid #5E9AF8";
-}
 @media (min-width: 1536px) {
   .desk {
     height: 100vh;

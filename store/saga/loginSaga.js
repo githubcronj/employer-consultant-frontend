@@ -20,19 +20,16 @@ function* loginSaga(action) {
       data: payload,
     });
 
-
     if (response.status === 200) {
       localStorage.setItem("CurrentUser", JSON.stringify(response.data));
       localStorage.setItem("isLoggedIn", "true");
 
       yield put({ type: LOGIN_SUCCESS, payload: response });
-      toast.success('Login successful', { autoClose: 3000 });
     } else {
       yield put({ type: LOGIN_ERROR, payload: "Login failed" });
       toast.error("Login failed");
     }
   } catch (error) {
-
     console.log(error);
 
     yield put({ type: LOGIN_ERROR, payload: error.message });
@@ -40,28 +37,12 @@ function* loginSaga(action) {
   }
 }
 
-// function* googleloginSaga(action) {
-//   try{
-//     yield call(makeApiRequest, {
-//       endpoint: `/auth/login/success/${action.payload.role}`,
-//       method: 'GET',
-    
-//     });
-//   }catch(error){
-//     toast.error('An error occurred'); 
-//   }
- 
-   
-
- 
-// }
 function* googleloginSaga(action) {
   try {
     const response = yield call(makeApiRequest, {
       endpoint: "/auth/google",
       method: "GET",
     });
-
 
     if (response.status === 200) {
       yield put({ type: "GOOGLE_LOGIN_SUCCESS", payload: response.data });

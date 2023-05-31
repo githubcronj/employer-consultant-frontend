@@ -1,8 +1,7 @@
-
 import * as types from "../type/changePasword";
 export function changePassword(payload) {
     return {
-      type: types.CHANGE_PASSWORD_REQUEST,
+      type: types.CHANGE_PASSWORD,
       payload: payload,
     };
   }
