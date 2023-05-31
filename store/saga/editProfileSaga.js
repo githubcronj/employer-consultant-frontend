@@ -1,6 +1,8 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { setFormData, submitFormData } from "store/action/editProfileAction";
 import * as types from '../type/editProfileType';
+import { PROFILE_EDIT_FAILURE, PROFILE_EDIT_SUCCESS } from 'store/type/editProfileType';
+
 
 import { makeApiRequest } from "../../utils/api";
 
@@ -33,8 +35,8 @@ function* fetchFormDataSaga() {
   yield put({ type: types.SET_FORM_SUCCESS, payload: data });
 }
 function* submitEditFormData(action) {
- 
-  console.log('in saga',action.payload.accessToken)
+  const { accessToken } = action; 
+  console.log('in saga',accessToken)
   const data = {
     companyName: action.payload.companyName,
   industryType: action.payload.industryType,
@@ -45,18 +47,18 @@ function* submitEditFormData(action) {
   companySize: action.payload.companySize,
   companyLocation: action.payload.companyLocation,
   companyFoundedDate: action.payload.companyFoundedDate,
-
+  // accessToken: action.payload.accessToken,
   }
+  
 try {
   
   const response = yield call(makeApiRequest, {
       endpoint: '/employer/profile',
-      method: 'PUT',
-
+      method: 'POST',
       data: data,
       headers: {
         // "Content-Type": "application/json",
-        Authorization: `Bearer ${action.payload.accessToken}`,
+        Authorization: `Bearer ${accessToken.token.accessToken}`,
       },
     });
   // yield put(profileSaveSuccess(response.data));
