@@ -2,13 +2,12 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import styles from "../styles/LoginPage.module.css";
+import UxDesignerCardList from "Components/Cards/ux-designer-card";
 const uxDesigner = () => {
   const router = useRouter();
 
-  const [skillData, setSkilleData] = useState({
-    skillName: "",
-  }); const [errors, setErrors] = useState({});
+
+   const [errors, setErrors] = useState({});
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
       return (
@@ -17,25 +16,14 @@ const uxDesigner = () => {
     }
     return null;
   };
-  const isFormValid = () => {
-    const requiredFields = [
-      "skillName"
-    ];
-    const errors = {};
 
-    requiredFields.forEach((field) => {
-      if (skillData[field] === "") {
-        errors[field] = "This field is required";
-      }
-    });
-    setErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
 
 
   return (
-    <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
-   <div className="grid grid-cols-3 gap-4 mx-2 sm:mx-6 bg-white border px-4 py-4">
+   
+    <div className=" grid lg:grid-cols-12 sm:grid-col-span-2 bg-[#2B373C1C] py-5 px-2 sm:px-10">
+        <div className="lg:col-start-1 lg:col-end-12  sm:col-span-3">
+   <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-4 mx-2 sm:mx-6 bg-white border px-4 py-4">
   <div className="flex items-center gap-x-4 lg:col-span-1 sm:col-span-2">
     <Image
       src="/Assets/backbtn.svg"
@@ -79,7 +67,7 @@ const uxDesigner = () => {
   </div>
   <div className="col-span-1 sm:col-span-1 lg:col-span-2">
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-      <div className="lg:col-span-2  sm:col-span-1">
+      <div className="lg:col-span-1 sm:col-span-3">
         <select
           id="experience1"
           required
@@ -102,7 +90,7 @@ const uxDesigner = () => {
           <option value="three">3 years</option>
         </select>
       </div>
-      <div className="lg:col-span-2  sm:col-span-1">
+      <div className="lg:col-span-1 sm:col-span-3">
         <select
           id="experience2"
           required
@@ -125,7 +113,7 @@ const uxDesigner = () => {
           <option value="three">3 years</option>
         </select>
       </div>
-      <div className="lg:col-span-2  sm:col-span-1">
+      <div className="lg:col-span-1 sm:col-span-3">
         <select
           id="experience3"
           required
@@ -148,7 +136,7 @@ const uxDesigner = () => {
           <option value="three">3 years</option>
         </select>
       </div>
-      <div className="lg:col-span-2  sm:col-span-1">
+      <div className="lg:col-span-1 sm:col-span-3">
         <button
           type="submit"
           className="flex items-center gap-2 px-8 py-2 bg-transparent text-[#A7A7A7] border border-[#A7A7A7] rounded-[16px] inline-flex gap-4 items-center tracking-wide  mr-1 sm:mr-3"
@@ -167,109 +155,14 @@ const uxDesigner = () => {
         <div className="flex flex-col lg:col-span-2 py-6 px-6"
           style={{ borderRight: "2px solid #D8D8DD" }}
         >
-         <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
+            <div className="flex">
+            <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
          24 Consultant
           </p>
-<div className="gap-3">
-          <div className={`flex items-center mt-5 m-3 border-b p-2 ${styles.uxCard}` }>
-      
-      <Image
-            src="/Assets/clientImg.png"
-            alt="back button"
-            width={46}
-            height={46}
-            className="cursor-pointer w-10 h-10 rounded-full mr-4"
-          />
-      <div className="text-sm">
-        <p className="text-gray-900 leading-none font-bold text-[16px]">James Joy</p>
-        <p className="text-gray-600 mt-2">UX Designer . 2 yr Exp</p>
-      </div>
-    </div>
-    <div className ={`flex items-center mt-5 m-3 border-b p-2 ${styles.uxCard}` }>
-      
-      <Image
-            src="/Assets/clientImg.png"
-            alt="back button"
-            width={46}
-            height={46}
-            className="cursor-pointer w-10 h-10 rounded-full mr-4"
-          />
-      <div className="text-sm">
-        <p className="text-gray-900 leading-none font-bold text-[16px]">James Joy</p>
-        <p className="text-gray-600 mt-2">UX Designer . 2 yr Exp</p>
-      </div>
-    </div>
-    <div className={`flex items-center mt-5 m-3 border-b p-2 ${styles.uxCard}` }>
-      
-      <Image
-            src="/Assets/clientImg.png"
-            alt="back button"
-            width={46}
-            height={46}
-            className="cursor-pointer w-10 h-10 rounded-full mr-4"
-          />
-      <div className="text-sm">
-        <p className="text-gray-900 leading-none font-bold text-[16px]">James Joy</p>
-        <p className="text-gray-600 mt-2">UX Designer . 2 yr Exp</p>
-      </div>
-    </div>
-    <div className={`flex items-center mt-5 m-3 border-b p-2 ${styles.uxCard}` }>
-      
-      <Image
-            src="/Assets/clientImg.png"
-            alt="back button"
-            width={46}
-            height={46}
-            className="cursor-pointer w-10 h-10 rounded-full mr-4"
-          />
-      <div className="text-sm">
-        <p className="text-gray-900 leading-none font-bold text-[16px]">James Joy</p>
-        <p className="text-gray-600 mt-2">UX Designer . 2 yr Exp</p>
-      </div>
-    </div>
-    <div className={`flex items-center mt-5 m-3 border-b p-2 ${styles.uxCard}` }>
-      
-      <Image
-            src="/Assets/clientImg.png"
-            alt="back button"
-            width={46}
-            height={46}
-            className="cursor-pointer w-10 h-10 rounded-full mr-4"
-          />
-      <div className="text-sm">
-        <p className="text-gray-900 leading-none font-bold text-[16px]">James Joy</p>
-        <p className="text-gray-600 mt-2">UX Designer . 2 yr Exp</p>
-      </div>
-    </div>
-    <div className={`flex items-center mt-5 m-3 border-b p-2 ${styles.uxCard}` }>
-      
-      <Image
-            src="/Assets/clientImg.png"
-            alt="back button"
-            width={46}
-            height={46}
-            className="cursor-pointer w-10 h-10 rounded-full mr-4"
-          />
-      <div className="text-sm">
-        <p className="text-gray-900 leading-none font-bold text-[16px]">James Joy</p>
-        <p className="text-gray-600 mt-2">UX Designer . 2 yr Exp</p>
-      </div>
-    </div>
-    <div className={`flex items-center mt-5 m-3 border-b p-2 ${styles.uxCard}` }>
-      
-      <Image
-            src="/Assets/clientImg.png"
-            alt="back button"
-            width={46}
-            height={46}
-            className="cursor-pointer w-10 h-10 rounded-full mr-4"
-          />
-      <div className="text-sm">
-        <p className="text-gray-900 leading-none font-bold text-[16px]">James Joy</p>
-        <p className="text-gray-600 mt-2">UX Designer . 2 yr Exp</p>
-      </div>
-    </div>
-    </div>
+          <div className="bg-[#5E9AF8] ml-2 px-2 py-1 border rounded text-[#ffffff]">3</div>
+            </div>
+        
+          <UxDesignerCardList/>
         <div>
           
         </div>
@@ -305,7 +198,32 @@ const uxDesigner = () => {
         </div>
       
       </div>
+      </div>
+
+      <div className=" lg:col-start-12 lg:col-end-12 " >
+      <div className="flex items-center">
+  <button className="flex justify-center items-center font-bold text-16px m-2">
+  <span className="mr-2">
+      <img src="/Assets/editIcon.svg" alt="Delete Icon" />
+    </span>
+    Edit
+  
+  </button>
+</div>
+        <div className="flex items-center">
+  <button className="flex justify-center items-center font-bold text-16px m-2">
+  <span className="mr-2">
+      <img src="/Assets/deleteIcon.svg" alt="Delete Icon" />
+    </span>
+    Delete
+  
+  </button>
+</div>
+
+      </div>
     </div>
+   
+  
   );
 };
 
