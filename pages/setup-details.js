@@ -28,13 +28,13 @@ const Setupdetails = () => {
       text: "",
     },
     educationDetails: {},
-    experienceDetails: {},
+    experienceDetails: [],
     skillsDetails: { skillName: "" },
     projectDetails: {},
     certificationDetails: {},
   });
   const [selectedImage, setSelectedImage] = useState(null);
-  const [tempExp, setTemExp] = useState();
+  const [tempExp, setTemExp] = useState({});
 
   const handleCameraIconClick = () => {
     const fileInput = document.getElementById("imageview");
@@ -53,7 +53,6 @@ const Setupdetails = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     const [section, field] = name.split(".");
-
     setResumeForm((prevData) => ({
       ...prevData,
       [section]: {
@@ -62,24 +61,34 @@ const Setupdetails = () => {
       },
     }));
   };
-  const handleExpAdd=(data)=>{
-    setResumeForm((prevData) => ({
-      ...prevData,
-      [data]: {
-        ...prevData[section],
-        [field]: value,
-      },
-    }));
 
-  }
   const handleExpChange = (e) => {
     const { name, value } = e.target;
-
     const [section, field] = name.split(".");
-
     setTemExp({ ...tempExp, [field]: value });
   };
-  console.log(tempExp);
+
+  const handleExpAdd = () => {
+    setResumeForm((prevData) => ({
+      ...prevData,
+      experienceDetails: [...prevData.experienceDetails, tempExp],
+    }));
+    setTemExp({});
+  };
+
+  const handleremovedata = (indexdata) => {
+    setResumeForm((prevData) => {
+      const updatedExperienceDetails = prevData.experienceDetails.filter(
+        (_, index) => index !== indexdata
+      );
+      return {
+        ...prevData,
+        experienceDetails: updatedExperienceDetails,
+      };
+    });
+  };
+
+  console.log(resumeForm, tempExp);
 
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
@@ -277,6 +286,8 @@ const Setupdetails = () => {
                   experienceDetails={tempExp}
                   tempExp={handleExpChange}
                   handleExpAdd={handleExpAdd}
+                  infodata={resumeForm?.experienceDetails}
+                  handleremovedata={handleremovedata}
                 />
               </AccordionDetails>
             </Accordion>

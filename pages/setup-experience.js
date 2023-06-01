@@ -3,7 +3,13 @@ import { useRouter } from "next/router";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const SetupExperience = ({ experienceDetails, tempExp, handleExpAdd }) => {
+const SetupExperience = ({
+  experienceDetails,
+  tempExp,
+  handleExpAdd,
+  infodata,
+  handleremovedata,
+}) => {
   const router = useRouter();
 
   const handleExperienceDetailsChange = (e) => {
@@ -21,9 +27,12 @@ const SetupExperience = ({ experienceDetails, tempExp, handleExpAdd }) => {
       router.push("/setup-details");
     }
   };
-  // console.log(experienceDetails);
+
   const addData = (section) => {
     handleExpAdd(section);
+  };
+  const removeData = (indexdata) => {
+    handleremovedata(indexdata);
   };
 
   return (
@@ -142,30 +151,31 @@ const SetupExperience = ({ experienceDetails, tempExp, handleExpAdd }) => {
         </div>
       </form>
       {/* block display */}
-      {/* <div className="py-4 grid sm:grid-cols-2 gap-7">
-          {infodata.map((item, index) => {
-            return (
-              <div
-                key={index}
-                className="bg-[#F9F6EE] p-6 bordr rounded-xl text-[#1E0F3B] font-bold"
-                style={{ position: "relative" }}
-              >
-                <div>
-                  <p className="">{item.eduLevel + " " + item.degree}</p>
-                  <p className="py-1">{item.institutionName}</p>
-                  <p className="text-[#9C94A2]">{item.passingyear}</p>
-                </div>
-                <img
-                  src="/Assets/cross.svg"
-                  alt="cameraIcon"
-                  className=" justify-end"
-                  style={{ position: "absolute", top: "11%", right: "2%" }}
-                  onClick={() => removeData(index)}
-                />
+      {/* need to work and render properly as per our item data */}
+      <div className="py-4 grid sm:grid-cols-2 gap-7">
+        {infodata?.map((item, index) => {
+          return (
+            <div
+              key={index}
+              className="bg-[#F9F6EE] p-6 bordr rounded-xl text-[#1E0F3B] font-bold"
+              style={{ position: "relative" }}
+            >
+              <div>
+                <p className="">{item.eduLevel + " " + item.degree}</p>
+                <p className="py-1">{item.companyName}</p>
+                <p className="text-[#9C94A2]">{item.passingyear}</p>
               </div>
-            );
-          })}
-        </div> */}
+              <img
+                src="/Assets/cross.svg"
+                alt="cameraIcon"
+                className=" justify-end"
+                style={{ position: "absolute", top: "11%", right: "2%" }}
+                onClick={() => removeData(index)}
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
