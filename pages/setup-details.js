@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import SetupEducation from "./setup-education";
-import SetupExperience from "./setup-experience";
-import SetupSkills from "./setup-skills";
-import SetupProject from "./setup-project";
-import SetupCertificate from "./setup-certification";
+import SetupEducation from "../Components/ResumeData/setup-education";
+import SetupExperience from "../Components/ResumeData/setup-experience";
+import SetupSkills from "../Components/ResumeData/setup-skills";
+import SetupProject from "../Components/ResumeData/setup-project";
+import SetupCertificate from "../Components/ResumeData/setup-certification";
 
 const Setupdetails = () => {
   const router = useRouter();
@@ -27,14 +27,18 @@ const Setupdetails = () => {
       location: "",
       text: "",
     },
-    educationDetails: {},
-    experienceDetails: {},
-    skillsDetails: { skillName: "" },
-    projectDetails: {},
-    certificationDetails: {},
+    educationDetails: [],
+    experienceDetails: [],
+    skillsDetails: [],
+    projectDetails: [],
+    certificationDetails: [],
   });
   const [selectedImage, setSelectedImage] = useState(null);
-  const [tempExp, setTemExp] = useState();
+  const [tempExp, setTemExp] = useState({});
+  const [tempSkills, setempSkills] = useState({});
+  const [tempProject, SetempProject] = useState({});
+  const [tempCertificate, SetempCertificate] = useState({});
+  const [tempeducation, SetempEdu] = useState({});
 
   const handleCameraIconClick = () => {
     const fileInput = document.getElementById("imageview");
@@ -53,7 +57,6 @@ const Setupdetails = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     const [section, field] = name.split(".");
-
     setResumeForm((prevData) => ({
       ...prevData,
       [section]: {
@@ -62,24 +65,137 @@ const Setupdetails = () => {
       },
     }));
   };
-  const handleExpAdd=(data)=>{
-    setResumeForm((prevData) => ({
-      ...prevData,
-      [data]: {
-        ...prevData[section],
-        [field]: value,
-      },
-    }));
 
-  }
   const handleExpChange = (e) => {
     const { name, value } = e.target;
-
     const [section, field] = name.split(".");
-
     setTemExp({ ...tempExp, [field]: value });
   };
-  console.log(tempExp);
+
+  const handleSkillsChange = (e) => {
+    const { name, value } = e.target;
+    const [section, field] = name.split(".");
+    setempSkills({ ...tempSkills, [field]: value });
+  };
+
+  const handleProjectChange = (e) => {
+    const { name, value } = e.target;
+    const [section, field] = name.split(".");
+    SetempProject({ ...tempProject, [field]: value });
+  };
+
+  const handleCertificateChange = (e) => {
+    const { name, value } = e.target;
+    const [section, field] = name.split(".");
+    SetempCertificate({ ...tempCertificate, [field]: value });
+  };
+
+  const handleEducationChange = (e) => {
+    const { name, value } = e.target;
+    const [section, field] = name.split(".");
+    SetempEdu({ ...tempeducation, [field]: value });
+  };
+
+  const handleExpAdd = () => {
+    setResumeForm((prevData) => ({
+      ...prevData,
+      experienceDetails: [...prevData.experienceDetails, tempExp],
+    }));
+    setTemExp({});
+  };
+
+  const handleSkillsAdd = () => {
+    setResumeForm((prevData) => ({
+      ...prevData,
+      skillsDetails: [...prevData.skillsDetails, tempSkills],
+    }));
+    setempSkills({});
+  };
+  const handleProjectAdd = () => {
+    setResumeForm((prevData) => ({
+      ...prevData,
+      projectDetails: [...prevData.projectDetails, tempProject],
+    }));
+    SetempProject({});
+  };
+
+  const handleCertificateAdd = () => {
+    setResumeForm((prevData) => ({
+      ...prevData,
+      certificationDetails: [...prevData.certificationDetails, tempCertificate],
+    }));
+    SetempCertificate({});
+  };
+
+  const handleEducationAdd = () => {
+    setResumeForm((prevData) => ({
+      ...prevData,
+      educationDetails: [...prevData.educationDetails, tempeducation],
+    }));
+    SetempEdu({});
+  };
+
+  const handleremovedata = (indexdata) => {
+    setResumeForm((prevData) => {
+      const updatedExperienceDetails = prevData.experienceDetails.filter(
+        (_, index) => index !== indexdata
+      );
+      return {
+        ...prevData,
+        experienceDetails: updatedExperienceDetails,
+      };
+    });
+  };
+
+  const handleSkillsremovedata = (indexdata) => {
+    setResumeForm((prevData) => {
+      const updatedDataskills = prevData.skillsDetails.filter(
+        (_, index) => index !== indexdata
+      );
+      return {
+        ...prevData,
+        skillsDetails: updatedDataskills,
+      };
+    });
+  };
+
+  const handleProjectremovedata = (indexdata) => {
+    setResumeForm((prevData) => {
+      const updatedData = prevData.projectDetails.filter(
+        (_, index) => index !== indexdata
+      );
+      return {
+        ...prevData,
+        projectDetails: updatedData,
+      };
+    });
+  };
+
+  const handleCertificateremovedata = (indexdata) => {
+    setResumeForm((prevData) => {
+      const updatedData1 = prevData.certificationDetails.filter(
+        (_, index) => index !== indexdata
+      );
+      return {
+        ...prevData,
+        certificationDetails: updatedData1,
+      };
+    });
+  };
+
+  const handleEducationremovedata = (indexdata) => {
+    setResumeForm((prevData) => {
+      const updatedDataEdu = prevData.educationDetails.filter(
+        (_, index) => index !== indexdata
+      );
+      return {
+        ...prevData,
+        educationDetails: updatedDataEdu,
+      };
+    });
+  };
+
+  console.log(resumeForm);
 
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
@@ -244,7 +360,7 @@ const Setupdetails = () => {
           </form>
           <div>
             <hr className="bg-[#15223214] " />
-            {/* <Accordion
+            <Accordion
               expanded={expanded === "panel1"}
               onChange={handleChange("panel1")}
               elevation={0}
@@ -257,9 +373,15 @@ const Setupdetails = () => {
                 <p className="text-[#1E0F3B] font-bold text-lg">Education</p>
               </AccordionSummary>
               <AccordionDetails>
-                <SetupEducation />
+                <SetupEducation
+                  educationDetails={tempeducation}
+                  tempeducation={handleEducationChange}
+                  handleEducationAdd={handleEducationAdd}
+                  infodata={resumeForm?.educationDetails}
+                  handleEducationremovedata={handleEducationremovedata}
+                />
               </AccordionDetails>
-            </Accordion> */}
+            </Accordion>
             <Accordion
               expanded={expanded === "panel2"}
               onChange={handleChange("panel2")}
@@ -277,6 +399,8 @@ const Setupdetails = () => {
                   experienceDetails={tempExp}
                   tempExp={handleExpChange}
                   handleExpAdd={handleExpAdd}
+                  infodata={resumeForm?.experienceDetails}
+                  handleremovedata={handleremovedata}
                 />
               </AccordionDetails>
             </Accordion>
@@ -294,8 +418,11 @@ const Setupdetails = () => {
               </AccordionSummary>
               <AccordionDetails>
                 <SetupSkills
-                  skillsDetails={resumeForm}
-                  setskillsDetails={setResumeForm}
+                  skillsDetails={tempSkills}
+                  tempSkills={handleSkillsChange}
+                  handleSkillsAdd={handleSkillsAdd}
+                  infodata={resumeForm?.skillsDetails}
+                  handleSkillsremovedata={handleSkillsremovedata}
                 />
               </AccordionDetails>
             </Accordion>
@@ -312,7 +439,13 @@ const Setupdetails = () => {
                 <p className="text-[#1E0F3B] font-bold text-lg">Project</p>
               </AccordionSummary>
               <AccordionDetails>
-                <SetupProject />
+                <SetupProject
+                  projectDetails={tempProject}
+                  tempProject={handleProjectChange}
+                  handleProjectAdd={handleProjectAdd}
+                  infodata={resumeForm?.projectDetails}
+                  handleProjectremovedata={handleProjectremovedata}
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -330,7 +463,13 @@ const Setupdetails = () => {
                 </p>
               </AccordionSummary>
               <AccordionDetails>
-                <SetupCertificate />
+                <SetupCertificate
+                  certificationDetails={tempCertificate}
+                  tempCertificate={handleCertificateChange}
+                  handleCertificateAdd={handleCertificateAdd}
+                  infodata={resumeForm?.certificationDetails}
+                  handleCertificateremovedata={handleCertificateremovedata}
+                />
               </AccordionDetails>
             </Accordion>
             <hr className="bg-[#15223214] " />

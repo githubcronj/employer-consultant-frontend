@@ -15,6 +15,7 @@ function Layout(props) {
     "/resetPassword",
     "/confirmPassword",
     "/verifyotp",
+    "/setup-details",
   ].includes(pathname);
 
   return (
