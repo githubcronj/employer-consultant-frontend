@@ -31,6 +31,33 @@ const cardData = [
         imageSrc: "/Assets/clientImg.png",
         
        
+    },
+    {
+      id:4,
+        name: "James Joy",
+        jobTitle: "UX Designer",
+        experience: "2 yr Exp",
+        imageSrc: "/Assets/clientImg.png",
+        
+       
+    },
+    {
+      id:5,
+        name: "James Joy",
+        jobTitle: "UX Designer",
+        experience: "2 yr Exp",
+        imageSrc: "/Assets/clientImg.png",
+        
+       
+    },
+    {
+      id:6,
+        name: "James Joy",
+        jobTitle: "UX Designer",
+        experience: "2 yr Exp",
+        imageSrc: "/Assets/clientImg.png",
+        
+       
     }
    
 ]
@@ -50,10 +77,10 @@ const UxDesignerCard = ({ name, jobTitle, experience, imageSrc, selected, onClic
     <>
       <div onClick={onClick}>
         <div
-          className={`flex items-center mt-5 border-b p-2 ${styles.uxCard} ${selected ? "mt-2" : ""}`}
+          className={`flex items-center border-b py-5 px-2 border-l-4[#ffffff] ${styles.uxCard} ${selected ? "" : ""}`}
           style={
             shortlisted
-              ?  { borderLeft: "4px solid #5E9AF8", background: "linear-gradient(#5E9AF800, #5E9AF833)" }
+              ?  { borderLeft: "4px solid #5E9AF8", background: "linear-gradient( to left,#5E9AF800, #5E9AF833)" }
               : selected
               ?{ borderLeft: "4px solid red", background: "linear-gradient(#F9342E00,#F9342E33)" }
               : {}
@@ -66,14 +93,7 @@ const UxDesignerCard = ({ name, jobTitle, experience, imageSrc, selected, onClic
               {jobTitle} . {experience}
             </p>
           </div>
-          <div className="flex items-center justify-end ml-[70px]">
-            <input
-              type="checkbox"
-              className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-            />
-          </div>
+       
         </div>
       </div>
     </>

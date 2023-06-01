@@ -45,7 +45,7 @@ const uxDesigner = () => {
 
   return (
    
-    <div className=" grid lg:grid-cols-12 sm:grid-col-span-2 bg-[#2B373C1C] py-5 px-2 sm:px-10">
+    <div className=" grid lg:grid-cols-12 sm:grid-col-span-2 bg-[#2B373C1C] py-5 px-2 sm:px-2">
         <div className="lg:col-start-1 lg:col-end-12  sm:col-span-3">
    <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-4 mx-2 sm:mx-6 bg-white border px-4 py-4">
   <div className="flex items-center gap-x-4 lg:col-span-1 sm:col-span-2">
@@ -244,6 +244,7 @@ const uxDesigner = () => {
       </div>
 
       <div className=" lg:col-start-12 lg:col-end-12 sm:col-start-1 sm:col-end-12" >
+        <div className="">
       <div className="flex items-center justify-center">
   <button className="flex justify-center items-center font-bold text-16px m-2">
   <span className="mr-2">
@@ -262,6 +263,7 @@ const uxDesigner = () => {
   
   </button>
  
+</div>
 </div>
 
       </div>
