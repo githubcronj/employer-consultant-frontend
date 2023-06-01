@@ -3,10 +3,26 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import UxDesignerCardList from "Components/Cards/ux-designer-card";
+import Popover from "Components/PopOver/popOver";
+import Popoverr from "Components/PopOver/popOver";
 const uxDesigner = () => {
   const router = useRouter();
 
+  const [shortlistedCard, setshortlistedCard] = useState(null);
 
+
+
+  const handleShortlistClick = (card) => {
+    setshortlistedCard(card);
+    console.log(" clicked")
+  };
+
+ 
+
+  const handleClickShortlistBtn = (card) => {
+    setshortlistedCard(card);
+    console.log("tick is clicked")
+  };
    const [errors, setErrors] = useState({});
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
@@ -152,17 +168,17 @@ const uxDesigner = () => {
 
       <div className=" bg-white    mx-2 sm:mx-6 lg-mx-8 border rounded-xl grid lg:grid-cols-6">
         {/* first section */}
-        <div className="flex flex-col lg:col-span-2 py-6 px-6"
+        <div className="flex flex-col lg:col-span-2 py-6"
           style={{ borderRight: "2px solid #D8D8DD" }}
         >
-            <div className="flex">
+            <div className="flex px-3">
             <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
          24 Consultant
           </p>
           <div className="bg-[#5E9AF8] ml-2 px-2 py-1 border rounded text-[#ffffff]">3</div>
             </div>
         
-          <UxDesignerCardList/>
+          <UxDesignerCardList onShortlistClick={handleShortlistClick}  shortlistedCard={shortlistedCard}/>
         <div>
           
         </div>
@@ -170,29 +186,39 @@ const uxDesigner = () => {
         </div>
         {/* section 2 */}
         <div className="lg:col-span-3">
-  <div className="flex">
-    <div className="border-l border-r">
-      <img src="/Assets/resumeTemplate.png" alt="cameraIcon" />
-    </div>
+        <div className="grid lg:grid-cols-12">
+  <div className="border-l border-r lg:col-start-1 lg:col-end-12">
+    <img src="/Assets/resumeTemplate.png" alt="cameraIcon" />
+  </div>
+  <div className="border-l lg:col-start-12 lg:col-end-12 flex justify-end items-end ">
+    <img src="/Assets/downloadbtn.svg" alt="cameraIcon" />
   </div>
 </div>
-        <div className=" flex flex-col py-6 px-6 lg:col-span-1 border-l ml-12"  style={{ width: "fit-content" }}>
+
+ 
+</div>
+        <div className=" flex flex-col py-6 px-3 lg:col-span-1 border-l ml-12"  style={{ width: "fit-content" }}>
        
-          <div className="flex justify-end px-3 py-3">
-            <img src="/Assets/tick.svg" alt="tick"/>
-          </div>
-          <div className="flex justify-end px-3 py-3">
+      
+<Popoverr onClick={() => console.log('Popover clicked!')}>
+        <button onClick={() => handleClickShortlistBtn(shortlistedCard)} className="flex justify-end px-3 py-3">
+          <img src="/Assets/tick.svg" alt="tick" />
+        </button>
+      </Popoverr>
+
+          <button className="flex justify-end px-3 py-3">
             <img src="/Assets/crossbtn.svg" alt="tick"/>
-          </div>
-          <div className="flex justify-end px-3 py-3">
+          </button>
+          <hr/>
+          <button className="flex justify-end px-3 py-3">
             <img src="/Assets/mailBtn.svg" alt="tick"/>
-          </div>
-          <div className="flex justify-end px-3 py-3">
+          </button>
+          <button className="flex justify-end px-3 py-3">
             <img src="/Assets/chat.svg" alt="tick"/>
-          </div>
-          <div className="flex justify-end px-3 py-3">
+          </button>
+          <button className="flex justify-end px-3 py-3">
             <img src="/Assets/mail2.svg" alt="tick"/>
-          </div>
+          </button>
          
           
         </div>
@@ -200,8 +226,8 @@ const uxDesigner = () => {
       </div>
       </div>
 
-      <div className=" lg:col-start-12 lg:col-end-12 " >
-      <div className="flex items-center">
+      <div className=" lg:col-start-12 lg:col-end-12 sm:col-start-1 sm:col-end-12" >
+      <div className="flex items-center justify-center">
   <button className="flex justify-center items-center font-bold text-16px m-2">
   <span className="mr-2">
       <img src="/Assets/editIcon.svg" alt="Delete Icon" />
@@ -210,7 +236,7 @@ const uxDesigner = () => {
   
   </button>
 </div>
-        <div className="flex items-center">
+        <div className="flex items-center justify-center">
   <button className="flex justify-center items-center font-bold text-16px m-2">
   <span className="mr-2">
       <img src="/Assets/deleteIcon.svg" alt="Delete Icon" />
@@ -218,6 +244,7 @@ const uxDesigner = () => {
     Delete
   
   </button>
+ 
 </div>
 
       </div>
