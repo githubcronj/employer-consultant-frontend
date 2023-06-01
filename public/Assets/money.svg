@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+  <g id="Group_35934" data-name="Group 35934" transform="translate(-273 -319)">
+    <rect id="Rectangle_17181" data-name="Rectangle 17181" width="44" height="44" rx="10" transform="translate(273 319)" fill="rgba(253,237,0,0.2)"/>
+    <g id="Group_35935" data-name="Group 35935" transform="translate(-225 -134.526)" opacity="0.5">
+      <circle id="Ellipse_217" data-name="Ellipse 217" cx="11" cy="11" r="11" transform="translate(509 464.526)" fill="#1e0f3b"/>
+      <path id="Icon_material-attach-money" data-name="Icon material-attach-money" d="M13.3,10.008c-1.583-.411-2.092-.837-2.092-1.5,0-.76.7-1.29,1.883-1.29,1.241,0,1.7.593,1.743,1.464h1.541a2.779,2.779,0,0,0-2.238-2.657V4.5H12.046V6.006a2.721,2.721,0,0,0-2.44,2.517c0,1.611,1.332,2.412,3.277,2.88,1.743.418,2.092,1.032,2.092,1.68,0,.481-.342,1.248-1.883,1.248-1.436,0-2-.641-2.078-1.464H9.48a2.921,2.921,0,0,0,2.566,2.67V17.05h2.092v-1.5c1.36-.258,2.44-1.046,2.44-2.475C16.578,11.1,14.884,10.42,13.3,10.008Z" transform="translate(506.862 465.116)" fill="#fff"/>
+    </g>
+  </g>
+</svg>
