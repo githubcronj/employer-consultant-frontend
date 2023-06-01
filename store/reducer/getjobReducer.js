@@ -1,19 +1,20 @@
-import * as types from "../type/getProfileType";
+import * as types from "../type/getjobType";
 
 const INITIAL_STATE = {
   CurrentUser: null,
 };
 
-export function getProfileReducer(state = INITIAL_STATE, action) {
+export function getjobReducer(state = INITIAL_STATE, action) {
+
   switch (action.type) {
-    case types.PROFILE_SUCCESS:
+    case types.GET_JOB_SUCCESS:
       return {
         ...state,
-        CurrentUser: action.payload.response,
+        CurrentUser: action.payload,
         isLoggedIn: true,
         isLoggedOut: false,
       };
-    case types.PROFILE_ERROR:
+    case types.GET_JOB_ERROR:
       return {
         ...state,
         CurrentUser: null,

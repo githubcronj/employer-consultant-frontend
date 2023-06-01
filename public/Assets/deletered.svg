@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="135" height="51" viewBox="0 0 135 51">
+  <g id="Group_35931" data-name="Group 35931" transform="translate(-1146 -155)">
+    <rect id="Rectangle_833" data-name="Rectangle 833" width="135" height="51" rx="16" transform="translate(1146 155)" fill="#f9342e"/>
+    <text id="DELETE" transform="translate(1192 186)" fill="#fff" font-size="16" font-family="ProductSans-Bold, Product Sans" font-weight="700" letter-spacing="0.1em"><tspan x="0" y="0">DELETE</tspan></text>
+    <path id="Icon_material-delete" data-name="Icon material-delete" d="M8.456,19.789A1.917,1.917,0,0,0,10.367,21.7h7.644a1.917,1.917,0,0,0,1.911-1.911V8.322H8.456ZM20.878,5.456H17.533L16.578,4.5H11.8l-.956.956H7.5V7.367H20.878Z" transform="translate(1154.5 167.5)" fill="#fff"/>
+  </g>
+</svg>
