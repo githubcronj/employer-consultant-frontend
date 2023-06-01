@@ -20,6 +20,7 @@ function Layout(props) {
     '/resume-json',
     '/setup-details',
     '/editProfile',
+    "/setup-details",
   ].includes(pathname);
 
   return (
