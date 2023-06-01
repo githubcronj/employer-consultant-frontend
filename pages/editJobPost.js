@@ -5,16 +5,22 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
-import { jobSaveRequest } from "../store/action/jobPostAction";
+import { fetchJobFormData, submitJobFormData } from "store/action/editJobPostAction";
 
-const NewJobPost = () => {
-  const router = useRouter();
+const EditJobPost = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchJobFormData());
+    console.log("Fetching form data");
+  }, []);
+
+  const formDataa = useSelector((state) => state?.editJobReducer?.data);
+  const router = useRouter();
   const [errors, setErrors] = useState({});
   const [data, setData] = useState(null);
   const [selectedButton, setSelectedButton] = useState("");
   const [isFieldChanged, setIsFieldChanged] = useState(false);
-  const [jobPostData, setJobPostData] = useState({
+  const [editJobPostData, setEditJobPostData] = useState({
     jobTitle: "",
     experience: "",
     deadline: "",
@@ -25,6 +31,52 @@ const NewJobPost = () => {
     email: "",
     phoneNumber: "",
   });
+  useEffect(() => {
+    if (formDataa?.response) {
+      const {
+        jobTitle,
+        experience,
+        deadline,
+        jobType,
+        minSalary,
+        maxSalary,
+        description,
+        email,
+        phoneNumber,
+        accessToken,
+      } = formDataa.response;
+
+      setEditJobPostData({
+        jobTitle,
+        experience,
+        deadline,
+        jobType,
+        minSalary,
+        maxSalary,
+        description,
+        email,
+        phoneNumber,
+        accessToken,
+      });
+    }
+  }, [formDataa]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      setData(JSON.parse(storedData));
+    }
+  }, []);
+  useEffect(() => {
+    if (data && data.token && data.token.accessToken) {
+      setEditJobPostData((prevValues) => ({
+        ...prevValues,
+        accessToken: data.token.accessToken,
+      }));
+    }
+  }, [data]);
+  console.log("formmm", editJobPostData);
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
       return <p className='text-red-500 text-xs'>{errors[fieldName]}</p>;
@@ -40,7 +92,7 @@ const NewJobPost = () => {
   }, []);
   useEffect(() => {
     if (data && data.token && data.token.accessToken) {
-      setJobPostData((prevValues) => ({
+      setEditJobPostData((prevValues) => ({
         ...prevValues,
         accessToken: data.token.accessToken,
       }));
@@ -57,7 +109,7 @@ const NewJobPost = () => {
     // Format the date as "yyyy-mm-dd"
     const formattedDate = `${year}-${month}-${day}`;
 
-    setJobPostData((prevValues) => ({
+    setEditJobPostData((prevValues) => ({
       ...prevValues,
       deadline: formattedDate, // Update the companyFoundedDate field in formValues with the formatted date
     }));
@@ -65,7 +117,7 @@ const NewJobPost = () => {
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setJobPostData((prevValues) => ({
+    setEditJobPostData((prevValues) => ({
       ...prevValues,
       [id]: value,
     }));
@@ -95,13 +147,13 @@ const NewJobPost = () => {
     const errors = {};
 
     requiredFields.forEach((field) => {
-      if (jobPostData[field] === "") {
+      if (editJobPostData[field] === "") {
         errors[field] = "This field is required";
       }
     });
     if (
-      jobPostData.email !== "" &&
-      !/^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(jobPostData.email)
+      editJobPostData.email !== "" &&
+      !/^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(editJobPostData.email)
     ) {
       errors.email = "Invalid email format";
     }
@@ -112,9 +164,8 @@ const NewJobPost = () => {
   };
   const handleSave = (e) => {
     e.preventDefault();
-    if (isFormValid()) {
-      dispatch(jobSaveRequest(jobPostData));
-      console.log(jobPostData);
+    if (isFormValid() && data?.token?.accessToken) {
+        dispatch(submitJobFormData(editJobPostData,data));
       const initialJobPostData = {
         jobTitle: "",
         experience: "",
@@ -126,9 +177,9 @@ const NewJobPost = () => {
         email: "",
         phoneNumber: "",
       };
-      setJobPostData(initialJobPostData);
-      console.log(jobPostData);
-      router.push("/");
+      setEditJobPostData(initialJobPostData);
+      console.log(editJobPostData);
+      router.push("/ux-designer-page");
     } else {
       return;
     }
@@ -138,7 +189,7 @@ const NewJobPost = () => {
       <div className='bg-white'>
         <div className='md:flex justify-between items-center mx-5 sm:mx-9 py-1'>
           <div className='my-3 flex gap-6'>
-            <Link href='/'>
+            <Link href='/ux-designer-page'>
               <Image
                 src='/Assets/backbtn.svg'
                 alt='back button'
@@ -147,7 +198,7 @@ const NewJobPost = () => {
                 className='cursor-pointer'
               />
             </Link>
-            <p className='text-lg sm:text-2xl font-bold'>Create New Job Post</p>
+            <p className='text-lg sm:text-2xl font-bold'>Edit Job Post</p>
           </div>
           <div className='sm:flex gap-2 sm:gap-5'>
             <div>
@@ -159,7 +210,7 @@ const NewJobPost = () => {
               </button>
             </div>
             <div>
-              <Link href='/'>
+              <Link href='/ux-designer-page'>
                 <button className='px-8 py-3 bg-white border border-red-500 text-red-500 rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3'>
                   Cancel
                 </button>
@@ -183,7 +234,7 @@ const NewJobPost = () => {
               style={errors.jobTitle ? { borderColor: "red" } : {}}
               required
               className='py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full'
-              value={jobPostData.jobTitle}
+              value={editJobPostData.jobTitle}
               onChange={handleChange}
             />
             {renderErrorMessage("jobTitle")}
@@ -205,7 +256,7 @@ const NewJobPost = () => {
                 paddingRight: "20px",
                 ...(errors.experience ? { borderColor: "red" } : {}),
               }}
-              value={jobPostData.experience}
+              value={editJobPostData.experience}
               onChange={handleChange}
             >
               <option value=''>Experience</option>
@@ -226,7 +277,9 @@ const NewJobPost = () => {
                   errors.deadline ? "border-red-500" : ""
                 }`}
                 selected={
-                  jobPostData.deadline ? new Date(jobPostData.deadline) : null
+                  editJobPostData.deadline
+                    ? new Date(editJobPostData.deadline)
+                    : null
                 }
                 onChange={handleDateChange}
               />
@@ -263,7 +316,7 @@ const NewJobPost = () => {
                 paddingRight: "20px",
                 ...(errors.jobType ? { borderColor: "red" } : {}),
               }}
-              value={jobPostData.jobType}
+              value={editJobPostData.jobType}
               onChange={handleChange}
             >
               <option value=''>Job Type</option>
@@ -350,7 +403,7 @@ const NewJobPost = () => {
                     required
                     className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
-                    value={jobPostData.minSalary}
+                    value={editJobPostData.minSalary}
                     onChange={handleChange}
                   />
 
@@ -372,7 +425,7 @@ const NewJobPost = () => {
                     style={errors.maxSalary ? { borderColor: "red" } : {}}
                     className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
                         `}
-                    value={jobPostData.maxSalary}
+                    value={editJobPostData.maxSalary}
                     onChange={handleChange}
                   />
 
@@ -399,7 +452,7 @@ const NewJobPost = () => {
               required
               style={errors.description ? { borderColor: "red" } : {}}
               className='block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-              value={jobPostData.description}
+              value={editJobPostData.description}
               onChange={handleChange}
             />
             <label
@@ -421,7 +474,7 @@ const NewJobPost = () => {
               style={errors.email ? { borderColor: "red" } : {}}
               className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
               ${isFieldChanged && errors.email ? "border-red-500" : ""} `}
-              value={jobPostData.email}
+              value={editJobPostData.email}
               onChange={handleChange}
             />
 
@@ -446,7 +499,7 @@ const NewJobPost = () => {
               style={errors.phoneNumber ? { borderColor: "red" } : {}}
               className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
-              value={jobPostData.phoneNumber}
+              value={editJobPostData.phoneNumber}
               onChange={handleChange}
             />
 
@@ -465,4 +518,4 @@ const NewJobPost = () => {
   );
 };
 
-export default NewJobPost;
+export default EditJobPost;

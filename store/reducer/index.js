@@ -9,6 +9,7 @@ import { changePasswordReducer } from "./changePasReducer";
 import { facebookReducer } from "./fbReducer";
 import editProfileReducer from "./editProfileReducer";
 import { getProfileReducer } from "./getProfileReducer";
+import editJobReducer from "./editJobPostReducer"
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   facebookReducer,
   editProfileReducer,
   getProfileReducer,
+  editJobReducer,
 });
 
 export default rootReducer;
