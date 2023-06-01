@@ -19,6 +19,7 @@ export const Navbar = () => {
             7
           </span>
         </div>
+        
         <Dropdown />
       </div>
     </div>

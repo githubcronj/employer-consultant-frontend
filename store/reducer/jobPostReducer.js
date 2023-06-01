@@ -1,18 +1,18 @@
-import * as types from '../type/profileActionType';
+import * as types from '../type/jobPostType';
 const initialState = {
     data: null,
     error: null,
   };
   
-  const profileReducer = (state = initialState, action) => {
+  const jobPostReducer = (state = initialState, action) => {
     switch (action.type) {
-      case types.PROFILE_SAVE_SUCCESS:
+      case types.JOB_SAVE_SUCCESS:
         return {
           ...state,
           data: action.payload,
           error: null,
         };
-      case types.PROFILE_SAVE_FAILURE:
+      case types.JOB_SAVE_FAILURE:
         return {
           ...state,
           data: null,
@@ -23,4 +23,4 @@ const initialState = {
     }
   };
   
-  export default profileReducer;
+  export default jobPostReducer;
