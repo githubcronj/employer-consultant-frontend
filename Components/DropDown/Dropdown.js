@@ -8,9 +8,9 @@ import { logout } from '../../store/action/loginaction';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
-import { useSession, signIn} from "next-auth/react"
+import { useSession, signIn } from 'next-auth/react';
 const Dropdown = () => {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const dispatch = useDispatch();
@@ -24,20 +24,21 @@ const Dropdown = () => {
       setIsOpen(false);
     }
   };
-  const handleLogout = async(e) => {
+  const handleLogout = async (e) => {
     e.preventDefault();
-   await signOut({ callbackUrl: '/Login' });
-   router.push('/Login');
+    await signOut({ callbackUrl: '/Login' });
+    router.push('/Login');
+    localStorage.clear();
   };
   useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, []);
 
-  const nameParts =session?.user?.name?.split(" ");
-  const firstName= nameParts && nameParts.length > 0 ? nameParts[0] : "User";
+  const nameParts = session?.user?.name?.split(' ');
+  const firstName = nameParts && nameParts.length > 0 ? nameParts[0] : 'User';
 
   return (
     <div className='flex flex-row'>
