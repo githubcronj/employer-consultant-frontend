@@ -7,7 +7,10 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../../store/action/loginaction';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { signOut } from 'next-auth/react';
+import { useSession, signIn} from "next-auth/react"
 const Dropdown = () => {
+  const { data: session } = useSession()
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const dispatch = useDispatch();
@@ -21,18 +24,20 @@ const Dropdown = () => {
       setIsOpen(false);
     }
   };
-  const handleLogout = (e) => {
-    // e.preventDefault();
-    dispatch(logout());
-    // router.push('/login');
-    localStorage.clear();
+  const handleLogout = async(e) => {
+    e.preventDefault();
+   await signOut({ callbackUrl: '/Login' });
+   router.push('/Login');
   };
   useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  const nameParts =session?.user?.name?.split(" ");
+  const firstName= nameParts && nameParts.length > 0 ? nameParts[0] : "User";
 
   return (
     <div className='flex flex-row'>
@@ -44,19 +49,25 @@ const Dropdown = () => {
           className='text-[#131523] text-[14px] py-2 px-4 pl-2 rounded inline-flex items-center'
           onClick={toggleDropdown}
         >
-          <span className='text-[#131523] mr-2 '>NAME</span>
+          <span className='text-[#131523] mr-2 '>{firstName}</span>
           <img src={isOpen ? UpArrow.src : DownArrow.src} alt='Arrow' />
         </button>
         {isOpen && (
           <ul className='dropdown-content absolute bg-[#F9F6EE] mt-[0.8rem] py-1 whitespace-nowrap shadow-[0px_6px_16px_rgba(0,0,0,0.16)] opacity-100 z-50 right-0 w-[146px] rounded-[10px] '>
             <li>
-              <Link className='flex flex-row  px-4 py-2 text-gray-800 ' href='#'>
+              <Link
+                className='flex flex-row  px-4 py-2 text-gray-800 '
+                href='view-profile'
+              >
                 <span className='flex-1 text-[#1E0F3B]'>View Profile</span>
                 <img src={RightArrow.src} alt='' />
               </Link>
             </li>
             <li>
-              <Link className='flex flex-row px-4 py-2 text-gray-800' href='/editProfile'>
+              <Link
+                className='flex flex-row px-4 py-2 text-gray-800'
+                href='/editProfile'
+              >
                 <span className='flex-1 text-[#1E0F3B] '>Edit Profile</span>
                 <img src={RightArrow.src} alt='' />
               </Link>

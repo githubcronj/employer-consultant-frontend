@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 
 function* saveProfile(action) {
  
-    console.log('in saga',action.payload.accessToken)
+    // console.log('in saga',action)
     const data = {
       companyName: action.payload.companyName,
     industryType: action.payload.industryType,
