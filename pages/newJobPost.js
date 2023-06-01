@@ -267,7 +267,7 @@ const NewJobPost = () => {
               onChange={handleChange}
             >
               <option value=''>Job Type</option>
-              <option value='UI'>UX Designer</option>
+              <option value='full-time'>Full Time</option>
               <option value='React'>React Developer</option>
               <option value='Devops'>Dev Ops Engineer</option>
             </select>

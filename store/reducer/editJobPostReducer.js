@@ -1,17 +1,18 @@
 import * as types from '../type/editJobPostType';
 
 export const initialState = {
-  formData: {
-    jobTitle: "",
-    experience: "",
-    deadline: "",
-    jobType: "",
-    minSalary: "",
-    maxSalary: "",
-    description: "",
-    email: "",
-    phoneNumber: "",
-  },
+//   formData: {
+//     jobTitle: "",
+//     experience: "",
+//     deadline: "",
+//     jobType: "",
+//     minSalary: "",
+//     maxSalary: "",
+//     description: "",
+//     email: "",
+//     phoneNumber: "",
+//   },
+formData: [],
   data: []
 };
 

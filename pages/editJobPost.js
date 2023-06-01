@@ -7,17 +7,21 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchJobFormData, submitJobFormData } from "store/action/editJobPostAction";
 
+
 const EditJobPost = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchJobFormData());
-    console.log("Fetching form data");
-  }, []);
-
-  const formDataa = useSelector((state) => state?.editJobReducer?.data);
   const router = useRouter();
+  const { state } = router.query;
+
+  // Decode and parse the state object
+  const decodedState = decodeURIComponent(state);
+  const parsedState = JSON.parse(decodedState);
+  console.log('statee',parsedState);
+
+
   const [errors, setErrors] = useState({});
   const [data, setData] = useState(null);
+  const [flexing, setFlexing] = useState(false);
   const [selectedButton, setSelectedButton] = useState("");
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [editJobPostData, setEditJobPostData] = useState({
@@ -31,8 +35,33 @@ const EditJobPost = () => {
     email: "",
     phoneNumber: "",
   });
+
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+
   useEffect(() => {
-    if (formDataa?.response) {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      setData(JSON.parse(storedData));
+    }
+  }, []);
+  useEffect(() => {
+    if (data && data.token && data.token.accessToken) {
+      setEditJobPostData((prevValues) => ({
+        ...prevValues,
+        accessToken: data.token.accessToken,
+      }));
+    }
+  }, [data]);
+  useEffect(() => {
+    if (parsedState) {
       const {
         jobTitle,
         experience,
@@ -42,10 +71,9 @@ const EditJobPost = () => {
         maxSalary,
         description,
         email,
-        phoneNumber,
-        accessToken,
-      } = formDataa.response;
-
+        phoneNumber
+      } = parsedState[0];
+  
       setEditJobPostData({
         jobTitle,
         experience,
@@ -55,49 +83,20 @@ const EditJobPost = () => {
         maxSalary,
         description,
         email,
-        phoneNumber,
-        accessToken,
+        phoneNumber
       });
     }
-  }, [formDataa]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
-      const storedData = localStorage.getItem("CurrentUser");
-
-      setData(JSON.parse(storedData));
-    }
   }, []);
-  useEffect(() => {
-    if (data && data.token && data.token.accessToken) {
-      setEditJobPostData((prevValues) => ({
-        ...prevValues,
-        accessToken: data.token.accessToken,
-      }));
-    }
-  }, [data]);
-  console.log("formmm", editJobPostData);
+//   console.log(editJobPostData);
+  
+
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
       return <p className='text-red-500 text-xs'>{errors[fieldName]}</p>;
     }
     return null;
   };
-  useEffect(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
-      const storedData = localStorage.getItem("CurrentUser");
-
-      setData(JSON.parse(storedData));
-    }
-  }, []);
-  useEffect(() => {
-    if (data && data.token && data.token.accessToken) {
-      setEditJobPostData((prevValues) => ({
-        ...prevValues,
-        accessToken: data.token.accessToken,
-      }));
-    }
-  }, [data]);
+ 
   const handleSalaryButton = (e) => {
     setSelectedButton(e.target.id);
   };
@@ -165,7 +164,7 @@ const EditJobPost = () => {
   const handleSave = (e) => {
     e.preventDefault();
     if (isFormValid() && data?.token?.accessToken) {
-        dispatch(submitJobFormData(editJobPostData,data));
+        dispatch(submitJobFormData(editJobPostData,data,parsedState[0]._id));
       const initialJobPostData = {
         jobTitle: "",
         experience: "",
@@ -189,7 +188,7 @@ const EditJobPost = () => {
       <div className='bg-white'>
         <div className='md:flex justify-between items-center mx-5 sm:mx-9 py-1'>
           <div className='my-3 flex gap-6'>
-            <Link href='/ux-designer-page'>
+            <Link href={`/viewjobpost/${parsedState[0]._id}`}>
               <Image
                 src='/Assets/backbtn.svg'
                 alt='back button'
@@ -320,7 +319,7 @@ const EditJobPost = () => {
               onChange={handleChange}
             >
               <option value=''>Job Type</option>
-              <option value='UI'>UX Designer</option>
+              <option value='full-time'>Full time</option>
               <option value='React'>React Developer</option>
               <option value='Devops'>Dev Ops Engineer</option>
             </select>
