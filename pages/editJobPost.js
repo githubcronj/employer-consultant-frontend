@@ -320,8 +320,11 @@ const EditJobPost = () => {
             >
               <option value=''>Job Type</option>
               <option value='full-time'>Full time</option>
-              <option value='React'>React Developer</option>
-              <option value='Devops'>Dev Ops Engineer</option>
+              <option value='part-time'>Part time</option>
+              <option value='contract'>Contract</option>
+              <option value='freelance'>Freelance</option>
+              <option value='temporary'>Temporary</option>
+              <option value='internship'>Internship</option>
             </select>
             {renderErrorMessage("jobType")}
           </div>
