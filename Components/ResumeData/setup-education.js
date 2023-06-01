@@ -1,69 +1,21 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { detailsInfo, removeData } from "store/action/setupDetails";
+import React from "react";
 
-const SetupEducation = () => {
-  const dispatch = useDispatch();
-  const selector = useSelector((state) => state.setupReducer.data);
-  const [educationdata, SetupEducationData] = useState({
-    eduLevel: "",
-    institutionName: "",
-    degree: "",
-    passingyear: "",
-  });
-  const [errors, setErrors] = useState({});
-  const renderErrorMessage = (fieldName) => {
-    if (errors[fieldName]) {
-      return (
-        <p className="text-red-500 text-xs font-bold">{errors[fieldName]}</p>
-      );
-    }
-    return null;
-  };
-  const isFormValid = () => {
-    const requiredFields = [
-      "eduLevel",
-      "institutionName",
-      "degree",
-      "passingyear",
-    ];
-    const errors = {};
-
-    requiredFields.forEach((field) => {
-      if (educationdata[field] === "") {
-        errors[field] = "This field is required";
-      }
-    });
-    setErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
+const SetupEducation = ({
+  educationDetails,
+  tempeducation,
+  handleEducationAdd,
+  infodata,
+  handleEducationremovedata,
+}) => {
   function eduHandleChage(e) {
-    const { id, value } = e.target;
-    SetupEducationData((prevValues) => ({
-      ...prevValues,
-      [id]: value,
-    }));
+    tempeducation(e);
   }
 
-  const addData = () => {
-    if (isFormValid()) {
-      let info = {
-        eduLevel: educationdata.eduLevel,
-        institutionName: educationdata.institutionName,
-        degree: educationdata.degree,
-        passingyear: educationdata.passingyear,
-      };
-      dispatch(detailsInfo([...selector, info]));
-      SetupEducationData({
-        eduLevel: "",
-        institutionName: "",
-        degree: "",
-        passingyear: "",
-      });
-    }
+  const addData = (section) => {
+    handleEducationAdd(section);
   };
-  const handleRemoveData = (index) => {
-    dispatch(removeData(index));
+  const removeData = (indexdata) => {
+    handleEducationremovedata(indexdata);
   };
   return (
     <div className=" bg-white ">
@@ -84,7 +36,8 @@ const SetupEducation = () => {
                 backgroundPosition: "95% center",
                 paddingRight: "20px",
               }}
-              value={educationdata.eduLevel}
+              name="tempeducation.eduLevel"
+              value={educationDetails.eduLevel || ""}
               onChange={eduHandleChage}
             >
               <option value="">Highest Education Level</option>
@@ -92,7 +45,6 @@ const SetupEducation = () => {
               <option value="BE">BE</option>
               <option value="B.Tech">B.Tech</option>
             </select>
-            {renderErrorMessage("eduLevel")}
           </div>
           <div>
             <input
@@ -101,10 +53,10 @@ const SetupEducation = () => {
               placeholder="Institution Name"
               required
               className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-              value={educationdata.institutionName}
+              name="tempeducation.institutionName"
+              value={educationDetails.institutionName || ""}
               onChange={eduHandleChage}
             />{" "}
-            {renderErrorMessage("institutionName")}
           </div>
           <div>
             <select
@@ -121,7 +73,8 @@ const SetupEducation = () => {
                 backgroundPosition: "95% center",
                 paddingRight: "20px",
               }}
-              value={educationdata.degree}
+              name="tempeducation.degree"
+              value={educationDetails.degree || ""}
               onChange={eduHandleChage}
             >
               <option value="">Degree/Diploma</option>
@@ -130,7 +83,6 @@ const SetupEducation = () => {
               <option value="Bachelor degree">Bachelor degree</option>
               <option value="Master degree">Master degree</option>
             </select>
-            {renderErrorMessage("degree")}
           </div>
           <div>
             <input
@@ -139,10 +91,10 @@ const SetupEducation = () => {
               placeholder="Year of Passing"
               required
               className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-              value={educationdata.passingyear}
+              name="tempeducation.passingyear"
+              value={educationDetails.passingyear || ""}
               onChange={eduHandleChage}
             />
-            {renderErrorMessage("passingyear")}
           </div>
         </div>
         <div className="flex justify-end">
@@ -157,7 +109,7 @@ const SetupEducation = () => {
       </form>
       {/* block display */}
       <div className="py-4 grid sm:grid-cols-2 gap-7">
-        {selector.map((item, index) => {
+        {infodata?.map((item, index) => {
           return (
             <div
               key={index}
@@ -174,7 +126,7 @@ const SetupEducation = () => {
                 alt="cameraIcon"
                 className=" justify-end"
                 style={{ position: "absolute", top: "11%", right: "2%" }}
-                onClick={() => handleRemoveData(index)}
+                onClick={() => removeData(index)}
               />
             </div>
           );

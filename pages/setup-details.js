@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import SetupEducation from "./setup-education";
-import SetupExperience from "./setup-experience";
-import SetupSkills from "./setup-skills";
-import SetupProject from "./setup-project";
-import SetupCertificate from "./setup-certification";
+import SetupEducation from "../Components/ResumeData/setup-education";
+import SetupExperience from "../Components/ResumeData/setup-experience";
+import SetupSkills from "../Components/ResumeData/setup-skills";
+import SetupProject from "../Components/ResumeData/setup-project";
+import SetupCertificate from "../Components/ResumeData/setup-certification";
 
 const Setupdetails = () => {
   const router = useRouter();
@@ -18,16 +18,28 @@ const Setupdetails = () => {
     setExpanded(isExpanded ? panel : false);
   };
   const [resumeForm, setResumeForm] = useState({
-    fullName: "",
-    email: "",
-    phoneNumber: "",
-    gender: "",
-    birth: "",
-    location: "",
-    role: "",
+    personalDetails: {
+      fullName: "",
+      email: "",
+      phoneNumber: "",
+      gender: "",
+      birth: "",
+      location: "",
+      text: "",
+    },
+    educationDetails: [],
+    experienceDetails: [],
+    skillsDetails: [],
+    projectDetails: [],
+    certificationDetails: [],
   });
   const [selectedImage, setSelectedImage] = useState(null);
-  const [errors, setErrors] = useState({});
+  const [tempExp, setTemExp] = useState({});
+  const [tempSkills, setempSkills] = useState({});
+  const [tempProject, SetempProject] = useState({});
+  const [tempCertificate, SetempCertificate] = useState({});
+  const [tempeducation, SetempEdu] = useState({});
+
   const handleCameraIconClick = () => {
     const fileInput = document.getElementById("imageview");
     fileInput.click();
@@ -41,77 +53,149 @@ const Setupdetails = () => {
       setSelectedImage(null);
     }
   };
-  function dataHandleChage(e) {
-    const { id, value } = e.target;
-    setResumeForm((prevValues) => ({
-      ...prevValues,
-      [id]: value,
+  // new handle
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const [section, field] = name.split(".");
+    setResumeForm((prevData) => ({
+      ...prevData,
+      [section]: {
+        ...prevData[section],
+        [field]: value,
+      },
     }));
-    if (id === "email") {
-      const isValidEmail = /^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(
-        value
-      );
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        email: isValidEmail ? "" : "Invalid email format",
-      }));
-    }
-  }
-  const renderErrorMessage = (fieldName) => {
-    if (errors[fieldName]) {
-      return (
-        <p className="text-red-500 text-xs font-bold">{errors[fieldName]}</p>
-      );
-    }
-    return null;
   };
-  const isFormValid = () => {
-    const requiredFields = [
-      "fullName",
-      "email",
-      "phoneNumber",
-      "gender",
-      "birth",
-      "location",
-      "role",
-    ];
-    const errors = {};
 
-    requiredFields.forEach((field) => {
-      if (resumeForm[field] === "") {
-        errors[field] = "This field is required";
-      }
-    });
-    if (
-      resumeForm.email !== "" &&
-      !/^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(resumeForm.email)
-    ) {
-      errors.email = "Invalid email format";
-    }
-    console.log(errors);
-    setErrors(errors);
-    return Object.keys(errors).length === 0;
+  const handleExpChange = (e) => {
+    const { name, value } = e.target;
+    const [section, field] = name.split(".");
+    setTemExp({ ...tempExp, [field]: value });
   };
-  const handleSave = (e) => {
-    e.preventDefault();
-    if (isFormValid()) {
-      console.log(resumeForm);
-      const initialFormValues = {
-        fullName: "",
-        email: "",
-        phoneNumber: "",
-        gender: "",
-        birth: "",
-        location: "",
-        role: "",
+
+  const handleSkillsChange = (e) => {
+    const { name, value } = e.target;
+    const [section, field] = name.split(".");
+    setempSkills({ ...tempSkills, [field]: value });
+  };
+
+  const handleProjectChange = (e) => {
+    const { name, value } = e.target;
+    const [section, field] = name.split(".");
+    SetempProject({ ...tempProject, [field]: value });
+  };
+
+  const handleCertificateChange = (e) => {
+    const { name, value } = e.target;
+    const [section, field] = name.split(".");
+    SetempCertificate({ ...tempCertificate, [field]: value });
+  };
+
+  const handleEducationChange = (e) => {
+    const { name, value } = e.target;
+    const [section, field] = name.split(".");
+    SetempEdu({ ...tempeducation, [field]: value });
+  };
+
+  const handleExpAdd = () => {
+    setResumeForm((prevData) => ({
+      ...prevData,
+      experienceDetails: [...prevData.experienceDetails, tempExp],
+    }));
+    setTemExp({});
+  };
+
+  const handleSkillsAdd = () => {
+    setResumeForm((prevData) => ({
+      ...prevData,
+      skillsDetails: [...prevData.skillsDetails, tempSkills],
+    }));
+    setempSkills({});
+  };
+  const handleProjectAdd = () => {
+    setResumeForm((prevData) => ({
+      ...prevData,
+      projectDetails: [...prevData.projectDetails, tempProject],
+    }));
+    SetempProject({});
+  };
+
+  const handleCertificateAdd = () => {
+    setResumeForm((prevData) => ({
+      ...prevData,
+      certificationDetails: [...prevData.certificationDetails, tempCertificate],
+    }));
+    SetempCertificate({});
+  };
+
+  const handleEducationAdd = () => {
+    setResumeForm((prevData) => ({
+      ...prevData,
+      educationDetails: [...prevData.educationDetails, tempeducation],
+    }));
+    SetempEdu({});
+  };
+
+  const handleremovedata = (indexdata) => {
+    setResumeForm((prevData) => {
+      const updatedExperienceDetails = prevData.experienceDetails.filter(
+        (_, index) => index !== indexdata
+      );
+      return {
+        ...prevData,
+        experienceDetails: updatedExperienceDetails,
       };
-      setResumeForm(initialFormValues);
-      setSelectedImage(null);
-      router.push("/setup-education");
-    } else {
-      return;
-    }
+    });
   };
+
+  const handleSkillsremovedata = (indexdata) => {
+    setResumeForm((prevData) => {
+      const updatedDataskills = prevData.skillsDetails.filter(
+        (_, index) => index !== indexdata
+      );
+      return {
+        ...prevData,
+        skillsDetails: updatedDataskills,
+      };
+    });
+  };
+
+  const handleProjectremovedata = (indexdata) => {
+    setResumeForm((prevData) => {
+      const updatedData = prevData.projectDetails.filter(
+        (_, index) => index !== indexdata
+      );
+      return {
+        ...prevData,
+        projectDetails: updatedData,
+      };
+    });
+  };
+
+  const handleCertificateremovedata = (indexdata) => {
+    setResumeForm((prevData) => {
+      const updatedData1 = prevData.certificationDetails.filter(
+        (_, index) => index !== indexdata
+      );
+      return {
+        ...prevData,
+        certificationDetails: updatedData1,
+      };
+    });
+  };
+
+  const handleEducationremovedata = (indexdata) => {
+    setResumeForm((prevData) => {
+      const updatedDataEdu = prevData.educationDetails.filter(
+        (_, index) => index !== indexdata
+      );
+      return {
+        ...prevData,
+        educationDetails: updatedDataEdu,
+      };
+    });
+  };
+
+  console.log(resumeForm);
 
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
@@ -129,7 +213,7 @@ const Setupdetails = () => {
           </p>
         </div>
         <button
-          onClick={handleSave}
+          // onClick={handleSave}
           className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3"
         >
           <img src="/Assets/check.svg" alt="save" />
@@ -141,7 +225,7 @@ const Setupdetails = () => {
           className="flex flex-col lg:col-span-3 lg:max-h-[719px] lg:overflow-y-scroll"
           style={{
             borderRight: "2px solid #D8D8DD",
-            marginTop:"1.5rem",
+            marginTop: "1.5rem",
           }}
         >
           <div
@@ -182,10 +266,10 @@ const Setupdetails = () => {
                   placeholder="James Joy"
                   required
                   className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                  value={resumeForm.fullName}
-                  onChange={dataHandleChage}
+                  name="personalDetails.fullName"
+                  value={resumeForm.personalDetails?.fullName || ""}
+                  onChange={handleInputChange}
                 />
-                {renderErrorMessage("fullName")}
               </div>
               <div>
                 <input
@@ -194,10 +278,10 @@ const Setupdetails = () => {
                   placeholder="Email"
                   required
                   className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                  value={resumeForm.email}
-                  onChange={dataHandleChage}
+                  name="personalDetails.email"
+                  value={resumeForm.personalDetails?.email || ""}
+                  onChange={handleInputChange}
                 />
-                {renderErrorMessage("email")}
               </div>
               <div>
                 <input
@@ -206,10 +290,10 @@ const Setupdetails = () => {
                   placeholder="Phone Number"
                   required
                   className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                  value={resumeForm.phoneNumber}
-                  onChange={dataHandleChage}
+                  name="personalDetails.phoneNumber"
+                  value={resumeForm.personalDetails?.phoneNumber || ""}
+                  onChange={handleInputChange}
                 />
-                {renderErrorMessage("phoneNumber")}
               </div>
               <div>
                 <select
@@ -226,15 +310,15 @@ const Setupdetails = () => {
                     backgroundPosition: "95% center",
                     paddingRight: "20px",
                   }}
-                  value={resumeForm.gender}
-                  onChange={dataHandleChage}
+                  name="personalDetails.gender"
+                  value={resumeForm.personalDetails?.gender || ""}
+                  onChange={handleInputChange}
                 >
                   <option value="">Gender</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                   <option value="other">Other</option>
                 </select>
-                {renderErrorMessage("gender")}
               </div>
               <div>
                 <input
@@ -243,10 +327,10 @@ const Setupdetails = () => {
                   placeholder="Date of Birth"
                   required
                   className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                  value={resumeForm.birth}
-                  onChange={dataHandleChage}
+                  name="personalDetails.birth"
+                  value={resumeForm.personalDetails?.birth || ""}
+                  onChange={handleInputChange}
                 />
-                {renderErrorMessage("birth")}
               </div>
               <div>
                 <input
@@ -255,10 +339,10 @@ const Setupdetails = () => {
                   placeholder="Location"
                   required
                   className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                  value={resumeForm.location}
-                  onChange={dataHandleChage}
+                  name="personalDetails.location"
+                  value={resumeForm.personalDetails?.location || ""}
+                  onChange={handleInputChange}
                 />
-                {renderErrorMessage("location")}
               </div>
               <div>
                 <input
@@ -267,10 +351,10 @@ const Setupdetails = () => {
                   placeholder="Job role"
                   required
                   className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                  value={resumeForm.role}
-                  onChange={dataHandleChage}
+                  name="personalDetails.text"
+                  value={resumeForm.personalDetails?.text || ""}
+                  onChange={handleInputChange}
                 />
-                {renderErrorMessage("role")}
               </div>
             </div>
           </form>
@@ -279,6 +363,7 @@ const Setupdetails = () => {
             <Accordion
               expanded={expanded === "panel1"}
               onChange={handleChange("panel1")}
+              elevation={0}
             >
               <AccordionSummary
                 expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
@@ -288,12 +373,19 @@ const Setupdetails = () => {
                 <p className="text-[#1E0F3B] font-bold text-lg">Education</p>
               </AccordionSummary>
               <AccordionDetails>
-                <SetupEducation />
+                <SetupEducation
+                  educationDetails={tempeducation}
+                  tempeducation={handleEducationChange}
+                  handleEducationAdd={handleEducationAdd}
+                  infodata={resumeForm?.educationDetails}
+                  handleEducationremovedata={handleEducationremovedata}
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
               expanded={expanded === "panel2"}
               onChange={handleChange("panel2")}
+              elevation={0}
             >
               <AccordionSummary
                 expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
@@ -303,12 +395,19 @@ const Setupdetails = () => {
                 <p className="text-[#1E0F3B] font-bold text-lg">Experience</p>
               </AccordionSummary>
               <AccordionDetails>
-                <SetupExperience />
+                <SetupExperience
+                  experienceDetails={tempExp}
+                  tempExp={handleExpChange}
+                  handleExpAdd={handleExpAdd}
+                  infodata={resumeForm?.experienceDetails}
+                  handleremovedata={handleremovedata}
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
               expanded={expanded === "panel3"}
               onChange={handleChange("panel3")}
+              elevation={0}
             >
               <AccordionSummary
                 expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
@@ -318,12 +417,19 @@ const Setupdetails = () => {
                 <p className="text-[#1E0F3B] font-bold text-lg">Skill</p>
               </AccordionSummary>
               <AccordionDetails>
-                <SetupSkills />
+                <SetupSkills
+                  skillsDetails={tempSkills}
+                  tempSkills={handleSkillsChange}
+                  handleSkillsAdd={handleSkillsAdd}
+                  infodata={resumeForm?.skillsDetails}
+                  handleSkillsremovedata={handleSkillsremovedata}
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
               expanded={expanded === "panel4"}
               onChange={handleChange("panel4")}
+              elevation={0}
             >
               <AccordionSummary
                 expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
@@ -333,12 +439,19 @@ const Setupdetails = () => {
                 <p className="text-[#1E0F3B] font-bold text-lg">Project</p>
               </AccordionSummary>
               <AccordionDetails>
-                <SetupProject />
+                <SetupProject
+                  projectDetails={tempProject}
+                  tempProject={handleProjectChange}
+                  handleProjectAdd={handleProjectAdd}
+                  infodata={resumeForm?.projectDetails}
+                  handleProjectremovedata={handleProjectremovedata}
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
               expanded={expanded === "panel5"}
               onChange={handleChange("panel5")}
+              elevation={0}
             >
               <AccordionSummary
                 expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
@@ -350,9 +463,16 @@ const Setupdetails = () => {
                 </p>
               </AccordionSummary>
               <AccordionDetails>
-                <SetupCertificate />
+                <SetupCertificate
+                  certificationDetails={tempCertificate}
+                  tempCertificate={handleCertificateChange}
+                  handleCertificateAdd={handleCertificateAdd}
+                  infodata={resumeForm?.certificationDetails}
+                  handleCertificateremovedata={handleCertificateremovedata}
+                />
               </AccordionDetails>
             </Accordion>
+            <hr className="bg-[#15223214] " />
           </div>
         </div>
         {/* section 2 */}
