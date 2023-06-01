@@ -18,16 +18,24 @@ const Setupdetails = () => {
     setExpanded(isExpanded ? panel : false);
   };
   const [resumeForm, setResumeForm] = useState({
-    fullName: "",
-    email: "",
-    phoneNumber: "",
-    gender: "",
-    birth: "",
-    location: "",
-    role: "",
+    personalDetails: {
+      fullName: "",
+      email: "",
+      phoneNumber: "",
+      gender: "",
+      birth: "",
+      location: "",
+      text: "",
+    },
+    educationDetails: {},
+    experienceDetails: {},
+    skillsDetails: { skillName: "" },
+    projectDetails: {},
+    certificationDetails: {},
   });
   const [selectedImage, setSelectedImage] = useState(null);
-  const [errors, setErrors] = useState({});
+  const [tempExp, setTemExp] = useState();
+
   const handleCameraIconClick = () => {
     const fileInput = document.getElementById("imageview");
     fileInput.click();
@@ -41,77 +49,37 @@ const Setupdetails = () => {
       setSelectedImage(null);
     }
   };
-  function dataHandleChage(e) {
-    const { id, value } = e.target;
-    setResumeForm((prevValues) => ({
-      ...prevValues,
-      [id]: value,
-    }));
-    if (id === "email") {
-      const isValidEmail = /^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(
-        value
-      );
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        email: isValidEmail ? "" : "Invalid email format",
-      }));
-    }
-  }
-  const renderErrorMessage = (fieldName) => {
-    if (errors[fieldName]) {
-      return (
-        <p className="text-red-500 text-xs font-bold">{errors[fieldName]}</p>
-      );
-    }
-    return null;
-  };
-  const isFormValid = () => {
-    const requiredFields = [
-      "fullName",
-      "email",
-      "phoneNumber",
-      "gender",
-      "birth",
-      "location",
-      "role",
-    ];
-    const errors = {};
+  // new handle
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const [section, field] = name.split(".");
 
-    requiredFields.forEach((field) => {
-      if (resumeForm[field] === "") {
-        errors[field] = "This field is required";
-      }
-    });
-    if (
-      resumeForm.email !== "" &&
-      !/^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(resumeForm.email)
-    ) {
-      errors.email = "Invalid email format";
-    }
-    console.log(errors);
-    setErrors(errors);
-    return Object.keys(errors).length === 0;
+    setResumeForm((prevData) => ({
+      ...prevData,
+      [section]: {
+        ...prevData[section],
+        [field]: value,
+      },
+    }));
   };
-  const handleSave = (e) => {
-    e.preventDefault();
-    if (isFormValid()) {
-      console.log(resumeForm);
-      const initialFormValues = {
-        fullName: "",
-        email: "",
-        phoneNumber: "",
-        gender: "",
-        birth: "",
-        location: "",
-        role: "",
-      };
-      setResumeForm(initialFormValues);
-      setSelectedImage(null);
-      router.push("/setup-education");
-    } else {
-      return;
-    }
+  const handleExpAdd=(data)=>{
+    setResumeForm((prevData) => ({
+      ...prevData,
+      [data]: {
+        ...prevData[section],
+        [field]: value,
+      },
+    }));
+
+  }
+  const handleExpChange = (e) => {
+    const { name, value } = e.target;
+
+    const [section, field] = name.split(".");
+
+    setTemExp({ ...tempExp, [field]: value });
   };
+  console.log(tempExp);
 
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
@@ -129,7 +97,7 @@ const Setupdetails = () => {
           </p>
         </div>
         <button
-          onClick={handleSave}
+          // onClick={handleSave}
           className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3"
         >
           <img src="/Assets/check.svg" alt="save" />
@@ -141,7 +109,7 @@ const Setupdetails = () => {
           className="flex flex-col lg:col-span-3 lg:max-h-[719px] lg:overflow-y-scroll"
           style={{
             borderRight: "2px solid #D8D8DD",
-            marginTop:"1.5rem",
+            marginTop: "1.5rem",
           }}
         >
           <div
@@ -182,10 +150,10 @@ const Setupdetails = () => {
                   placeholder="James Joy"
                   required
                   className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                  value={resumeForm.fullName}
-                  onChange={dataHandleChage}
+                  name="personalDetails.fullName"
+                  value={resumeForm.personalDetails?.fullName || ""}
+                  onChange={handleInputChange}
                 />
-                {renderErrorMessage("fullName")}
               </div>
               <div>
                 <input
@@ -194,10 +162,10 @@ const Setupdetails = () => {
                   placeholder="Email"
                   required
                   className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                  value={resumeForm.email}
-                  onChange={dataHandleChage}
+                  name="personalDetails.email"
+                  value={resumeForm.personalDetails?.email || ""}
+                  onChange={handleInputChange}
                 />
-                {renderErrorMessage("email")}
               </div>
               <div>
                 <input
@@ -206,10 +174,10 @@ const Setupdetails = () => {
                   placeholder="Phone Number"
                   required
                   className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                  value={resumeForm.phoneNumber}
-                  onChange={dataHandleChage}
+                  name="personalDetails.phoneNumber"
+                  value={resumeForm.personalDetails?.phoneNumber || ""}
+                  onChange={handleInputChange}
                 />
-                {renderErrorMessage("phoneNumber")}
               </div>
               <div>
                 <select
@@ -226,15 +194,15 @@ const Setupdetails = () => {
                     backgroundPosition: "95% center",
                     paddingRight: "20px",
                   }}
-                  value={resumeForm.gender}
-                  onChange={dataHandleChage}
+                  name="personalDetails.gender"
+                  value={resumeForm.personalDetails?.gender || ""}
+                  onChange={handleInputChange}
                 >
                   <option value="">Gender</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                   <option value="other">Other</option>
                 </select>
-                {renderErrorMessage("gender")}
               </div>
               <div>
                 <input
@@ -243,10 +211,10 @@ const Setupdetails = () => {
                   placeholder="Date of Birth"
                   required
                   className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                  value={resumeForm.birth}
-                  onChange={dataHandleChage}
+                  name="personalDetails.birth"
+                  value={resumeForm.personalDetails?.birth || ""}
+                  onChange={handleInputChange}
                 />
-                {renderErrorMessage("birth")}
               </div>
               <div>
                 <input
@@ -255,10 +223,10 @@ const Setupdetails = () => {
                   placeholder="Location"
                   required
                   className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                  value={resumeForm.location}
-                  onChange={dataHandleChage}
+                  name="personalDetails.location"
+                  value={resumeForm.personalDetails?.location || ""}
+                  onChange={handleInputChange}
                 />
-                {renderErrorMessage("location")}
               </div>
               <div>
                 <input
@@ -267,18 +235,19 @@ const Setupdetails = () => {
                   placeholder="Job role"
                   required
                   className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                  value={resumeForm.role}
-                  onChange={dataHandleChage}
+                  name="personalDetails.text"
+                  value={resumeForm.personalDetails?.text || ""}
+                  onChange={handleInputChange}
                 />
-                {renderErrorMessage("role")}
               </div>
             </div>
           </form>
           <div>
             <hr className="bg-[#15223214] " />
-            <Accordion
+            {/* <Accordion
               expanded={expanded === "panel1"}
               onChange={handleChange("panel1")}
+              elevation={0}
             >
               <AccordionSummary
                 expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
@@ -290,10 +259,11 @@ const Setupdetails = () => {
               <AccordionDetails>
                 <SetupEducation />
               </AccordionDetails>
-            </Accordion>
+            </Accordion> */}
             <Accordion
               expanded={expanded === "panel2"}
               onChange={handleChange("panel2")}
+              elevation={0}
             >
               <AccordionSummary
                 expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
@@ -303,12 +273,17 @@ const Setupdetails = () => {
                 <p className="text-[#1E0F3B] font-bold text-lg">Experience</p>
               </AccordionSummary>
               <AccordionDetails>
-                <SetupExperience />
+                <SetupExperience
+                  experienceDetails={tempExp}
+                  tempExp={handleExpChange}
+                  handleExpAdd={handleExpAdd}
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
               expanded={expanded === "panel3"}
               onChange={handleChange("panel3")}
+              elevation={0}
             >
               <AccordionSummary
                 expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
@@ -318,12 +293,16 @@ const Setupdetails = () => {
                 <p className="text-[#1E0F3B] font-bold text-lg">Skill</p>
               </AccordionSummary>
               <AccordionDetails>
-                <SetupSkills />
+                <SetupSkills
+                  skillsDetails={resumeForm}
+                  setskillsDetails={setResumeForm}
+                />
               </AccordionDetails>
             </Accordion>
             <Accordion
               expanded={expanded === "panel4"}
               onChange={handleChange("panel4")}
+              elevation={0}
             >
               <AccordionSummary
                 expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
@@ -339,6 +318,7 @@ const Setupdetails = () => {
             <Accordion
               expanded={expanded === "panel5"}
               onChange={handleChange("panel5")}
+              elevation={0}
             >
               <AccordionSummary
                 expandIcon={<img src="/Assets/plusSign.svg" alt="cameraIcon" />}
@@ -353,6 +333,7 @@ const Setupdetails = () => {
                 <SetupCertificate />
               </AccordionDetails>
             </Accordion>
+            <hr className="bg-[#15223214] " />
           </div>
         </div>
         {/* section 2 */}
