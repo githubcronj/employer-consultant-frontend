@@ -13,11 +13,11 @@ import validator from "validator";
 import { useRouter } from "next/router";
 import { login, googleLogin } from "../store/action/loginaction";
 import { facebookLogin } from "store/action/fbAction";
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const Login = () => {
-  const { data: session } = useSession()
-  console.log("🚀 ~ file: Login.js:20 ~ Login ~ session:", session)
+  const { data: session } = useSession();
+  console.log("🚀 ~ file: Login.js:20 ~ Login ~ session:", session);
   const router = useRouter();
   const dispatch = useDispatch();
   const [role, setRole] = useState("employer");
@@ -38,10 +38,10 @@ const Login = () => {
     setAlignment(newAlignment);
     if (newAlignment == "android") {
       setRole("consultant");
-      localStorage.setItem("role","consultant")
+      localStorage.setItem("role", "consultant");
     } else {
       setRole("employer");
-      localStorage.setItem("role","employer")
+      localStorage.setItem("role", "employer");
     }
   };
 
@@ -72,29 +72,27 @@ const Login = () => {
     const payload = {
       email: email,
       password: password,
-      role:role,
+      role: role,
     };
 
     dispatch(login(payload));
   };
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     router.push("/profile");
-  //   }
-  // }, [isLoggedIn, router]);
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/profile");
+    }
+  }, [isLoggedIn, router]);
 
-  const handleGoogleLogin = async(e) => {
+  const handleGoogleLogin = async (e) => {
     e.preventDefault();
-    const callbackUrl = "/googleAuth"; 
-    await signIn("google",{role, callbackUrl })
-    
+    const callbackUrl = "/googleAuth";
+    await signIn("google", { role, callbackUrl });
   };
   const facebookClick = () => {
     dispatch({ type: facebookLogin });
 
     window.open(`http://localhost:3001/facebook/callback`, "_self");
   };
-
 
   return (
     <>
@@ -231,7 +229,7 @@ const Login = () => {
                 src='/Assets/googleIcon.png'
                 alt='googleIcon'
                 style={{ width: "50px", height: "50px", cursor: "pointer" }}
-                onClick={ handleGoogleLogin}
+                onClick={handleGoogleLogin}
               />
             </div>
 
@@ -240,7 +238,9 @@ const Login = () => {
               alt='facebookIcon'
               style={{ width: "50px", height: "50px", cursor: "pointer" }}
               // onClick={facebookClick}
-              onClick={() => signIn("facebook",{ callbackUrl: "/googleAuth",role })}
+              onClick={() =>
+                signIn("facebook", { callbackUrl: "/googleAuth", role })
+              }
             />
           </div>
 

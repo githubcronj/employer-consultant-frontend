@@ -14,7 +14,6 @@ const EditProfile = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchFormData());
-    console.log("Fetching form data");
   }, []);
 
   const formDataa = useSelector((state) => state?.editProfileReducer?.data);
