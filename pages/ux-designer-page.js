@@ -9,19 +9,27 @@ const uxDesigner = () => {
   const router = useRouter();
 
   const [shortlistedCard, setshortlistedCard] = useState(null);
-
+  const [selectedCard, setSelectedCard] = useState(null);
 
 
   const handleShortlistClick = (card) => {
-    setshortlistedCard(card);
-    console.log(" clicked")
+    
+   
+    if (selectedCard === card) {
+        setSelectedCard(null); // Unselect the card if it's already selected
+        setshortlistedCard(null); // Remove it from the shortlisted cards
+      } else {
+        setSelectedCard(card);
+        setshortlistedCard(card);
+      }
+    console.log(" selected")
   };
 
  
 
   const handleClickShortlistBtn = (card) => {
     setshortlistedCard(card);
-    console.log("tick is clicked")
+    console.log("shortlisted")
   };
    const [errors, setErrors] = useState({});
   const renderErrorMessage = (fieldName) => {
@@ -178,7 +186,10 @@ const uxDesigner = () => {
           <div className="bg-[#5E9AF8] ml-2 px-2 py-1 border rounded text-[#ffffff]">3</div>
             </div>
         
-          <UxDesignerCardList onShortlistClick={handleShortlistClick}  shortlistedCard={shortlistedCard}/>
+          <UxDesignerCardList
+             selectedCard={selectedCard}
+             onShortlistClick={handleShortlistClick}
+             shortlistedCard={shortlistedCard}/>
         <div>
           
         </div>
@@ -197,29 +208,35 @@ const uxDesigner = () => {
 
  
 </div>
-        <div className=" flex flex-col py-6 px-3 lg:col-span-1 border-l ml-12"  style={{ width: "fit-content" }}>
+        <div className=" flex lg:flex-col sm:flex-row  py-6 px-3 lg:col-span-1 border-l lg:ml-12 sm:ml-0"  style={{ width: "fit-content" }}>
        
       
-<Popoverr onClick={() => console.log('Popover clicked!')}>
+<Popoverr text={"Select and add into shortlist"}>
         <button onClick={() => handleClickShortlistBtn(shortlistedCard)} className="flex justify-end px-3 py-3">
           <img src="/Assets/tick.svg" alt="tick" />
         </button>
       </Popoverr>
-
+      <Popoverr text={"Reject the consultant"}>
           <button className="flex justify-end px-3 py-3">
             <img src="/Assets/crossbtn.svg" alt="tick"/>
           </button>
+          </Popoverr>
           <hr/>
+          <Popoverr text={"Send mail invite for interview"}>
           <button className="flex justify-end px-3 py-3">
             <img src="/Assets/mailBtn.svg" alt="tick"/>
           </button>
+          </Popoverr>
+          <Popoverr text={"Chat with consultant"}>
           <button className="flex justify-end px-3 py-3">
             <img src="/Assets/chat.svg" alt="tick"/>
           </button>
+          </Popoverr>
+          <Popoverr text={"Send E-mail"}>
           <button className="flex justify-end px-3 py-3">
             <img src="/Assets/mail2.svg" alt="tick"/>
           </button>
-         
+          </Popoverr>
           
         </div>
       
