@@ -15,13 +15,12 @@ function* getProfile(action) {
       endpoint: "/employer/profile",
       method: "GET",
       headers: {
-        Authorization: `Bearer ${action.payload}`,
+        Authorization: `Bearer ${action.payload.token}`,
 
-        Token: `Bearer ${action.payload}`,
+        Token: `Bearer ${action.payload.token}`,
       },
     });
     yield put({ type: PROFILE_SUCCESS, payload: response });
-    console.log("test in saga", response);
   } catch (error) {
     console.log("API call error:", error);
     yield put({ type: PROFILE_FAILURE, payload: error });

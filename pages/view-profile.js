@@ -17,15 +17,18 @@ const viewProfile = () => {
   const backClicked = () => {
     route.push('/');
   };
-  let payload;
-  useEffect(() => {
-    if (typeof window !== 'undefined' && localStorage.getItem('CurrentUser')) {
-      const storedData = localStorage.getItem('CurrentUser');
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
 
       const tokenset = JSON.parse(storedData);
-      payload = tokenset.token.accessToken;
+      return tokenset?.token?.accessToken;
     }
-  });
+  };
+  const finaltoken = getToken();
+  const payload = {
+    token: finaltoken,
+  };
   useEffect(() => {
     dispatch({ type: PROFILE_REQUEST, payload });
   }, []);
