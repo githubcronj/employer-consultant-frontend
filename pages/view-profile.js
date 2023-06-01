@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from "react";
-import backbtn from "../public/Assets/backbtn.svg";
-import edit from "../public/Assets/edit.svg";
-import google from "../public/Assets/googleIcon.png";
-import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
-import { PROFILE_REQUEST } from "store/type/getProfileType";
-import { useSelector } from "react-redux";
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useEffect, useState } from 'react';
+import backbtn from '../public/Assets/backbtn.svg';
+import edit from '../public/Assets/edit.svg';
+import google from '../public/Assets/googleIcon.png';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { PROFILE_REQUEST } from 'store/type/getProfileType';
+import { useSelector } from 'react-redux';
 const viewProfile = () => {
   const [flexing, setFlexing] = useState(false);
   const route = useRouter();
   const dispatch = useDispatch();
   const editClick = () => {
-    route.push("/editProfile");
+    route.push('/editProfile');
   };
   const backClicked = () => {
-    route.push("/");
+    route.push('/');
   };
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -42,29 +43,29 @@ const viewProfile = () => {
   }, []);
   return (
     <div
-      className={`w-[100%] xl:w-[1040px] lg:w-[1000px] sm:w-[720px] md:w-[900px]`}
+      className={`w-[100%] xl:w-auto lg:w-[1000px] sm:w-[720px] md:w-[900px]`}
     >
       <div
-        className={`bg-[#2B373C1C] 
+        className={`bg-[#2B373C1C]
        xl:py-2 lg:py-2 md:py-2 sm:py-2 py-2 xl:px-4 md:px-4 sm:px-4 lg:px-4 ${
-         flexing ? " ml-1" : ""
-       } 
+         flexing ? ' ml-1' : ''
+       }
        `}
       >
         <div
           className='bg-white'
           style={{
-            boxShadow: " 0px 2px 10px #4C4E641A",
-            borderRadius: "4px",
+            boxShadow: ' 0px 2px 10px #4C4E641A',
+            borderRadius: '4px',
             // maxWidth: "1030px",
-            width: "100%",
+            width: '100%',
           }}
         >
           <div
             className={`justify-between xl:mt-[10px] lg:mt-[10px] md:mt-[10px] sm:mt-[10px]
            pt-[10px] -mt-[10px] xl:pt-[10px] mb-4
            lg:pt-[10px] md:pt-[10px] sm:pt-[10px] items-center mx-4 sm:mr-9 sm:ml-[10px] flex ${
-             flexing ? "flex-col" : "flex-row"
+             flexing ? 'flex-col' : 'flex-row'
            }
            `}
           >
@@ -87,10 +88,10 @@ const viewProfile = () => {
           </div>
           <hr className='mt-[25px]xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
           <div className='mt-[19px] mx-3 flex justify-between'>
-            <div style={{ width: "100%" }}>
+            <div style={{ width: '100%' }}>
               <div
                 className={`flex items-center mb-[15px] ${
-                  flexing ? "flex-col" : "flex-row"
+                  flexing ? 'flex-col' : 'flex-row'
                 }`}
               >
                 <img
@@ -103,7 +104,7 @@ const viewProfile = () => {
                 </p>
               </div>
 
-              <hr className=' ' style={{ width: "100%" }}></hr>
+              <hr className=' ' style={{ width: '100%' }}></hr>
               <div className='flex justify-between'>
                 <h4 className='h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1'>
                   Company ID
@@ -175,7 +176,7 @@ const viewProfile = () => {
               </h1>
               <p
                 className=' h-auto text-[#1E0F3B] opacity-[0.7] font-normal font-sans text-left'
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
               >
                 {data?.aboutCompany}
               </p>
