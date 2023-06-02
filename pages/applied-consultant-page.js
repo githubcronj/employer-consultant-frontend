@@ -86,6 +86,7 @@ const appliedConsultant = () => {
     <p className="text-[16px] text-[#2B373C]">$10-15 /hr .</p>
     <p className="text-[16px] text-[#2B373C]">12-09-2023</p>
   </div>
+  
   <div className="flex items-center  lg:justify-end gap-x-4 lg:col-span-1 sm:col-span-2">
     <p className="text-[16px] text-[#5E9AF8] font-bold">View Job Post</p>
     <img src="/Assets/forwardArr.svg" alt="frw-ar" />

@@ -1,29 +1,29 @@
-import Link from "next/link";
-import React, { use, useEffect } from "react";
-import UploadCSVModal from "./uploadCSVModal";
-import FilterModal from "./filterModal";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/router";
-import { GET_JOB_REQUEST } from "store/type/getjobType";
-import { useSelector } from "react-redux";
+import Link from 'next/link';
+import React, { use, useEffect } from 'react';
+import UploadCSVModal from './uploadCSVModal';
+import FilterModal from './filterModal';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { GET_JOB_REQUEST } from 'store/type/getjobType';
+import { useSelector } from 'react-redux';
 
 const tableHeading = [
-  "Applied Consultant",
-  "Job Title",
-  "Experience",
-  "Job Type",
-  "Salary",
-  "Created date",
-  "Deadline date",
+  'Applied Consultant',
+  'Job Title',
+  'Experience',
+  'Job Type',
+  'Salary',
+  'Created date',
+  'Deadline date',
 ];
 
-const home = () => {
+const Home = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   let payload;
   useEffect(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
-      const storedData = localStorage.getItem("CurrentUser");
+    if (typeof window !== 'undefined' && localStorage.getItem('CurrentUser')) {
+      const storedData = localStorage.getItem('CurrentUser');
 
       const tokenset = JSON.parse(storedData);
       payload = tokenset.token.accessToken;
@@ -42,6 +42,7 @@ const home = () => {
     console.log(id);
     router.push(`/viewjobpost/${id}`);
   };
+  
 
   return (
     <div>
@@ -112,8 +113,8 @@ const home = () => {
                     key={index}
                     className={
                       index % 2 === 0
-                        ? "border-slate-200 border rounded-lg"
-                        : "border-slate-200 border rounded-lg bg-[#EEEFEF]"
+                        ? 'border-slate-200 border rounded-lg'
+                        : 'border-slate-200 border rounded-lg bg-[#EEEFEF]'
                     }
                   >
                     <td className='px-6 py-7'>{row?.appliedConsultant}</td>
@@ -138,4 +139,4 @@ const home = () => {
   );
 };
 
-export default home;
+export default Home;
