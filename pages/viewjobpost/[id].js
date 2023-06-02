@@ -101,7 +101,8 @@ const viewProfile = () => {
           <div
             className={`justify-between xl:mt-[10px] lg:mt-[10px] md:mt-[10px] sm:mt-[10px]
            pt-[10px] -mt-[10px] xl:pt-[10px] mb-4
-           lg:pt-[10px] md:pt-[10px] sm:pt-[10px] items-center mx-4 sm:mr-9 sm:ml-[10px] flex ${
+           lg:pt-[10px] md:pt-[10px] sm:pt-[10px] items-center mx-4 sm:mr-9 sm:ml-[10px] flex 
+           ${
              flexing ? "flex-col" : "flex-row"
            }
            `}
@@ -136,7 +137,7 @@ const viewProfile = () => {
               </button>
             </div>
           </div>
-          <hr className='mt-[25px]xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
+          <hr className='mt-[25px] xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
           {finaldata?.map((item, index) => {
             return (
               <div className='mt-[19px] mx-3 flex justify-between'>
