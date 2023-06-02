@@ -1,7 +1,7 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import { Navbar } from 'Components/Navbar/Navbar';
-import { SideBar } from 'Components/Sidebar/sideBar';
+import React from "react";
+import { useRouter } from "next/router";
+import { Navbar } from "Components/Navbar/Navbar";
+import { SideBar } from "Components/Sidebar/sideBar";
 function Layout(props) {
   const router = useRouter();
 
@@ -9,32 +9,35 @@ function Layout(props) {
   const { pathname } = router;
 
   const shouldRenderComponents = ![
-    '/Login',
-    '/register',
-    '/profile',
-    '/forgotPassword',
-    '/resetPassword',
-    '/confirmPassword',
-    '/verifyotp',
-    '/resume-upload',
-    '/resume-json',
-    '/setup-details',
-    '/editProfile',
+    "/Login",
+    "/register",
+    "/profile",
+    "/forgotPassword",
+    "/resetPassword",
+    "/confirmPassword",
+    "/verifyotp",
+    "/resumeUpload",
+    "/resume-json",
+    "/setup-details",
+    "/editProfile",
     "/setup-details",
   ].includes(pathname);
-
+  const onlyNav = ["/viewProfileCon"];
   return (
     <>
       <div className='layout'>
         {shouldRenderComponents && (
           <>
             <Navbar />
-            <div className='flex flex-col xl:flex-row lg:flex-row md:flex-row sm:flex-row min-w-[100%] '>
-              <SideBar />
-              <div className='relative xl:left-[220px] lg:left-[220px] md:left-[220px] sm:left-[220px] xl:w-[calc(100%_-_14rem)] lg::w-[calc(100%_-_14rem) sm:w-[calc(100%_-_14rem) md:w-[calc(100%_-_14rem)'>
-                {children}
+            {!onlyNav && (
+              <div className='flex flex-col xl:flex-row lg:flex-row md:flex-row sm:flex-row min-w-[100%] '>
+                <SideBar />
+                <div className='relative xl:left-[220px] lg:left-[220px] md:left-[220px] sm:left-[220px] xl:w-[calc(100%_-_14rem)] lg::w-[calc(100%_-_14rem) sm:w-[calc(100%_-_14rem) md:w-[calc(100%_-_14rem)'>
+                  {children}
+                </div>
               </div>
-            </div>
+            )}
+            {onlyNav && <>{children}</>}
           </>
         )}
 
