@@ -11,7 +11,7 @@ function Layout(props) {
   const shouldRenderComponents = ![
     '/Login',
     '/register',
-    // '/profile',
+    '/profile',
     '/forgotPassword',
     '/resetPassword',
     '/confirmPassword',
