@@ -1,4 +1,5 @@
-import React from 'react';
+import Link from "next/link";
+import React from "react";
 
 function createData(consultantName, experience, email, currentProjects) {
   return {
@@ -9,20 +10,20 @@ function createData(consultantName, experience, email, currentProjects) {
   };
 }
 const rows = [
-  createData('Samuel Jack', '5 years', 'SamuelJack@gmail.com', 3),
-  createData('Samuel Jack', '5 years', 'SamuelJack@gmail.com', 3),
-  createData('Samuel Jack', '5 years', 'SamuelJack@gmail.com', 3),
-  createData('Samuel Jack', '5 years', 'SamuelJack@gmail.com', 3),
-  createData('Samuel Jack', '5 years', 'SamuelJack@gmail.com', 3),
-  createData('Samuel Jack', '5 years', 'SamuelJack@gmail.com', 3),
-  createData('Samuel Jack', '5 years', 'SamuelJack@gmail.com', 3),
-  createData('Samuel Jack', '5 years', 'SamuelJack@gmail.com', 3),
+  createData("Samuel Jack", "5 years", "SamuelJack@gmail.com", 3),
+  createData("Samuel Jack", "5 years", "SamuelJack@gmail.com", 3),
+  createData("Samuel Jack", "5 years", "SamuelJack@gmail.com", 3),
+  createData("Samuel Jack", "5 years", "SamuelJack@gmail.com", 3),
+  createData("Samuel Jack", "5 years", "SamuelJack@gmail.com", 3),
+  createData("Samuel Jack", "5 years", "SamuelJack@gmail.com", 3),
+  createData("Samuel Jack", "5 years", "SamuelJack@gmail.com", 3),
+  createData("Samuel Jack", "5 years", "SamuelJack@gmail.com", 3),
 ];
 const tableHeading = [
-  'Consultant Name',
-  'Experience',
-  'Email',
-  'Current projects',
+  "Consultant Name",
+  "Experience",
+  "Email",
+  "Current projects",
 ];
 
 const ConsultantTable = () => {
@@ -46,8 +47,8 @@ const ConsultantTable = () => {
                 key={index}
                 className={
                   index % 2 === 0
-                    ? 'border-slate-200 border rounded-lg'
-                    : 'border-slate-200 border rounded-lg bg-[#EEEFEF]'
+                    ? "border-slate-200 border rounded-lg"
+                    : "border-slate-200 border rounded-lg bg-[#EEEFEF]"
                 }
               >
                 {Object.values(row).map((value, index) => (
@@ -56,7 +57,9 @@ const ConsultantTable = () => {
                   </td>
                 ))}
                 <td>
-                  <img src='/Assets/arrow-blue.svg' alt='save' />
+                  <Link href='/view-consultant-details/view-details'>
+                    <img src='/Assets/arrow-blue.svg' alt='save' />
+                  </Link>
                 </td>
               </tr>
             ))}
