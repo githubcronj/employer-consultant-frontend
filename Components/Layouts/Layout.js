@@ -19,7 +19,8 @@ function Layout(props) {
     '/resumeUpload',
     '/resume-json',
     '/setup-details',
-    // '/editProfile',
+    '/editProfile',
+    "/setup-details",
   ].includes(pathname);
 
   return (
