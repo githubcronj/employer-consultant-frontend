@@ -44,6 +44,9 @@ const Login = () => {
       localStorage.setItem('role', 'employer');
     }
   };
+  useEffect(() => {
+    localStorage.setItem('role', 'employer');
+  }, []);
 
   const passwordclick = () => {
     setDisplayPassword(displayPassword == 'password' ? 'text' : 'password');
