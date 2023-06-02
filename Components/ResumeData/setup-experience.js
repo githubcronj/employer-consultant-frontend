@@ -139,6 +139,18 @@ const SetupExperience = ({
               />
             </div>{" "}
           </div>
+          <div>
+            <input
+              type="text"
+              id="techEnviro"
+              placeholder="Technology Environmental "
+              required
+              className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+              name="tempExp.techEnviro"
+              value={experienceDetails?.techEnviro || ""}
+              onChange={handleExperienceDetailsChange}
+            />
+          </div>
         </div>
         <div className="flex justify-end">
           <button
@@ -162,18 +174,21 @@ const SetupExperience = ({
             >
               <div>
                 <p>
-                  <span className=" font-bold">{item.companyName}</span>
-                  <span className=" opacity-50	"> {item.emptype}</span>
+                  <span className=" font-bold">{item?.companyName}</span>
+                  <span className=" opacity-50	"> {item?.emptype}</span>
                 </p>
-                <p className="py-1  opacity-90">
-                  {item.emptype +
-                    " - " +
-                    item.joindate.getDate() +
-                    "/" +
-                    item.joindate.getMonth() +
-                    "/" +
-                    item.joindate.getFullYear()}
-                </p>
+                {item.joindate && (
+                  <p className="py-1  opacity-90">
+                    {item?.emptype +
+                      " - " +
+                      item.joindate.getDate() +
+                      "/" +
+                      item.joindate.getMonth() +
+                      "/" +
+                      item.joindate.getFullYear()}
+                  </p>
+                )}
+                <p>{item?.techEnviro}</p>
               </div>
               <img
                 src="/Assets/cross.svg"
