@@ -12,6 +12,7 @@ import { getProfileReducer } from './getProfileReducer';
 import formReducer from 'store/slices/formSlice';
 import { getjobReducer } from "./getjobReducer";
 import { deletejobReducer } from "./deletejobReducer";
+import editJobReducer from "./editJobPostReducer"
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   facebookReducer,
   editProfileReducer,
   getProfileReducer,
+  editJobReducer,
   form: formReducer,
   getjobReducer,
   deletejobReducer,

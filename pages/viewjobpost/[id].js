@@ -26,11 +26,12 @@ const viewProfile = () => {
   const [popup, setPopup] = useState(false);
   const route = useRouter();
   const dispatch = useDispatch();
-  const editClick = () => {
-    route.push("/editProfile");
-  };
+  // const editClick = () => {
+  //   route.push("/editJobPost");
+  // };
   const backClicked = () => {
     route.push("/");
+
   };
 
   const getToken = () => {
@@ -56,10 +57,29 @@ const viewProfile = () => {
   const response = useSelector(
     (state) => state?.getjobReducer?.CurrentUser?.data
   );
-  console.log("response", response);
+  // console.log("response", response);
   let finaldata = response?.filter((x, y) => {
     return id == x?._id;
   });
+  console.log('finaldata',finaldata)
+  const editClick = () => {
+
+    // const data = finaldata
+    // console.log('router',data);
+    // router.push({
+    //   pathname: '/editJobPost',
+    //   query: { id: id,  },
+    //   undefined,
+    //   shallow: true  
+    // });
+    const stateString = JSON.stringify(finaldata);
+    const encodedState = encodeURIComponent(stateString);
+
+    router.push({
+      pathname: '/editJobPost',
+      query: { state: encodedState },
+    });
+  };
   const mappedData = finaldata?.map((item, index) => {
     const description = item.description;
     const jobTitle = item.name;
