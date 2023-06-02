@@ -1,29 +1,29 @@
-import Image from "next/image";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { useDispatch, useSelector } from "react-redux";
-import { jobSaveRequest } from "../store/action/jobPostAction";
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { jobSaveRequest } from '../store/action/jobPostAction';
 
 const NewJobPost = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [data, setData] = useState(null);
-  const [selectedButton, setSelectedButton] = useState("");
+  const [selectedButton, setSelectedButton] = useState('');
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [jobPostData, setJobPostData] = useState({
-    jobTitle: "",
-    experience: "",
-    deadline: "",
-    jobType: "",
-    minSalary: "",
-    maxSalary: "",
-    description: "",
-    email: "",
-    phoneNumber: "",
+    jobTitle: '',
+    experience: '',
+    deadline: '',
+    jobType: '',
+    minSalary: '',
+    maxSalary: '',
+    description: '',
+    email: '',
+    phoneNumber: '',
   });
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
@@ -32,8 +32,8 @@ const NewJobPost = () => {
     return null;
   };
   useEffect(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
-      const storedData = localStorage.getItem("CurrentUser");
+    if (typeof window !== 'undefined' && localStorage.getItem('CurrentUser')) {
+      const storedData = localStorage.getItem('CurrentUser');
 
       setData(JSON.parse(storedData));
     }
@@ -51,8 +51,8 @@ const NewJobPost = () => {
   };
   const handleDateChange = (date) => {
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
 
     // Format the date as "yyyy-mm-dd"
     const formattedDate = `${year}-${month}-${day}`;
@@ -70,40 +70,40 @@ const NewJobPost = () => {
       [id]: value,
     }));
     setIsFieldChanged(true);
-    if (id === "email") {
+    if (id === 'email') {
       const isValidEmail = /^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(
         value
       );
       setErrors((prevErrors) => ({
         ...prevErrors,
-        email: isValidEmail ? "" : "Invalid email format",
+        email: isValidEmail ? '' : 'Invalid email format',
       }));
     }
   };
   const isFormValid = () => {
     const requiredFields = [
-      "jobTitle",
-      "experience",
-      "deadline",
-      "jobType",
-      "minSalary",
-      "maxSalary",
-      "description",
-      "email",
-      "phoneNumber",
+      'jobTitle',
+      'experience',
+      'deadline',
+      'jobType',
+      'minSalary',
+      'maxSalary',
+      'description',
+      'email',
+      'phoneNumber',
     ];
     const errors = {};
 
     requiredFields.forEach((field) => {
-      if (jobPostData[field] === "") {
-        errors[field] = "This field is required";
+      if (jobPostData[field] === '') {
+        errors[field] = 'This field is required';
       }
     });
     if (
-      jobPostData.email !== "" &&
+      jobPostData.email !== '' &&
       !/^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(jobPostData.email)
     ) {
-      errors.email = "Invalid email format";
+      errors.email = 'Invalid email format';
     }
 
     setErrors(errors);
@@ -116,19 +116,19 @@ const NewJobPost = () => {
       dispatch(jobSaveRequest(jobPostData));
       console.log(jobPostData);
       const initialJobPostData = {
-        jobTitle: "",
-        experience: "",
-        deadline: "",
-        jobType: "",
-        minSalary: "",
-        maxSalary: "",
-        description: "",
-        email: "",
-        phoneNumber: "",
+        jobTitle: '',
+        experience: '',
+        deadline: '',
+        jobType: '',
+        minSalary: '',
+        maxSalary: '',
+        description: '',
+        email: '',
+        phoneNumber: '',
       };
       setJobPostData(initialJobPostData);
       console.log(jobPostData);
-      router.push("/");
+      router.push('/');
     } else {
       return;
     }
@@ -180,13 +180,13 @@ const NewJobPost = () => {
               type='text'
               id='jobTitle'
               placeholder='UX Designer'
-              style={errors.jobTitle ? { borderColor: "red" } : {}}
+              style={errors.jobTitle ? { borderColor: 'red' } : {}}
               required
               className='py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full'
               value={jobPostData.jobTitle}
               onChange={handleChange}
             />
-            {renderErrorMessage("jobTitle")}
+            {renderErrorMessage('jobTitle')}
           </div>
           {/*  */}
           <div>
@@ -195,15 +195,15 @@ const NewJobPost = () => {
               required
               className='py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select '
               style={{
-                WebkitAppearance: "none",
-                MozAppearance: "none",
-                appearance: "none",
-                backgroundImage: "none",
-                backgroundImage: "url(/Assets/down-arrow.svg)",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "95% center",
-                paddingRight: "20px",
-                ...(errors.experience ? { borderColor: "red" } : {}),
+                WebkitAppearance: 'none',
+                MozAppearance: 'none',
+                appearance: 'none',
+                backgroundImage: 'none',
+                backgroundImage: 'url(/Assets/down-arrow.svg)',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: '95% center',
+                paddingRight: '20px',
+                ...(errors.experience ? { borderColor: 'red' } : {}),
               }}
               value={jobPostData.experience}
               onChange={handleChange}
@@ -213,7 +213,7 @@ const NewJobPost = () => {
               <option value='2'>2 year</option>
               <option value='3'>3 year</option>
             </select>
-            {renderErrorMessage("experience")}
+            {renderErrorMessage('experience')}
           </div>
           {/*  */}
           <div>
@@ -223,7 +223,7 @@ const NewJobPost = () => {
                 placeholderText='Application Deadline'
                 required
                 className={`block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
-                  errors.deadline ? "border-red-500" : ""
+                  errors.deadline ? 'border-red-500' : ''
                 }`}
                 selected={
                   jobPostData.deadline ? new Date(jobPostData.deadline) : null
@@ -234,16 +234,16 @@ const NewJobPost = () => {
                 for='deadline'
                 className='absolute hidden my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
               >
-                Founded In{" "}
+                Founded In{' '}
               </label>
               <img
                 src='/Assets/calendar.svg'
                 alt='calendar'
                 className='absolute right-2'
-                onClick={() => document.getElementById("deadline").click()}
-              />{" "}
+                onClick={() => document.getElementById('deadline').click()}
+              />{' '}
             </div>
-            {renderErrorMessage("deadline")}
+            {renderErrorMessage('deadline')}
           </div>
           {/*  */}
 
@@ -253,25 +253,28 @@ const NewJobPost = () => {
               required
               className='py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select'
               style={{
-                WebkitAppearance: "none",
-                MozAppearance: "none",
-                appearance: "none",
-                backgroundImage: "none",
-                backgroundImage: "url(/Assets/down-arrow.svg)",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "95% center",
-                paddingRight: "20px",
-                ...(errors.jobType ? { borderColor: "red" } : {}),
+                WebkitAppearance: 'none',
+                MozAppearance: 'none',
+                appearance: 'none',
+                backgroundImage: 'none',
+                backgroundImage: 'url(/Assets/down-arrow.svg)',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: '95% center',
+                paddingRight: '20px',
+                ...(errors.jobType ? { borderColor: 'red' } : {}),
               }}
               value={jobPostData.jobType}
               onChange={handleChange}
             >
               <option value=''>Job Type</option>
-              <option value='UI'>UX Designer</option>
-              <option value='React'>React Developer</option>
-              <option value='Devops'>Dev Ops Engineer</option>
+              <option value='full-time'>Full Time</option>
+              <option value='part-time'>Part Time</option>
+              <option value='contract'>Contract</option>
+              <option value='freelance'>Freelance</option>
+              <option value='temporary'>Temporary</option>
+              <option value='internship'>Internship</option>
             </select>
-            {renderErrorMessage("jobType")}
+            {renderErrorMessage('jobType')}
           </div>
 
           {/*  salary starts here  */}
@@ -290,7 +293,7 @@ const NewJobPost = () => {
                       <input
                         type='checkbox'
                         id='hourly'
-                        checked={selectedButton === "hourly"}
+                        checked={selectedButton === 'hourly'}
                         onChange={handleSalaryButton}
                         className='peer hidden'
                       />
@@ -308,7 +311,7 @@ const NewJobPost = () => {
                         type='checkbox'
                         id='monthly'
                         class='peer hidden'
-                        checked={selectedButton === "monthly"}
+                        checked={selectedButton === 'monthly'}
                         onChange={handleSalaryButton}
                       />
                       <label
@@ -325,7 +328,7 @@ const NewJobPost = () => {
                         type='checkbox'
                         id='yearly'
                         class='peer hidden'
-                        checked={selectedButton === "yearly"}
+                        checked={selectedButton === 'yearly'}
                         onChange={handleSalaryButton}
                       />
                       <label
@@ -346,7 +349,7 @@ const NewJobPost = () => {
                     type='text'
                     id='minSalary'
                     placeholder=' '
-                    style={errors.minSalary ? { borderColor: "red" } : {}}
+                    style={errors.minSalary ? { borderColor: 'red' } : {}}
                     required
                     className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
@@ -360,7 +363,7 @@ const NewJobPost = () => {
                   >
                     Min
                   </label>
-                  {renderErrorMessage("minSalary")}
+                  {renderErrorMessage('minSalary')}
                 </div>
                 {/* max */}
                 <div className='relative'>
@@ -369,7 +372,7 @@ const NewJobPost = () => {
                     id='maxSalary'
                     placeholder=' '
                     required
-                    style={errors.maxSalary ? { borderColor: "red" } : {}}
+                    style={errors.maxSalary ? { borderColor: 'red' } : {}}
                     className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
                         `}
                     value={jobPostData.maxSalary}
@@ -382,7 +385,7 @@ const NewJobPost = () => {
                   >
                     Max
                   </label>
-                  {renderErrorMessage("maxSalary")}
+                  {renderErrorMessage('maxSalary')}
                 </div>
               </div>
               {/* min max ends here */}
@@ -397,7 +400,7 @@ const NewJobPost = () => {
               id='description'
               placeholder=' '
               required
-              style={errors.description ? { borderColor: "red" } : {}}
+              style={errors.description ? { borderColor: 'red' } : {}}
               className='block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
               value={jobPostData.description}
               onChange={handleChange}
@@ -408,7 +411,7 @@ const NewJobPost = () => {
             >
               Job Description
             </label>
-            {renderErrorMessage("description")}
+            {renderErrorMessage('description')}
           </div>
           {/* jd ends here */}
           {/* email */}
@@ -418,9 +421,9 @@ const NewJobPost = () => {
               id='email'
               placeholder=' '
               required
-              style={errors.email ? { borderColor: "red" } : {}}
+              style={errors.email ? { borderColor: 'red' } : {}}
               className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
-              ${isFieldChanged && errors.email ? "border-red-500" : ""} `}
+              ${isFieldChanged && errors.email ? 'border-red-500' : ''} `}
               value={jobPostData.email}
               onChange={handleChange}
             />
@@ -432,7 +435,7 @@ const NewJobPost = () => {
               Email
             </label>
 
-            {renderErrorMessage("email")}
+            {renderErrorMessage('email')}
           </div>
           {/* phone number */}
           <div className='relative'>
@@ -443,7 +446,7 @@ const NewJobPost = () => {
               required
               //   minlength="10"
               //   maxlength="12"
-              style={errors.phoneNumber ? { borderColor: "red" } : {}}
+              style={errors.phoneNumber ? { borderColor: 'red' } : {}}
               className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
               value={jobPostData.phoneNumber}
@@ -456,7 +459,7 @@ const NewJobPost = () => {
             >
               Phone Number
             </label>
-            {renderErrorMessage("phoneNumber")}
+            {renderErrorMessage('phoneNumber')}
           </div>
         </div>
         {/* form section ends here */}
