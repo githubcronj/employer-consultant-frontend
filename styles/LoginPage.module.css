@@ -7,6 +7,25 @@
   background: url("/Assets/consultantimg.png")no-repeat center center/cover;
  
 }
+.selectedCard {
+  border-left: 4px solid #5e9af8;
+  background: linear-gradient(to left, #5e9af800, #5e9af833);
+  padding-top: 20px;
+}
+
+.shortlistedCard {
+  border-left: 4px solid red;
+  background: linear-gradient(to left, #f9342e00, #f9342e33);
+  padding-top: 20px;
+}
+
+.selectedShortlistedCard {
+  border-left: 4px solid red;
+  background: linear-gradient(to left, #f9342e00, #f9342e33);
+  padding-top: 20px;
+  /* Styles for combined selected and shortlisted state */
+}
+
 @media (min-width: 1536px) {
   .desk {
     height: 100vh;

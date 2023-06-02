@@ -5,9 +5,11 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchJobFormData, submitJobFormData } from "store/action/editJobPostAction";
+import {
+  fetchJobFormData,
+  submitJobFormData,
+} from "store/action/editJobPostAction";
 import { GET_JOB_REQUEST } from "store/type/getjobType";
-
 
 const EditJobPost = () => {
   const dispatch = useDispatch();
@@ -30,16 +32,16 @@ const EditJobPost = () => {
   useEffect(() => {
     dispatch({ type: GET_JOB_REQUEST, payload });
   }, []);
+
   const response = useSelector(
     (state) => state?.getjobReducer?.CurrentUser?.data
   );
-  console.log('responsee',response)
+  console.log("responsee", response);
 
   let finaldata = response?.filter((x, y) => {
     return id == x?._id;
   });
-  console.log('fff',finaldata)
-
+  console.log("fff", finaldata);
 
   const [errors, setErrors] = useState({});
   const [data, setData] = useState(null);
@@ -47,15 +49,15 @@ const EditJobPost = () => {
   const [selectedButton, setSelectedButton] = useState("");
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [editJobPostData, setEditJobPostData] = useState({
-    jobTitle: finaldata?.[0]?.jobTitle || "",
-    experience: finaldata?.[0]?.experience || "",
-    deadline: finaldata?.[0]?.deadline || "",
-    jobType: finaldata?.[0]?.jobType || "",
-    minSalary: finaldata?.[0]?.minSalary || "",
-    maxSalary: finaldata?.[0]?.maxSalary || "",
-    description: finaldata?.[0]?.description || "",
-    email: finaldata?.[0]?.email || "",
-    phoneNumber: finaldata?.[0]?.phoneNumber || ""
+    jobTitle: "",
+    experience: "",
+    deadline: "",
+    jobType: "",
+    minSalary: "",
+    maxSalary: "",
+    description: "",
+    email: "",
+    phoneNumber: "",
   });
 
   const getToken = () => {
@@ -82,14 +84,15 @@ const EditJobPost = () => {
       }));
     }
   }, [data]);
- 
+  console.log("data all", editJobPostData);
+
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
       return <p className='text-red-500 text-xs'>{errors[fieldName]}</p>;
     }
     return null;
   };
- 
+
   const handleSalaryButton = (e) => {
     setSelectedButton(e.target.id);
   };
@@ -157,7 +160,7 @@ const EditJobPost = () => {
   const handleSave = (e) => {
     e.preventDefault();
     if (isFormValid() && data?.token?.accessToken) {
-        dispatch(submitJobFormData(editJobPostData,data,id));
+      dispatch(submitJobFormData(editJobPostData, data, id));
       const initialJobPostData = {
         jobTitle: "",
         experience: "",
@@ -176,6 +179,34 @@ const EditJobPost = () => {
       return;
     }
   };
+  useEffect(() => {
+    if (finaldata) {
+      const {
+        jobTitle,
+        experience,
+        deadline,
+        jobType,
+        minSalary,
+        maxSalary,
+        description,
+        email,
+        phoneNumber,
+      } = finaldata[0];
+
+      setEditJobPostData({
+        jobTitle,
+        experience,
+        deadline,
+        jobType,
+        minSalary,
+        maxSalary,
+        description,
+        email,
+        phoneNumber,
+      });
+    } else {
+    }
+  }, [finaldata?.length > 0]);
   return (
     <div className='bg-[#2B373C1C] py-4 px-2 sm:px-4'>
       <div className='bg-white'>
