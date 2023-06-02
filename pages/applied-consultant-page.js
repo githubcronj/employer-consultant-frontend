@@ -1,17 +1,36 @@
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import UxDesignerCardList from "Components/Cards/ux-designer-card";
 import Popover from "Components/PopOver/popOver";
 import Popoverr from "Components/PopOver/popOver";
 import {cardData} from "../Components/Cards/ux-designer-card";
 import UxDesignerCard from "Components/Cards/ux-designer-card";
-const uxDesigner = () => {
+const appliedConsultant = () => {
   const router = useRouter();
    
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
+
+  useEffect(() => {
+    const selectedCardData = localStorage.getItem("selectedCard");
+    const shortlistedCardsData = localStorage.getItem("shortlistedCards");
+
+    if (selectedCardData) {
+      setSelectedCard(JSON.parse(selectedCardData));
+    }
+
+    if (shortlistedCardsData) {
+      setShortlistedCards(JSON.parse(shortlistedCardsData));
+    }
+  }, []);
+
+  // Update local storage whenever selectedCard or shortlistedCards change
+  useEffect(() => {
+    localStorage.setItem("selectedCard", JSON.stringify(selectedCard));
+    localStorage.setItem("shortlistedCards", JSON.stringify(shortlistedCards));
+  }, [selectedCard, shortlistedCards]);
 
   const handleCardClick = (id) => {
     setSelectedCard(id);
@@ -284,4 +303,4 @@ const uxDesigner = () => {
   );
 };
 
-export default uxDesigner;
+export default appliedConsultant;

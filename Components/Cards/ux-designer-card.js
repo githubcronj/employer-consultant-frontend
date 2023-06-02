@@ -47,6 +47,27 @@ export const cardData = [
     experience: "2 yr Exp",
     imageSrc: "/Assets/clientImg.png",
   },
+  {
+    id: 7,
+    name: "James Joy",
+    jobTitle: "UX Designer",
+    experience: "2 yr Exp",
+    imageSrc: "/Assets/clientImg.png",
+  },
+  {
+    id: 8,
+    name: "James Joy",
+    jobTitle: "UX Designer",
+    experience: "2 yr Exp",
+    imageSrc: "/Assets/clientImg.png",
+  },
+  {
+    id: 9,
+    name: "James Joy",
+    jobTitle: "UX Designer",
+    experience: "2 yr Exp",
+    imageSrc: "/Assets/clientImg.png",
+  },
 ];
 const UxDesignerCard = ({
   name,
@@ -57,17 +78,20 @@ const UxDesignerCard = ({
   onClick,
   shortlisted,
 }) => {
+  let cardClassName = `${styles.card} ${styles.border}`;
+  
+  if (selected && shortlisted) {
+    cardClassName += ` ${styles.selectedShortlistedCard}`;
+  } else if (selected) {
+    cardClassName += ` ${styles.selectedCard}`;
+  } else if (shortlisted) {
+    cardClassName += ` ${styles.shortlistedCard}`;
+  }
   return (
     <>
-      <div onClick={onClick}>
+      <div  onClick={onClick}>
         <div
-          className={`flex items-center border-b py-5 px-2 ${
-            selected
-              ? `${styles.selectedCard}`
-              : shortlisted
-              ? `${styles.shortlistedCard}`
-              : ""
-          }`}
+          className={`flex items-center border-b py-5 px-2 ${cardClassName}`}
          
         >
           <Image
