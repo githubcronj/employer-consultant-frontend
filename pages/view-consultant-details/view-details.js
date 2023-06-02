@@ -9,8 +9,8 @@ const ViewDetails = () => {
   return (
     <div>
       <div className="bg-[#2B373C1C] py-4 px-2 sm:px-4">
-        <div className="bg-white py-4">
-          <div className="flex justify-between items-center mx-5 sm:mx-9 ">
+        <div className="bg-white ">
+          <div className="flex justify-between items-center mx-5 sm:mx-9 py-4">
             <div className="flex items-center gap-x-4 ">
               <Image
                 src="/Assets/backbtn.svg"
@@ -40,13 +40,14 @@ const ViewDetails = () => {
                 xs={3}
                 sx={{ borderRight: "1px solid #D0D0D6" }}
                 px={1}
+                xl={4}
               >
                 <CalendarView />
               </Grid>
-              <Grid item xs={5}>
+              <Grid item xs={5} xl={4} sx={{margin:"auto"}}>
                 <Image src={resume} alt="resume" width={485} height={683} />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={4} xl={4}>
                <ProjectType/>
               </Grid>
             </Grid>
