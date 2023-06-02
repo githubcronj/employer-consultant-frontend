@@ -5,32 +5,33 @@ import { useRouter } from "next/router";
 import UxDesignerCardList from "Components/Cards/ux-designer-card";
 import Popover from "Components/PopOver/popOver";
 import Popoverr from "Components/PopOver/popOver";
+import {cardData} from "../Components/Cards/ux-designer-card";
+import UxDesignerCard from "Components/Cards/ux-designer-card";
 const uxDesigner = () => {
   const router = useRouter();
-
-  const [shortlistedCard, setshortlistedCard] = useState(null);
-  const [selectedCard, setSelectedCard] = useState(null);
-
-
-  const handleShortlistClick = (card) => {
-    
    
-    if (selectedCard === card) {
-        setSelectedCard(null); // Unselect the card if it's already selected
-        setshortlistedCard(null); // Remove it from the shortlisted cards
-      } else {
-        setSelectedCard(card);
-        setshortlistedCard(card);
-      }
-    console.log(" selected")
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [shortlistedCards, setShortlistedCards] = useState([]);
+
+  const handleCardClick = (id) => {
+    setSelectedCard(id);
   };
 
- 
-
-  const handleClickShortlistBtn = (card) => {
-    setshortlistedCard(card);
-    console.log("shortlisted")
+  const handleShortlistClick = (id) => {
+    if (!shortlistedCards.includes(id)) {
+      setShortlistedCards([...shortlistedCards, id]);
+      console.log("shortlisted")
+    }
   };
+  const shortlistedCount = shortlistedCards.length;
+
+  const handleRemoveClick = (id) => {
+    const updatedShortlistedCards = shortlistedCards.filter(
+      (cardId) => cardId !== id
+    );
+    setShortlistedCards(updatedShortlistedCards);
+  };
+
    const [errors, setErrors] = useState({});
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
@@ -183,13 +184,23 @@ const uxDesigner = () => {
             <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
          24 Consultant
           </p>
-          <div className="bg-[#5E9AF8] ml-2 px-2 py-1 border rounded text-[#ffffff]">3</div>
+          <div className="bg-[#5E9AF8] ml-2 px-2 py-1 border rounded text-[#ffffff]">{shortlistedCount}</div>
             </div>
-        
-          <UxDesignerCardList
-             selectedCard={selectedCard}
-             onShortlistClick={handleShortlistClick}
-             shortlistedCard={shortlistedCard}/>
+        {cardData.map((card) => (
+          <UxDesignerCard
+          key ={card.id}
+          name={card.name}
+          jobTitle={card.jobTitle}
+          experience={card.experience}
+          imageSrc={card.imageSrc}
+          selected={card.id === selectedCard}
+          shortlisted={shortlistedCards.includes(card.id)}
+          onClick={() => handleCardClick(card.id)}
+          onRemove={() => handleRemoveClick(card.id)}
+          />
+
+        ))}
+            
         <div>
           
         </div>
@@ -212,7 +223,7 @@ const uxDesigner = () => {
        
       
 <Popoverr text={"Select and add into shortlist"}>
-        <button onClick={() => handleClickShortlistBtn(shortlistedCard)} className="flex justify-end px-3 py-3">
+        <button onClick={() => handleShortlistClick(selectedCard)} className="flex justify-end px-3 py-3">
           <img src="/Assets/tick.svg" alt="tick" />
         </button>
       </Popoverr>
