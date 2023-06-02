@@ -16,7 +16,7 @@ function Layout(props) {
     '/resetPassword',
     '/confirmPassword',
     '/verifyotp',
-    '/resumeUpload',
+    '/resume-upload',
     '/resume-json',
     '/setup-details',
     '/editProfile',
