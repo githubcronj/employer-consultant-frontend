@@ -47,15 +47,15 @@ const EditJobPost = () => {
   const [selectedButton, setSelectedButton] = useState("");
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [editJobPostData, setEditJobPostData] = useState({
-    jobTitle: "",
-    experience: "",
-    deadline: "",
-    jobType: "",
-    minSalary: "",
-    maxSalary: "",
-    description: "",
-    email: "",
-    phoneNumber: "",
+    jobTitle: finaldata?.[0]?.jobTitle || "",
+    experience: finaldata?.[0]?.experience || "",
+    deadline: finaldata?.[0]?.deadline || "",
+    jobType: finaldata?.[0]?.jobType || "",
+    minSalary: finaldata?.[0]?.minSalary || "",
+    maxSalary: finaldata?.[0]?.maxSalary || "",
+    description: finaldata?.[0]?.description || "",
+    email: finaldata?.[0]?.email || "",
+    phoneNumber: finaldata?.[0]?.phoneNumber || ""
   });
 
   const getToken = () => {
@@ -82,36 +82,7 @@ const EditJobPost = () => {
       }));
     }
   }, [data]);
-  // useEffect(() => {
-  //   if (parsedState) {
-  //     const {
-  //       jobTitle,
-  //       experience,
-  //       deadline,
-  //       jobType,
-  //       minSalary,
-  //       maxSalary,
-  //       description,
-  //       email,
-  //       phoneNumber
-  //     } = parsedState[0];
-  
-  //     setEditJobPostData({
-  //       jobTitle,
-  //       experience,
-  //       deadline,
-  //       jobType,
-  //       minSalary,
-  //       maxSalary,
-  //       description,
-  //       email,
-  //       phoneNumber
-  //     });
-  //   }
-  // }, []);
-//   console.log(editJobPostData);
-  
-
+ 
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
       return <p className='text-red-500 text-xs'>{errors[fieldName]}</p>;
@@ -186,7 +157,7 @@ const EditJobPost = () => {
   const handleSave = (e) => {
     e.preventDefault();
     if (isFormValid() && data?.token?.accessToken) {
-        dispatch(submitJobFormData(editJobPostData,data,parsedState[0]._id));
+        dispatch(submitJobFormData(editJobPostData,data,id));
       const initialJobPostData = {
         jobTitle: "",
         experience: "",
@@ -210,7 +181,7 @@ const EditJobPost = () => {
       <div className='bg-white'>
         <div className='md:flex justify-between items-center mx-5 sm:mx-9 py-1'>
           <div className='my-3 flex gap-6'>
-            {/* <Link href={`/viewjobpost/${parsedState[0]._id}`}> */}
+            <Link href={`/viewjobpost/${id}`}>
               <Image
                 src='/Assets/backbtn.svg'
                 alt='back button'
@@ -218,7 +189,7 @@ const EditJobPost = () => {
                 height={35}
                 className='cursor-pointer'
               />
-            {/* </Link> */}
+            </Link>
             <p className='text-lg sm:text-2xl font-bold'>Edit Job Post</p>
           </div>
           <div className='sm:flex gap-2 sm:gap-5'>
