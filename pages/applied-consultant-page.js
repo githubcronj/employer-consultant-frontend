@@ -7,6 +7,7 @@ import Popover from "Components/PopOver/popOver";
 import Popoverr from "Components/PopOver/popOver";
 import {cardData} from "../Components/Cards/ux-designer-card";
 import UxDesignerCard from "Components/Cards/ux-designer-card";
+import Link from 'next/link';
 const appliedConsultant = () => {
   const router = useRouter();
    
@@ -86,11 +87,12 @@ const appliedConsultant = () => {
     <p className="text-[16px] text-[#2B373C]">$10-15 /hr .</p>
     <p className="text-[16px] text-[#2B373C]">12-09-2023</p>
   </div>
-  
+  <Link href='/viewjobpost/${id}'>
   <div className="flex items-center  lg:justify-end gap-x-4 lg:col-span-1 sm:col-span-2">
     <p className="text-[16px] text-[#5E9AF8] font-bold">View Job Post</p>
     <img src="/Assets/forwardArr.svg" alt="frw-ar" />
   </div>
+  </Link>
 </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-2 sm:mx-6 bg-[#F9F6EE] border px-4 py-4">
