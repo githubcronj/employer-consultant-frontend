@@ -3,6 +3,8 @@ import ConsultantInfo from "./consultantInfo";
 import ConsultantTable from "./consultantTable";
 import { Box, Grid, Typography } from "@mui/material";
 import Image from "next/image";
+import AddConsultantModal from "./addConsultantModal";
+import InsourceConsultantModal from "./insourceConsultantModal";
 
 const ViewConsultantDetail = () => {
   return (
@@ -25,20 +27,8 @@ const ViewConsultantDetail = () => {
             </Typography>
           </Box>
           <Box sx={{ display: "flex",justifyContent:{sm:'center'}, justifyContent:'flex-end', gap: 5 }}>
-            <Image
-              src='/Assets/insource.svg'
-              alt='insource'
-              width={54}
-              height={54}
-              className='cursor-pointer'
-            />
-            <Image
-              src='/Assets/add.svg'
-              alt='add'
-              width={54}
-              height={54}
-              className='cursor-pointer'
-            />
+            <InsourceConsultantModal/>
+            <AddConsultantModal/>
           </Box>
         </Box>
         <Grid container>
@@ -49,9 +39,11 @@ const ViewConsultantDetail = () => {
             <ConsultantTable />
           </Grid>
         </Grid>
+        
       </Box>
     </>
   );
 };
 
 export default ViewConsultantDetail;
+  
