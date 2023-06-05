@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { DELETE_JOB_REQUEST } from "store/type/deletejobType";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-const deletejobModal = ({ id, setPopup }) => {
+const DeletejobModal = ({ id, setPopup }) => {
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
@@ -103,4 +103,4 @@ const deletejobModal = ({ id, setPopup }) => {
   );
 };
 
-export default deletejobModal;
+export default DeletejobModal;

@@ -50,8 +50,8 @@ const SetupExperience = ({
       {/* first section */}
 
       <div className="flex justify-end  flex-col sm:flex-row">
-        <div class="flex items-center mb-4">
-          <div class="flex  items-center mb-4">
+        <div className="flex items-center mb-4">
+          <div className="flex  items-center mb-4">
             <input
               type="checkbox"
               id="default-checkbox"
@@ -63,7 +63,7 @@ const SetupExperience = ({
 
             <label
               for="default-checkbox"
-              class="ml-2 text-[#1E0F3B] font-bold dark:text-gray-300"
+              className="ml-2 text-[#1E0F3B] font-bold dark:text-gray-300"
             >
               Fresher
             </label>

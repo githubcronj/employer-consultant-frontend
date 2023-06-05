@@ -11,7 +11,7 @@ export const Navbar = () => {
         Logo
       </div>
       <div className="flex flex-row mr-10 justify-center items-center gap-8 ">
-        <div class="relative">
+        <div className="relative">
           <div className="flex items-center justify-center rounded-lg bg-transparent text-center">
             <img src={BellIcon.src} alt="Bell Icon" />
           </div>

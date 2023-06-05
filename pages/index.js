@@ -36,7 +36,8 @@ const Home = () => {
   const response = useSelector(
     (state) => state?.getjobReducer?.CurrentUser?.data
   );
-  console.log(response);
+
+  // console.log(response);
 
   const nextclick = (id) => {
     console.log(id);
@@ -78,9 +79,6 @@ const Home = () => {
             </div>
             <div className='flex'>
               <div>
-                {/* <button className="m-3">
-                  <img src="/Assets/filter.svg" alt="save" />
-                </button> */}
                 <FilterModal />
               </div>
               <div>

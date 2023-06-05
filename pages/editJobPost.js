@@ -384,7 +384,7 @@ const EditJobPost = () => {
                       <input
                         type='checkbox'
                         id='monthly'
-                        class='peer hidden'
+                        className='peer hidden'
                         checked={selectedButton === "monthly"}
                         onChange={handleSalaryButton}
                       />
@@ -401,7 +401,7 @@ const EditJobPost = () => {
                       <input
                         type='checkbox'
                         id='yearly'
-                        class='peer hidden'
+                        className='peer hidden'
                         checked={selectedButton === "yearly"}
                         onChange={handleSalaryButton}
                       />

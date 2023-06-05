@@ -23,6 +23,7 @@ function Layout(props) {
     '/setup-details',
     '/searchJob',
     '/resume-templates',
+    '/cviewprofile',
     '/samplepage'
   ].includes(pathname);
   const onlyNav = ['/viewProfileCon'];
@@ -44,12 +45,7 @@ function Layout(props) {
           </>
         )}
 
-        {!shouldRenderComponents && (
-          <>
-            <Navbar />
-            {children}
-          </>
-        )}
+        {!shouldRenderComponents && <>{children}</>}
       </div>
     </>
   );
