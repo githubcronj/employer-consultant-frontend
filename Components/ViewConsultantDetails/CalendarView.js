@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Divider, Icon, Stack } from "@mui/material";
 
 import chat from "../../public/Assets/ChatLogo.png";
@@ -9,18 +9,23 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 
 export const CalendarView = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   return (
     <>
+      
       <Box>
         <Box sx={{ color: "#1E0F3B", fontWeight: "bold", paddingTop: "1rem" }}>
           Time availability
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Box>
-          <DateCalendar />
-
-          </Box>
-          </LocalizationProvider>
         </Box>
+        {isClient && (
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateCalendar  sx={{ alignItems: "flex-start" ,maxWidth:"100%",}} />
+          </LocalizationProvider>
+        )}
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Image src={chat} alt="chat" height={54} width={54} />
         </Box>

@@ -4,6 +4,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Box, Stack } from "@mui/material";
+
 const ProjectType = () => {
   const [value, setValue] = React.useState("1");
 
@@ -17,22 +18,39 @@ const ProjectType = () => {
           value={value}
           sx={{ borderBottom: 1, borderColor: "divider" }}
         >
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
+          <TabList
+            onChange={handleChange}
+            aria-label="lab API tabs example"
+            centered
+            TabIndicatorProps={{
+              style: { display: "none" },
+            }}
+            sx={{ paddingTop: "1rem" }}
+          >
             <Tab
               label="Current Project"
-              className="tab-button"
               value="1"
               sx={{
-                px: { lg: 6.5, md: 3.5, sm: 3.3, xs: 1 },
-                mx: { lg: 2.2, sm: 2.5, xs: 0 },
-                backgroundColor: value === "1"? "black" : "black",
                 fontWeight: "600",
                 textTransform: "none",
                 borderRadius: "45px",
-                color: value === "1" ? "black" : "black",
+                color: value === "1" ? "#ffffff !important" : "#000000",
+                marginRight: "1rem",
               }}
+              style={{ backgroundColor: value === "1" ? "#5e9af8" : "#FFF" }}
             />
-            <Tab label="Finished Project" value="2" />
+
+            <Tab
+              label="Finished Project"
+              value="2"
+              sx={{
+                fontWeight: "600",
+                textTransform: "none",
+                borderRadius: "45px",
+                color: value === "2" ? "#ffffff !important" : "#000000",
+              }}
+              style={{ backgroundColor: value === "2" ? "#5e9af8" : "#FFF" }}
+            />
           </TabList>
 
           <TabPanel value="1">

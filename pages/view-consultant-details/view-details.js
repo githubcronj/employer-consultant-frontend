@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import { Avatar, Box, Divider, Grid, Typography } from "@mui/material";
-import diplay from "../../public/Assets/DisplayPic.png";
 import resume from "../../public/Assets/resumeTemplate.png";
 import { CalendarView } from "Components/ViewConsultantDetails/CalendarView";
 import ProjectType from "Components/ViewConsultantDetails/ProjectType";
@@ -21,7 +20,7 @@ const ViewDetails = () => {
               />
               <Avatar
                 alt="Profile"
-                src={diplay}
+                src="/Assets/DisplayPic.png"
                 sx={{ width: 50, height: 50 }}
               />
               <Box>
@@ -37,17 +36,19 @@ const ViewDetails = () => {
             <Grid container>
               <Grid
                 item
-                xs={3}
+                xs={12}
                 sx={{ borderRight: "1px solid #D0D0D6" }}
                 px={1}
+                md={4}
+                lg={3}
                 xl={4}
               >
                 <CalendarView />
               </Grid>
-              <Grid item xs={5} xl={4} sx={{margin:"auto"}}>
-                <Image src={resume} alt="resume" width={485} height={683} />
+              <Grid item xs={12}  md={4} lg={5} xl={4} sx={{margin:"auto"}}>
+                <Image style={{margin:"auto"}} src={resume} alt="resume" width={485} height={683} />
               </Grid>
-              <Grid item xs={4} xl={4}>
+              <Grid item xs={12} md={4} lg={4} xl={4}>
                <ProjectType/>
               </Grid>
             </Grid>
