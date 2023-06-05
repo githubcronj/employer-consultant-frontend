@@ -1,62 +1,55 @@
-import React from "react";
-import { useRouter } from "next/router";
-import { Navbar } from "Components/Navbar/Navbar";
-import { SideBar } from "Components/Sidebar/sideBar";
+import React from 'react';
+import { useRouter } from 'next/router';
+import { Navbar } from 'Components/Navbar/Navbar';
+import { SideBar } from 'Components/Sidebar/sideBar';
 function Layout(props) {
   const router = useRouter();
-  // const isLoginPage = router.pathname === "/Login";
-  // const isSignupPage = router.pathname === "/register";
-  // const isForgotpsw = router.pathname === "/forgotPassword";
-  // const isresetpsw = router.pathname === "/resetPassword";
-  // const isconfirmPassword = router.pathname === "/confirmPassword";
-  // const isverifypsw = router.pathname === "/verifyotp";
 
   const { children } = props;
   const { pathname } = router;
 
   const shouldRenderComponents = ![
-    "/Login",
-    "/register",
-    "/forgotPassword",
-    "/resetPassword",
-    "/confirmPassword",
-    "/verifyotp",
+    '/Login',
+    '/register',
+    '/profile',
+    '/forgotPassword',
+    '/resetPassword',
+    '/confirmPassword',
+    '/verifyotp',
+    '/resume-upload',
+    '/resume-json',
+    '/setup-details',
+    '/editProfile',
+    '/setup-details',
+    '/searchJob',
+    '/resume-templates',
   ].includes(pathname);
-
+  const onlyNav = ['/viewProfileCon'];
   return (
     <>
-      <div>
+      <div className='layout '>
         {shouldRenderComponents && (
           <>
             <Navbar />
-            {/* <SideBar /> */}
+            {/* {!onlyNav && ( */}
+            <div className='flex flex-col xl:flex-row lg:flex-row md:flex-row sm:flex-row min-w-[100%] '>
+              <SideBar />
+              <div className='relative xl:left-[220px] lg:left-[220px] md:left-[220px] sm:left-[220px] xl:w-[calc(100%_-_14rem)] lg::w-[calc(100%_-_14rem) sm:w-[calc(100%_-_14rem) md:w-[calc(100%_-_14rem)'>
+                {children}
+              </div>
+            </div>
+            {/* )} */}
+            {/* {onlyNav && <>{children}</>} */}
           </>
         )}
-        <div>{children}</div>
-      </div>
 
-      {/* {!(
-        isLoginPage ||
-        isSignupPage ||
-        isForgotpsw ||
-        isresetpsw ||
-        isconfirmPassword ||
-        isverifypsw
-      ) ? (
-        <Navbar />
-      ) : null}
-      {children} */}
-      {/* {!(
-        isLoginPage ||
-        isSignupPage ||
-        isForgotpsw ||
-        isresetpsw ||
-        isconfirmPassword ||
-        isverifypsw
-      ) ? (
-        <SideBar />
-      ) : null}
-      {children} */}
+        {!shouldRenderComponents && (
+          <>
+            <Navbar />
+            {children}
+          </>
+        )}
+      </div>
     </>
   );
 }

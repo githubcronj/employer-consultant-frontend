@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchFormData, submitFormData } from "store/action/editProfileAction";
+import { profileSaveRequest } from "store/action/profileAction";
 import { initialState } from "store/reducer/editProfileReducer";
 
 // ...
@@ -13,14 +14,13 @@ const EditProfile = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchFormData());
-    console.log("Fetching form data");
   }, []);
 
   const formDataa = useSelector((state) => state?.editProfileReducer?.data);
-  console.log("rr", formDataa);
-
+ 
   const router = useRouter();
   const [isFieldChanged, setIsFieldChanged] = useState(false);
+  const [data, setData] = useState(null);
   const [selectedImage, setSelectedImage] = useState("Assets/newCronjLogo.svg");
   const [formValues, setFormValues] = useState({
     companyName: "",
@@ -46,6 +46,7 @@ const EditProfile = () => {
         companySize,
         companyLocation,
         companyFoundedDate,
+        accessToken,
       } = formDataa.response;
 
       setFormValues({
@@ -58,13 +59,18 @@ const EditProfile = () => {
         companySize,
         companyLocation,
         companyFoundedDate,
+        accessToken,
       });
     }
   }, [formDataa]);
-  console.log("formmm", formValues);
-  const [errors, setErrors] = useState({});
-  const [data, setData] = useState(null);
 
+  useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      setData(JSON.parse(storedData));
+    }
+  }, []);
   useEffect(() => {
     if (data && data.token && data.token.accessToken) {
       setFormValues((prevValues) => ({
@@ -73,13 +79,11 @@ const EditProfile = () => {
       }));
     }
   }, [data]);
-  useEffect(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
-      const storedData = localStorage.getItem("CurrentUser");
-
-      setData(JSON.parse(storedData));
-    }
-  }, []);
+  console.log("formmm", formValues);
+  const [errors, setErrors] = useState({});
+ 
+  console.log('datttt',data)
+ 
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
       return <p className='text-red-500 text-xs'>{errors[fieldName]}</p>;
@@ -132,12 +136,12 @@ const EditProfile = () => {
 
     return Object.keys(errors).length === 0;
   };
-
+console.log('formvalues',formValues)
   const handleSave = (e) => {
     e.preventDefault();
     if (isFormValid() && data?.token?.accessToken) {
-      dispatch(submitFormData(formValues));
-      // console.log('ttttttttttttttttfffffffffffffffffffffffffffff',formValues);
+      // dispatch(profileSaveRequest(formValues));
+      dispatch(submitFormData(formValues,data));
       const initialFormValues = {
         companyName: "",
         industry: "",
@@ -148,6 +152,7 @@ const EditProfile = () => {
         companySize: "",
         founded: "",
         companyLocation: "",
+        accessToken: "",
       };
 
       setFormValues(initialFormValues);
@@ -200,7 +205,7 @@ const EditProfile = () => {
 
   return (
     <div className='bg-[#2B373C1C] py-10 px-2 sm:px-10'>
-      <div className='flex justify-between items-center mx-5 sm:mx-9'>
+      <div className='sm:flex justify-between items-center mx-5 sm:mx-9'>
         <div className='my-3 m'>
           <p className='text-lg sm:text-2xl font-bold'>Edit Employer Profile</p>
         </div>
@@ -279,7 +284,7 @@ const EditProfile = () => {
               {renderErrorMessage("industry")}
               <label
                 for='industryType'
-                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
               >
                 Industry Type
               </label>
@@ -300,7 +305,7 @@ const EditProfile = () => {
               {renderErrorMessage("companyId")}
               <label
                 for='companyId'
-                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
               >
                 Company ID number
               </label>
@@ -321,12 +326,12 @@ const EditProfile = () => {
                 />
                 <label
                   for='companyUrl'
-                  className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                  className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
                 >
                   Company website URL
                 </label>
                 <button
-                  className=' absolute right-2 px-6 sm:px-8 py-3 bg-red-500 text-white rounded-[10px]'
+                  className=' absolute right-2 px-6 sm:px-8 py-3 bg-[#5E9AF8] text-white rounded-[10px]'
                   onClick={handlePaste}
                 >
                   Paste
@@ -351,7 +356,7 @@ const EditProfile = () => {
               {renderErrorMessage("email")}
               <label
                 for='email'
-                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
               >
                 Email
               </label>
@@ -370,7 +375,7 @@ const EditProfile = () => {
               />
               <label
                 for='aboutCompany'
-                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
               >
                 Write about company...
               </label>
@@ -390,7 +395,7 @@ const EditProfile = () => {
               {renderErrorMessage("companySize")}
               <label
                 for='companySize'
-                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
               >
                 Company Size
               </label>
@@ -429,15 +434,15 @@ const EditProfile = () => {
                 />
                 <label
                   for='companyFoundedDate'
-                  className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                  className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
                 >
                   Founded In{" "}
                 </label>
                 <img
-                  src='/Assets/calendar.svg'
+                  src='/Assets/blue-calendar.svg'
                   alt='calendar'
                   className='absolute right-2'
-                  onClick={() => document.getElementById("founded").click()}
+                  onClick={() => document.getElementById("companyFoundedDate").click()}
                 />{" "}
               </div>{" "}
               {renderErrorMessage("founded")}{" "}
@@ -458,7 +463,7 @@ const EditProfile = () => {
               {renderErrorMessage("companyLocation")}
               <label
                 for='companyLocation'
-                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
               >
                 Company Location
               </label>
