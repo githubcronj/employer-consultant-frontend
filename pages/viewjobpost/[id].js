@@ -147,8 +147,8 @@ const ViewProfile = () => {
           <hr className='mt-[25px]xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
           {finaldata?.map((item, index) => {
             return (
-              <div className='mt-[19px] mx-3 grid lg:grid-cols-12 sm:col-span-2'>
-                <div className='lg:col-span-6 sm:col-span-1 border-r-2'>
+              <div key={index} className="mt-[19px] mx-3 grid lg:grid-cols-12 sm:col-span-2">
+                <div className="lg:col-span-6 sm:col-span-1 border-r-2">
                   <div
                     className={`flex items-center mb-[15px] ${
                       flexing ? "flex-col" : "flex-row"
