@@ -19,7 +19,10 @@ const ScheduledInterview = () => {
   const [shortlistMessage, setShortlistMessage] = useState(
     `Shortlisted.\n${new Date().toLocaleDateString("en-US")}`
   );
-  const [shcheduleMessage, setScheduleMessage] = useState("");
+  const [shcheduleMessage, setScheduleMessage] = useState(`
+  Add to Schedule \n${new Date().toLocaleDateString("en-US")}
+  `
+  );
   const [modalOpen, setModalOpen] = useState(false);
   const [yesClicked, setYesClicked] = useState(false); 
 
@@ -45,18 +48,16 @@ const ScheduledInterview = () => {
   };
 
   
-  const handleScheduleClick = (id) => {
+  const handleScheduleInterviewClick = (id) => {
     if (!shortlistedCards.includes(id)) {
       setShortlistedCards([...shortlistedCards, id]);
-      const currentDate = new Date().toLocaleDateString("en-US");
-      const message = `Add to schedule.\n${currentDate}`;
-      setScheduleMessage(message);
-      setModalOpen(true);
+      
+      
+    
     }
   };
 
-  const shortlistedCount = shortlistedCards.length;
-
+ 
   const handleRemoveShortlisted = () => {
     const updatedShortlistedCards = shortlistedCards.filter(
       (cardId) => cardId !== selectedCard
@@ -179,7 +180,7 @@ const ScheduledInterview = () => {
               <p className=" text-[18px] text-[#2B373C]  font-bold">
               Scheduled Consultants
               </p>
-              <div className="ml-[10px]">
+              <div className="ml-[25px] text-[#F9342E] font-bold">
                <p>select all</p>
               </div>
             </div>
@@ -196,6 +197,7 @@ const ScheduledInterview = () => {
                   experience={card.experience}
                   imageSrc={card.imageSrc}
                   selected={card.id === selectedCard}
+                  showCheckbox ={true}
                   shortlisted={shortlistedCards.includes(card.id)}
                   onClick={() => handleCardClick(card.id)}
                   onRemove={() => handleRemoveClick(card.id)}
@@ -237,30 +239,29 @@ const ScheduledInterview = () => {
                     {shortlistMessage}
                   </p>
                 </div>
-            {shcheduleMessage ? (
-              <>
                 <div className="flex items-center justify-center mt-2">
                   <p className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] lg:ml-[-50px] sm:ml-[0px]">
                     {shcheduleMessage}
                   </p>
                 </div>
-                {yesClicked ?  <Popoverr text={"Remove from schedule list"}>
+                <Popoverr text={"Add to Invite list"}>
+                  <button
+                    onClick={() => handleScheduleClick(selectedCard)}
+                    className="flex justify-end px-3 py-3"
+                  >
+                    <img src="/Assets/addInvite.svg" alt="tick" />
+                  </button>
+                </Popoverr>
+                <Popoverr text={"Remove from Shortlist"}>
                   <button
                     onClick={handleRemoveShortlisted}
                     className="flex justify-end px-3 py-3"
                   >
-                    <img src="/Assets/removeShortlistedButton.svg" alt="tick" />
+                    <img src="/Assets/crossBtn.svg" alt="tick" />
                   </button>
-                </Popoverr> : ""}
-               
-                <ConfirmationModal
-      text={"Do you want to add Schedule list?"}
-        isOpen={modalOpen}
-        onClose={handleCloseModal}
-        onYes={handleYes}
-        onNo={handleNo}
-      /> 
-              </>
+                </Popoverr>
+            {shcheduleMessage ? (
+           <></>
             ) : (
               <>
                 <Popoverr text={"Add into schedule list"}>
