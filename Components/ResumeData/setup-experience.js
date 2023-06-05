@@ -2,6 +2,8 @@ import React from "react";
 import { useRouter } from "next/router";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Autocomplete from "@mui/material/Autocomplete";
+import { TextField } from "@mui/material";
 
 const SetupExperience = ({
   experienceDetails,
@@ -34,6 +36,14 @@ const SetupExperience = ({
   const removeData = (indexdata) => {
     handleremovedata(indexdata);
   };
+  const techOption = [
+    { title: "Operating Systems" },
+    { title: "Programming Languages" },
+    { title: "Web Development" },
+    { title: "Databases" },
+    { title: "Cloud Computing Platforms" },
+    { title: "Version Control" },
+  ];
 
   return (
     <div className=" bg-white">
@@ -140,7 +150,7 @@ const SetupExperience = ({
             </div>{" "}
           </div>
           <div>
-            <input
+            {/* <input
               type="text"
               id="techEnviro"
               placeholder="Technology Environmental "
@@ -149,6 +159,29 @@ const SetupExperience = ({
               name="tempExp.techEnviro"
               value={experienceDetails?.techEnviro || ""}
               onChange={handleExperienceDetailsChange}
+            /> */}
+            <Autocomplete
+              multiple
+              options={techOption}
+              // name="tempExp.techEnviro"
+              // value={experienceDetails?.techEnviro || []}
+              // onChange={(e,value)=>{console.log("input",value)}}
+              // onChange={(e, value) =>
+              //   handleExperienceDetailsChange({
+              //     target: {
+              //       name: "tempExp.techEnviro",
+              //       value: value || [],
+              //     },
+              //   })
+              // }
+              getOptionLabel={(option) => option.title}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Technology Environmental"
+                  placeholder="Technology Environmental"
+                />
+              )}
             />
           </div>
         </div>

@@ -21,7 +21,8 @@ function Layout(props) {
     '/setup-details',
     '/editProfile',
     '/setup-details',
-    '/searchJob'
+    '/searchJob',
+    '/samplepage'
   ].includes(pathname);
   const onlyNav = ['/viewProfileCon'];
   return (
