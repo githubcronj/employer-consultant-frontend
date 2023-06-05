@@ -8,7 +8,7 @@ import Popoverr from "Components/PopOver/popOver";
 import {cardData} from "../Components/Cards/ux-designer-card";
 import UxDesignerCard from "Components/Cards/ux-designer-card";
 import Link from 'next/link';
-const appliedConsultant = () => {
+const AppliedConsultant = () => {
   const router = useRouter();
    
   const [selectedCard, setSelectedCard] = useState(null);
@@ -306,4 +306,4 @@ const appliedConsultant = () => {
   );
 };
 
-export default appliedConsultant;
+export default AppliedConsultant;

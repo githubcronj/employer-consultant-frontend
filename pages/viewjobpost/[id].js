@@ -19,7 +19,7 @@ import { DELETE_JOB_REQUEST } from "store/type/deletejobType";
 import DeletePopUP from "../../Components/Delete/deletePopUp";
 import { GET_JOB_REQUEST } from "store/type/getjobType";
 import { object } from "yup";
-const viewProfile = () => {
+const ViewProfile = () => {
   const router = useRouter();
   const { id } = router.query;
   console.log(id);
@@ -146,7 +146,7 @@ const viewProfile = () => {
           <hr className="mt-[25px]xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]"></hr>
           {finaldata?.map((item, index) => {
             return (
-              <div className="mt-[19px] mx-3 grid lg:grid-cols-12 sm:col-span-2">
+              <div key={index} className="mt-[19px] mx-3 grid lg:grid-cols-12 sm:col-span-2">
                 <div className="lg:col-span-6 sm:col-span-1 border-r-2">
                   <div
                     className={`flex items-center mb-[15px] ${
@@ -280,4 +280,4 @@ const viewProfile = () => {
     </div>
   );
 };
-export default viewProfile;
+export default ViewProfile;
