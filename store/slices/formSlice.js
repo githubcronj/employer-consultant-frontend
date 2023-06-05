@@ -21,6 +21,7 @@ const initialState = {
   projectUrl: '',
   startAndEndDate: '',
   projectDescription: '',
+  technologyEnvironment: '',
 };
 
 const formSlice = createSlice({
