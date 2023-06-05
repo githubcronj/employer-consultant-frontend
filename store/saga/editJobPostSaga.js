@@ -12,6 +12,7 @@ export const fetchJobFormData = () => {
     headers: {
       Authorization: `Bearer ${token.token.accessToken}`,
     },
+    
   })
     .then((response) => {
       if (response.ok) {
