@@ -64,8 +64,8 @@ const viewProfile = () => {
     const encodedState = encodeURIComponent(stateString);
 
     router.push({
-      pathname: "/editJobPost",
-      query: { state: encodedState },
+      pathname: `/editJobPost/${id}`,
+      // query: { state: encodedState },
     });
   };
 
