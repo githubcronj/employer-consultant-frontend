@@ -14,6 +14,7 @@ import { getjobReducer } from "./getjobReducer";
 import { deletejobReducer } from "./deletejobReducer";
 import editJobReducer from "./editJobPostReducer";
 import { viewProfileReducer } from './viewProfileReducer';
+import resumeDataFillingReducer from "./resumeDataFillingReducer"
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   form: formReducer,
   getjobReducer,
   deletejobReducer,
+  resumeDataFillingReducer,
   viewProfileReducer,
 });
 

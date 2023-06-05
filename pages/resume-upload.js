@@ -10,7 +10,8 @@ const ResumeUpload = () => {
   const fileInputRef = useRef(null);
 
   const navigateToNext = () => {
-    router.push('/setup-details');
+    // router.push('/setup-details');
+    router.push('/resume-templates');
   };
   const navigateToJsonPage = () => {
     router.push('/resume-json');

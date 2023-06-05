@@ -6,17 +6,39 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchJobFormData, submitJobFormData } from "store/action/editJobPostAction";
+import { GET_JOB_REQUEST } from "store/type/getjobType";
 
 
 const EditJobPost = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { id } = router.query;
   const { state } = router.query;
 
   // Decode and parse the state object
-  const decodedState = decodeURIComponent(state);
-  const parsedState = JSON.parse(decodedState);
-  console.log('statee',parsedState);
+  // const decodedState = decodeURIComponent(state);
+  // const parsedState = JSON.parse(decodedState);
+  // console.log('statee',parsedState);
+  let payload;
+  useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+      const tokenset = JSON.parse(storedData);
+      payload = tokenset.token.accessToken;
+    }
+  });
+  useEffect(() => {
+    dispatch({ type: GET_JOB_REQUEST, payload });
+  }, []);
+  const response = useSelector(
+    (state) => state?.getjobReducer?.CurrentUser?.data
+  );
+  console.log('responsee',response)
+
+  let finaldata = response?.filter((x, y) => {
+    return id == x?._id;
+  });
+  console.log('fff',finaldata)
 
 
   const [errors, setErrors] = useState({});
@@ -60,33 +82,33 @@ const EditJobPost = () => {
       }));
     }
   }, [data]);
-  useEffect(() => {
-    if (parsedState) {
-      const {
-        jobTitle,
-        experience,
-        deadline,
-        jobType,
-        minSalary,
-        maxSalary,
-        description,
-        email,
-        phoneNumber
-      } = parsedState[0];
+  // useEffect(() => {
+  //   if (parsedState) {
+  //     const {
+  //       jobTitle,
+  //       experience,
+  //       deadline,
+  //       jobType,
+  //       minSalary,
+  //       maxSalary,
+  //       description,
+  //       email,
+  //       phoneNumber
+  //     } = parsedState[0];
   
-      setEditJobPostData({
-        jobTitle,
-        experience,
-        deadline,
-        jobType,
-        minSalary,
-        maxSalary,
-        description,
-        email,
-        phoneNumber
-      });
-    }
-  }, []);
+  //     setEditJobPostData({
+  //       jobTitle,
+  //       experience,
+  //       deadline,
+  //       jobType,
+  //       minSalary,
+  //       maxSalary,
+  //       description,
+  //       email,
+  //       phoneNumber
+  //     });
+  //   }
+  // }, []);
 //   console.log(editJobPostData);
   
 
@@ -188,7 +210,7 @@ const EditJobPost = () => {
       <div className='bg-white'>
         <div className='md:flex justify-between items-center mx-5 sm:mx-9 py-1'>
           <div className='my-3 flex gap-6'>
-            <Link href={`/viewjobpost/${parsedState[0]._id}`}>
+            {/* <Link href={`/viewjobpost/${parsedState[0]._id}`}> */}
               <Image
                 src='/Assets/backbtn.svg'
                 alt='back button'
@@ -196,7 +218,7 @@ const EditJobPost = () => {
                 height={35}
                 className='cursor-pointer'
               />
-            </Link>
+            {/* </Link> */}
             <p className='text-lg sm:text-2xl font-bold'>Edit Job Post</p>
           </div>
           <div className='sm:flex gap-2 sm:gap-5'>

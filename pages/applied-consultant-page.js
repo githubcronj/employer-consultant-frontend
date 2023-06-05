@@ -1,36 +1,55 @@
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import UxDesignerCardList from "Components/Cards/ux-designer-card";
 import Popover from "Components/PopOver/popOver";
 import Popoverr from "Components/PopOver/popOver";
-const uxDesigner = () => {
+import {cardData} from "../Components/Cards/ux-designer-card";
+import UxDesignerCard from "Components/Cards/ux-designer-card";
+import Link from 'next/link';
+const appliedConsultant = () => {
   const router = useRouter();
-
-  const [shortlistedCard, setshortlistedCard] = useState(null);
-  const [selectedCard, setSelectedCard] = useState(null);
-
-
-  const handleShortlistClick = (card) => {
-    
    
-    if (selectedCard === card) {
-        setSelectedCard(null); // Unselect the card if it's already selected
-        setshortlistedCard(null); // Remove it from the shortlisted cards
-      } else {
-        setSelectedCard(card);
-        setshortlistedCard(card);
-      }
-    console.log(" selected")
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [shortlistedCards, setShortlistedCards] = useState([]);
+
+  useEffect(() => {
+    const selectedCardData = localStorage.getItem("selectedCard");
+    const shortlistedCardsData = localStorage.getItem("shortlistedCards");
+
+    if (selectedCardData) {
+      setSelectedCard(JSON.parse(selectedCardData));
+    }
+
+    if (shortlistedCardsData) {
+      setShortlistedCards(JSON.parse(shortlistedCardsData));
+    }
+  }, []);
+
+  // Update local storage whenever selectedCard or shortlistedCards change
+  useEffect(() => {
+    localStorage.setItem("selectedCard", JSON.stringify(selectedCard));
+    localStorage.setItem("shortlistedCards", JSON.stringify(shortlistedCards));
+  }, [selectedCard, shortlistedCards]);
+
+  const handleCardClick = (id) => {
+    setSelectedCard(id);
   };
 
- 
-
-  const handleClickShortlistBtn = (card) => {
-    setshortlistedCard(card);
-    console.log("shortlisted")
+  const handleShortlistClick = (id) => {
+    if (!shortlistedCards.includes(id)) {
+      setShortlistedCards([...shortlistedCards, id]);
+      console.log("shortlisted")
+    }
   };
+  const shortlistedCount = shortlistedCards.length;
+
+  const handleRemoveShortlisted = () => {
+    const updatedShortlistedCards = shortlistedCards.filter((cardId) => cardId !== selectedCard);
+    setShortlistedCards(updatedShortlistedCards);
+  };
+  
    const [errors, setErrors] = useState({});
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
@@ -68,10 +87,12 @@ const uxDesigner = () => {
     <p className="text-[16px] text-[#2B373C]">$10-15 /hr .</p>
     <p className="text-[16px] text-[#2B373C]">12-09-2023</p>
   </div>
+  <Link href='/viewjobpost/${id}'>
   <div className="flex items-center  lg:justify-end gap-x-4 lg:col-span-1 sm:col-span-2">
     <p className="text-[16px] text-[#5E9AF8] font-bold">View Job Post</p>
     <img src="/Assets/forwardArr.svg" alt="frw-ar" />
   </div>
+  </Link>
 </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-2 sm:mx-6 bg-[#F9F6EE] border px-4 py-4">
@@ -181,15 +202,27 @@ const uxDesigner = () => {
         >
             <div className="flex px-3">
             <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
-         24 Consultant
+            {cardData.length} Consultant
           </p>
-          <div className="bg-[#5E9AF8] ml-2 px-2 py-1 border rounded text-[#ffffff]">3</div>
+          <div className="bg-[#5E9AF8] ml-2 px-2 py-1 border rounded text-[#ffffff]">{shortlistedCount}</div>
             </div>
-        
-          <UxDesignerCardList
-             selectedCard={selectedCard}
-             onShortlistClick={handleShortlistClick}
-             shortlistedCard={shortlistedCard}/>
+            <div className="h-[550px] overflow-auto"
+              style={{ scrollbarWidth: "thin" }}>
+        {cardData.map((card) => (
+          <UxDesignerCard
+          key ={card.id}
+          name={card.name}
+          jobTitle={card.jobTitle}
+          experience={card.experience}
+          imageSrc={card.imageSrc}
+          selected={card.id === selectedCard}
+          shortlisted={shortlistedCards.includes(card.id)}
+          onClick={() => handleCardClick(card.id)}
+          onRemove={() => handleRemoveClick(card.id)}
+          />
+
+        ))}</div>
+            
         <div>
           
         </div>
@@ -212,12 +245,12 @@ const uxDesigner = () => {
        
       
 <Popoverr text={"Select and add into shortlist"}>
-        <button onClick={() => handleClickShortlistBtn(shortlistedCard)} className="flex justify-end px-3 py-3">
+        <button onClick={() => handleShortlistClick(selectedCard)} className="flex justify-end px-3 py-3">
           <img src="/Assets/tick.svg" alt="tick" />
         </button>
       </Popoverr>
       <Popoverr text={"Reject the consultant"}>
-          <button className="flex justify-end px-3 py-3">
+          <button onClick={handleRemoveShortlisted} className="flex justify-end px-3 py-3">
             <img src="/Assets/crossbtn.svg" alt="tick"/>
           </button>
           </Popoverr>
@@ -273,4 +306,4 @@ const uxDesigner = () => {
   );
 };
 
-export default uxDesigner;
+export default appliedConsultant;

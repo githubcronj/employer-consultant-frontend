@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Accordion from "@mui/material/Accordion";
@@ -9,10 +9,15 @@ import SetupExperience from "../Components/ResumeData/setup-experience";
 import SetupSkills from "../Components/ResumeData/setup-skills";
 import SetupProject from "../Components/ResumeData/setup-project";
 import SetupCertificate from "../Components/ResumeData/setup-certification";
+import { useDispatch, useSelector } from "react-redux";
+import { resumeDataFillingAction } from "store/action/resumeDataFillingAction";
 
 const Setupdetails = () => {
   const router = useRouter();
   const [expanded, setExpanded] = React.useState(false);
+  const dispatch=useDispatch()
+  const resumeData=useSelector(state=> state.resumeDataFillingReducer)
+  console.log("resumeData",resumeData)
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -33,6 +38,14 @@ const Setupdetails = () => {
     projectDetails: [],
     certificationDetails: [],
   });
+
+  useEffect(()=>{
+
+      dispatch(resumeDataFillingAction(resumeForm.personalDetails))
+    
+  },[dispatch, resumeForm.personalDetails])
+
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [tempExp, setTemExp] = useState({});
   const [tempSkills, setempSkills] = useState({});
