@@ -17,8 +17,9 @@ import money from "../../public/Assets/money.svg";
 import scheduler from "../../public/Assets/scheduler.svg";
 import { DELETE_JOB_REQUEST } from "store/type/deletejobType";
 import DeletePopUP from "../../Components/Delete/deletePopUp";
+import { GET_JOB_REQUEST } from "store/type/getjobType";
 import { object } from "yup";
-const viewProfile = () => {
+const ViewProfile = () => {
   const router = useRouter();
   const { id } = router.query;
   console.log(id);
@@ -26,72 +27,39 @@ const viewProfile = () => {
   const [popup, setPopup] = useState(false);
   const route = useRouter();
   const dispatch = useDispatch();
-  // const editClick = () => {
-  //   route.push("/editJobPost");
-  // };
+
   const backClicked = () => {
     route.push("/");
-
   };
 
-  const getToken = () => {
+  let payload;
+  useEffect(() => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
 
       const tokenset = JSON.parse(storedData);
-      return tokenset?.token?.accessToken;
+      payload = tokenset.token.accessToken;
     }
-  };
+  });
   useEffect(() => {
-    dispatch({ type: PROFILE_REQUEST, getToken });
+    dispatch({ type: GET_JOB_REQUEST, payload });
   }, []);
-  const data = useSelector((state) => state.getProfileReducer?.CurrentUser);
-  useEffect(() => {
-    if (window.innerWidth < 394) {
-      setFlexing(true);
-    } else {
-      setFlexing(false);
-    }
-  }, []);
-
   const response = useSelector(
     (state) => state?.getjobReducer?.CurrentUser?.data
   );
-  // console.log("response", response);
   let finaldata = response?.filter((x, y) => {
     return id == x?._id;
   });
-  console.log('finaldata',finaldata)
-  const editClick = () => {
 
-    // const data = finaldata
-    // console.log('router',data);
-    // router.push({
-    //   pathname: '/editJobPost',
-    //   query: { id: id,  },
-    //   undefined,
-    //   shallow: true  
-    // });
+  const editClick = () => {
     const stateString = JSON.stringify(finaldata);
     const encodedState = encodeURIComponent(stateString);
 
     router.push({
-      pathname: '/editJobPost',
+      pathname: "/editJobPost",
       query: { state: encodedState },
     });
   };
-  const mappedData = finaldata?.map((item, index) => {
-    const description = item.description;
-    const jobTitle = item.name;
-    const experience = item.experience;
-    const salary = item.salary;
-    const deadline = item.deadline;
-    const email = item.email;
-    const phoneNumber = item.phoneNumber;
-    return (
-      deadline, email, description, jobTitle, experience, salary, phoneNumber
-    );
-  });
 
   const deleteClicked = () => {
     setPopup(true);
@@ -122,9 +90,7 @@ const viewProfile = () => {
             className={`justify-between xl:mt-[10px] lg:mt-[10px] md:mt-[10px] sm:mt-[10px]
            pt-[10px] -mt-[10px] xl:pt-[10px] mb-4
            lg:pt-[10px] md:pt-[10px] sm:pt-[10px] items-center mx-4 sm:mr-9 sm:ml-[10px] flex 
-           ${
-             flexing ? "flex-col" : "flex-row"
-           }
+           ${flexing ? "flex-col" : "flex-row"}
            `}
           >
             <div className='flex items-center gap-x-4 '>
@@ -294,4 +260,4 @@ const viewProfile = () => {
     </div>
   );
 };
-export default viewProfile;
+export default ViewProfile;
