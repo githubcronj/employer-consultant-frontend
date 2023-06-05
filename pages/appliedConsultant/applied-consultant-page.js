@@ -232,6 +232,7 @@ const AppliedConsultant = () => {
     shortlisted={shortlistedCards.includes(card.id)}
     onClick={() => handleCardClick(card.id)} 
     onRemove={() => handleRemoveClick(card.id)}
+   
   >
     {card.id === selectedCard && (
       <div className="flex flex-col gap-y-4">
@@ -266,7 +267,7 @@ const AppliedConsultant = () => {
         <div className=" flex lg:flex-col sm:flex-row  py-6 px-3 lg:col-span-1 border-l lg:ml-12 sm:ml-0"  style={{ width: "fit-content" }}>
       {shortlistMessage ? (<>
           <div className="flex items-center justify-center mt-2">
-            <p className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] h-[70px]">{shortlistMessage}</p>
+            <p className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] ml-[-50px]">{shortlistMessage}</p>
           </div>
             <Popoverr text={"Reject the consultant"}>
             <button onClick={handleRemoveShortlisted} className="flex justify-end px-3 py-3">

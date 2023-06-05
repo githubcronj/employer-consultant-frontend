@@ -7,10 +7,10 @@ import { cardData } from "../../Components/Cards/ux-designer-card";
 import UxDesignerCard from "Components/Cards/ux-designer-card";
 
 import Link from "next/link";
-import ViewConsultantDetail from "Components/ViewConsultant";
+
 import ConfirmationModal from "Components/Modals/ConfirmationModal";
 
-const ShortlistedConsultant = () => {
+const ScheduledInterview = () => {
   const router = useRouter();
 
   const [selectedCard, setSelectedCard] = useState(null);
@@ -100,11 +100,11 @@ const ShortlistedConsultant = () => {
           <div className="flex items-center lg:col-span-4 sm:col-span-2">
             <div>
               <p className="text-[26px] text-[#2B373C] sm:text-2xl font-bold">
-                Shortlisted Consultants
+              Scheduled Interview
               </p>
             </div>
           </div>
-          <div className="  lg:col-span-8 sm:col-span-2">
+          <div className="  lg:col-span-5 sm:col-span-2">
           
      
             <div>
@@ -131,6 +131,11 @@ const ShortlistedConsultant = () => {
                 <option value="three">3 years</option>
               </select>
             </div>
+          </div>
+          <div className="lg:col-span-3">
+          <button className="px-5 py-2 bg-[#FEE2E1] text-[#F9342E] border rounded-full">
+           0 SEND INVITES
+          </button>
           </div>
         </div>
 
@@ -170,12 +175,12 @@ const ShortlistedConsultant = () => {
             className="flex flex-col lg:col-span-2 py-6"
             style={{ borderRight: "2px solid #D8D8DD" }}
           >
-            <div className="flex px-3">
-              <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
-                {cardData.length} Consultant
+            <div className="flex px-1">
+              <p className=" text-[18px] text-[#2B373C]  font-bold">
+              Scheduled Consultants
               </p>
-              <div className="bg-[#5E9AF8] ml-2 px-2 py-1 border rounded text-[#ffffff]">
-                {shortlistedCount}
+              <div className="ml-[10px]">
+               <p>select all</p>
               </div>
             </div>
             <div
@@ -305,4 +310,4 @@ const ShortlistedConsultant = () => {
   );
 };
 
-export default ShortlistedConsultant;
+export default ScheduledInterview;

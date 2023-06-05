@@ -1,39 +1,42 @@
-import { call, put, takeEvery } from "redux-saga/effects";
-import * as types from "../type/editJobPostType";
-import { JOB_EDIT_FAILURE, JOB_EDIT_SUCCESS } from "store/type/editJobPostType";
+import { call, put, takeEvery } from 'redux-saga/effects';
+import * as types from '../type/editJobPostType';
+import { JOB_EDIT_FAILURE, JOB_EDIT_SUCCESS } from 'store/type/editJobPostType';
 
-import { makeApiRequest } from "../../utils/api";
+import { makeApiRequest } from '../../utils/api';
 
 export const fetchJobFormData = () => {
-  const accessToken = localStorage.getItem("CurrentUser");
+  const accessToken = localStorage.getItem('CurrentUser');
   const token = JSON.parse(accessToken);
-  console.log("toke", token);
-  return fetch(`http://localhost:3001/job/${action.payload.id.id}`, {
-    headers: {
-      Authorization: `Bearer ${token.token.accessToken}`,
-    },
-  })
+  console.log('toke', token);
+  return fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/job/${action.payload.id.id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token.token.accessToken}`,
+      },
+    }
+  )
     .then((response) => {
       if (response.ok) {
         return response.json();
       } else {
-        console.log("errorr");
-        throw new Error("Request failed with status code: " + response.status);
+        console.log('errorr');
+        throw new Error('Request failed with status code: ' + response.status);
       }
     })
     .catch((error) => {
-      throw new Error("API request failed: " + error.message);
+      throw new Error('API request failed: ' + error.message);
     });
 };
 function* fetchJobFormDataSaga() {
   let data = yield call(fetchJobFormData);
-  console.log("data", data);
+  console.log('data', data);
   yield put({ type: types.SET_JOB_FORM_SUCCESS, payload: data });
 }
 function* submitEditJobFormData(action) {
-  const { accessToken,id } = action;
+  const { accessToken, id } = action;
 
-  console.log("in saga", accessToken,id);
+  console.log('in saga', accessToken, id);
   const data = {
     jobTitle: action.payload.jobTitle,
     experience: action.payload.experience,
@@ -50,7 +53,7 @@ function* submitEditJobFormData(action) {
   try {
     const response = yield call(makeApiRequest, {
       endpoint: `/job/${id}`,
-      method: "PUT",
+      method: 'PUT',
       data: data,
       headers: {
         // "Content-Type": "application/json",
@@ -59,9 +62,9 @@ function* submitEditJobFormData(action) {
     });
     // yield put(profileSaveSuccess(response.data));
     yield put({ type: JOB_EDIT_SUCCESS, payload: response.data });
-    console.log("test in saga", response.data);
+    console.log('test in saga', response.data);
   } catch (error) {
-    console.log("API call error:", error);
+    console.log('API call error:', error);
     // yield put(profileSaveFailure(error));
     yield put({ type: JOB_EDIT_FAILURE, payload: error });
   }
