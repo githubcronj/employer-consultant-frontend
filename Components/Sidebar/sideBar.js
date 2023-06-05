@@ -158,7 +158,7 @@ export const SideBar = () => {
               className='h-[20px] w-[21.04px] bg-transparent opacity-[1]'
               src={home.src}
             />
-            <h5 className='h-[17px] text-left -mt-[9px] font-sans tracking-tighter text-black pl-[19px] opacity-[1]'>
+            <h5 className='h-[17px] text-left -mt-[9px]  tracking-tighter text-black pl-[19px] opacity-[1]'>
               Home
             </h5>
           </div>
@@ -177,7 +177,7 @@ export const SideBar = () => {
               src={shortlisted.src}
             />
 
-            <h5 className='h-[17px] text-left -mt-[9px] font-sans tracking-tighter text-black pl-[19px] opacity-[1]'>
+            <h5 className='h-[17px] text-left -mt-[9px]  tracking-tighter text-black pl-[19px] opacity-[1]'>
               Shortlisted Consultants
             </h5>
           </div>
@@ -196,7 +196,7 @@ export const SideBar = () => {
               src={calender.src}
             />
 
-            <h5 className='h-[17px] text-left -mt-[9px] font-sans tracking-tighter text-black pl-[19px] opacity-[1]'>
+            <h5 className='h-[17px] text-left -mt-[9px]  tracking-tighter text-black pl-[19px] opacity-[1]'>
               Scheduled Interview
             </h5>
           </div>
@@ -215,7 +215,7 @@ export const SideBar = () => {
               src={consultant.src}
             />
 
-            <h5 className='h-[17px] text-left -mt-[9px] font-sans tracking-tighter text-black pl-[19px] opacity-[1]'>
+            <h5 className='h-[17px] text-left -mt-[9px]  tracking-tighter text-black pl-[19px] opacity-[1]'>
               Selected Consultant
             </h5>
           </div>
@@ -234,7 +234,7 @@ export const SideBar = () => {
               src={task.src}
             />
 
-            <h5 className='h-[17px] text-left -mt-[9px] font-sans tracking-tighter text-black pl-[19px] opacity-[1]'>
+            <h5 className='h-[17px] text-left -mt-[9px]  tracking-tighter text-black pl-[19px] opacity-[1]'>
               Task Managment
             </h5>
           </div>
@@ -253,7 +253,7 @@ export const SideBar = () => {
               src={communication.src}
             />
 
-            <h5 className='h-[17px] text-left -mt-[9px] font-sans tracking-tighter text-black pl-[19px] opacity-[1]'>
+            <h5 className='h-[17px] text-left -mt-[9px]  tracking-tighter text-black pl-[19px] opacity-[1]'>
               Chat
             </h5>
           </div>
@@ -272,7 +272,7 @@ export const SideBar = () => {
               src={subscription.src}
             />
 
-            <h5 className='h-[17px] text-left -mt-[9px] font-sans tracking-tighter text-black pl-[19px] opacity-[1]'>
+            <h5 className='h-[17px] text-left -mt-[9px]  tracking-tighter text-black pl-[19px] opacity-[1]'>
               Subscription
             </h5>
           </div>
