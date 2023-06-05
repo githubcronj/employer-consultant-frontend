@@ -78,9 +78,6 @@ const Home = () => {
             </div>
             <div className='flex'>
               <div>
-                {/* <button className="m-3">
-                  <img src="/Assets/filter.svg" alt="save" />
-                </button> */}
                 <FilterModal />
               </div>
               <div>
