@@ -24,6 +24,7 @@ function Layout(props) {
     '/searchJob',
     '/resume-templates',
     '/cviewprofile',
+    '/samplepage'
   ].includes(pathname);
   const onlyNav = ['/viewProfileCon'];
   return (
