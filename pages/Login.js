@@ -94,7 +94,10 @@ const Login = () => {
   const facebookClick = () => {
     dispatch({ type: facebookLogin });
 
-    window.open(`http://localhost:3001/facebook/callback`, '_self');
+    window.open(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/facebook/callback`,
+      '_self'
+    );
   };
 
   return (
