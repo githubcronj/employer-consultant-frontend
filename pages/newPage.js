@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import OutSorceConsultant from "../Components/outsorceDetails/outsorceConsultant";
-const newpage = () => {
-  const [popup, setPopup] = useState(false);
+const Newpage = () => {
+  const [popup, setPopup] = useState(true);
   const click = () => {
     setPopup(true);
   };
@@ -12,4 +12,4 @@ const newpage = () => {
     </div>
   );
 };
-export default newpage;
+export default Newpage;

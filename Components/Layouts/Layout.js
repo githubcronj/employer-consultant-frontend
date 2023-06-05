@@ -23,6 +23,7 @@ function Layout(props) {
     '/setup-details',
     '/searchJob',
     '/resume-templates',
+    "/cviewprofile"
   ].includes(pathname);
   const onlyNav = ['/viewProfileCon'];
   return (
