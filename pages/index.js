@@ -42,6 +42,8 @@ const Home = () => {
     console.log(id);
     router.push(`/viewjobpost/${id}`);
   };
+  
+
   return (
     <div>
       <div className='bg-[#2B373C1C] py-4 px-2 sm:px-4'>
@@ -107,7 +109,7 @@ const Home = () => {
               </thead>
               <tbody className=' text-black text-md'>
                 {response?.map((row, index) => (
-                  <tr
+                  <tr onClick={() => nextclick(row?._id)}
                     key={index}
                     className={
                       index % 2 === 0
