@@ -2,36 +2,20 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import UxDesignerCardList from "Components/Cards/ux-designer-card";
-import Popover from "Components/PopOver/popOver";
+
 import Popoverr from "Components/PopOver/popOver";
-import {cardData} from "../Components/Cards/ux-designer-card";
+import {cardData} from "../../Components/Cards/ux-designer-card";
 import UxDesignerCard from "Components/Cards/ux-designer-card";
 import Link from 'next/link';
-const appliedConsultant = () => {
+
+
+const AppliedConsultant = () => {
   const router = useRouter();
    
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
+  const [shortlistMessage, setShortlistMessage] = useState("");
 
-  useEffect(() => {
-    const selectedCardData = localStorage.getItem("selectedCard");
-    const shortlistedCardsData = localStorage.getItem("shortlistedCards");
-
-    if (selectedCardData) {
-      setSelectedCard(JSON.parse(selectedCardData));
-    }
-
-    if (shortlistedCardsData) {
-      setShortlistedCards(JSON.parse(shortlistedCardsData));
-    }
-  }, []);
-
-  // Update local storage whenever selectedCard or shortlistedCards change
-  useEffect(() => {
-    localStorage.setItem("selectedCard", JSON.stringify(selectedCard));
-    localStorage.setItem("shortlistedCards", JSON.stringify(shortlistedCards));
-  }, [selectedCard, shortlistedCards]);
 
   const handleCardClick = (id) => {
     setSelectedCard(id);
@@ -40,28 +24,55 @@ const appliedConsultant = () => {
   const handleShortlistClick = (id) => {
     if (!shortlistedCards.includes(id)) {
       setShortlistedCards([...shortlistedCards, id]);
-      console.log("shortlisted")
+      const currentDate = new Date().toLocaleDateString("en-US");
+      const message = `Shortlisted.\n${currentDate}`;
+      setShortlistMessage(message);
     }
   };
+ 
+
+ 
   const shortlistedCount = shortlistedCards.length;
 
   const handleRemoveShortlisted = () => {
     const updatedShortlistedCards = shortlistedCards.filter((cardId) => cardId !== selectedCard);
     setShortlistedCards(updatedShortlistedCards);
+    setShortlistMessage(false);
   };
   
    const [errors, setErrors] = useState({});
-  const renderErrorMessage = (fieldName) => {
-    if (errors[fieldName]) {
+ 
+
+
+  const isCardShortlisted = shortlistedCards.includes(selectedCard);
+
+  const renderShortlistButton = () => {
+    if (isCardShortlisted || shortlistMessage === "Consultant shortlisted.") {
       return (
-        <p className="text-red-500 text-xs font-bold">{errors[fieldName]}</p>
+        <>
+          <button
+            onClick={() => handleRemoveShortlisted()}
+           
+          >
+            <img src="/Assets/removeShortlistedButton.svg" alt="remove" />
+          </button>
+        </>
+      );
+    } else {
+      return (
+        <Popoverr text={"Select and add into shortlist"}>
+          <button
+            onClick={() => handleShortlistClick(selectedCard)}
+            className="flex justify-end px-3 py-3"
+          >
+            <img src="/Assets/tick.svg" alt="tick" />
+          </button>
+        </Popoverr>
       );
     }
-    return null;
   };
-
-
-
+  
+  
   return (
    
     <div className=" grid lg:grid-cols-12 sm:grid-col-span-2 bg-[#2B373C1C] py-5 px-2 sm:px-2">
@@ -208,20 +219,31 @@ const appliedConsultant = () => {
             </div>
             <div className="h-[550px] overflow-auto"
               style={{ scrollbarWidth: "thin" }}>
-        {cardData.map((card) => (
-          <UxDesignerCard
-          key ={card.id}
-          name={card.name}
-          jobTitle={card.jobTitle}
-          experience={card.experience}
-          imageSrc={card.imageSrc}
-          selected={card.id === selectedCard}
-          shortlisted={shortlistedCards.includes(card.id)}
-          onClick={() => handleCardClick(card.id)}
-          onRemove={() => handleRemoveClick(card.id)}
-          />
-
-        ))}</div>
+    
+    {cardData.map((card) => (
+  <UxDesignerCard
+    key={card.id}
+    id={card.id}
+    name={card.name}
+    jobTitle={card.jobTitle}
+    experience={card.experience}
+    imageSrc={card.imageSrc}
+    selected={card.id === selectedCard}
+    shortlisted={shortlistedCards.includes(card.id)}
+    onClick={() => handleCardClick(card.id)} 
+    onRemove={() => handleRemoveClick(card.id)}
+  >
+    {card.id === selectedCard && (
+      <div className="flex flex-col gap-y-4">
+        {renderShortlistButton()}
+        <Link href="/consultant/[id]" as={`/consultant/${card.id}`}>
+          <a>View Details</a>
+        </Link>
+      </div>
+    )}
+  </UxDesignerCard>
+))}
+</div>
             
         <div>
           
@@ -242,18 +264,30 @@ const appliedConsultant = () => {
  
 </div>
         <div className=" flex lg:flex-col sm:flex-row  py-6 px-3 lg:col-span-1 border-l lg:ml-12 sm:ml-0"  style={{ width: "fit-content" }}>
-       
-      
-<Popoverr text={"Select and add into shortlist"}>
-        <button onClick={() => handleShortlistClick(selectedCard)} className="flex justify-end px-3 py-3">
-          <img src="/Assets/tick.svg" alt="tick" />
-        </button>
-      </Popoverr>
-      <Popoverr text={"Reject the consultant"}>
-          <button onClick={handleRemoveShortlisted} className="flex justify-end px-3 py-3">
-            <img src="/Assets/crossbtn.svg" alt="tick"/>
-          </button>
-          </Popoverr>
+      {shortlistMessage ? (<>
+          <div className="flex items-center justify-center mt-2">
+            <p className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] h-[70px]">{shortlistMessage}</p>
+          </div>
+            <Popoverr text={"Reject the consultant"}>
+            <button onClick={handleRemoveShortlisted} className="flex justify-end px-3 py-3">
+              <img src="/Assets/removeShortlistedButton.svg" alt="tick"/>
+            </button>
+            </Popoverr></>
+
+        ) :        
+      <>
+        <Popoverr text={"Select and add into shortlist"}>
+                <button onClick={() => handleShortlistClick(selectedCard)} className="flex justify-end px-3 py-3">
+                  <img src="/Assets/tick.svg" alt="tick" />
+                </button>
+              </Popoverr>
+               <Popoverr text={"Reject the consultant"}>
+               <button onClick={handleRemoveShortlisted} className="flex justify-end px-3 py-3">
+                 <img src="/Assets/crossBtn.svg" alt="tick"/>
+               </button>
+               </Popoverr></>
+        }
+     
           <hr/>
           <Popoverr text={"Send mail invite for interview"}>
           <button className="flex justify-end px-3 py-3">
@@ -299,6 +333,7 @@ const appliedConsultant = () => {
 </div>
 </div>
 
+
       </div>
     </div>
    
@@ -306,4 +341,4 @@ const appliedConsultant = () => {
   );
 };
 
-export default appliedConsultant;
+export default AppliedConsultant;
