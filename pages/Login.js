@@ -44,6 +44,9 @@ const Login = () => {
       localStorage.setItem('role', 'employer');
     }
   };
+  useEffect(() => {
+    localStorage.setItem('role', 'employer');
+  }, []);
 
   const passwordclick = () => {
     setDisplayPassword(displayPassword == 'password' ? 'text' : 'password');
@@ -91,7 +94,10 @@ const Login = () => {
   const facebookClick = () => {
     dispatch({ type: facebookLogin });
 
-    window.open(`http://localhost:3001/facebook/callback`, '_self');
+    window.open(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/facebook/callback`,
+      '_self'
+    );
   };
 
   return (
@@ -223,7 +229,7 @@ const Login = () => {
             <span className='text-black'>OR</span>
             <hr className='flex-grow border-t-2 border-gray-300 w-24 sm:w-40 ml-5' />
           </div>
-          <div className='flex items-center ml-0 gap-5 mt-3 '>
+          <div className='flex items-center ml-0 gap-5 mt-3 xl:pl-10 lg:pl-10 '>
             <div>
               <img
                 src='/Assets/googleIcon.png'

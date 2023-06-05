@@ -188,6 +188,22 @@ const FormTable = () => {
           </tr>
           <tr className='border-2 border-green-950'>
             <td className='inline-block whitespace-nowrap ml-4'>
+              Technological Environment
+            </td>
+
+            <td className='w-full'>
+              <input
+                type='text'
+                value={formFields.technologyEnvironment}
+                onChange={(e) =>
+                  handleInputChange('technologyEnvironment', e.target.value)
+                }
+                className='focus:outline-none focus:border-teal-500 w-full '
+              />
+            </td>
+          </tr>
+          <tr className='border-2 border-green-950'>
+            <td className='inline-block whitespace-nowrap ml-4'>
               Employement Type
             </td>
 

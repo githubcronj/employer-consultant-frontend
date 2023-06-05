@@ -1,46 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 
-const SetupSkills = () => {
-  const [skillData, setSkilleData] = useState({
-    skillName: "",
-  });
-  const [errors, setErrors] = useState({});
-  const renderErrorMessage = (fieldName) => {
-    if (errors[fieldName]) {
-      return (
-        <p className="text-red-500 text-xs font-bold">{errors[fieldName]}</p>
-      );
-    }
-    return null;
-  };
-  const isFormValid = () => {
-    const requiredFields = ["skillName"];
-    const errors = {};
-
-    requiredFields.forEach((field) => {
-      if (skillData[field] === "") {
-        errors[field] = "This field is required";
-      }
-    });
-    setErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
+const SetupSkills = ({
+  skillsDetails,
+  tempSkills,
+  handleSkillsAdd,
+  infodata,
+  handleSkillsremovedata,
+}) => {
   function skillHandleChange(e) {
-    const { id, value } = e.target;
-    setSkilleData((prevValues) => ({
-      ...prevValues,
-      [id]: value,
-    }));
+    tempSkills(e);
   }
-  const addData = () => {
-    if (isFormValid()) {
-      const initialFormValues = {
-        skillName: "",
-      };
-      setSkilleData(initialFormValues);
-    } else {
-      return;
-    }
+  const addData = (section) => {
+    handleSkillsAdd(section);
+  };
+
+  const removeData = (indexdata) => {
+    handleSkillsremovedata(indexdata);
   };
 
   return (
@@ -55,23 +30,23 @@ const SetupSkills = () => {
               placeholder="Skill name"
               required
               className="py-5 pl-4 pr-32 border rounded-[10px] border-[#D8D8DD] w-full"
-              value={skillData.skillName}
+              name="tempSkills.skillName"
+              value={skillsDetails?.skillName || ""}
               onChange={skillHandleChange}
             />
             <button
               type="submit"
-              onClick={addData}
               className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase absolute top-0 right-0 mt-2 mr-1 sm:mr-3 sm:mt-2"
+              onClick={() => addData("skillsDetails")}
             >
               Add
             </button>
           </div>
-          {renderErrorMessage("skillName")}
         </div>
         <div className="flex justify-end"></div>
       </form>
       {/* block display */}
-      {/* <div className="py-4 grid sm:grid-cols-2 gap-7">
+      <div className="py-4 grid sm:grid-cols-2 gap-7">
         {infodata.map((item, index) => {
           return (
             <div
@@ -80,9 +55,7 @@ const SetupSkills = () => {
               style={{ position: "relative" }}
             >
               <div>
-                <p className="">{item.eduLevel + " " + item.degree}</p>
-                <p className="py-1">{item.institutionName}</p>
-                <p className="text-[#9C94A2]">{item.passingyear}</p>
+                <p className="">{item.skillName}</p>
               </div>
               <img
                 src="/Assets/cross.svg"
@@ -94,7 +67,7 @@ const SetupSkills = () => {
             </div>
           );
         })}
-      </div> */}
+      </div>
     </div>
   );
 };
