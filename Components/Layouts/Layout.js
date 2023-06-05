@@ -16,16 +16,18 @@ function Layout(props) {
     '/resetPassword',
     '/confirmPassword',
     '/verifyotp',
-    '/resumeUpload',
+    '/resume-upload',
     '/resume-json',
     '/setup-details',
     '/editProfile',
     '/setup-details',
+    '/searchJob',
+    '/resume-templates',
   ].includes(pathname);
   const onlyNav = ['/viewProfileCon'];
   return (
     <>
-      <div className='layout'>
+      <div className='layout '>
         {shouldRenderComponents && (
           <>
             <Navbar />
@@ -41,7 +43,12 @@ function Layout(props) {
           </>
         )}
 
-        {!shouldRenderComponents && <>{children}</>}
+        {!shouldRenderComponents && (
+          <>
+            <Navbar />
+            {children}
+          </>
+        )}
       </div>
     </>
   );

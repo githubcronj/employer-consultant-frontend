@@ -101,3 +101,54 @@ a {
     max-width: 1500px;
   }
 }
+
+/*  */
+.template-list {
+  padding: 20px;
+}
+
+.template-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.template-item {
+  width: calc(200% - 10px);
+  margin-bottom: 20px;
+}
+
+.template-item button {
+  width: 100%;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.template-item button:hover {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.template-content {
+  text-align: center;
+}
+
+.template-content h3 {
+  margin-bottom: 10px;
+}
+
+.template-preview {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.template-preview h2 {
+  margin-bottom: 10px;
+}
+
+/*  */
