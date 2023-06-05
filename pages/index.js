@@ -36,7 +36,6 @@ const Home = () => {
   const response = useSelector(
     (state) => state?.getjobReducer?.CurrentUser?.data
   );
-  console.log(response);
 
   const nextclick = (id) => {
     console.log(id);
