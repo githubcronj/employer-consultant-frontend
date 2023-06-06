@@ -40,7 +40,7 @@ export const SideBar = () => {
       setTaskbg(false);
       setScheduledbg(false);
       setShortlistedbg(true);
-      router.push("/applied-consultant/shortlisted-consultant")
+      // router.push("/applied-consultant/shortlisted-consultant")
       
     } else if (id == 2) {
       setHomebg(false);
