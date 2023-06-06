@@ -14,6 +14,7 @@ const samplepage = () => {
         justifyContent: "center",
         background: "#F3F5F8",
         px: {xs:".8rem", sm: "2rem", md: "5rem" },
+        height:{xs:"auto",lg:"100vh"}
       }}
     >
       <Grid container spacing={3}>
