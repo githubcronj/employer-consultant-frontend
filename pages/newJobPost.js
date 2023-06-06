@@ -24,6 +24,7 @@ const NewJobPost = () => {
     description: '',
     email: '',
     phoneNumber: '',
+    salary:'',
   });
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
@@ -48,6 +49,10 @@ const NewJobPost = () => {
   }, [data]);
   const handleSalaryButton = (e) => {
     setSelectedButton(e.target.id);
+    setJobPostData((prevValues) => ({
+      ...prevValues,
+      salary: e.target.id,
+    }));
   };
   const handleDateChange = (date) => {
     const year = date.getFullYear();
@@ -65,10 +70,22 @@ const NewJobPost = () => {
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setJobPostData((prevValues) => ({
-      ...prevValues,
-      [id]: value,
-    }));
+    // setJobPostData((prevValues) => ({
+    //   ...prevValues,
+    //   [id]: value,
+    // }));
+
+    if (id === 'experience' || id === 'maxSalary' || id === 'minSalary') {
+      setJobPostData((prevValues) => ({
+        ...prevValues,
+        [id]: parseInt(value),
+      }));
+    } else {
+      setJobPostData((prevValues) => ({
+        ...prevValues,
+        [id]: value,
+      }));
+    }
     setIsFieldChanged(true);
     if (id === 'email') {
       const isValidEmail = /^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(
@@ -91,8 +108,12 @@ const NewJobPost = () => {
       'description',
       'email',
       'phoneNumber',
+      'salary',
     ];
     const errors = {};
+    if (jobPostData === null) {
+      return false;
+    }
 
     requiredFields.forEach((field) => {
       if (jobPostData[field] === '') {
@@ -113,8 +134,10 @@ const NewJobPost = () => {
   const handleSave = (e) => {
     e.preventDefault();
     if (isFormValid()) {
+      
       dispatch(jobSaveRequest(jobPostData));
       console.log(jobPostData);
+      // console.log(payload,'ppppp');
       const initialJobPostData = {
         jobTitle: '',
         experience: '',
@@ -125,6 +148,7 @@ const NewJobPost = () => {
         description: '',
         email: '',
         phoneNumber: '',
+        salary: '',
       };
       setJobPostData(initialJobPostData);
       console.log(jobPostData);
@@ -292,13 +316,13 @@ const NewJobPost = () => {
                     <div className='flex'>
                       <input
                         type='checkbox'
-                        id='hourly'
-                        checked={selectedButton === 'hourly'}
+                        id='Hourly'
+                        checked={selectedButton === 'Hourly'}
                         onChange={handleSalaryButton}
                         className='peer hidden'
                       />
                       <label
-                        for='hourly'
+                        for='Hourly'
                         className='select-none cursor-pointer rounded-lg bg-gray-200 py-5 text-md sm:text-lg px-3 sm:px-6 text-gray-700 transition-colors duration-200 ease-in-out peer-checked:bg-[#5E9AF8] peer-checked:text-white peer-checked:border-0 '
                       >
                         Hourly
@@ -309,13 +333,13 @@ const NewJobPost = () => {
                     <div className='flex'>
                       <input
                         type='checkbox'
-                        id='monthly'
+                        id='Monthly'
                         className='peer hidden'
-                        checked={selectedButton === 'monthly'}
+                        checked={selectedButton === 'Monthly'}
                         onChange={handleSalaryButton}
                       />
                       <label
-                        for='monthly'
+                        for='Monthly'
                         className='select-none cursor-pointer rounded-lg bg-gray-200 py-5 text-md sm:text-lg px-3 sm:px-5 text-gray-700 transition-colors duration-200 ease-in-out peer-checked:bg-[#5E9AF8] peer-checked:text-white peer-checked:border-0'
                       >
                         Monthly
@@ -326,13 +350,13 @@ const NewJobPost = () => {
                     <div className='flex'>
                       <input
                         type='checkbox'
-                        id='yearly'
+                        id='Yearly'
                         className='peer hidden'
-                        checked={selectedButton === 'yearly'}
+                        checked={selectedButton === 'Yearly'}
                         onChange={handleSalaryButton}
                       />
                       <label
-                        for='yearly'
+                        for='Yearly'
                         className='select-none cursor-pointer rounded-lg bg-gray-200 py-5 text-md sm:text-lg px-4 sm:px-7 text-gray-700 transition-colors duration-200 ease-in-out peer-checked:bg-[#5E9AF8] peer-checked:text-white peer-checked:border-0 '
                       >
                         Yearly
