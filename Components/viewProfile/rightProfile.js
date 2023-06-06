@@ -78,7 +78,7 @@ const RightProfile = () => {
             })}
           </div>
           <div className='bg-[#F9F6EE] p-3'>
-            <p className='font-bold p-2'>Experience</p>
+            <p className='font-bold p-2 '>Experience</p>
             <div
               className='flex px-2 justify-between '
               style={{
@@ -87,7 +87,7 @@ const RightProfile = () => {
               }}
             >
               <div>
-                <p className='font-semibold py-2'>
+                <p className='font-semibold py-2 text-black-100'>
                   {response?.experience?.companyName}
                 </p>
                 <p>{response?.experience?.jobPosition}</p>
@@ -154,12 +154,14 @@ const RightProfile = () => {
                 <p>{response?.certification?.issuingOrganization}</p>
               </div>
               <div className='px-2'>
-                <a href={response?.certification?.credentialUrl} target='_blank'>
+                <a
+                  href={response?.certification?.credentialUrl}
+                  target='_blank'
+                >
                   <p className='text-sky-500 font-semibold cursor-pointer'>
                     Open
                   </p>
                 </a>
-               
               </div>
             </div>
             <hr className='my-3  w-[100%] border'></hr>

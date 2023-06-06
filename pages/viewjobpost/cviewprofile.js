@@ -16,8 +16,8 @@ const ViewProfile = () => {
     window.addEventListener("resize", handleResize);
   }, [handleResize]);
   return (
-    <div className='bg-[#2B373C1C] pt-1 px-3 sm:px-10 h-fit'>
-      <div>
+    <div className='bg-[#2B373C1C] pt-1 px-3 sm:px-10 h-fit' >
+      <div >
         <HeaderProfile />
       </div>
       <div
@@ -25,6 +25,7 @@ const ViewProfile = () => {
         style={{
           flexDirection: flexing ? "column" : "row",
           scrollbarWidth: "none",
+          borderRadius:"10px"
         }}
       >
         <LeftProfile />

@@ -1,7 +1,7 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import { Navbar } from 'Components/Navbar/Navbar';
-import { SideBar } from 'Components/Sidebar/sideBar';
+import React from "react";
+import { useRouter } from "next/router";
+import { Navbar } from "Components/Navbar/Navbar";
+import { SideBar } from "Components/Sidebar/sideBar";
 function Layout(props) {
   const router = useRouter();
 
@@ -9,25 +9,26 @@ function Layout(props) {
   const { pathname } = router;
 
   const shouldRenderComponents = ![
-    '/Login',
-    '/register',
-    '/profile',
-    '/forgotPassword',
-    '/resetPassword',
-    '/confirmPassword',
-    '/verifyotp',
-    '/resume-upload',
-    '/resume-json',
-    '/setup-details',
-    '/editProfile',
-    '/setup-details',
-    '/searchJob',
-    '/resume-templates',
-    '/cviewprofile',
-    '/samplepage',
-    '/consultant/applied-jobs'
+    "/Login",
+    "/register",
+    "/profile",
+    "/forgotPassword",
+    "/resetPassword",
+    "/confirmPassword",
+    "/verifyotp",
+    "/resume-upload",
+    "/resume-json",
+    "/setup-details",
+    "/editProfile",
+    "/setup-details",
+    "/searchJob",
+    "/resume-templates",
+    "/cviewprofile",
+    "/samplepage",
+    "/consultant/applied-jobs",
+    "/jobsearch-details",
   ].includes(pathname);
-  const onlyNav = ['/viewProfileCon'];
+  const onlyNav = ["/viewProfileCon"];
   return (
     <>
       <div className='layout '>
