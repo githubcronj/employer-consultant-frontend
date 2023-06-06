@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import Popoverr from "Components/PopOver/popOver";
-import {cardData} from "../../Components/Cards/ux-designer-card";
-import UxDesignerCard from "Components/Cards/ux-designer-card";
+import {cardData} from "../../Components/Cards/ConsultantsCard";
+import ConsultantCard from "Components/Cards/ConsultantsCard";
 import Link from 'next/link';
 
 
@@ -221,7 +221,7 @@ const AppliedConsultant = () => {
               style={{ scrollbarWidth: "thin" }}>
     
     {cardData.map((card) => (
-  <UxDesignerCard
+  <ConsultantCard
     key={card.id}
     id={card.id}
     name={card.name}
@@ -242,7 +242,7 @@ const AppliedConsultant = () => {
         </Link>
       </div>
     )}
-  </UxDesignerCard>
+  </ConsultantCard>
 ))}
 </div>
             
@@ -254,7 +254,7 @@ const AppliedConsultant = () => {
         {/* section 2 */}
         <div className="lg:col-span-3">
         <div className="grid lg:grid-cols-12">
-  <div className="border-l border-r lg:col-start-1 lg:col-end-12">
+  <div className="border-l lg:col-start-1 lg:col-end-12">
     <img src="/Assets/resumeTemplate.png" alt="cameraIcon" />
   </div>
   <div className="border-l lg:col-start-12 lg:col-end-12 flex justify-end items-end ">

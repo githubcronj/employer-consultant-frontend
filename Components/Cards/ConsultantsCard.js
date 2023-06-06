@@ -69,7 +69,7 @@ export const cardData = [
     imageSrc: "/Assets/clientImg.png",
   },
 ];
-const UxDesignerCard = ({
+const ConsultantCard = ({
   name,
   jobTitle,
   experience,
@@ -115,7 +115,7 @@ const UxDesignerCard = ({
               type="checkbox"
               checked={selected}
               onChange={onClick}
-              className="cursor-pointer  float-right"
+              className="cursor-pointer lg:ml-[75px] sm:ml-[200px]"
             />
           )}</div>
         </div>
@@ -124,4 +124,4 @@ const UxDesignerCard = ({
   );
 };
 
-export default UxDesignerCard;
+export default ConsultantCard;
