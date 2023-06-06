@@ -9,7 +9,7 @@ import subscription from "../../public/Assets/subscription.svg";
 import { useRef } from "react";
 import { useEffect } from "react";
 import cross from "../../public/Assets/x.png";
-
+import { Router, useRouter } from "next/router";
 export const SideBar = () => {
   const [display, setDisplay] = useState(true);
   const [homebg, setHomebg] = useState(true);
@@ -21,6 +21,7 @@ export const SideBar = () => {
   const [scheduledbg, setScheduledbg] = useState(false);
   const [modal, setModal] = useState(false);
   const [isfixed, setIsfixed] = useState(false);
+  const router = useRouter()
   const click = (id) => {
     if (id == 0) {
       setCommunicationbg(false);
@@ -30,6 +31,7 @@ export const SideBar = () => {
       setShortlistedbg(false);
       setScheduledbg(false);
       setHomebg(true);
+      router.push("/")
     } else if (id == 1) {
       setHomebg(false);
       setCommunicationbg(false);
@@ -38,6 +40,8 @@ export const SideBar = () => {
       setTaskbg(false);
       setScheduledbg(false);
       setShortlistedbg(true);
+      // router.push("/applied-consultant/shortlisted-consultant")
+      
     } else if (id == 2) {
       setHomebg(false);
       setCommunicationbg(false);
@@ -46,6 +50,7 @@ export const SideBar = () => {
       setTaskbg(false);
       setShortlistedbg(false);
       setScheduledbg(true);
+    
     } else if (id == 3) {
       setHomebg(false);
       setCommunicationbg(false);

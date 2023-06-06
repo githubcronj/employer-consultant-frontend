@@ -3,7 +3,6 @@ import { Typography, Box, Paper } from "@mui/material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import JobSearchCard from "./JobSearchCard";
 import companyLogo from "../../asset/icons/google.svg"
 import next from "../../asset/icons/nextIcon.svg"

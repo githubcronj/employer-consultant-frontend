@@ -9,16 +9,33 @@ import { makeApiRequest } from "../../utils/api";
 
 function* getJob(action) {
   try {
+    const accessToken = localStorage.getItem("CurrentUser");
+    const token = JSON.parse(accessToken);
+    const filterParams = action.payload; // Filter parameters
+    let url;
+    if (filterParams.length>0) {
+      url = `/job`;
+    } else {
+      url = `/job?${new URLSearchParams(filterParams)}`;
+    }
+    // const url =`/job?${new URLSearchParams(filterParams)}`
+    // const url =`/job`    
+    // const filterurl = `/job?jobType=${action.payload.jobType}&limit=5&minExp=${action.payload.minExp}&maxExp=${action.payload.maxExp}&minSalary=${action.payload.minSalary}`;
     const response = yield call(makeApiRequest, {
-      endpoint: "/job",
+      endpoint: url,
       method: "GET",
       headers: {
-        Authorization: `Bearer ${action.payload}`,
+        Authorization: `Bearer ${token.token.accessToken}`,
 
         Token: `Bearer ${action.payload}`,
       },
     });
-    yield put({ type: GET_JOB_SUCCESS, payload: response });
+
+    yield put({
+      type: GET_JOB_SUCCESS,
+      payload: response,
+      accessToken: token.token.accessToken,
+    });
   } catch (error) {
     console.log("API call error:", error);
     yield put({ type: GET_JOB_FAILURE, payload: error });
