@@ -18,7 +18,7 @@ import scheduler from "../../public/Assets/scheduler.svg";
 import { DELETE_JOB_REQUEST } from "store/type/deletejobType";
 import DeletePopUP from "../../Components/Delete/deletePopUp";
 import { GET_JOB_REQUEST } from "store/type/getjobType";
-import { GET_JOB_REQUEST } from "store/type/getjobType";
+
 import { object } from "yup";
 const ViewProfile = () => {
   const router = useRouter();
