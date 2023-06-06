@@ -1,7 +1,3 @@
-# Sample workflow for checking bugs and build issues in a Next.js site
-#
-# To get started with Next.js see: https://nextjs.org/docs/getting-started
-#
 name: Check Bugs and Build Issues
 
 on:
@@ -44,8 +40,6 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        run: ${{ steps.detect-package-manager.outputs.runner }} npm run build
       - name: Lint and analyze code
-        run: ${{ steps.detect-package-manager.outputs.runner }} next lint
-      - name: Run tests
-        run: ${{ steps.detect-package-manager.outputs.runner }} next test
+        run: ${{ steps.detect-package-manager.outputs.runner }} npm run lint
