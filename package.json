@@ -6,8 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write .",
     "lint-staged": "lint-staged",
     "precommit": "lint-staged && npm test"
   },
