@@ -77,6 +77,7 @@ const UxDesignerCard = ({
   selected,
   onClick,
   shortlisted,
+  showCheckbox
 }) => {
   let cardClassName = `${styles.card} ${styles.border}`;
   
@@ -109,6 +110,14 @@ const UxDesignerCard = ({
               {jobTitle} . {experience}
             </p>
           </div>
+          <div> {showCheckbox && (
+            <input
+              type="checkbox"
+              checked={selected}
+              onChange={onClick}
+              className="cursor-pointer  float-right"
+            />
+          )}</div>
         </div>
       </div>
     </>

@@ -25,6 +25,9 @@
   padding-top: 20px;
   /* Styles for combined selected and shortlisted state */
 }
+.removeButton{
+  background-color: #5e9af8;
+}
 
 @media (min-width: 1536px) {
   .desk {
