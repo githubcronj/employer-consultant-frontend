@@ -12,13 +12,13 @@ const ConfirmationModal = ({ isOpen, onClose, onYes, onNo,text }) => {
         <p className="mb-4">{text}</p>
         <div className="flex justify-center">
           <button
-            className="mr-2 px-4 py-2 border-[1px]  bg-[#ffffff] text-gray-500 rounded-md"
+            className="mr-2 px-4 py-2 border-[1px] border-[#90889E]  bg-[#ffffff] text-[#90889E] rounded-lg w-[100px]"
             onClick={onNo}
           >
             No
           </button>
           <button
-            className="px-4 py-2 bg-blue-500 text-white rounded-md"
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg w-[100px]"
             onClick={onYes}
           >
             Yes

@@ -11,23 +11,33 @@ import ConsultantCard, {
 import Link from "next/link";
 
 import ConfirmationModal from "Components/Modals/ConfirmationModal";
+import FeedbackModal from "Components/Modals/feedbackModal";
 
-const ScheduleInterview = () => {
+const selectedConsultsnt = () => {
   const router = useRouter();
 
   const [selectedCard, setSelectedCard] = useState(null);
-  const [scheduledCard, setscheduledCard] = useState([]);
+  const [shortlistedCards, setShortlistedCards] = useState([]);
+
   const [shortlistMessage, setShortlistMessage] = useState(
-    `Shortlisted.`
+    `Shortlisted`
   );
-  const [scheduledMessage, setscheduleMessage] = useState(
-    `Add to schedule.`
+  const [scheduledMessage, setScheduledMessage] = useState(
+    `Sheduled.`
   );
+
+  const [invitationMessage, setInvitationMessage] = useState(
+    `Interview invited.`
+  );
+
+  const [selectedMessage, setSelectedMessage] = useState(
+    `Selected.`)
+
+
   const [invitationClick, setinvitationClick] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [yesClicked, setYesClicked] = useState(false);
-  const [errors, setErrors] = useState({});
-  
+
   const handleCloseModal = () => {
     setModalOpen(false);
   };
@@ -44,13 +54,15 @@ const ScheduleInterview = () => {
   const handleCardClick = (id) => {
     setSelectedCard(id);
   };
-
+  const openviewFeedbackModal= () => {
+    setModalOpen(true);
+  };
   const openSelectConsultantModal = () => {
     setModalOpen(true)
   }
   const handleScheduleClick = (id) => {
-    if (!scheduledCard.includes(id)) {
-      setscheduledCard([...scheduledCard, id]);
+    if (!shortlistedCards.includes(id)) {
+      setShortlistedCards([...shortlistedCards, id]);
       const currentDate = new Date().toLocaleDateString("en-US");
       const message = `Add to schedule.\n${currentDate} `;
       setinvitationClick(message);
@@ -58,18 +70,26 @@ const ScheduleInterview = () => {
     }
   };
 
-  
-  const handleRemovescheduled = () => {
-    const updatedscheduledCard = scheduledCard.filter(
+  const shortlistedCount = shortlistedCards.length;
+
+  const handleRemoveScheduled = () => {
+    const updatedShortlistedCards = shortlistedCards.filter(
       (cardId) => cardId !== selectedCard
     );
-    setscheduledCard(updatedscheduledCard);
+    setShortlistedCards(updatedShortlistedCards);
+    setinvitationClick(false);
+  };
+  const handleRemovescheduled = () => {
+    const updatedShortlistedCards = shortlistedCards.filter(
+      (cardId) => cardId !== selectedCard
+    );
+    setShortlistedCards(updatedShortlistedCards);
     setinvitationClick(false);
    
   };
- 
+  const [errors, setErrors] = useState({});
 
-  const isCardShortlisted = scheduledCard.includes(selectedCard);
+  const isCardShortlisted = shortlistedCards.includes(selectedCard);
 
   const renderShortlistButton = () => {
     if (isCardShortlisted || invitationClick === "Consultant shortlisted.") {
@@ -101,7 +121,7 @@ const ScheduleInterview = () => {
           <div className="flex items-center lg:col-span-4 sm:col-span-2">
             <div>
               <p className="text-[26px] text-[#2B373C] sm:text-2xl font-bold">
-              Scheduled Interview
+              Selected Consultant
               </p>
             </div>
           </div>
@@ -134,14 +154,7 @@ const ScheduleInterview = () => {
             </div>
           </div>
           <div className="lg:col-span-3">
-          {invitationClick ?  <button className="px-5 py-2 bg-[rgb(231,71,65)] text-[#ffffff] font-bold rounded-lg">
-           1 SEND INVITES
-          </button>
-         :   <button className="px-5 py-2 bg-[#FEE2E1] text-[#F9342E] font-bold  rounded-lg">
-           0 SEND INVITES
-          </button> 
-           
-          }
+         
           </div>
                 </div>
         <div className="grid lg:grid-cols-12  gap-4 mx-2 sm:mx-6 bg-[#F9F6EE] border px-4 py-4">
@@ -180,16 +193,11 @@ const ScheduleInterview = () => {
             className="flex flex-col lg:col-span-2 py-6"
             style={{ borderRight: "2px solid #D8D8DD" }}
           >
-            <div className="flex px-1">
-            
-              <p className=" text-[18px] text-[#2B373C]  font-bold">
-              Scheduled Consultants
+            <div className="flex px-3">
+              <p className=" text-[16px] text-[#2B373C]  font-bold">
+                {cardData.length} Selected Consultants
               </p>
-              <div  className="ml-[25px] text-[#F9342E] font-bold">
-               <p>select all</p>
-              </div>
-            
-            
+             
             </div>
             <div
               className="h-[550px] overflow-auto"
@@ -204,10 +212,10 @@ const ScheduleInterview = () => {
                   experience={card.experience}
                   imageSrc={card.imageSrc}
                   selected={card.id === selectedCard}
-                  shortlisted={scheduledCard.includes(card.id)}
+                  shortlisted={shortlistedCards.includes(card.id)}
                   onClick={() => handleCardClick(card.id)}
                   onRemove={() => handleRemoveClick(card.id)}
-                  showCheckbox={true}
+                 
                 >
                   {card.id === selectedCard && (
                     <div className="flex flex-col gap-y-4">
@@ -238,9 +246,8 @@ const ScheduleInterview = () => {
             </div>
           </div>
           <div className=" flex flex-col  lg:justify-normal sm:justify-center py-6 px-3 lg:col-span-1 border-l lg:ml-12 sm:ml-0">
+
             <div className="flex items-center justify-center mt-2">
-              
-           
                 <div className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] lg:ml-[-50px] sm:ml-[0px]">
                 <div className="px-1 py-2">
                 <p className="font-bold ">
@@ -258,65 +265,41 @@ const ScheduleInterview = () => {
               </p>
               <p>  {new Date().toLocaleDateString("en-US")}</p>
               </div>
-           
+              <div className="px-1 py-2">
+              <p  className="font-bold">
+                {invitationMessage}
                 
+              </p>
+              <p>  {new Date().toLocaleDateString("en-US")}</p>
+              </div>
+              <div className="px-1 py-2">
+              <p className="font-bold">
+                {selectedMessage}
+              </p>
+              <p>  {new Date().toLocaleDateString("en-US")}</p>
+              </div>
+                </div>
               
             </div>
         
-            </div>
-            {invitationClick ? (
-              <>
-               
-    
-                  <Popoverr text={"Remove from Invite list"}>
-                    <button
-                      onClick={handleRemovescheduled}
-                      className="flex justify-end px-3 py-3"
-                    >
-                      <img
-                        src="/Assets/removeShortlistedButton.svg"
-                        alt="tick"
-                      />
-                    </button>
-                  </Popoverr>
+             
+            
               
+            
+            
 
-              
-              </>
-            ) : (
-              <>
-                <Popoverr text={"Add to Invite list"}>
-                  <button
-                    onClick={() => handleScheduleClick(selectedCard)}
-                    className="flex justify-end px-3 py-3"
-                  >
-                    <img src="/Assets/addInvite.svg" alt="tick" />
-                  </button>
-                </Popoverr>
-                <Popoverr text={"Remove from Schedule"}>
-                  <button
-                    onClick={handleRemovescheduled}
-                    className="flex justify-end px-3 py-3"
-                  >
-                    <img src="/Assets/crossBtn.svg" alt="tick" />
-                  </button>
-                </Popoverr>
-              
-              </>
-            )}
-
-            <hr />
-            <Popoverr text={"Select Consultant"}>
+          
+        
+            {yesClicked ? <Popoverr text={"View Feedback"}>
+              <button onClick={openviewFeedbackModal} className="flex justify-end px-3 py-3">
+                <img src="/Assets/viewFeedback.svg" alt="tick" />
+              </button>
+            </Popoverr> :     <Popoverr text={"Give feedback of consultant"}>
               <button onClick={openSelectConsultantModal} className="flex justify-end px-3 py-3">
-                <img src="/Assets/tick.svg" alt="tick" />
+                <img src="/Assets/feedback.svg" alt="tick" />
               </button>
-            </Popoverr>
-           
-            <Popoverr text={"Send mail invite for interview"}>
-              <button className="flex justify-end px-3 py-3">
-                <img src="/Assets/mailBtn.svg" alt="tick" />
-              </button>
-            </Popoverr>
+            </Popoverr>}
+            <hr />
             <Popoverr text={"Chat with consultant"}>
               <button className="flex justify-end px-3 py-3">
                 <img src="/Assets/chat.svg" alt="tick" />
@@ -327,11 +310,12 @@ const ScheduleInterview = () => {
                 <img src="/Assets/mail2.svg" alt="tick" />
               </button>
             </Popoverr>
-            <ConfirmationModal
-               text={"Are you sure selecting, Olivia Wilson?"}
+            <FeedbackModal
+               text={"Feedback"}
                isOpen={modalOpen}
                onClose={handleCloseModal}
                onYes={handleYes}
+               
                onNo={handleNo}
             />
           </div>
@@ -343,4 +327,4 @@ const ScheduleInterview = () => {
   );
 };
 
-export default ScheduleInterview;
+export default selectedConsultsnt;

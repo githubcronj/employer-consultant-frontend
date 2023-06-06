@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import Popoverr from "Components/PopOver/popOver";
-import { cardData } from "../../Components/Cards/ux-designer-card";
-import UxDesignerCard from "Components/Cards/ux-designer-card";
+import ConsultantCard, {
+  cardData,
+} from "../../Components/Cards/ConsultantsCard";
+import UxDesignerCard from "Components/Cards/ConsultantsCard";
 
 import Link from "next/link";
-import ViewConsultantDetail from "Components/ViewConsultant";
+
 import ConfirmationModal from "Components/Modals/ConfirmationModal";
 
 const ShortlistedConsultant = () => {
@@ -17,34 +19,30 @@ const ShortlistedConsultant = () => {
   const [shortlistedCards, setShortlistedCards] = useState([]);
 
   const [shortlistMessage, setShortlistMessage] = useState(
-    `Shortlisted.\n${new Date().toLocaleDateString("en-US")}`
+    `Shortlisted.`
   );
   const [shcheduleMessage, setScheduleMessage] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [yesClicked, setYesClicked] = useState(false); 
-
-
+  const [yesClicked, setYesClicked] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const handleCloseModal = () => {
     setModalOpen(false);
   };
 
   const handleYes = () => {
-    setYesClicked(true)
+    setYesClicked(true);
     setModalOpen(false);
-    
   };
 
   const handleNo = () => {
     setModalOpen(false);
-   
   };
 
   const handleCardClick = (id) => {
     setSelectedCard(id);
   };
 
-  
   const handleScheduleClick = (id) => {
     if (!shortlistedCards.includes(id)) {
       setShortlistedCards([...shortlistedCards, id]);
@@ -57,15 +55,16 @@ const ShortlistedConsultant = () => {
 
   const shortlistedCount = shortlistedCards.length;
 
+
   const handleRemoveShortlisted = () => {
     const updatedShortlistedCards = shortlistedCards.filter(
       (cardId) => cardId !== selectedCard
     );
     setShortlistedCards(updatedShortlistedCards);
     setScheduleMessage(false);
+    setModalOpen(true);
   };
-
-  const [errors, setErrors] = useState({});
+  
 
   const isCardShortlisted = shortlistedCards.includes(selectedCard);
 
@@ -94,7 +93,6 @@ const ShortlistedConsultant = () => {
 
   return (
     <div className=" grid lg:grid-cols-12 sm:grid-col-span-2 bg-[#2B373C1C] py-5 px-2 sm:px-2">
-   
       <div className="lg:col-start-1 lg:col-end-12  sm:col-span-3">
         <div className="grid lg:grid-cols-12  gap-4 mx-2 sm:mx-6 bg-white border px-4 py-4">
           <div className="flex items-center lg:col-span-4 sm:col-span-2">
@@ -105,8 +103,6 @@ const ShortlistedConsultant = () => {
             </div>
           </div>
           <div className="  lg:col-span-8 sm:col-span-2">
-          
-     
             <div>
               <select
                 id="experience1"
@@ -183,7 +179,7 @@ const ShortlistedConsultant = () => {
               style={{ scrollbarWidth: "thin" }}
             >
               {cardData.map((card) => (
-                <UxDesignerCard
+                <ConsultantCard
                   key={card.id}
                   id={card.id}
                   name={card.name}
@@ -206,7 +202,7 @@ const ShortlistedConsultant = () => {
                       </Link>
                     </div>
                   )}
-                </UxDesignerCard>
+                </ConsultantCard>
               ))}
             </div>
 
@@ -215,7 +211,7 @@ const ShortlistedConsultant = () => {
           {/* section 2 */}
           <div className="lg:col-span-3">
             <div className="grid lg:grid-cols-12">
-              <div className="border-l border-r lg:col-start-1 lg:col-end-12">
+              <div className="border-l lg:col-start-1 lg:col-end-12">
                 <img src="/Assets/resumeTemplate.png" alt="cameraIcon" />
               </div>
               <div className="border-l lg:col-start-12 lg:col-end-12 flex justify-end items-end ">
@@ -223,15 +219,15 @@ const ShortlistedConsultant = () => {
               </div>
             </div>
           </div>
-          <div
-            className=" flex flex-col  lg:justify-normal sm:justify-center py-6 px-3 lg:col-span-1 border-l lg:ml-12 sm:ml-0"
-            
-          >
-         <div className="flex items-center justify-center mt-2">
-                  <p className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] lg:ml-[-50px] sm:ml-[0px]">
-                    {shortlistMessage}
-                  </p>
-                </div>
+          <div className=" flex flex-col  lg:justify-normal sm:justify-center py-6 px-3 lg:col-span-1 border-l lg:ml-12 sm:ml-0">
+            <div className="flex items-center justify-center mt-2">
+              <div  className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] lg:ml-[-50px] sm:ml-[0px]">
+              <p className="font-bold">
+                {shortlistMessage}
+              </p>
+              <p>{new Date().toLocaleDateString("en-US")}</p>
+              </div>
+            </div>
             {shcheduleMessage ? (
               <>
                 <div className="flex items-center justify-center mt-2">
@@ -239,22 +235,29 @@ const ShortlistedConsultant = () => {
                     {shcheduleMessage}
                   </p>
                 </div>
-                {yesClicked ?  <Popoverr text={"Remove from schedule list"}>
-                  <button
-                    onClick={handleRemoveShortlisted}
-                    className="flex justify-end px-3 py-3"
-                  >
-                    <img src="/Assets/removeShortlistedButton.svg" alt="tick" />
-                  </button>
-                </Popoverr> : ""}
-               
+                {yesClicked ? (
+                  <Popoverr text={"Remove from schedule list"}>
+                    <button
+                      onClick={handleRemoveShortlisted}
+                      className="flex justify-end px-3 py-3"
+                    >
+                      <img
+                        src="/Assets/removeShortlistedButton.svg"
+                        alt="tick"
+                      />
+                    </button>
+                  </Popoverr>
+                ) : (
+                  ""
+                )}
+
                 <ConfirmationModal
-      text={"Do you want to add Schedule list?"}
-        isOpen={modalOpen}
-        onClose={handleCloseModal}
-        onYes={handleYes}
-        onNo={handleNo}
-      /> 
+                  text={"Do you want to add Schedule list?"}
+                  isOpen={modalOpen}
+                  onClose={handleCloseModal}
+                  onYes={handleYes}
+                  onNo={handleNo}
+                />
               </>
             ) : (
               <>
@@ -274,11 +277,18 @@ const ShortlistedConsultant = () => {
                     <img src="/Assets/crossBtn.svg" alt="tick" />
                   </button>
                 </Popoverr>
+                <ConfirmationModal
+                  text={"Do you want to Remove from Shortlist?"}
+                  isOpen={modalOpen}
+                  onClose={handleCloseModal}
+                  onYes={handleYes}
+                  onNo={handleNo}
+                />
               </>
             )}
 
             <hr />
-            <addConsultant/>
+            <addConsultant />
             <Popoverr text={"Send mail invite for interview"}>
               <button className="flex justify-end px-3 py-3">
                 <img src="/Assets/mailBtn.svg" alt="tick" />
@@ -298,9 +308,7 @@ const ShortlistedConsultant = () => {
         </div>
       </div>
 
-      <div className=" lg:col-start-12 lg:col-end-12 sm:col-start-1 sm:col-end-12">
-     
-      </div>
+      <div className=" lg:col-start-12 lg:col-end-12 sm:col-start-1 sm:col-end-12"></div>
     </div>
   );
 };
