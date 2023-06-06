@@ -18,7 +18,7 @@ import scheduler from "../../public/Assets/scheduler.svg";
 import { DELETE_JOB_REQUEST } from "store/type/deletejobType";
 import DeletePopUP from "../../Components/Delete/deletePopUp";
 import { GET_JOB_REQUEST } from "store/type/getjobType";
-import { GET_JOB_REQUEST } from "store/type/getjobType";
+
 import { object } from "yup";
 const ViewProfile = () => {
   const router = useRouter();
@@ -75,7 +75,7 @@ const ViewProfile = () => {
   };
   return (
     <div
-      className={`w-[100%] xl:w-[1040px] lg:w-[1000px] sm:w-[720px] md:w-[900px]`}
+      className={``}
     >
       {popup && <DeletePopUP id={id} setPopup={setPopup} />}
 
@@ -116,8 +116,9 @@ const ViewProfile = () => {
                 </p>
               </div>
             </div>
-            <div className='lg:col-span-4'>
-              <div className='flex lg:flex-row sm:flex-col'>
+            <div className='lg:col-span-4 flex lg:justify-end md:justify-start'>
+              <div className='grid lg:grid-cols-12'>
+                <div className="lg:col-span-5 md:col-span-5 sm:col-span-12">
                 <button
                   onClick={editClick}
                   className='w-[125px] h-[51px] mr-3 px-5 sm:mt-[10px] bg-[#F9342E] text-white border rounded-[13px] flex items-center'
@@ -129,7 +130,9 @@ const ViewProfile = () => {
                   />
                   <span className='font-semibold font-ProductSans'>EDIT</span>
                 </button>
-
+                </div>
+             
+                  <div className="lg:col-span-6 md:col-span-6 sm:col-span-12">
                 <button
                   onClick={deleteClicked}
                   className='w-[125px] h-[51px] mr-3 px-5 sm:mt-[10px] bg-[#F9342E] text-white border rounded-[13px] flex items-center'
@@ -141,6 +144,7 @@ const ViewProfile = () => {
                   />
                   <span className='font-semibold font-ProductSans'>DELETE</span>
                 </button>
+                </div>
               </div>
             </div>
           </div>
