@@ -1,8 +1,9 @@
 name: Check Bugs and Build Issues
 
 on:
-  # Runs on pushes targeting the default branch
   push:
+    branches: ["dev-n"]
+  pull_request:
     branches: ["dev-n"]
 
   # Allows you to run this workflow manually from the Actions tab

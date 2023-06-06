@@ -7,18 +7,23 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "lint-staged": "lint-staged",
+    "precommit": "lint-staged && npm test"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint-staged && npm run check-eslint"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "npm run lint --fix",
-      "npm run format",
-      "npm run check-eslint"
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{json,md}": [
+      "prettier --write",
+      "git add"
     ]
   },
   "dependencies": {
@@ -53,6 +58,7 @@
     "autoprefixer": "^10.4.14",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.3",
+    "eslint-plugin-react": "^7.32.2",
     "postcss": "^8.4.23",
     "prettier": "^2.8.8",
     "tailwindcss": "^3.3.2"
