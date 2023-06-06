@@ -98,7 +98,7 @@ const ConfirmPassword = () => {
   const otpconfirm = () => {
     setIsOpen(false);
     7;
-    router.push('/Login');
+    router.push('/login');
   };
 
   return (

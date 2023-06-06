@@ -88,7 +88,7 @@ const ResetPassword = () => {
   };
   useEffect(() => {
     if (success) {
-      router.push('/Login');
+      router.push('/login');
     }
   }, [success]);
  
@@ -238,7 +238,7 @@ const ResetPassword = () => {
 
           <h3 className='ml-9 mt-4 '>
             Already have an account?
-            <Link href='/Login'>
+            <Link href='/login'>
               <span
                 style={{
                   color: '#F9342E',

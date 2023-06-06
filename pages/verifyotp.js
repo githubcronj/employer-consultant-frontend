@@ -18,7 +18,7 @@ const Verifyotp = () => {
   console.log(data);
   useEffect(() => {
     if (data == 200) {
-      router.push("/Login");
+      router.push("/login");
     }
   }, [data]);
 

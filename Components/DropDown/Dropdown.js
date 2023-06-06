@@ -26,8 +26,7 @@ const Dropdown = () => {
   };
   const handleLogout = async (e) => {
     e.preventDefault();
-    await signOut({ callbackUrl: '/Login' });
-    router.push('/Login');
+    await signOut({ callbackUrl: '/login' });
     localStorage.clear();
   };
   useEffect(() => {
@@ -77,7 +76,7 @@ const Dropdown = () => {
               <Link
                 className='flex flex-row px-4 py-2 text-gray-800 cursor-pointer'
                 onClick={handleLogout}
-                href='/Login'
+                href='/login'
               >
                 <span className='flex-1 text-[#F9342E] '>Logout</span>
               </Link>

@@ -9,7 +9,7 @@ function Layout(props) {
   const { pathname } = router;
 
   const shouldRenderComponents = ![
-    '/Login',
+    '/login',
     '/register',
     '/profile',
     '/forgotPassword',
