@@ -48,7 +48,7 @@ const Profile = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && localStorage.getItem("CurrentUser")) {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
 
       setData(JSON.parse(storedData));
@@ -102,7 +102,7 @@ const Profile = () => {
     e.preventDefault();
     if (isFormValid() && data?.token?.accessToken) {
       dispatch(profileSaveRequest(formValues));
-      console.log(dispatch(profileSaveRequest(formValues)))
+      console.log(dispatch(profileSaveRequest(formValues)));
       const initialFormValues = {
         companyName: "",
         industryType: "",

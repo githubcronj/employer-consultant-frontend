@@ -9,8 +9,8 @@ import InsourceConsultantModal from "./insourceConsultantModal";
 const ViewConsultantDetail = () => {
   return (
     <>
-      <Box sx={{ my: 3, backgroundColor:'#ffffff' }}>
-        <Box sx={{ display:{sm:'flex'}, justifyContent: "space-between", px:2,py:2}}>
+      <Box sx={{ my: 3, backgroundColor:"#ffffff" }}>
+        <Box sx={{ display:{sm:"flex"}, justifyContent: "space-between", px:2,py:2}}>
           <Box sx={{ display: "flex", alignItems: "center", gap:{sm:4},gap:2 }}>
             <Image
               src='/Assets/backbtn.svg'
@@ -21,12 +21,12 @@ const ViewConsultantDetail = () => {
             />
             <Typography
               variant='h5'
-              sx={{ color: "#1E0F3B", fontSize: {sm:"26px"},fontSize:'20px', fontWeight: "bold" }}
+              sx={{ color: "#1E0F3B", fontSize: {sm:"26px"},fontSize:"20px", fontWeight: "bold" }}
             >
               UX Designer
             </Typography>
           </Box>
-          <Box sx={{ display: "flex",justifyContent:{sm:'center'}, justifyContent:'flex-end', gap: 5 }}>
+          <Box sx={{ display: "flex",justifyContent:{sm:"center"}, justifyContent:"flex-end", gap: 5 }}>
             <InsourceConsultantModal/>
             <AddConsultantModal/>
           </Box>

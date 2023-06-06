@@ -1,7 +1,7 @@
-import React from 'react';
-import BellIcon from 'public/Assets/bell.svg';
-import Dropdown from 'Components/DropDown/Dropdown';
-import { SideBar } from 'Components/Sidebar/sideBar';
+import React from "react";
+import BellIcon from "public/Assets/bell.svg";
+import Dropdown from "Components/DropDown/Dropdown";
+import { SideBar } from "Components/Sidebar/sideBar";
 
 export const Navbar = () => {
   return (

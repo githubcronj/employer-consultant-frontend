@@ -33,12 +33,12 @@ const EditJobPost = () => {
   const response = useSelector(
     (state) => state?.getjobReducer?.CurrentUser?.data
   );
-  console.log('responsee',response)
+  console.log("responsee",response);
 
   let finaldata = response?.filter((x, y) => {
     return id == x?._id;
   });
-  console.log('fff',finaldata)
+  console.log("fff",finaldata);
 
 
   const [errors, setErrors] = useState({});
@@ -109,7 +109,7 @@ const EditJobPost = () => {
   //     });
   //   }
   // }, []);
-//   console.log(editJobPostData);
+  //   console.log(editJobPostData);
   
 
   const renderErrorMessage = (fieldName) => {
@@ -186,7 +186,7 @@ const EditJobPost = () => {
   const handleSave = (e) => {
     e.preventDefault();
     if (isFormValid() && data?.token?.accessToken) {
-        dispatch(submitJobFormData(editJobPostData,data,parsedState[0]._id));
+      dispatch(submitJobFormData(editJobPostData,data,parsedState[0]._id));
       const initialJobPostData = {
         jobTitle: "",
         experience: "",
@@ -211,13 +211,13 @@ const EditJobPost = () => {
         <div className='md:flex justify-between items-center mx-5 sm:mx-9 py-1'>
           <div className='my-3 flex gap-6'>
             {/* <Link href={`/viewjobpost/${parsedState[0]._id}`}> */}
-              <Image
-                src='/Assets/backbtn.svg'
-                alt='back button'
-                width={35}
-                height={35}
-                className='cursor-pointer'
-              />
+            <Image
+              src='/Assets/backbtn.svg'
+              alt='back button'
+              width={35}
+              height={35}
+              className='cursor-pointer'
+            />
             {/* </Link> */}
             <p className='text-lg sm:text-2xl font-bold'>Edit Job Post</p>
           </div>

@@ -1,20 +1,20 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
-import * as types from '../type/fbType';
-import axios from 'axios';
-import { makeApiRequest } from '../../utils/api';
-import { toast } from 'react-toastify';
+import { takeLatest, call, put } from "redux-saga/effects";
+import * as types from "../type/fbType";
+import axios from "axios";
+import { makeApiRequest } from "../../utils/api";
+import { toast } from "react-toastify";
 
 function* facebookSaga() {
-  yield takeLatest('FACEBOOK_LOGIN', function* () {
+  yield takeLatest("FACEBOOK_LOGIN", function* () {
     window.open(
       `${process.env.NEXT_PUBLIC_BASE_URL}/facebook/callback`,
-      '_self'
+      "_self"
     );
   });
 }
 
 function* facebookLoginRedirectSaga() {
-  yield takeLatest('FACEBOOK_LOGIN_REDIRECT', function* () {
+  yield takeLatest("FACEBOOK_LOGIN_REDIRECT", function* () {
     try {
       const url = `${process.env.NEXT_PUBLIC_BASE_URL}/login/success`;
       const response = yield call(axios.get, url, { withCredentials: true });
@@ -23,7 +23,7 @@ function* facebookLoginRedirectSaga() {
         payload: response.data.user,
       });
     } catch (error) {
-      yield call(toast.error, 'Something went wrong');
+      yield call(toast.error, "Something went wrong");
     } finally {
     }
   });

@@ -47,7 +47,7 @@ const ViewDetails = () => {
                 <Image src={resume} alt="resume" width={485} height={683} />
               </Grid>
               <Grid item xs={4}>
-               <ProjectType/>
+                <ProjectType/>
               </Grid>
             </Grid>
           </Box>

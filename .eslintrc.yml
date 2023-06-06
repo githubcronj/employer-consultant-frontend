@@ -1,0 +1,29 @@
+# .eslintrc.yml
+
+root: true
+
+env:
+  browser: true
+  node: true
+  es2021: true
+
+parserOptions:
+  ecmaVersion: 2021
+  sourceType: module
+
+extends:
+  - next/core-web-vitals
+  - eslint:recommended
+
+rules:
+  # Customize your ESLint rules here
+  indent:
+    - 2
+    - 2 # Use 2 spaces for indentation
+  quotes:
+    - 2
+    - "double" # Use double quotes for strings
+  semi:
+    - 2
+    - "always" # Require semicolons at the end of statements
+  react/react-in-jsx-scope: 0 # Disable the rule for React import in Next.js

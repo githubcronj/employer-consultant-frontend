@@ -1,6 +1,6 @@
-import { Box, Button, Grid, Modal, TextField, Typography } from '@mui/material';
-import Image from 'next/image';
-import React from 'react';
+import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
+import Image from "next/image";
+import React from "react";
 
 const AddConsultantModal = () => {
   const [open, setOpen] = React.useState(false);
@@ -22,27 +22,27 @@ const AddConsultantModal = () => {
         onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
-        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Box
           sx={{
-            backgroundColor: '#ffffff',
-            width: { lg: '50%', sm: '68%', xs: '85%' },
-            border: '0px solid #fffff',
+            backgroundColor: "#ffffff",
+            width: { lg: "50%", sm: "68%", xs: "85%" },
+            border: "0px solid #fffff",
             py: 4,
-            borderRadius: '10px',
+            borderRadius: "10px",
           }}
         >
           <Typography
-            sx={{ fontSize: '26px', fontWeight: '700', pl: 2, pb: 2 }}
+            sx={{ fontSize: "26px", fontWeight: "700", pl: 2, pb: 2 }}
           >
             Add Consultant
           </Typography>
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              borderTop: '1px solid #90889E',
+              display: "flex",
+              justifyContent: "center",
+              borderTop: "1px solid #90889E",
               pt: 4,
             }}
           >
@@ -50,7 +50,7 @@ const AddConsultantModal = () => {
               id='outlined-basic'
               label='Consultant name or email'
               variant='outlined'
-              sx={{ width: '91%' }}
+              sx={{ width: "91%" }}
             />
           </Box>
           <Grid
@@ -67,13 +67,13 @@ const AddConsultantModal = () => {
                 variant='outlined'
                 sx={{ px: 3, py: 2 }}
                 style={{
-                  color: '#90889E',
-                  width: '100%',
+                  color: "#90889E",
+                  width: "100%",
                   // width: { lg: '19%', sm: '22%', xs: '90%' },
-                  borderRadius: '16px',
-                  borderColor: '#90889E',
-                  fontWeight: '600',
-                  fontSize: '16px',
+                  borderRadius: "16px",
+                  borderColor: "#90889E",
+                  fontWeight: "600",
+                  fontSize: "16px",
                 }}
                 onClick={handleClose}
               >
@@ -86,12 +86,12 @@ const AddConsultantModal = () => {
                 variant='contained'
                 sx={{ px: 3, py: 2 }}
                 style={{
-                  backgroundColor: '#1976D2',
-                  width: '100%',
+                  backgroundColor: "#1976D2",
+                  width: "100%",
                   // width: { lg: '19%', sm: '22%', xs: '90%' },
-                  borderRadius: '16px',
-                  fontWeight: '600',
-                  fontSize: '16px',
+                  borderRadius: "16px",
+                  fontWeight: "600",
+                  fontSize: "16px",
                 }}
               >
                 Add

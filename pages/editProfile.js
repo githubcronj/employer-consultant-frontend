@@ -82,7 +82,7 @@ const EditProfile = () => {
   console.log("formmm", formValues);
   const [errors, setErrors] = useState({});
  
-  console.log('datttt',data)
+  console.log("datttt",data);
  
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
@@ -136,7 +136,7 @@ const EditProfile = () => {
 
     return Object.keys(errors).length === 0;
   };
-console.log('formvalues',formValues)
+  console.log("formvalues",formValues);
   const handleSave = (e) => {
     e.preventDefault();
     if (isFormValid() && data?.token?.accessToken) {

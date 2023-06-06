@@ -7,15 +7,15 @@ const INITIAL_STATE = {
 };
 export function facebookReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case types.FACEBOOK_LOGIN_SUCCESS:
-      return {
-        ...state,
-        data: action.payload,
-        isLoggedIn: true,
-        isLoggedOut: false,
-      };
+  case types.FACEBOOK_LOGIN_SUCCESS:
+    return {
+      ...state,
+      data: action.payload,
+      isLoggedIn: true,
+      isLoggedOut: false,
+    };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 }

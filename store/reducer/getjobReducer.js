@@ -7,22 +7,22 @@ const INITIAL_STATE = {
 export function getjobReducer(state = INITIAL_STATE, action) {
 
   switch (action.type) {
-    case types.GET_JOB_SUCCESS:
-      return {
-        ...state,
-        CurrentUser: action.payload,
-        isLoggedIn: true,
-        isLoggedOut: false,
-      };
-    case types.GET_JOB_ERROR:
-      return {
-        ...state,
-        CurrentUser: null,
-        isLoggedIn: false,
-        isLoggedOut: false,
-      };
+  case types.GET_JOB_SUCCESS:
+    return {
+      ...state,
+      CurrentUser: action.payload,
+      isLoggedIn: true,
+      isLoggedOut: false,
+    };
+  case types.GET_JOB_ERROR:
+    return {
+      ...state,
+      CurrentUser: null,
+      isLoggedIn: false,
+      isLoggedOut: false,
+    };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 }

@@ -1,8 +1,8 @@
 import {RESUME_DATA} from "../type/resumeDataFillingType";
 
 export const resumeDataFillingAction = (resumeData) => {
-    return{
+  return{
     type: RESUME_DATA,
     payload: resumeData,
-}
   };
+};

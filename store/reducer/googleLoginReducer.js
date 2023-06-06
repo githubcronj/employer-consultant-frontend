@@ -1,4 +1,4 @@
-import * as types from '../type/logintype';
+import * as types from "../type/logintype";
 
 const INITIAL_STATE = {
   CurrentUser: null,
@@ -7,22 +7,22 @@ const INITIAL_STATE = {
  
 };
 export function LoginReducer(state = INITIAL_STATE, action) {
-    switch (action.type) {
+  switch (action.type) {
     
-        //google login
+  //google login
      
   
-      case types.GOOGLE_LOGIN_SUCCESS:
-        return {
-          ...state,
-          data: action.payload,
-          isLoggedIn: true,
-          isLoggedOut: false,
+  case types.GOOGLE_LOGIN_SUCCESS:
+    return {
+      ...state,
+      data: action.payload,
+      isLoggedIn: true,
+      isLoggedOut: false,
          
-        };
+    };
      
       
-      default:
-        return state;
-    }
+  default:
+    return state;
   }
+}

@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useRef } from 'react';
+import React, { useState } from "react";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useRef } from "react";
 
 const ResumeUpload = () => {
   const router = useRouter();
-  const [uploadedFile, setUploadedFile] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [uploadedFile, setUploadedFile] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const fileInputRef = useRef(null);
 
   const navigateToNext = () => {
     // router.push('/setup-details');
-    router.push('/resume-templates');
+    router.push("/resume-templates");
   };
   const navigateToJsonPage = () => {
-    router.push('/resume-json');
+    router.push("/resume-json");
   };
 
   const handleFileUpload = () => {
@@ -22,13 +22,13 @@ const ResumeUpload = () => {
     if (file) {
       // Validate file type
       const allowedTypes = [
-        'application/pdf',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'application/msword',
+        "application/pdf",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/msword",
       ];
       if (!allowedTypes.includes(file.type)) {
         setErrorMessage(
-          'Invalid file type. Only PDF, DOCX, and DOC files are allowed.'
+          "Invalid file type. Only PDF, DOCX, and DOC files are allowed."
         );
         return;
       }
@@ -36,27 +36,27 @@ const ResumeUpload = () => {
       // Validate file size
       const maxSize = 10 * 1024 * 1024; // 10 MB
       if (file.size > maxSize) {
-        setErrorMessage('File size exceeds the limit of 10 MB.');
+        setErrorMessage("File size exceeds the limit of 10 MB.");
         return;
       }
 
       setUploadedFile(file);
-      setErrorMessage(''); // Reset the error message
+      setErrorMessage(""); // Reset the error message
     }
   };
   const handleRemoveFile = (event) => {
     setUploadedFile(null);
-    setErrorMessage('');
+    setErrorMessage("");
 
     // Clear the file input value
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
   const handleDragOver = (event) => {
     event.preventDefault();
     event.stopPropagation(); // Prevents browser from opening the file
-    event.dataTransfer.dropEffect = 'copy';
+    event.dataTransfer.dropEffect = "copy";
   };
 
   const handleDrop = (event) => {
@@ -64,7 +64,7 @@ const ResumeUpload = () => {
     event.stopPropagation(); // Prevents browser from opening the file
     const file = event.dataTransfer.files[0];
     setUploadedFile(file);
-    setErrorMessage('');
+    setErrorMessage("");
   };
 
   return (
