@@ -37,6 +37,12 @@
     "validator": "^13.9.0",
     "yup": "^1.1.1"
   },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -44,7 +50,12 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "npm run lint"
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{json,md}": [
+      "prettier --write",
+      "git add"
     ]
   },
   "devDependencies": {
