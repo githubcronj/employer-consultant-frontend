@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { useState } from 'react';
+import Link from "next/link";
+import { useState } from "react";
 
 const TemplatePreview = ({ template }) => {
   return (
@@ -75,11 +75,11 @@ const TemplateList = () => {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
 
   const templates = [
-    { id: 1, name: 'Template 1', description: 'Template 1 description' },
-    { id: 2, name: 'Template 2', description: 'Template 2 description' },
-    { id: 3, name: 'Template 3', description: 'Template 3 description' },
-    { id: 4, name: 'Template 4', description: 'Template 4 description' },
-    { id: 5, name: 'Template 5', description: 'Template 5 description' },
+    { id: 1, name: "Template 1", description: "Template 1 description" },
+    { id: 2, name: "Template 2", description: "Template 2 description" },
+    { id: 3, name: "Template 3", description: "Template 3 description" },
+    { id: 4, name: "Template 4", description: "Template 4 description" },
+    { id: 5, name: "Template 5", description: "Template 5 description" },
   ];
 
   const handleTemplateSelect = (template) => {

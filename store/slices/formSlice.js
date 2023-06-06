@@ -1,31 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  name: '',
-  email: '',
-  phoneNo: '',
-  gender: '',
-  dateOfBirth: '',
-  location: '',
-  jobRole: '',
-  highestEducationLevel: '',
-  institutionName: '',
-  degree: '',
-  yearOfPassing: '',
-  companyName: '',
-  jobPosition: '',
-  employementType: '',
-  dateofJoined: '',
-  skills: '',
-  projectName: '',
-  projectUrl: '',
-  startAndEndDate: '',
-  projectDescription: '',
-  technologyEnvironment: '',
+  name: "",
+  email: "",
+  phoneNo: "",
+  gender: "",
+  dateOfBirth: "",
+  location: "",
+  jobRole: "",
+  highestEducationLevel: "",
+  institutionName: "",
+  degree: "",
+  yearOfPassing: "",
+  companyName: "",
+  jobPosition: "",
+  employementType: "",
+  dateofJoined: "",
+  skills: "",
+  projectName: "",
+  projectUrl: "",
+  startAndEndDate: "",
+  projectDescription: "",
+  technologyEnvironment: "",
 };
 
 const formSlice = createSlice({
-  name: 'form',
+  name: "form",
   initialState,
   reducers: {
     updateField: (state, action) => {
@@ -34,7 +34,7 @@ const formSlice = createSlice({
     },
     clearFields: (state) => {
       Object.keys(state).forEach((key) => {
-        state[key] = '';
+        state[key] = "";
       });
     },
   },

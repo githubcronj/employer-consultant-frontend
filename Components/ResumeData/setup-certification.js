@@ -11,7 +11,7 @@ const SetupCertificate = ({
 }) => {
   function CertificateHandleChange (e) {
     tempCertificate(e);
-  };
+  }
   const addData = (section) => {
     handleCertificateAdd(section);
   };

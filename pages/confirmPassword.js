@@ -44,26 +44,24 @@ const ConfirmPassword = () => {
     }
   };
   const NewPasswordclick = () => {
-    setDisplayNewPassword(
-      displayNewPassword == "password" ? "text" : "password"
-    );
+    setDisplayNewPassword(displayNewPassword == "password" ? "text" : "password");
     setIconsetTwo(!iconsettwo);
   };
   const passwordclick = () => {
     setDisplayPassword(displayPassword == "password" ? "text" : "password");
     setIconsetOne(!iconsetone);
   };
-  const emailclicked = (e) => {
+  const emailclicked = e => {
     setEmail(e.target.value);
   };
   const cofirmPasswordClicked = () => {
     let isEmailValid = validator.isEmail(email);
 
-    let isPasswordValid =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(password);
+    let isPasswordValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(password);
 
-    let isNewPasswordValid =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(newPassword);
+    let isNewPasswordValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(
+      newPassword
+    );
 
     if (!isEmailValid) {
       setEmailErr("Please enter a valid email");
@@ -86,7 +84,7 @@ const ConfirmPassword = () => {
     if (isEmailValid && isPasswordValid && isNewPasswordValid) {
       const payload = {
         oldPassword: password,
-        newPassword: newPassword,
+        newPassword: newPassword
       };
       dispatch(changePassword(payload));
     }
@@ -122,7 +120,7 @@ const ConfirmPassword = () => {
                 borderRadius: "20px",
                 backgroundColor: "#EEEFEF",
                 width: "412px",
-                height: "60px",
+                height: "60px"
               }}
               className="flex  rounded-20 transition-all duration-300 ml-8 gap-3  border-radius-2 pl-1"
             >
@@ -133,14 +131,14 @@ const ConfirmPassword = () => {
                   padding: alignment === "web" ? "12px" : "12px",
                   fontWeight: alignment === "web" ? "700" : "400",
                   margin: "5px",
-                  width: "140px",
+                  width: "140px"
                 }}
                 className={`${
                   alignment === "web" ? "bg-primary" : "bg-white"
                 } flex-1 py-2 px-4 rounded-20 transition-all duration-300 ${
                   alignment === "web" ? "bg-primary" : "bg-white border-primary"
                 }  sm:w-auto md:w-1/4 lg:w-1/5`}
-                onClick={(e) => handleChange(e, "web")}
+                onClick={e => handleChange(e, "web")}
               >
                 Employer
               </button>
@@ -148,20 +146,17 @@ const ConfirmPassword = () => {
                 style={{
                   padding: alignment === "android" ? "12px" : "12px",
                   borderRadius: "15px",
-                  backgroundColor:
-                    alignment === "android" ? "#ffffff" : "#EEEFEF",
+                  backgroundColor: alignment === "android" ? "#ffffff" : "#EEEFEF",
                   fontWeight: alignment === "android" ? "700" : "400",
                   margin: "5px",
-                  width: "140px",
+                  width: "140px"
                 }}
                 className={`${
                   alignment === "android" ? "bg-primary " : "bg-white"
                 } flex-1 py-2 px-4 rounded-20 transition-all duration-300 ${
-                  alignment === "android"
-                    ? "bg-primary"
-                    : "bg-white border-primary"
+                  alignment === "android" ? "bg-primary" : "bg-white border-primary"
                 }  sm:w-auto md:w-1/4 lg:w-1/5`}
-                onClick={(e) => handleChange(e, "android")}
+                onClick={e => handleChange(e, "android")}
               >
                 Consultant
               </button>
@@ -182,14 +177,11 @@ const ConfirmPassword = () => {
               lefticon={lock.src}
               righticon={iconsetone ? eye.src : closedeye.src}
               showpassword={passwordclick}
-              onchange={(e) => setPassword(e.target.value)}
+              onchange={e => setPassword(e.target.value)}
               passwordstyle={passwordErr ? true : false}
             />
             {passwordErr && (
-              <h6
-                variant="h6"
-                className="text-red-500 absolute top-[134px] left-[40px] w-[620px]"
-              >
+              <h6 variant="h6" className="text-red-500 absolute top-[134px] left-[40px] w-[620px]">
                 {passwordErr}
               </h6>
             )}
@@ -200,14 +192,11 @@ const ConfirmPassword = () => {
               lefticon={lock.src}
               righticon={iconsettwo ? eye.src : closedeye.src}
               showpassword={NewPasswordclick}
-              onchange={(e) => setNewPassword(e.target.value)}
+              onchange={e => setNewPassword(e.target.value)}
               newpasswordstyle={newPasswordErr ? true : false}
             />
             {newPasswordErr && (
-              <h6
-                variant="h6"
-                className="text-red-500 absolute top-[214px] left-[40px] w-[620px]"
-              >
+              <h6 variant="h6" className="text-red-500 absolute top-[214px] left-[40px] w-[620px]">
                 {newPasswordErr}
               </h6>
             )}

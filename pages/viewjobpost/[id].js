@@ -74,15 +74,15 @@ const viewProfile = () => {
   };
   return (
     <div
-      className={`w-[100%] xl:w-[1040px] lg:w-[1000px] sm:w-[720px] md:w-[900px]`}
+      className={"w-[100%] xl:w-[1040px] lg:w-[1000px] sm:w-[720px] md:w-[900px]"}
     >
       {popup && <DeletePopUP id={id} setPopup={setPopup} />}
 
       <div
         className={`bg-[#2B373C1C] 
        xl:py-2 lg:py-2 md:py-2 sm:py-2 py-2 xl:px-4 md:px-4 sm:px-4 lg:px-4 ${
-         flexing ? " ml-1" : ""
-       } 
+    flexing ? " ml-1" : ""
+    } 
        `}
       >
         <div
@@ -133,7 +133,7 @@ const viewProfile = () => {
                   onClick={deleteClicked}
                   className="w-[125px] h-[51px] mr-3 px-5 sm:mt-[10px] bg-[#F9342E] text-white border rounded-[13px] flex items-center"
                 >
-                 <img
+                  <img
                     src="/Assets/whiteDeleteIcon.svg"
                     alt="edit"
                     className="mr-2"

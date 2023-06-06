@@ -78,7 +78,7 @@ const deletejobModal = ({ id, setPopup }) => {
                   <p>Are you sure you want to delete job post</p>
                 </div>
                 <div
-                  className={`flex mb-7`}
+                  className={"flex mb-7"}
                   style={{ flexDirection: flexing ? "column" : "" }}
                 >
                   <img

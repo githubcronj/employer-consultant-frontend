@@ -18,8 +18,8 @@ const SearchJobInput = ({searchOnChangeHandler,searchSubmitHandler}) => {
       sx={{ p: "1rem", display: "flex", alignItems: "center",width:"100%",flexDirection:{xs:"column",sm:"row"} }}
     >
       <InputBase
-      name="jobTitle"
-      onChange={searchOnChangeHandler}
+        name="jobTitle"
+        onChange={searchOnChangeHandler}
         sx={{
           flex: 1,
           alignItems: "center",
@@ -38,8 +38,8 @@ const SearchJobInput = ({searchOnChangeHandler,searchSubmitHandler}) => {
       <Divider sx={{ height: "7vh" }} orientation="vertical" />
       
       <InputBase
-      name="location"
-      onChange={searchOnChangeHandler}
+        name="location"
+        onChange={searchOnChangeHandler}
         sx={{
           flex: 1,
           alignItems: "center",
@@ -62,7 +62,7 @@ const SearchJobInput = ({searchOnChangeHandler,searchSubmitHandler}) => {
         }
         endAdornment={
         
-            <Button onClick={searchSubmitHandler}  style={{background:"red",padding:".55rem 2rem",color:"white",borderRadius:"10px"}}>Search</Button>
+          <Button onClick={searchSubmitHandler}  style={{background:"red",padding:".55rem 2rem",color:"white",borderRadius:"10px"}}>Search</Button>
         
         }
       />

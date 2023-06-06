@@ -30,7 +30,7 @@ const NotificationSideBar = () => {
           >
             <span>
             Notifications{" "}
-            <span style={{background:"#F9F6EE",fontWeight:400,fontSize:"14px",color:"#F9342E",padding:"0 5px"}}>3</span>
+              <span style={{background:"#F9F6EE",fontWeight:400,fontSize:"14px",color:"#F9342E",padding:"0 5px"}}>3</span>
             </span>
             <ArrowForwardIosIcon
               fontSize="small"

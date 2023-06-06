@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { updateField, clearFields } from 'store/slices/formSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { updateField, clearFields } from "store/slices/formSlice";
 
 const FormTable = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const FormTable = () => {
               <input
                 type='text'
                 value={formFields.name}
-                onChange={(e) => handleInputChange('name', e.target.value)}
+                onChange={(e) => handleInputChange("name", e.target.value)}
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
             </td>
@@ -37,7 +37,7 @@ const FormTable = () => {
               <input
                 type='text'
                 value={formFields.email}
-                onChange={(e) => handleInputChange('email', e.target.value)}
+                onChange={(e) => handleInputChange("email", e.target.value)}
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
             </td>
@@ -49,7 +49,7 @@ const FormTable = () => {
               <input
                 type='text'
                 value={formFields.phoneNo}
-                onChange={(e) => handleInputChange('phoneNo', e.target.value)}
+                onChange={(e) => handleInputChange("phoneNo", e.target.value)}
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
             </td>
@@ -61,7 +61,7 @@ const FormTable = () => {
               <input
                 type='text'
                 value={formFields.gender}
-                onChange={(e) => handleInputChange('gender', e.target.value)}
+                onChange={(e) => handleInputChange("gender", e.target.value)}
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
             </td>
@@ -76,7 +76,7 @@ const FormTable = () => {
                 type='text'
                 value={formFields.dateOfBirth}
                 onChange={(e) =>
-                  handleInputChange('dateOfBirth', e.target.value)
+                  handleInputChange("dateOfBirth", e.target.value)
                 }
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
@@ -89,7 +89,7 @@ const FormTable = () => {
               <input
                 type='text'
                 value={formFields.location}
-                onChange={(e) => handleInputChange('location', e.target.value)}
+                onChange={(e) => handleInputChange("location", e.target.value)}
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
             </td>
@@ -104,7 +104,7 @@ const FormTable = () => {
                 type='text'
                 value={formFields.highestEducationLevel}
                 onChange={(e) =>
-                  handleInputChange('highestEducationLevel', e.target.value)
+                  handleInputChange("highestEducationLevel", e.target.value)
                 }
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
@@ -120,7 +120,7 @@ const FormTable = () => {
                 type='text'
                 value={formFields.institutionName}
                 onChange={(e) =>
-                  handleInputChange('institutionName', e.target.value)
+                  handleInputChange("institutionName", e.target.value)
                 }
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
@@ -133,7 +133,7 @@ const FormTable = () => {
               <input
                 type='text'
                 value={formFields.degree}
-                onChange={(e) => handleInputChange('degree', e.target.value)}
+                onChange={(e) => handleInputChange("degree", e.target.value)}
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
             </td>
@@ -148,7 +148,7 @@ const FormTable = () => {
                 type='text'
                 value={formFields.yearOfPassing}
                 onChange={(e) =>
-                  handleInputChange('yearOfPassing', e.target.value)
+                  handleInputChange("yearOfPassing", e.target.value)
                 }
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
@@ -164,7 +164,7 @@ const FormTable = () => {
                 type='text'
                 value={formFields.companyName}
                 onChange={(e) =>
-                  handleInputChange('companyName', e.target.value)
+                  handleInputChange("companyName", e.target.value)
                 }
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
@@ -180,7 +180,7 @@ const FormTable = () => {
                 type='text'
                 value={formFields.jobPosition}
                 onChange={(e) =>
-                  handleInputChange('jobPosition', e.target.value)
+                  handleInputChange("jobPosition", e.target.value)
                 }
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
@@ -196,7 +196,7 @@ const FormTable = () => {
                 type='text'
                 value={formFields.technologyEnvironment}
                 onChange={(e) =>
-                  handleInputChange('technologyEnvironment', e.target.value)
+                  handleInputChange("technologyEnvironment", e.target.value)
                 }
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
@@ -212,7 +212,7 @@ const FormTable = () => {
                 type='text'
                 value={formFields.employementType}
                 onChange={(e) =>
-                  handleInputChange('employementType', e.target.value)
+                  handleInputChange("employementType", e.target.value)
                 }
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
@@ -228,7 +228,7 @@ const FormTable = () => {
                 type='text'
                 value={formFields.dateofJoined}
                 onChange={(e) =>
-                  handleInputChange('dateofJoined', e.target.value)
+                  handleInputChange("dateofJoined", e.target.value)
                 }
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
@@ -241,7 +241,7 @@ const FormTable = () => {
               <input
                 type='text'
                 value={formFields.skills}
-                onChange={(e) => handleInputChange('skills', e.target.value)}
+                onChange={(e) => handleInputChange("skills", e.target.value)}
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
             </td>
@@ -256,7 +256,7 @@ const FormTable = () => {
                 type='text'
                 value={formFields.projectName}
                 onChange={(e) =>
-                  handleInputChange('projectName', e.target.value)
+                  handleInputChange("projectName", e.target.value)
                 }
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
@@ -270,7 +270,7 @@ const FormTable = () => {
                 type='text'
                 value={formFields.projectUrl}
                 onChange={(e) =>
-                  handleInputChange('projectUrl', e.target.value)
+                  handleInputChange("projectUrl", e.target.value)
                 }
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
@@ -286,7 +286,7 @@ const FormTable = () => {
                 type='text'
                 value={formFields.startAndEndDate}
                 onChange={(e) =>
-                  handleInputChange('startAndEndDate', e.target.value)
+                  handleInputChange("startAndEndDate", e.target.value)
                 }
                 className='focus:outline-none focus:border-teal-500 w-full '
               />
@@ -302,7 +302,7 @@ const FormTable = () => {
                 type='text'
                 value={formFields.projectDescription}
                 onChange={(e) =>
-                  handleInputChange('projectDescription', e.target.value)
+                  handleInputChange("projectDescription", e.target.value)
                 }
                 className='focus:outline-none focus:border-teal-500 w-full '
               />

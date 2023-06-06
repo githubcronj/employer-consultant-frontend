@@ -5,10 +5,7 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchJobFormData,
-  submitJobFormData,
-} from "store/action/editJobPostAction";
+import { fetchJobFormData, submitJobFormData } from "store/action/editJobPostAction";
 import { GET_JOB_REQUEST } from "store/type/getjobType";
 
 const EditJobPost = () => {
@@ -32,9 +29,7 @@ const EditJobPost = () => {
   useEffect(() => {
     dispatch({ type: GET_JOB_REQUEST, payload });
   }, []);
-  const response = useSelector(
-    (state) => state?.getjobReducer?.CurrentUser?.data
-  );
+  const response = useSelector(state => state?.getjobReducer?.CurrentUser?.data);
   console.log("responsee", response);
 
   let finaldata = response?.filter((x, y) => {
@@ -56,7 +51,7 @@ const EditJobPost = () => {
     maxSalary: "",
     description: "",
     email: "",
-    phoneNumber: "",
+    phoneNumber: ""
   });
 
   const getToken = () => {
@@ -77,9 +72,9 @@ const EditJobPost = () => {
   }, []);
   useEffect(() => {
     if (data && data.token && data.token.accessToken) {
-      setEditJobPostData((prevValues) => ({
+      setEditJobPostData(prevValues => ({
         ...prevValues,
-        accessToken: data.token.accessToken,
+        accessToken: data.token.accessToken
       }));
     }
   }, [data]);
@@ -112,17 +107,17 @@ const EditJobPost = () => {
   // }, []);
   //   console.log(editJobPostData);
 
-  const renderErrorMessage = (fieldName) => {
+  const renderErrorMessage = fieldName => {
     if (errors[fieldName]) {
       return <p className="text-red-500 text-xs">{errors[fieldName]}</p>;
     }
     return null;
   };
 
-  const handleSalaryButton = (e) => {
+  const handleSalaryButton = e => {
     setSelectedButton(e.target.id);
   };
-  const handleDateChange = (date) => {
+  const handleDateChange = date => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
@@ -130,26 +125,24 @@ const EditJobPost = () => {
     // Format the date as "yyyy-mm-dd"
     const formattedDate = `${year}-${month}-${day}`;
 
-    setEditJobPostData((prevValues) => ({
+    setEditJobPostData(prevValues => ({
       ...prevValues,
-      deadline: formattedDate, // Update the companyFoundedDate field in formValues with the formatted date
+      deadline: formattedDate // Update the companyFoundedDate field in formValues with the formatted date
     }));
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { id, value } = e.target;
-    setEditJobPostData((prevValues) => ({
+    setEditJobPostData(prevValues => ({
       ...prevValues,
-      [id]: value,
+      [id]: value
     }));
     setIsFieldChanged(true);
     if (id === "email") {
-      const isValidEmail = /^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(
-        value
-      );
-      setErrors((prevErrors) => ({
+      const isValidEmail = /^[\w+.-]+@[a-zA-Z0-9.-]+\.[a-zA-z]{2,3}$/.test(value);
+      setErrors(prevErrors => ({
         ...prevErrors,
-        email: isValidEmail ? "" : "Invalid email format",
+        email: isValidEmail ? "" : "Invalid email format"
       }));
     }
   };
@@ -163,11 +156,11 @@ const EditJobPost = () => {
       "maxSalary",
       "description",
       "email",
-      "phoneNumber",
+      "phoneNumber"
     ];
     const errors = {};
 
-    requiredFields.forEach((field) => {
+    requiredFields.forEach(field => {
       if (editJobPostData[field] === "") {
         errors[field] = "This field is required";
       }
@@ -183,7 +176,7 @@ const EditJobPost = () => {
 
     return Object.keys(errors).length === 0;
   };
-  const handleSave = (e) => {
+  const handleSave = e => {
     e.preventDefault();
     if (isFormValid() && data?.token?.accessToken) {
       dispatch(submitJobFormData(editJobPostData, data, parsedState[0]._id));
@@ -196,7 +189,7 @@ const EditJobPost = () => {
         maxSalary: "",
         description: "",
         email: "",
-        phoneNumber: "",
+        phoneNumber: ""
       };
       setEditJobPostData(initialJobPostData);
       console.log(editJobPostData);
@@ -275,7 +268,7 @@ const EditJobPost = () => {
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "95% center",
                 paddingRight: "20px",
-                ...(errors.experience ? { borderColor: "red" } : {}),
+                ...(errors.experience ? { borderColor: "red" } : {})
               }}
               value={editJobPostData.experience}
               onChange={handleChange}
@@ -297,11 +290,7 @@ const EditJobPost = () => {
                 className={`block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
                   errors.deadline ? "border-red-500" : ""
                 }`}
-                selected={
-                  editJobPostData.deadline
-                    ? new Date(editJobPostData.deadline)
-                    : null
-                }
+                selected={editJobPostData.deadline ? new Date(editJobPostData.deadline) : null}
                 onChange={handleDateChange}
               />
               <label
@@ -335,7 +324,7 @@ const EditJobPost = () => {
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "95% center",
                 paddingRight: "20px",
-                ...(errors.jobType ? { borderColor: "red" } : {}),
+                ...(errors.jobType ? { borderColor: "red" } : {})
               }}
               value={editJobPostData.jobType}
               onChange={handleChange}
