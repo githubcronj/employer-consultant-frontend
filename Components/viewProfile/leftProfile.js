@@ -51,7 +51,7 @@ const LeftProfile = () => {
               <p className='font-bold'>{response?.fullName}</p>
               <div className='flex gap-3 pt-0'>
                 <p>{response?.experience?.jobPosition}</p>
-                <p className='font-extrabold'>.</p>
+                <p className='font-extrabold -mt-1'>.</p>
                 <p>Fresher</p>
               </div>
             </div>
