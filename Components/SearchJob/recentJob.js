@@ -21,7 +21,7 @@ const RecentJob = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Grid item xs={1} lg={2}>
+        <Grid item xs={1} lg={2} pr={1}>
           <Image
             src="/Assets/spotify.svg"
             alt="view_img"
@@ -49,7 +49,7 @@ const RecentJob = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Grid item xs={1} lg={2}>
+        <Grid item xs={1} lg={2} pr={1}>
           <Image
             src="/Assets/spotify.svg"
             alt="view_img"
@@ -77,7 +77,7 @@ const RecentJob = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Grid item xs={1} lg={2}>
+        <Grid item xs={1} lg={2} pr={1}>
           <Image
             src="/Assets/spotify.svg"
             alt="view_img"
@@ -105,7 +105,7 @@ const RecentJob = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Grid item xs={1} lg={2}>
+        <Grid item xs={1} lg={2} pr={1}>
           <Image
             src="/Assets/spotify.svg"
             alt="view_img"
@@ -133,7 +133,7 @@ const RecentJob = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Grid item xs={1} lg={2}>
+        <Grid item xs={1} lg={2} pr={1}>
           <Image
             src="/Assets/spotify.svg"
             alt="view_img"

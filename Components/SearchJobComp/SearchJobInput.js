@@ -7,7 +7,7 @@ import suitCase from "../../asset/icons/suitcase.svg";
 import Image from "next/image";
 import locationIcon from "../../asset/icons/location.svg";
 
-const SearchJobInput = ({searchOnChangeHandler,searchSubmitHandler}) => {
+const SearchJobInput = ({handleBox1Click}) => {
   return (
     <Paper
       component="form"
@@ -15,7 +15,7 @@ const SearchJobInput = ({searchOnChangeHandler,searchSubmitHandler}) => {
     >
       <InputBase
       name="jobTitle"
-      onChange={searchOnChangeHandler}
+      onClick={handleBox1Click}
         sx={{
           flex: 1,
           alignItems: "center",
@@ -35,7 +35,7 @@ const SearchJobInput = ({searchOnChangeHandler,searchSubmitHandler}) => {
       
       <InputBase
       name="location"
-      onChange={searchOnChangeHandler}
+      onClick={handleBox1Click}
         sx={{
           flex: 1,
           alignItems: "center",
@@ -58,7 +58,7 @@ const SearchJobInput = ({searchOnChangeHandler,searchSubmitHandler}) => {
         }
         endAdornment={
         
-            <Button onClick={searchSubmitHandler}  style={{background:"red",padding:".55rem 2rem",color:"white",borderRadius:"10px"}}>Search</Button>
+            <Button onClick={handleBox1Click}  style={{background:"red",padding:".55rem 2rem",color:"white",borderRadius:"10px"}}>Search</Button>
         
         }
       />
