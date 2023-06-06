@@ -6,8 +6,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
+    "lint": "next lint",
     "format": "prettier --write ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged && npm run check-eslint"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run lint --fix",
+      "npm run format",
+      "npm run check-eslint"
+    ]
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -37,60 +49,12 @@
     "validator": "^13.9.0",
     "yup": "^1.1.1"
   },
-  "eslintConfig": {
-    "extends": [
-      "next",
-      "next/core-web-vitals",
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended",
-      "prettier",
-      "prettier/@typescript-eslint"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2021,
-      "sourceType": "module"
-    },
-    "rules": {
-      "indent": [
-        "error",
-        2
-      ],
-      "quotes": [
-        "error",
-        "double"
-      ],
-      "semi": [
-        "error",
-        "always"
-      ],
-      "react/react-in-jsx-scope": "off"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "npm run lint --fix",
-      "npm run format",
-      "git add"
-    ]
-  },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
-    "eslint": "^8.42.0",
-    "eslint-config-airbnb": "^19.0.4",
+    "eslint": "8.40.0",
     "eslint-config-next": "13.4.3",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.2",
     "postcss": "^8.4.23",
     "prettier": "^2.8.8",
     "tailwindcss": "^3.3.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }
