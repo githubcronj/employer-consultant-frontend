@@ -11,8 +11,6 @@ const FilterModal = () => {
     setSelectedDate(date);
   };
 
-
-
   return (
     <>
       <button className="m-3" type="button" onClick={() => setShowModal(true)}>
@@ -195,7 +193,9 @@ const FilterModal = () => {
                       selected={selectedDate}
                       onChange={handleDateChange}
                       required
-                      className={"block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"}
+                      className={
+                        "block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      }
                     />
                     <label
                       for="founded"
