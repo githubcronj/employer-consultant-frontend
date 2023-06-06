@@ -40,6 +40,6 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} npm run build
+        run: ${{ steps.detect-package-manager.outputs.runner }} run build
       - name: Lint and analyze code
-        run: ${{ steps.detect-package-manager.outputs.runner }} npm run lint
+        run: ${{ steps.detect-package-manager.outputs.runner }} run lint
