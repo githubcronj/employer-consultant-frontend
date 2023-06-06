@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useEffect } from 'react';
 import { put } from 'redux-saga/effects';
-import { googleLoginRedirectAction } from '../store/action/loginaction';
+import { googleLogin, googleLoginRedirectAction } from '../store/action/loginaction';
 import { Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useSession } from 'next-auth/react';
@@ -25,17 +25,8 @@ const GoogleAuth = () => {
         firstName: nameParts[0],
         lastName: nameParts[1],
       };
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/auth/login/success`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-
+      
+      dispatch(googleLogin(payload))
       router.push('/profile');
     } catch (error) {
       console.log(error);
