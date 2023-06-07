@@ -41,13 +41,13 @@ function* loginSaga(action) {
 function* googleloginSaga(action) {
   try {
     const response = yield call(makeApiRequest, {
-      endpoint: "/auth/google",
-      method: "GET",
+      endpoint: "/auth/login/success",
+      method: "POST",
+      data:JSON.stringify(payload),
     });
 
     if (response.status === 200) {
       yield put({ type: "GOOGLE_LOGIN_SUCCESS", payload: response.data });
-      window.location.href = "/auth/login/success";
     } else {
       yield put({ type: GOOGLE_LOGIN_ERROR, payload: " google Login failed" });
       toast.error(" google Login failed");

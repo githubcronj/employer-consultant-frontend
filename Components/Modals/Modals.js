@@ -6,7 +6,7 @@ const Modal = (props) => {
   const router = useRouter();
   const handleCloseModal = () => {
     setIsOpen(false);
-    router.push("/Login");
+    router.push("/login");
   };
 
   return (

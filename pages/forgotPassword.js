@@ -195,7 +195,7 @@ const ForgotPassword= () => {
 
           <h3 className='ml-9 mt-4 '>
             Already have account?
-            <Link href='/Login'>
+            <Link href='/login'>
               <span
                 style={{
                   color: '#F9342E',

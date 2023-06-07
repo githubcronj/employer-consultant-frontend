@@ -89,7 +89,12 @@ const Login = () => {
   const handleGoogleLogin = async (e) => {
     e.preventDefault();
     const callbackUrl = "/googleAuth";
-    await signIn("google", { role, callbackUrl });
+    try{
+      await signIn("google", { role, callbackUrl });
+    }
+    catch(error){
+    console.log("error")
+    }
   };
   const facebookClick = () => {
     dispatch({ type: facebookLogin });
