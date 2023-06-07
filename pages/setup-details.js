@@ -227,9 +227,7 @@ const Setupdetails = () => {
     });
   };
 
-  const payloadData = {
-    resumeForm,
-  };
+
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
