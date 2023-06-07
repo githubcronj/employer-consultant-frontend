@@ -63,7 +63,7 @@ const SetupExperience = ({
 
             <label
               for="default-checkbox"
-              className="ml-2 text-[#1E0F3B] font-bold dark:text-gray-300"
+              className="ml-2 text-[#1E0F3B] font-bold "
             >
               Fresher
             </label>
@@ -129,7 +129,7 @@ const SetupExperience = ({
                 id="joindate"
                 placeholderText="Date of Joined"
                 required
-                className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 name="tempExp.joindate"
                 selected={experienceDetails?.joindate}
                 onChange={(date) =>

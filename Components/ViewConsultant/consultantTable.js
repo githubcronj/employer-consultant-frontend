@@ -29,19 +29,19 @@ const tableHeading = [
 const ConsultantTable = () => {
   return (
     <>
-      <div className='my-3 relative overflow-x-auto'>
-        <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400 bg-white'>
-          <thead className='text-sm text-white  bg-[#1E0F3B] dark:bg-gray-700 dark:text-gray-400'>
+      <div className="my-3 relative overflow-x-auto">
+        <table className="w-full text-sm text-left text-gray-500  bg-white">
+          <thead className="text-sm text-white  bg-[#1E0F3B]  ">
             <tr>
               {tableHeading.map((heading, index) => (
-                <th key={index} scope='col' className='px-6 py-5'>
+                <th key={index} scope="col" className="px-6 py-5">
                   {heading}
                 </th>
               ))}
-              <th className='text-transparent'>icon</th>
+              <th className="text-transparent">icon</th>
             </tr>
           </thead>
-          <tbody className=' text-black text-md'>
+          <tbody className=" text-black text-md">
             {rows.map((row, index) => (
               <tr
                 key={index}
@@ -52,13 +52,13 @@ const ConsultantTable = () => {
                 }
               >
                 {Object.values(row).map((value, index) => (
-                  <td key={index} className='px-6 py-7'>
+                  <td key={index} className="px-6 py-7">
                     {value}
                   </td>
                 ))}
                 <td>
-                  <Link href='/view-consultant-details/view-details'>
-                    <img src='/Assets/arrow-blue.svg' alt='save' />
+                  <Link href="/view-consultant-details/view-details">
+                    <img src="/Assets/arrow-blue.svg" alt="save" />
                   </Link>
                 </td>
               </tr>

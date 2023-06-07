@@ -48,11 +48,10 @@ const Profile = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && localStorage.getItem("CurrentUser")) {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
 
       setData(JSON.parse(storedData));
-      
     }
   }, []);
   useEffect(() => {
@@ -102,7 +101,7 @@ const Profile = () => {
     e.preventDefault();
     if (isFormValid() && data?.token?.accessToken) {
       dispatch(profileSaveRequest(formValues));
-      console.log(dispatch(profileSaveRequest(formValues)))
+      console.log(dispatch(profileSaveRequest(formValues)));
       const initialFormValues = {
         companyName: "",
         industryType: "",
@@ -113,7 +112,7 @@ const Profile = () => {
         companySize: "",
         companyFoundedDate: "",
         companyLocation: "",
-        accessToken:""
+        accessToken: "",
       };
 
       setFormValues(initialFormValues);
@@ -158,7 +157,10 @@ const Profile = () => {
 
     try {
       const text = await navigator.clipboard.readText();
-      setFormValues((prevValues) => ({ ...prevValues, companyWebsiteUrl: text }));
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        companyWebsiteUrl: text,
+      }));
     } catch (error) {
       console.error("Failed to read clipboard content:", error);
     }
@@ -238,14 +240,14 @@ const Profile = () => {
                 placeholder=" "
                 required
                 style={errors.industryType ? { borderColor: "red" } : {}}
-                className="block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.industryType}
                 onChange={handleChange}
               />
               {renderErrorMessage("industryType")}
               <label
                 for="industryType"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus: peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Industry Type
               </label>
@@ -259,14 +261,14 @@ const Profile = () => {
                 placeholder=" "
                 required
                 style={errors.companyId ? { borderColor: "red" } : {}}
-                className="block py-5 px-4  w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-5 px-4  w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companyId}
                 onChange={handleChange}
               />
               {renderErrorMessage("companyId")}
               <label
                 for="companyId"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus: peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Company ID number
               </label>
@@ -281,13 +283,13 @@ const Profile = () => {
                   required
                   style={errors.companyWebsiteUrl ? { borderColor: "red" } : {}}
                   // className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                  className="block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  className="block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   value={formValues.companyWebsiteUrl}
                   onChange={handleChange}
                 />
                 <label
                   for="companyWebsiteUrl"
-                  className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                  className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus: peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
                 >
                   Company website URL
                 </label>
@@ -308,7 +310,7 @@ const Profile = () => {
                 placeholder=" "
                 required
                 style={errors.email ? { borderColor: "red" } : {}}
-                className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
                   isFieldChanged && errors.email ? "border-red-500" : ""
                 }`}
                 value={formValues.email}
@@ -317,7 +319,7 @@ const Profile = () => {
               {renderErrorMessage("email")}
               <label
                 for="email"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus: peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Email
               </label>
@@ -330,13 +332,13 @@ const Profile = () => {
                 placeholder=" "
                 required
                 style={errors.aboutCompany ? { borderColor: "red" } : {}}
-                className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.aboutCompany}
                 onChange={handleChange}
               />
               <label
                 for="aboutCompany"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus: peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Write about company...
               </label>
@@ -349,14 +351,14 @@ const Profile = () => {
                 placeholder=" "
                 required
                 style={errors.companySize ? { borderColor: "red" } : {}}
-                className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companySize}
                 onChange={handleChange}
               />
               {renderErrorMessage("companySize")}
               <label
                 for="companySize"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus: peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Company Size
               </label>
@@ -368,7 +370,7 @@ const Profile = () => {
                   id="companyFoundedDate"
                   placeholderText=" "
                   required
-                  className={`block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                  className={`block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
                     errors?.companyFoundedDate ? "border-red-600" : ""
                   }`}
                   // selected={formValues.companyFoundedDate}
@@ -377,13 +379,15 @@ const Profile = () => {
                   //   handleChange({ target: { id: "companyFoundedDate", value: date } })
                   // }
                   selected={
-                    formValues.companyFoundedDate ? new Date(formValues.companyFoundedDate) : null
+                    formValues.companyFoundedDate
+                      ? new Date(formValues.companyFoundedDate)
+                      : null
                   }
                   onChange={handleDateChange}
                 />
                 <label
                   for="companyFoundedDate"
-                  className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                  className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus: peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
                 >
                   Founded In{" "}
                 </label>
@@ -391,7 +395,9 @@ const Profile = () => {
                   src="/Assets/calendar.svg"
                   alt="calendar"
                   className="absolute right-2"
-                  onClick={() => document.getElementById("companyFoundedDate").click()}
+                  onClick={() =>
+                    document.getElementById("companyFoundedDate").click()
+                  }
                 />{" "}
               </div>{" "}
               {renderErrorMessage("companyFoundedDate")}{" "}
@@ -405,14 +411,14 @@ const Profile = () => {
                 placeholder=" "
                 required
                 style={errors.companyLocation ? { borderColor: "red" } : {}}
-                className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companyLocation}
                 onChange={handleChange}
               />
               {renderErrorMessage("companyLocation")}
               <label
                 for="companyLocation"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus: peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Company Location
               </label>

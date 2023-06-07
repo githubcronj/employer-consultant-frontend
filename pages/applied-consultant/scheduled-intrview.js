@@ -7,7 +7,6 @@ import ConsultantCard, {
   cardData,
 } from "../../Components/Cards/ConsultantsCard";
 
-
 import Link from "next/link";
 
 import ConfirmationModal from "Components/Modals/ConfirmationModal";
@@ -17,17 +16,13 @@ const ScheduleInterview = () => {
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [scheduledCard, setscheduledCard] = useState([]);
-  const [shortlistMessage, setShortlistMessage] = useState(
-    `Shortlisted.`
-  );
-  const [scheduledMessage, setscheduleMessage] = useState(
-    `Add to schedule.`
-  );
+  const [shortlistMessage, setShortlistMessage] = useState(`Shortlisted.`);
+  const [scheduledMessage, setscheduleMessage] = useState(`Add to schedule.`);
   const [invitationClick, setinvitationClick] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [yesClicked, setYesClicked] = useState(false);
   const [errors, setErrors] = useState({});
-  
+
   const handleCloseModal = () => {
     setModalOpen(false);
   };
@@ -46,28 +41,24 @@ const ScheduleInterview = () => {
   };
 
   const openSelectConsultantModal = () => {
-    setModalOpen(true)
-  }
+    setModalOpen(true);
+  };
   const handleScheduleClick = (id) => {
     if (!scheduledCard.includes(id)) {
       setscheduledCard([...scheduledCard, id]);
       const currentDate = new Date().toLocaleDateString("en-US");
       const message = `Add to schedule.\n${currentDate} `;
       setinvitationClick(message);
-    
     }
   };
 
-  
   const handleRemovescheduled = () => {
     const updatedscheduledCard = scheduledCard.filter(
       (cardId) => cardId !== selectedCard
     );
     setscheduledCard(updatedscheduledCard);
     setinvitationClick(false);
-   
   };
- 
 
   const isCardShortlisted = scheduledCard.includes(selectedCard);
 
@@ -97,17 +88,15 @@ const ScheduleInterview = () => {
   return (
     <div className=" grid lg:grid-cols-12 sm:grid-col-span-2 bg-[#2B373C1C] py-5 px-2 sm:px-2">
       <div className="lg:col-start-1 lg:col-end-12  sm:col-span-3">
-      <div className="grid lg:grid-cols-12  gap-4 mx-2 sm:mx-6 bg-white border px-4 py-4">
+        <div className="grid lg:grid-cols-12  gap-4 mx-2 sm:mx-6 bg-white border px-4 py-4">
           <div className="flex items-center lg:col-span-4 sm:col-span-2">
             <div>
               <p className="text-[26px] text-[#2B373C] sm:text-2xl font-bold">
-              Scheduled Interview
+                Scheduled Interview
               </p>
             </div>
           </div>
           <div className="  lg:col-span-5 sm:col-span-2">
-          
-     
             <div>
               <select
                 id="experience1"
@@ -134,23 +123,24 @@ const ScheduleInterview = () => {
             </div>
           </div>
           <div className="lg:col-span-3">
-          {invitationClick ?  <button className="px-5 py-2 bg-[rgb(231,71,65)] text-[#ffffff] font-bold rounded-lg">
-           1 SEND INVITES
-          </button>
-         :   <button className="px-5 py-2 bg-[#FEE2E1] text-[#F9342E] font-bold  rounded-lg">
-           0 SEND INVITES
-          </button> 
-           
-          }
+            {invitationClick ? (
+              <button className="px-5 py-2 bg-[rgb(231,71,65)] text-[#ffffff] font-bold rounded-lg">
+                1 SEND INVITES
+              </button>
+            ) : (
+              <button className="px-5 py-2 bg-[#FEE2E1] text-[#F9342E] font-bold  rounded-lg">
+                0 SEND INVITES
+              </button>
+            )}
           </div>
-                </div>
+        </div>
         <div className="grid lg:grid-cols-12  gap-4 mx-2 sm:mx-6 bg-[#F9F6EE] border px-4 py-4">
           <div className="lg:col-span-4">
             <div className="relative w-full">
               <input
                 type="text"
                 id="simple-search"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-4 py-2.5    "
                 placeholder="Search"
                 required
               />
@@ -181,15 +171,12 @@ const ScheduleInterview = () => {
             style={{ borderRight: "2px solid #D8D8DD" }}
           >
             <div className="flex px-1">
-            
               <p className=" text-[18px] text-[#2B373C]  font-bold">
-              Scheduled Consultants
+                Scheduled Consultants
               </p>
-              <div  className="ml-[25px] text-[#F9342E] font-bold">
-               <p>select all</p>
+              <div className="ml-[25px] text-[#F9342E] font-bold">
+                <p>select all</p>
               </div>
-            
-            
             </div>
             <div
               className="h-[550px] overflow-auto"
@@ -239,49 +226,27 @@ const ScheduleInterview = () => {
           </div>
           <div className=" flex flex-col  lg:justify-normal sm:justify-center py-6 px-3 lg:col-span-1 border-l lg:ml-12 sm:ml-0">
             <div className="flex items-center justify-center mt-2">
-              
-           
-                <div className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] lg:ml-[-50px] sm:ml-[0px]">
+              <div className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] lg:ml-[-50px] sm:ml-[0px]">
                 <div className="px-1 py-2">
-                <p className="font-bold ">
-                
-                {shortlistMessage}
-          
-              </p>
-              <p>  {new Date().toLocaleDateString("en-US")}</p>
+                  <p className="font-bold ">{shortlistMessage}</p>
+                  <p> {new Date().toLocaleDateString("en-US")}</p>
                 </div>
                 <div className="px-1 py-2">
-              <p  className="font-bold">
-
-                {scheduledMessage}
-               
-              </p>
-              <p>  {new Date().toLocaleDateString("en-US")}</p>
+                  <p className="font-bold">{scheduledMessage}</p>
+                  <p> {new Date().toLocaleDateString("en-US")}</p>
+                </div>
               </div>
-           
-                
-              
-            </div>
-        
             </div>
             {invitationClick ? (
               <>
-               
-    
-                  <Popoverr text={"Remove from Invite list"}>
-                    <button
-                      onClick={handleRemovescheduled}
-                      className="flex justify-end px-3 py-3"
-                    >
-                      <img
-                        src="/Assets/removeShortlistedButton.svg"
-                        alt="tick"
-                      />
-                    </button>
-                  </Popoverr>
-              
-
-              
+                <Popoverr text={"Remove from Invite list"}>
+                  <button
+                    onClick={handleRemovescheduled}
+                    className="flex justify-end px-3 py-3"
+                  >
+                    <img src="/Assets/removeShortlistedButton.svg" alt="tick" />
+                  </button>
+                </Popoverr>
               </>
             ) : (
               <>
@@ -301,17 +266,19 @@ const ScheduleInterview = () => {
                     <img src="/Assets/crossBtn.svg" alt="tick" />
                   </button>
                 </Popoverr>
-              
               </>
             )}
 
             <hr />
             <Popoverr text={"Select Consultant"}>
-              <button onClick={openSelectConsultantModal} className="flex justify-end px-3 py-3">
+              <button
+                onClick={openSelectConsultantModal}
+                className="flex justify-end px-3 py-3"
+              >
                 <img src="/Assets/tick.svg" alt="tick" />
               </button>
             </Popoverr>
-           
+
             <Popoverr text={"Send mail invite for interview"}>
               <button className="flex justify-end px-3 py-3">
                 <img src="/Assets/mailBtn.svg" alt="tick" />
@@ -328,11 +295,11 @@ const ScheduleInterview = () => {
               </button>
             </Popoverr>
             <ConfirmationModal
-               text={"Are you sure selecting, Olivia Wilson?"}
-               isOpen={modalOpen}
-               onClose={handleCloseModal}
-               onYes={handleYes}
-               onNo={handleNo}
+              text={"Are you sure selecting, Olivia Wilson?"}
+              isOpen={modalOpen}
+              onClose={handleCloseModal}
+              onYes={handleYes}
+              onNo={handleNo}
             />
           </div>
         </div>
