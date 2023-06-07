@@ -16,6 +16,7 @@ import watchdeleteJobRequest from "./deletejobSaga";
 import watchviewProfileRequest from "./viewProfileSaga";
 import watchCsvSaveRequest from "./csvMutipleJobUploadSaga";
 import watchGenerateResponseRequest from "./generateResponseSaga";
+import watchResumeDetails from "./setupDetailsSaga";
 export default function* rootSaga() {
   yield all([
     watchLogin(),
@@ -36,5 +37,6 @@ export default function* rootSaga() {
     watchCsvSaveRequest(),
     watchGenerateResponseRequest(),
 
+    watchResumeDetails()
   ]);
 }

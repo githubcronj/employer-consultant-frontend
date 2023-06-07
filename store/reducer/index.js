@@ -17,6 +17,7 @@ import { viewProfileReducer } from './viewProfileReducer';
 import resumeDataFillingReducer from "./resumeDataFillingReducer";
 import csvUploadReducer from './csvMultipleJobUploadReducer';
 import generateResponseReducer from './generateResponseReducer';
+import {setDetailsReducer} from './setupDetailsReducer'
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
@@ -36,6 +37,8 @@ const rootReducer = combineReducers({
   viewProfileReducer,
   csvUploadReducer,
   generateResponseReducer,
+  setDetailsReducer,
+  
 
 });
 
