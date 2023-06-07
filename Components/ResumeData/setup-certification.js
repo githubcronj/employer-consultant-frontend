@@ -18,6 +18,36 @@ const SetupCertificate = ({
   const removeData = (indexdata) => {
     handleCertificateremovedata(indexdata);
   };
+  const handleDateChange = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    // Format the date as "yyyy-mm-dd"
+    const formattedDate = `${year}-${month}-${day}`;
+
+    CertificateHandleChange({
+      target: {
+        name: "tempCertificate.issueDate",
+        value: formattedDate || "",
+      },
+    });
+  };
+  const handleDateChangeEnd = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    // Format the date as "yyyy-mm-dd"
+    const formattedDate = `${year}-${month}-${day}`;
+
+    CertificateHandleChange({
+      target: {
+        name: "tempCertificate.expirationDate",
+        value: formattedDate || "",
+      },
+    });
+  };
   return (
     <div className=" bg-white">
       <form onSubmit={(e) => e.preventDefault()}>
@@ -36,36 +66,33 @@ const SetupCertificate = ({
           <div>
             <input
               type="text"
-              id="issueOgr"
+              id="issuingOrganization"
               placeholder="Issuing organization"
               className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-              name="tempCertificate.issueOgr"
-              value={certificationDetails?.issueOgr || ""}
+              name="tempCertificate.issuingOrganization"
+              value={certificationDetails?.issuingOrganization || ""}
               onChange={CertificateHandleChange}
             />
           </div>
           <div>
             <div className="relative flex items-center">
               <DatePicker
-                id="issuedate"
+                id="issueDate"
                 placeholderText="Issue date"
-                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                name={tempCertificate.issuedate}
-                selected={certificationDetails?.issuedate}
-                onChange={(date) =>
-                  CertificateHandleChange({
-                    target: {
-                      name: "tempCertificate.issuedate",
-                      value: date || "",
-                    },
-                  })
+                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                name={tempCertificate.issueDate}
+                selected={
+                  certificationDetails?.issueDate
+                    ? new Date(certificationDetails?.issueDate)
+                    : null
                 }
+                onChange={handleDateChange}
               />
               <img
                 src="/Assets/calendar.svg"
                 alt="calendar"
                 className="absolute right-2"
-                onClick={() => document.getElementById("issuedate").click()}
+                onClick={() => document.getElementById("issueDate").click()}
               />
             </div>
           </div>
@@ -73,25 +100,24 @@ const SetupCertificate = ({
           <div>
             <div className="relative flex items-center">
               <DatePicker
-                id="expriDate"
+                id="expirationDate"
                 placeholderText="Expiration date"
-                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                name={tempCertificate.expriDate}
-                selected={certificationDetails?.expriDate}
-                onChange={(date) =>
-                  CertificateHandleChange({
-                    target: {
-                      name: "tempCertificate.expriDate",
-                      value: date || "",
-                    },
-                  })
+                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                name={tempCertificate.expirationDate}
+                selected={
+                  certificationDetails?.expirationDate
+                    ? new Date(certificationDetails?.expirationDate)
+                    : null
                 }
+                onChange={handleDateChangeEnd}
               />
               <img
                 src="/Assets/calendar.svg"
                 alt="calendar"
                 className="absolute right-2"
-                onClick={() => document.getElementById("expriDate").click()}
+                onClick={() =>
+                  document.getElementById("expirationDate").click()
+                }
               />
             </div>
           </div>
@@ -121,11 +147,13 @@ const SetupCertificate = ({
       {/* block display */}
       <div className="py-4 grid sm:grid-cols-2 gap-7">
         {infodata?.map((item, index) => {
-          const date = item.issuedate;
-          const IssueDate = date?.toLocaleString("en-US", {
+          {
+            /* const date = item.issueDate;
+          const issueDate = date?.toLocaleString("en-US", {
             month: "short",
             year: "numeric",
-          });
+          }); */
+          }
           return (
             <div
               key={index}
@@ -134,8 +162,8 @@ const SetupCertificate = ({
             >
               <div>
                 <p className="">{item.courseName}</p>
-                <p className="py-1">{item.issueOgr}</p>
-                <p className="text-[#9C94A2]">{IssueDate}</p>
+                <p className="py-1">{item.issuingOrganization}</p>
+                <p className="text-[#9C94A2]">{item.issueDate}</p>
               </div>
               <img
                 src="/Assets/cross.svg"

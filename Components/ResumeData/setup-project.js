@@ -17,6 +17,37 @@ const SetupProject = ({
   const removeData = (indexdata) => {
     handleProjectremovedata(indexdata);
   };
+  const handleDateChange = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    // Format the date as "yyyy-mm-dd"
+    const formattedDate = `${year}-${month}-${day}`;
+
+    projectHandleChange({
+      target: {
+        name: "tempProject.startDate",
+        value: formattedDate || "",
+      },
+    });
+  };
+  const handleDateChangeEnd = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    // Format the date as "yyyy-mm-dd"
+    const formattedDate = `${year}-${month}-${day}`;
+
+    projectHandleChange({
+      target: {
+        name: "tempProject.endDate",
+        value: formattedDate || "",
+      },
+    });
+  };
+
   return (
     <div className=" bg-white    ">
       <form onSubmit={(e) => e.preventDefault()}>
@@ -35,11 +66,11 @@ const SetupProject = ({
           <div>
             <input
               type="text"
-              id="projecturl"
+              id="projectUrl"
               placeholder="Project URL"
               className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-              name="tempProject.projecturl"
-              value={projectDetails?.projecturl || ""}
+              name="tempProject.projectUrl"
+              value={projectDetails?.projectUrl || ""}
               onChange={projectHandleChange}
             />
           </div>
@@ -47,25 +78,22 @@ const SetupProject = ({
             <div>
               <div className="relative flex items-center">
                 <DatePicker
-                  id="startdate"
+                  id="startDate"
                   placeholderText="Start date"
-                  className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  name={tempProject.startdate}
-                  selected={projectDetails?.startdate}
-                  onChange={(date) =>
-                    projectHandleChange({
-                      target: {
-                        name: "tempProject.startdate",
-                        value: date || "",
-                      },
-                    })
+                  className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  name={tempProject.startDate}
+                  selected={
+                    projectDetails?.startDate
+                      ? new Date(projectDetails?.startDate)
+                      : null
                   }
+                  onChange={handleDateChange}
                 />
                 <img
                   src="/Assets/calendar.svg"
                   alt="calendar"
                   className="absolute right-2"
-                  onClick={() => document.getElementById("startdate").click()}
+                  onClick={() => document.getElementById("startDate").click()}
                 />
               </div>
             </div>
@@ -73,22 +101,22 @@ const SetupProject = ({
           <div>
             <div className="relative flex items-center">
               <DatePicker
-                id="enddate"
+                id="endDate"
                 placeholderText="End Date"
-                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                name={tempProject.enddate}
-                selected={projectDetails?.enddate}
-                onChange={(date) =>
-                  projectHandleChange({
-                    target: { name: "tempProject.enddate", value: date || "" },
-                  })
+                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                name={tempProject.endDate}
+                selected={
+                  projectDetails?.endDate
+                    ? new Date(projectDetails?.endDate)
+                    : null
                 }
+                onChange={handleDateChangeEnd}
               />
               <img
                 src="/Assets/calendar.svg"
                 alt="calendar"
                 className="absolute right-2"
-                onClick={() => document.getElementById("enddate").click()}
+                onClick={() => document.getElementById("endDate").click()}
               />
             </div>
           </div>
@@ -96,11 +124,11 @@ const SetupProject = ({
           <div className="sm:col-span-2 ">
             <textarea
               type="text"
-              id="projecturlbrief"
+              id="projectDescription"
               placeholder="Project URL"
-              className="h-[140px] block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              name="tempProject.projecturlbrief"
-              value={projectDetails?.projecturlbrief || ""}
+              className="h-[140px] block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              name="tempProject.projectDescription"
+              value={projectDetails?.projectDescription || ""}
               onChange={projectHandleChange}
             />
           </div>
@@ -118,16 +146,6 @@ const SetupProject = ({
       {/* block display */}
       <div className="py-4 grid sm:grid-cols-2 gap-7">
         {infodata?.map((item, index) => {
-          const dateS = item.startdate;
-          const startDate = dateS.toLocaleString("en-US", {
-            month: "short",
-            year: "numeric",
-          });
-          const date = item.enddate;
-          const EndDate = date.toLocaleString("en-US", {
-            month: "short",
-            year: "numeric",
-          });
           return (
             <div
               key={index}
@@ -136,8 +154,10 @@ const SetupProject = ({
             >
               <div>
                 <p className="">{item.projectName}</p>
-                <p className="py-1 px-1 ">{item.projecturlbrief}</p>
-                <p className="text-[#9C94A2]">{startDate + " - " + EndDate}</p>
+                <p className="py-1 px-1 ">{item.projectDescription}</p>
+                <p className="text-[#9C94A2]">
+                  <span>{item.startDate}</span> - <span>{item.endDate}</span>{" "}
+                </p>
               </div>
               <img
                 src="/Assets/cross.svg"

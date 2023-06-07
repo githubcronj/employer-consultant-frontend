@@ -44,6 +44,21 @@ const SetupExperience = ({
     { title: "Cloud Computing Platforms" },
     { title: "Version Control" },
   ];
+  const handleDateChange = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    // Format the date as "yyyy-mm-dd"
+    const formattedDate = `${year}-${month}-${day}`;
+
+    handleExperienceDetailsChange({
+      target: {
+        name: "tempExp.joinedDate",
+        value: formattedDate || "",
+      },
+    });
+  };
 
   return (
     <div className=" bg-white">
@@ -88,18 +103,18 @@ const SetupExperience = ({
           <div>
             <input
               type="text"
-              id="jobposition"
+              id="jobPosition"
               placeholder="Job Position"
               required
               className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-              name="tempExp.jobposition"
-              value={experienceDetails?.jobposition || ""}
+              name="tempExp.jobPosition"
+              value={experienceDetails?.jobPosition || ""}
               onChange={handleExperienceDetailsChange}
             />
           </div>
           <div>
             <select
-              id="emptype"
+              id="employmentType"
               required
               className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select"
               style={{
@@ -112,8 +127,8 @@ const SetupExperience = ({
                 backgroundPosition: "95% center",
                 paddingRight: "20px",
               }}
-              name="tempExp.emptype"
-              value={experienceDetails?.emptype || ""}
+              name="tempExp.employmentType"
+              value={experienceDetails?.employmentType || ""}
               onChange={handleExperienceDetailsChange}
             >
               <option value="" disabled selected>
@@ -126,26 +141,23 @@ const SetupExperience = ({
           <div>
             <div className="relative flex items-center">
               <DatePicker
-                id="joindate"
+                id="joinedDate"
                 placeholderText="Date of Joined"
                 required
-                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                name="tempExp.joindate"
-                selected={experienceDetails?.joindate}
-                onChange={(date) =>
-                  handleExperienceDetailsChange({
-                    target: {
-                      name: "tempExp.joindate",
-                      value: date || "",
-                    },
-                  })
+                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                name="tempExp.joinedDate"
+                selected={
+                  experienceDetails?.joinedDate
+                    ? new Date(experienceDetails?.joinedDate)
+                    : null
                 }
+                onChange={handleDateChange}
               />
               <img
                 src="/Assets/calendar.svg"
                 alt="calendar"
                 className="absolute right-2"
-                onClick={() => document.getElementById("joindate").click()}
+                onClick={() => document.getElementById("joinedDate").click()}
               />
             </div>{" "}
           </div>
@@ -208,19 +220,9 @@ const SetupExperience = ({
               <div>
                 <p>
                   <span className=" font-bold">{item?.companyName}</span>
-                  <span className=" opacity-50	"> {item?.emptype}</span>
+                  <span className=" opacity-50	"> {item?.employmentType}</span>
                 </p>
-                {item.joindate && (
-                  <p className="py-1  opacity-90">
-                    {item?.emptype +
-                      " - " +
-                      item.joindate.getDate() +
-                      "/" +
-                      item.joindate.getMonth() +
-                      "/" +
-                      item.joindate.getFullYear()}
-                  </p>
-                )}
+                <p>{item.joinedDate}</p>
                 <p>{item?.techEnviro}</p>
               </div>
               <img

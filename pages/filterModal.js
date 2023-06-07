@@ -125,6 +125,7 @@ const FilterModal = () => {
                     <option value="UX Designer">UX Designer</option>
                     <option value="React Developer">React Developer</option>
                     <option value="Dev Ops Engineer">Dev Ops Engineer</option>
+                    <option value="Python Developer">Python Developer</option>
                   </select>
                 </div>
                 {/*  */}

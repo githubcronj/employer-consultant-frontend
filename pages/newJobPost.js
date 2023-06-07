@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { jobSaveRequest } from "../store/action/jobPostAction";
+import { generateResponseSaveRequest } from "store/action/generateResponseAction";
 
 const NewJobPost = () => {
   const router = useRouter();
@@ -32,6 +33,17 @@ const NewJobPost = () => {
     }
     return null;
   };
+  //
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+  const finaltoken = getToken();
+  //
   useEffect(() => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
@@ -80,7 +92,15 @@ const NewJobPost = () => {
         ...prevValues,
         [id]: parseInt(value),
       }));
-    } else {
+    }
+    // else if (response && defaultDescriptionValue && id === "description" && value === "") {
+    //   // Handle description field separately
+    //   setJobPostData((prevValues) => ({
+    //     ...prevValues,
+    //     [id]: defaultDescriptionValue,
+    //   }));
+    // }
+    else {
       setJobPostData((prevValues) => ({
         ...prevValues,
         [id]: value,
@@ -131,11 +151,31 @@ const NewJobPost = () => {
 
     return Object.keys(errors).length === 0;
   };
+  const response = useSelector((state) => state?.generateResponseReducer?.data);
+  console.log(response?.key_requirements, "respooonse");
+  const defaultDescriptionValue =
+    `${response?.job_description}\n\nKey Requirements:\n` +
+    (response?.key_requirements || [])
+      .map((requirement) => `• ${requirement}`)
+      .join("\n") +
+    "\n\nResponsibilities:\n" +
+    (response?.responsibilities || "");
+  console.log(defaultDescriptionValue, "gdhhonse");
+  const handleGenerateResponse = (e) => {
+    const requestData = {
+      jobTitle: jobPostData.jobTitle,
+      jobType: jobPostData.jobType,
+      experience: jobPostData.experience,
+    };
+    dispatch(generateResponseSaveRequest(requestData, finaltoken));
+    console.log(requestData);
+  };
   const handleSave = (e) => {
     e.preventDefault();
     if (isFormValid()) {
       dispatch(jobSaveRequest(jobPostData));
       console.log(jobPostData);
+
       // console.log(payload,'ppppp');
       const initialJobPostData = {
         jobTitle: "",
@@ -150,7 +190,7 @@ const NewJobPost = () => {
         salary: "",
       };
       setJobPostData(initialJobPostData);
-      console.log(jobPostData);
+      // console.log(jobPostData);
       router.push("/");
     } else {
       return;
@@ -245,7 +285,7 @@ const NewJobPost = () => {
                 id="deadline"
                 placeholderText="Application Deadline"
                 required
-                className={`block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                className={`block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
                   errors.deadline ? "border-red-500" : ""
                 }`}
                 selected={
@@ -374,7 +414,7 @@ const NewJobPost = () => {
                     placeholder=" "
                     style={errors.minSalary ? { borderColor: "red" } : {}}
                     required
-                    className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                    className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
                     value={jobPostData.minSalary}
                     onChange={handleChange}
@@ -396,7 +436,7 @@ const NewJobPost = () => {
                     placeholder=" "
                     required
                     style={errors.maxSalary ? { borderColor: "red" } : {}}
-                    className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                    className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer
                         `}
                     value={jobPostData.maxSalary}
                     onChange={handleChange}
@@ -415,18 +455,34 @@ const NewJobPost = () => {
             </div>
           </div>
           {/* salary ends here */}
+          {/* generate respone button */}
+          <div>
+            {" "}
+            <button
+              onClick={handleGenerateResponse}
+              className="px-11 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3"
+            >
+              AI Response for Job Description
+            </button>
+          </div>
 
           {/* jd */}
+
           <div className="sm:col-span-2 relative">
             <textarea
               type="text"
               id="description"
               placeholder=" "
               required
-              style={errors.description ? { borderColor: "red" } : {}}
-              className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              style={{
+                minHeight: "150px", // Increase the height here
+                ...(errors.description ? { borderColor: "red" } : {}),
+              }}
+              // style={{errors.description ? { borderColor: "red" } : {},minHeight: '150px'}}
+              className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               value={jobPostData.description}
               onChange={handleChange}
+              defaultValue={response && defaultDescriptionValue}
             />
             <label
               for="description"
@@ -437,6 +493,7 @@ const NewJobPost = () => {
             {renderErrorMessage("description")}
           </div>
           {/* jd ends here */}
+
           {/* email */}
           <div className="relative">
             <input
@@ -445,7 +502,7 @@ const NewJobPost = () => {
               placeholder=" "
               required
               style={errors.email ? { borderColor: "red" } : {}}
-              className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer
+              className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer
               ${isFieldChanged && errors.email ? "border-red-500" : ""} `}
               value={jobPostData.email}
               onChange={handleChange}
@@ -470,7 +527,7 @@ const NewJobPost = () => {
               //   minlength="10"
               //   maxlength="12"
               style={errors.phoneNumber ? { borderColor: "red" } : {}}
-              className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer
+              className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] appearance-none    focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
               value={jobPostData.phoneNumber}
               onChange={handleChange}
