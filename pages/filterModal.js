@@ -72,10 +72,8 @@ const FilterModal = () => {
       ...(deadline && { deadline }),
     };
     dispatch({ type: GET_JOB_REQUEST, payload: filterParams, accessToken: finaltoken });
-    console.log(finaltoken);  
-    console.log('component filter',filterParams);
-    // console.log(filterParams, "fill");
-  };
+    setShowModal(false);
+    };
 
 
 
@@ -123,7 +121,7 @@ const FilterModal = () => {
                       paddingRight: "20px",
                     }}
                   >
-                    <option value=''>Job Title</option>
+                    <option value=''>All Job Title</option>
                     <option value='UX Designer'>UX Designer</option>
                     <option value='React Developer'>React Developer</option>
                     <option value='Dev Ops Engineer'>Dev Ops Engineer</option>
@@ -199,7 +197,7 @@ const FilterModal = () => {
                       paddingRight: "20px",
                     }}
                   >
-                    <option value=''>Job Type</option>
+                    <option value=''>All Job Type</option>
                     <option value='full-time'>Full-time</option>
                     <option value='part-time'>Part-time</option>
                     <option value='freelance'>Freelance</option>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
@@ -7,7 +7,11 @@ import suitCase from "../../asset/icons/suitcase.svg";
 import Image from "next/image";
 import locationIcon from "../../asset/icons/location.svg";
 import RecentSearch from "./recentSearch";
-const SearchBlock = () => {
+const SearchBlock = ({
+  searchOnChangeHandler,
+  searchSubmitHandler,
+  handleBox1Click,
+}) => {
   return (
     <Box>
       <Box mb={3} sx={{ display: "flex", alignItems: "center" }}>
@@ -17,6 +21,7 @@ const SearchBlock = () => {
           width={38}
           height={38}
           className="cursor-pointer"
+          onClick={handleBox1Click}
         />
         <Typography
           sx={{
@@ -43,7 +48,9 @@ const SearchBlock = () => {
         }}
       >
         <InputBase
+          autoFocus
           name="jobTitle"
+          onChange={searchOnChangeHandler}
           sx={{
             flex: 1,
             alignItems: "center",
@@ -63,6 +70,7 @@ const SearchBlock = () => {
 
         <InputBase
           name="location"
+          onChange={searchOnChangeHandler}
           sx={{
             flex: 1,
             alignItems: "center",
@@ -80,6 +88,7 @@ const SearchBlock = () => {
           }
           endAdornment={
             <Button
+              onClick={searchSubmitHandler}
               style={{
                 background: "red",
                 padding: ".55rem 2rem",
@@ -92,7 +101,7 @@ const SearchBlock = () => {
           }
         />
       </Paper>
-      <RecentSearch/>
+      <RecentSearch />
     </Box>
   );
 };

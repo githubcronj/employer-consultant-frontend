@@ -174,7 +174,7 @@ const EditJobPost = () => {
       };
       setEditJobPostData(initialJobPostData);
       console.log(editJobPostData);
-      router.push("/ux-designer-page");
+      router.push(`/viewjobpost/${id}`);
     } else {
       return;
     }
@@ -233,7 +233,7 @@ const EditJobPost = () => {
               </button>
             </div>
             <div>
-              <Link href='/ux-designer-page'>
+              <Link href={`/viewjobpost/${id}`}>
                 <button className='px-8 py-3 bg-white border border-red-500 text-red-500 rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3'>
                   Cancel
                 </button>

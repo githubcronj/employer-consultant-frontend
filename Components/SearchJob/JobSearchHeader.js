@@ -1,21 +1,23 @@
-import * as React from "react";
+import React from "react";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
+
 import { Button, InputAdornment } from "@mui/material";
 import suitCase from "../../asset/icons/suitcase.svg";
 import Image from "next/image";
 import locationIcon from "../../asset/icons/location.svg";
+const JobSearchHeader = ({searchOnChangeHandler,searchSubmitHandler}) => {
 
-const SearchJobInput = ({handleBox1Click}) => {
-  return (
-    <Paper
+    return(
+        <div>
+            <Paper
       component="form"
       sx={{ p: "1rem", display: "flex", alignItems: "center",width:"100%",flexDirection:{xs:"column",sm:"row"} }}
     >
       <InputBase
       name="jobTitle"
-      onClick={handleBox1Click}
+      onChange={searchOnChangeHandler}
         sx={{
           flex: 1,
           alignItems: "center",
@@ -35,7 +37,7 @@ const SearchJobInput = ({handleBox1Click}) => {
       
       <InputBase
       name="location"
-      onClick={handleBox1Click}
+      onChange={searchOnChangeHandler}
         sx={{
           flex: 1,
           alignItems: "center",
@@ -58,12 +60,12 @@ const SearchJobInput = ({handleBox1Click}) => {
         }
         endAdornment={
         
-            <Button onClick={handleBox1Click}  style={{background:"red",padding:".55rem 2rem",color:"white",borderRadius:"10px"}}>Search</Button>
+            <Button  style={{background:"red",padding:".55rem 2rem",color:"white",borderRadius:"10px"}}>Search</Button>
         
         }
       />
     </Paper>
-  );
-};
-
-export default SearchJobInput;
+        </div>
+    )
+}
+export default JobSearchHeader;

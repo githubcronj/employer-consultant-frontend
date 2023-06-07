@@ -1,18 +1,78 @@
 import Image from "next/image";
 import React, { useState } from "react";
+import Papa from "papaparse";
+import { useDispatch } from 'react-redux';
 import { useRef } from "react";
+import { csvSaveRequest } from '../store/action/csvMultipleJobUploadAction';
+
 
 const UploadCSVModal = () => {
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-
   const [uploadedFile, setUploadedFile] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const fileInputRef = useRef(null);
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
 
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+  const finaltoken = getToken();
+  // console.log(finaltoken)
+
+  // const handleFileUpload = () => {
+ 
+  //   console.log(uploadedFile,'<-----')
+  //   const file = fileInputRef.current.files[0];
+  //   if (file) {
+  //     const allowedTypes = ["text/csv"];
+      
+
+  //     if (!allowedTypes.includes(file.type)) {
+  //       setErrorMessage(
+  //         "Invalid file type. Only CSV is allowed."
+  //       );
+  //       return;
+  //     }
+
+  //     setUploadedFile(file);
+  //     console.log('file',file)
+  //     console.log('fileee',uploadedFile)
+  //     setErrorMessage(""); // Reset the error message
+  //     // dispatch(csvSaveRequest(file,finaltoken));
+  //     Papa.parse(file, {
+  //       complete: function (results) {
+  //         console.log('Finished:', results.data);
+  //         const jsonData = {
+  //           jobs: results.data.slice(1).map((row) => ({
+  //             jobTitle: row[0],
+  //             experience: Number(row[1]),
+  //             deadline: row[2],
+  //             jobType: row[3],
+  //             salary: row[4],
+  //             minSalary: Number(row[5]),
+  //             maxSalary: Number(row[6]),
+  //             description: row[7],
+  //             email: row[8],
+  //             phoneNumber: row[9]
+  //           }))
+  //         };
+      
+  //         dispatch(csvSaveRequest(jsonData, finaltoken));
+  //       },
+  //     });
+  //   }
+  // };
   const handleFileUpload = () => {
+ 
+    console.log(uploadedFile,'<-----')
     const file = fileInputRef.current.files[0];
     if (file) {
       const allowedTypes = ["text/csv"];
+      
 
       if (!allowedTypes.includes(file.type)) {
         setErrorMessage(
@@ -21,17 +81,46 @@ const UploadCSVModal = () => {
         return;
       }
 
-      // Validate file size
-      const maxSize = 10 * 1024 * 1024; // 10 MB
-      if (file.size > maxSize) {
-        setErrorMessage("File size exceeds the limit of 10 MB.");
-        return;
-      }
-
       setUploadedFile(file);
+      console.log('file',file)
+      console.log('fileee',uploadedFile)
       setErrorMessage(""); // Reset the error message
+      // dispatch(csvSaveRequest(file,finaltoken));
+     
     }
   };
+  const handleExport = () => {
+
+    if (!uploadedFile) {
+      setErrorMessage("Please upload a file.");
+      return;
+    }
+
+    Papa.parse(uploadedFile, {
+      complete: function (results) {
+        console.log('Finished:', results.data);
+        const jsonData = {
+          jobs: results.data.slice(1).map((row) => ({
+            jobTitle: row[0],
+            experience: Number(row[1]),
+            deadline: row[2],
+            jobType: row[3],
+            salary: row[4],
+            minSalary: Number(row[5]),
+            maxSalary: Number(row[6]),
+            description: row[7],
+            email: row[8],
+            phoneNumber: row[9]
+          }))
+        };
+    
+        dispatch(csvSaveRequest(jsonData, finaltoken));
+        setShowModal(false);
+      },
+    });
+    
+  }
+  
   const handleRemoveFile = (event) => {
     setUploadedFile(null);
     setErrorMessage("");
@@ -79,7 +168,7 @@ const UploadCSVModal = () => {
                   </div>
 
                   <div>
-                    <button className="px-8 py-4 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
+                    <button onClick={handleExport} className="px-8 py-4 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
                       Export
                     </button>
                   </div>
