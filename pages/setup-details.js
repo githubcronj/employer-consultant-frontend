@@ -11,13 +11,14 @@ import SetupProject from "../Components/ResumeData/setup-project";
 import SetupCertificate from "../Components/ResumeData/setup-certification";
 import { useDispatch, useSelector } from "react-redux";
 import { resumeDataFillingAction } from "store/action/resumeDataFillingAction";
+import Link from "next/link";
 
 const Setupdetails = () => {
   const router = useRouter();
   const [expanded, setExpanded] = React.useState(false);
-  const dispatch=useDispatch()
-  const resumeData=useSelector(state=> state.resumeDataFillingReducer)
-  console.log("resumeData",resumeData)
+  const dispatch = useDispatch();
+  const resumeData = useSelector((state) => state.resumeDataFillingReducer);
+  console.log("resumeData", resumeData);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -39,12 +40,9 @@ const Setupdetails = () => {
     certificationDetails: [],
   });
 
-  useEffect(()=>{
-
-      dispatch(resumeDataFillingAction(resumeForm.personalDetails))
-    
-  },[dispatch, resumeForm.personalDetails])
-
+  useEffect(() => {
+    dispatch(resumeDataFillingAction(resumeForm.personalDetails));
+  }, [dispatch, resumeForm.personalDetails]);
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [tempExp, setTemExp] = useState({});
@@ -214,13 +212,15 @@ const Setupdetails = () => {
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
       <div className="flex justify-between items-center mx-5 sm:mx-9">
         <div className="flex items-center gap-x-4 ">
-          <Image
-            src="/Assets/backbtn.svg"
-            alt="back button"
-            width={46}
-            height={46}
-            className="cursor-pointer"
-          />
+          <Link href="/resume-templates">
+            <Image
+              src="/Assets/backbtn.svg"
+              alt="back button"
+              width={46}
+              height={46}
+              className="cursor-pointer"
+            />
+          </Link>
           <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
             Setup details
           </p>
