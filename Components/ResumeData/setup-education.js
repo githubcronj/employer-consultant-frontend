@@ -23,7 +23,7 @@ const SetupEducation = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
           <div>
             <select
-              id="eduLevel"
+              id="level"
               required
               className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select"
               style={{
@@ -36,8 +36,8 @@ const SetupEducation = ({
                 backgroundPosition: "95% center",
                 paddingRight: "20px",
               }}
-              name="tempeducation.eduLevel"
-              value={educationDetails.eduLevel || ""}
+              name="tempeducation.level"
+              value={educationDetails.level || ""}
               onChange={eduHandleChage}
             >
               <option value="">Highest Education Level</option>
@@ -60,7 +60,7 @@ const SetupEducation = ({
           </div>
           <div>
             <select
-              id="degree"
+              id="degreeName"
               required
               className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select"
               style={{
@@ -73,8 +73,8 @@ const SetupEducation = ({
                 backgroundPosition: "95% center",
                 paddingRight: "20px",
               }}
-              name="tempeducation.degree"
-              value={educationDetails.degree || ""}
+              name="tempeducation.degreeName"
+              value={educationDetails.degreeName || ""}
               onChange={eduHandleChage}
             >
               <option value="">Degree/Diploma</option>
@@ -87,12 +87,12 @@ const SetupEducation = ({
           <div>
             <input
               type="text"
-              id="passingyear"
+              id="year"
               placeholder="Year of Passing"
               required
               className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-              name="tempeducation.passingyear"
-              value={educationDetails.passingyear || ""}
+              name="tempeducation.year"
+              value={educationDetails.year || ""}
               onChange={eduHandleChage}
             />
           </div>
@@ -117,9 +117,9 @@ const SetupEducation = ({
               style={{ position: "relative" }}
             >
               <div>
-                <p className="">{item.eduLevel + " " + item.degree}</p>
+                <p className="">{item.level + " " + item.degreeName}</p>
                 <p className="py-1">{item.institutionName}</p>
-                <p className="text-[#9C94A2]">{item.passingyear}</p>
+                <p className="text-[#9C94A2]">{item.year}</p>
               </div>
               <img
                 src="/Assets/cross.svg"

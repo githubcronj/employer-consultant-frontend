@@ -12,7 +12,7 @@ import SetupCertificate from "../Components/ResumeData/setup-certification";
 import { useDispatch, useSelector } from "react-redux";
 import { resumeDataFillingAction } from "store/action/resumeDataFillingAction";
 import Link from "next/link";
-
+import { RESUME_REQUEST } from "store/type/setupDetailsType";
 const Setupdetails = () => {
   const router = useRouter();
   const [expanded, setExpanded] = React.useState(false);
@@ -52,7 +52,7 @@ const Setupdetails = () => {
   const [tempeducation, SetempEdu] = useState({});
 
   const handleCameraIconClick = () => {
-    const fileInput = document.getElementById("imageview");
+    const fileInput = document.getElementById("image");
     fileInput.click();
   };
   const handleImageChange = (e) => {
@@ -65,17 +65,38 @@ const Setupdetails = () => {
     }
   };
   // new handle
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   const [section, field] = name.split(".");
+  //   setResumeForm((prevData) => ({
+  //     ...prevData,
+  //     [section]: {
+  //       ...prevData[section],
+  //       [field]: value,
+  //     },
+  //   }));
+  // };
+
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    const [section, field] = name.split(".");
-    setResumeForm((prevData) => ({
-      ...prevData,
-      [section]: {
-        ...prevData[section],
-        [field]: value,
-      },
-    }));
+    const { name, value, type, files } = e.target;
+    if (type === "file") {
+      const file = files[0];
+      setResumeForm((prevData) => ({
+        ...prevData,
+        [name]: file,
+      }));
+    } else {
+      const [section, field] = name.split(".");
+      setResumeForm((prevData) => ({
+        ...prevData,
+        [section]: {
+          ...prevData[section],
+          [field]: value,
+        },
+      }));
+    }
   };
+   console.log(resumeForm,"urdata")
 
   const handleExpChange = (e) => {
     const { name, value } = e.target;
@@ -206,7 +227,41 @@ const Setupdetails = () => {
     });
   };
 
-  console.log(resumeForm);
+
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+  const finaltoken = getToken();
+ 
+
+  const handleSave = () => {
+    const payload = {
+      token: finaltoken,
+      data: resumeForm,
+    };
+    dispatch({ type: RESUME_REQUEST, payload });
+    const cleanData ={
+      personalDetails: {
+        fullName: "",
+        email: "",
+        phoneNumber: "",
+        gender: "",
+        birth: "",
+        location: "",
+        text: "",
+      },
+      educationDetails: [],
+      experienceDetails: [],
+      skillsDetails: [],
+      projectDetails: [],
+      certificationDetails: [],
+    }
+    setResumeForm(cleanData);
+  };
 
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
@@ -226,7 +281,7 @@ const Setupdetails = () => {
           </p>
         </div>
         <button
-          // onClick={handleSave}
+          onClick={handleSave}
           className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3"
         >
           <img src="/Assets/check.svg" alt="save" />
@@ -256,12 +311,12 @@ const Setupdetails = () => {
               <img src="/Assets/camera-icon.svg" alt="cameraIcon" />
             )}{" "}
             <input
-              id="imageview"
+              id="image"
               type="file"
-              name="company_logo"
+              name="personalDetails.image"
               accept=".jpg,.jpeg,.png,.svg"
               hidden
-              onChange={handleImageChange}
+              onChange={handleInputChange}
             />
           </div>
           <form>
