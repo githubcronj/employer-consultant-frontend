@@ -38,12 +38,6 @@ const NewJobPost = () => {
     return null;
   };
   //
-  const inputFieldProps = {
-    style: { borderColor: errors.jobTitle ? "red" : "" },
-    required: true,
-    className: 'py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full',
-  };
-  // 
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
