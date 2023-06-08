@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -9,9 +10,9 @@ const SetupCertificate = ({
   infodata,
   handleCertificateremovedata,
 }) => {
-  function CertificateHandleChange (e) {
+  function CertificateHandleChange(e) {
     tempCertificate(e);
-  };
+  }
   const addData = (section) => {
     handleCertificateAdd(section);
   };
@@ -22,34 +23,35 @@ const SetupCertificate = ({
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
-  
+
     // Format the date as "yyyy-mm-dd"
     const formattedDate = `${year}-${month}-${day}`;
-  
+
     CertificateHandleChange({
       target: {
         name: "tempCertificate.issueDate",
         value: formattedDate || "",
       },
-    })
-  
-   
+    });
   };
   const handleDateChangeEnd = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
-  
+
     // Format the date as "yyyy-mm-dd"
     const formattedDate = `${year}-${month}-${day}`;
-  
+
     CertificateHandleChange({
       target: {
         name: "tempCertificate.expirationDate",
         value: formattedDate || "",
       },
-    })
-  
+    });
+  };
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+    // Handle the selected file here
   };
   return (
     <div className=" bg-white">
@@ -84,10 +86,12 @@ const SetupCertificate = ({
                 placeholderText="Issue date"
                 className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 name={tempCertificate.issueDate}
-                selected={certificationDetails?.issueDate ?  new Date(certificationDetails?.issueDate)
-                      : null}
-                onChange={handleDateChange
+                selected={
+                  certificationDetails?.issueDate
+                    ? new Date(certificationDetails?.issueDate)
+                    : null
                 }
+                onChange={handleDateChange}
               />
               <img
                 src="/Assets/calendar.svg"
@@ -105,17 +109,20 @@ const SetupCertificate = ({
                 placeholderText="Expiration date"
                 className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 name={tempCertificate.expirationDate}
-                selected={certificationDetails?.expirationDate ? new Date(certificationDetails?.expirationDate)
-                      : null}
-                onChange={
-                handleDateChangeEnd
+                selected={
+                  certificationDetails?.expirationDate
+                    ? new Date(certificationDetails?.expirationDate)
+                    : null
                 }
+                onChange={handleDateChangeEnd}
               />
               <img
                 src="/Assets/calendar.svg"
                 alt="calendar"
                 className="absolute right-2"
-                onClick={() => document.getElementById("expirationDate").click()}
+                onClick={() =>
+                  document.getElementById("expirationDate").click()
+                }
               />
             </div>
           </div>
@@ -131,6 +138,28 @@ const SetupCertificate = ({
               onChange={CertificateHandleChange}
             />
           </div>
+          <div className="sm:col-span-2 ">
+            <div>
+              <input
+                id="image"
+                type="file"
+                name="personalDetails.image"
+                accept=".jpg,.jpeg,.png,.svg"
+                style={{ display: "none" }}
+                onChange={handleFileInputChange}
+              />
+              <label htmlFor="image">
+                <Button
+                  component="span"
+                  variant="contained"
+                  style={{background:"#F0142F",boxShadow:"none"}}
+                  className="px-8 py-3 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase"
+                >
+                  Add Certificate
+                </Button>
+              </label>
+            </div>
+          </div>
         </div>
         <div className="flex justify-end">
           <button
@@ -145,11 +174,13 @@ const SetupCertificate = ({
       {/* block display */}
       <div className="py-4 grid sm:grid-cols-2 gap-7">
         {infodata?.map((item, index) => {
-          {/* const date = item.issueDate;
+          {
+            /* const date = item.issueDate;
           const issueDate = date?.toLocaleString("en-US", {
             month: "short",
             year: "numeric",
-          }); */}
+          }); */
+          }
           return (
             <div
               key={index}
