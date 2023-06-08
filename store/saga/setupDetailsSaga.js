@@ -17,7 +17,7 @@ function* sendResumeData(action) {
     dob: action.payload.data.personalDetails.birth,
     location: action.payload.data.personalDetails.birth,
     jobRole: action.payload.data.personalDetails.birth,
-    image:action.payload.data["personalDetails.image"].name,
+    image:action.payload.data.personalDetails.image,
     education: action.payload.data.educationDetails,
     experience: action.payload.data.experienceDetails,
     project: action.payload.data.projectDetails,
@@ -29,14 +29,12 @@ function* sendResumeData(action) {
     },
   };
   
-//   console.log("here is data", action.token);
   try {
     const response = yield call(makeApiRequest, {
       endpoint: "/create-resume",
       method: "POST",
       data: data,
       headers: {
-        // "Content-Type": "application/json",
         Authorization: `Bearer ${action.payload.token}`,
       },
     });
