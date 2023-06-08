@@ -38,7 +38,6 @@ const SearchJob = () => {
             display: "flex",
             flexDirection: { xs: "column", sm: "column", md: "row" },
             justifyContent: "space-between",
-            mt: 1,
             padding: "1rem",
             height: { xs: "auto", sm: "auto", md: "90vh" },
             justifyContent: "center",
