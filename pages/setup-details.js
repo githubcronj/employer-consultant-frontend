@@ -40,9 +40,9 @@ const Setupdetails = () => {
     certificationDetails: [],
   });
 
-  useEffect(() => {
-    dispatch(resumeDataFillingAction(resumeForm.personalDetails));
-  }, [dispatch, resumeForm.personalDetails]);
+  // useEffect(() => {
+  //   dispatch(resumeDataFillingAction(resumeForm.personalDetails));
+  // }, [dispatch, resumeForm.personalDetails]);
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [tempExp, setTemExp] = useState({});
@@ -80,10 +80,18 @@ const Setupdetails = () => {
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
     if (type === "file") {
+      const [section, field] = name.split(".");
       const file = files[0];
+      console.log(section,'section')
+      console.log(field,'field')
+      
       setResumeForm((prevData) => ({
         ...prevData,
-        [name]: file,
+        // [name]: file,
+        [section]: {
+          ...prevData[section],
+          [field]: file,
+        },
       }));
     } else {
       const [section, field] = name.split(".");
@@ -96,7 +104,6 @@ const Setupdetails = () => {
       }));
     }
   };
-   console.log(resumeForm,"urdata")
 
   const handleExpChange = (e) => {
     const { name, value } = e.target;
@@ -243,7 +250,8 @@ const Setupdetails = () => {
       token: finaltoken,
       data: resumeForm,
     };
-    dispatch({ type: RESUME_REQUEST, payload });
+    console.log(payload,'payload')
+    // dispatch({ type: RESUME_REQUEST, payload });
     const cleanData ={
       personalDetails: {
         fullName: "",
@@ -253,6 +261,7 @@ const Setupdetails = () => {
         birth: "",
         location: "",
         text: "",
+        image:{}
       },
       educationDetails: [],
       experienceDetails: [],
@@ -262,6 +271,7 @@ const Setupdetails = () => {
     }
     setResumeForm(cleanData);
   };
+ console.log(resumeForm,"in details")
 
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
@@ -309,7 +319,7 @@ const Setupdetails = () => {
               />
             ) : (
               <img src="/Assets/camera-icon.svg" alt="cameraIcon" />
-            )}{" "}
+            )}
             <input
               id="image"
               type="file"
