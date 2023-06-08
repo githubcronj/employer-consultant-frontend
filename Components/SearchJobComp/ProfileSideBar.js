@@ -15,7 +15,7 @@ const ProfileSideBar = ({data}) => {
         gap: "1rem",
         justifyContent: "flex-start",
         alignItems: "center",
-        width:{xs:"100%",md:"28%"}
+        width:{xs:"100%",md:"20%",lg:"28%"}
       }}
     >
       <Box
@@ -28,7 +28,8 @@ const ProfileSideBar = ({data}) => {
           alignItems: "center",
         }}
       >
-        <Image style={{borderRadius:"50%"}} src={data?.user.image} alt="profile" width="100" height="100" />
+      {/* src={data?.user.image} */}
+        <Image style={{borderRadius:"50%"}} src="/Assets/homeProfile.png" alt="profile" width="100" height="100" />
         <Typography sx={{fontWeight:"bold"}}>{data?.user.name}</Typography>
         <Typography sx={{color:"#5E5E5E",fontSize:"14px",textAlign:"center"}}>UX designer &#8226; Fresher</Typography>
         <Button onClick={()=> router.push("/view-profile")}  style={{ background:"#E7E9E9",color:"red",borderRadius:"13px",padding:".7rem" }}>
