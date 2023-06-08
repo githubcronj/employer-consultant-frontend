@@ -52,7 +52,7 @@ a {
   src: local(''), url('/asset/ProductSans/ProductSans-Bold.ttf') format('ttf');
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
@@ -60,7 +60,7 @@ a {
     color: white;
     background: black;
   }
-}
+} */
 
 .container__class {
   margin: 0 auto;
@@ -152,3 +152,75 @@ a {
 }
 
 /*  */
+.resume {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-size: 18px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.contact-item {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.item-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.item-subtitle {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+li {
+  margin-bottom: 5px;
+}

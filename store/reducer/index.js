@@ -14,8 +14,10 @@ import { getjobReducer } from "./getjobReducer";
 import { deletejobReducer } from "./deletejobReducer";
 import editJobReducer from "./editJobPostReducer";
 import { viewProfileReducer } from './viewProfileReducer';
-import resumeDataFillingReducer from "./resumeDataFillingReducer"
-import csvUploadReducer from './csvMultipleJobUploadReducer'
+import resumeDataFillingReducer from "./resumeDataFillingReducer";
+import csvUploadReducer from './csvMultipleJobUploadReducer';
+import generateResponseReducer from './generateResponseReducer';
+import {setDetailsReducer} from './setupDetailsReducer'
 import {jobsReducer} from "./recomandedJobReducer";
 const rootReducer = combineReducers({
   LoginReducer,
@@ -35,6 +37,9 @@ const rootReducer = combineReducers({
   resumeDataFillingReducer,
   viewProfileReducer,
   csvUploadReducer,
+  generateResponseReducer,
+  setDetailsReducer,
+  
   jobsReducer
 });
 
