@@ -1,10 +1,11 @@
 import * as types from "../type/jobPostType";
 
-export const jobSaveRequest = (jobData) => {
-    console.log('in action',jobData)
+export const jobSaveRequest = (jobData,accessToken) => {
+    console.log('in action',jobData,accessToken)
     return{
     type: types.JOB_SAVE_REQUEST,
-    payload: jobData,
+    payload: {jobData,accessToken}
+    
 }
     
   };

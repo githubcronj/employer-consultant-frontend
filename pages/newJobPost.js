@@ -16,6 +16,7 @@ const NewJobPost = () => {
   const [data, setData] = useState(null);
   const [selectedButton, setSelectedButton] = useState("");
   const [isFieldChanged, setIsFieldChanged] = useState(false);
+  const [description, setDescription] = useState("");
   const [jobPostData, setJobPostData] = useState({
     jobTitle: "",
     experience: "",
@@ -23,7 +24,7 @@ const NewJobPost = () => {
     jobType: "",
     minSalary: "",
     maxSalary: "",
-    description: "",
+    // description: "",
     email: "",
     phoneNumber: "",
     salary: "",
@@ -62,6 +63,22 @@ const NewJobPost = () => {
       }));
     }
   }, [data]);
+  // response
+  const response = useSelector((state) => state?.generateResponseReducer?.data);
+
+  // console.log(response?.key_requirements, "respooonse");
+
+  const defaultDescriptionValue =
+    `${response?.job_description}\n\nKey Requirements:\n` +
+    (response?.key_requirements || [])
+      .map((requirement) => `• ${requirement}`)
+      .join("\n") +
+    "\n\nResponsibilities:\n" +
+    (response?.responsibilities || "") +
+    "\n\nConcluding Details:\n" +
+    (response?.concluding_details || "");
+
+
   const handleSalaryButton = (e) => {
     setSelectedButton(e.target.id);
     setJobPostData((prevValues) => ({
@@ -81,6 +98,18 @@ const NewJobPost = () => {
       ...prevValues,
       deadline: formattedDate, // Update the companyFoundedDate field in formValues with the formatted date
     }));
+  };
+
+  useEffect(() => {
+    setDescription(defaultDescriptionValue);
+  }, [defaultDescriptionValue.length]);
+
+  const handleChangeDesc = (e) => {
+    setDescription(e.target.value)
+    // setDescription((prevValues) => ({
+      // ...prevValues,
+      // description: e.target.value,
+    // }));
   };
 
   const handleChange = (e) => {
@@ -142,7 +171,7 @@ const NewJobPost = () => {
       "jobType",
       "minSalary",
       "maxSalary",
-      "description",
+      // "description",
       "email",
       "phoneNumber",
       "salary",
@@ -174,18 +203,6 @@ const NewJobPost = () => {
     (state) => state?.generateResponseReducer?.loading
   );
   console.log("loading", loading);
-  const response = useSelector((state) => state?.generateResponseReducer?.data);
-  console.log(response?.key_requirements, "respooonse");
-  const defaultDescriptionValue =
-    `${response?.job_description}\n\nKey Requirements:\n` +
-    (response?.key_requirements || [])
-      .map((requirement) => `• ${requirement}`)
-      .join("\n") +
-    "\n\nResponsibilities:\n" +
-    (response?.responsibilities || "") +
-    "\n\nConcluding Details:\n" +
-    (response?.concluding_details || "");
-  // const defaultDescriptionValue = `${response?.job_description}\n\nKey Requirements:\n${(response?.key_requirements || []).map((requirement) => `• ${requirement}`).join("\n")}\n\nResponsibilities:\n${response?.responsibilities}\n\nConcluding Details:\n${response?.concluding_details}`;
 
   console.log(defaultDescriptionValue, "gdhhonse");
   const handleGenerateResponse = (e) => {
@@ -198,12 +215,28 @@ const NewJobPost = () => {
     console.log(requestData);
   };
 
+console.log('descccc',description)
   const handleSave = (e) => {
     e.preventDefault();
-    if (isFormValid()) {
-      dispatch(jobSaveRequest(jobPostData));
-      console.log(jobPostData);
+    const jobData = {
+      jobTitle: jobPostData.jobTitle,
+      experience: jobPostData.experience,
+      deadline: jobPostData.deadline,
+      jobType: jobPostData.jobType,
+      minSalary: jobPostData.minSalary,
+      maxSalary: jobPostData.maxSalary,
+      description: description,
+      email: jobPostData.email,
+      phoneNumber: jobPostData.phoneNumber,
+      salary: jobPostData.salary,
+      industryType: jobPostData.industryType,
+      skills: jobPostData.skills,
+    };
+    console.log('jobdata',jobData);
 
+    if (isFormValid()) {
+      dispatch(jobSaveRequest(jobData,finaltoken));
+    
       // console.log(payload,'ppppp');
       const initialJobPostData = {
         jobTitle: "",
@@ -212,7 +245,7 @@ const NewJobPost = () => {
         jobType: "",
         minSalary: "",
         maxSalary: "",
-        description: "",
+        // description: "",
         email: "",
         phoneNumber: "",
         salary: "",
@@ -517,8 +550,9 @@ const NewJobPost = () => {
               // style={{errors.description ? { borderColor: "red" } : {},minHeight: '150px'}}
               className='block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
               value={jobPostData.description}
-              onChange={handleChange}
+              onChange={handleChangeDesc}
               defaultValue={response && defaultDescriptionValue}
+              // defaultValue={response && defaultDescriptionValue}
               disabled={loading}
             />
             {loading && (
