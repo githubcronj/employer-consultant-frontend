@@ -36,7 +36,6 @@ export default function* rootSaga() {
     watchviewProfileRequest(),
     watchCsvSaveRequest(),
     watchGenerateResponseRequest(),
-
     watchResumeDetails()
   ]);
 }
