@@ -37,7 +37,7 @@ const Home = () => {
     (state) => state?.getjobReducer?.CurrentUser?.data
   );
 
-  // console.log(response);
+  console.log(response);
 
   const nextclick = (id) => {
     console.log(id);
@@ -115,7 +115,7 @@ const Home = () => {
                         : 'border-slate-200 border rounded-lg bg-[#EEEFEF]'
                     }
                   >
-                    <td className='px-6 py-7'>{row?.appliedConsultant}</td>
+                    <td className='px-6 py-7'>{row?.appliedConsultantCount}</td>
                     <td className='px-6 py-7'>{row?.jobTitle}</td>
                     <td className='px-6 py-7'>{row?.experience}</td>
                     <td className='px-6 py-7'>{row?.jobType}</td>
