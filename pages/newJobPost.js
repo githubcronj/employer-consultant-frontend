@@ -7,6 +7,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { jobSaveRequest } from "../store/action/jobPostAction";
 import { generateResponseSaveRequest } from "store/action/generateResponseAction";
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const NewJobPost = () => {
   const router = useRouter();
@@ -87,11 +89,26 @@ const NewJobPost = () => {
     //   [id]: value,
     // }));
 
-    if (id === "experience" || id === "maxSalary" || id === "minSalary") {
+    if (id === "experience") {
       setJobPostData((prevValues) => ({
         ...prevValues,
         [id]: parseInt(value),
       }));
+    }
+    else if (id === "maxSalary" || id === "minSalary"){
+      const numericValue = parseInt(value);
+
+    if (!isNaN(numericValue)) {
+      setJobPostData((prevValues) => ({
+        ...prevValues,
+        [id]: numericValue,
+      }));
+    } else {
+      setJobPostData((prevValues) => ({
+        ...prevValues,
+        [id]: "", // Clear the field if the input is not a valid number 
+      }));
+    }
     } 
     // else if (response && defaultDescriptionValue && id === "description" && value === "") {
     //   // Handle description field separately
@@ -151,6 +168,8 @@ const NewJobPost = () => {
 
     return Object.keys(errors).length === 0;
   };
+  const loading = useSelector(state => state?.generateResponseReducer?.loading);
+  console.log('loading', loading)
   const response = useSelector((state) => state?.generateResponseReducer?.data);
   console.log(response?.key_requirements, "respooonse");
   const defaultDescriptionValue =
@@ -159,7 +178,11 @@ const NewJobPost = () => {
       .map((requirement) => `• ${requirement}`)
       .join("\n") +
     "\n\nResponsibilities:\n" +
-    (response?.responsibilities || "");
+    (response?.responsibilities || "")+
+    "\n\nConcluding Details:\n" +
+    (response?.concluding_details || "");
+    // const defaultDescriptionValue = `${response?.job_description}\n\nKey Requirements:\n${(response?.key_requirements || []).map((requirement) => `• ${requirement}`).join("\n")}\n\nResponsibilities:\n${response?.responsibilities}\n\nConcluding Details:\n${response?.concluding_details}`;
+
   console.log(defaultDescriptionValue, "gdhhonse");
   const handleGenerateResponse = (e) => {
     const requestData = {
@@ -170,6 +193,7 @@ const NewJobPost = () => {
     dispatch(generateResponseSaveRequest(requestData, finaltoken));
     console.log(requestData);
   };
+
   const handleSave = (e) => {
     e.preventDefault();
     if (isFormValid()) {
@@ -275,6 +299,12 @@ const NewJobPost = () => {
               <option value='1'>1 year</option>
               <option value='2'>2 year</option>
               <option value='3'>3 year</option>
+              <option value='4'>4 year</option>
+              <option value='5'>5 year</option>
+              <option value='6'>6 year</option>
+              <option value='7'>7 year</option>
+              <option value='8'>8 year</option>
+              <option value='9'>9 year</option>
             </select>
             {renderErrorMessage("experience")}
           </div>
@@ -475,7 +505,7 @@ const NewJobPost = () => {
               placeholder=' '
               required
               style={{
-                minHeight: '150px', // Increase the height here
+                minHeight: '180px', // Increase the height here
                 ...(errors.description ? { borderColor: 'red' } : {}),
               }}
               // style={{errors.description ? { borderColor: "red" } : {},minHeight: '150px'}}
@@ -483,7 +513,10 @@ const NewJobPost = () => {
               value={jobPostData.description}
               onChange={handleChange}
               defaultValue={response && defaultDescriptionValue}
+              disabled={loading}
             />
+            {loading && <div className="flex justify-center items-center absolute bottom-[35%] left-[50%]"><CircularProgress sx={{color:'#EF4444'}}/></div>}
+          
             <label
               for='description'
               className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'

@@ -3,6 +3,7 @@ import * as types from "../type/generateResponseType";
 import {
   GENERATE_RESPONSE_SAVE_FAILURE,
   GENERATE_RESPONSE_SAVE_SUCCESS,
+  GENERATE_RESPONSE_SAVE_LOADING,
 } from "store/type/generateResponseType";
 
 import { makeApiRequest } from "../../utils/api";
@@ -15,6 +16,8 @@ function* saveGenerateResponse(action) {
 //   };
   console.log(action,'djdfhhfue')
   try {
+    yield put({ type: GENERATE_RESPONSE_SAVE_LOADING });
+    
     const response = yield call(makeApiRequest, {
       endpoint: "/generate-description",
       method: "POST",
