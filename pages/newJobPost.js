@@ -492,7 +492,7 @@ const NewJobPost = () => {
               onClick={handleGenerateResponse}
               className='px-11 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3'
             >
-              AI Response for Job Description
+              Generate Job Description From AI
             </button>
           </div>
 
