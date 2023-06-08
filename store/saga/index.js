@@ -15,6 +15,7 @@ import watchgetJobRequest from "./getjobSaga";
 import watchdeleteJobRequest from "./deletejobSaga";
 import watchviewProfileRequest from "./viewProfileSaga";
 import watchCsvSaveRequest from "./csvMutipleJobUploadSaga";
+import {watchjobsSaga} from "./recomandedJobSaga";
 export default function* rootSaga() {
   yield all([
     watchLogin(),
@@ -33,5 +34,6 @@ export default function* rootSaga() {
     watchdeleteJobRequest(),
     watchviewProfileRequest(),
     watchCsvSaveRequest(),
+    watchjobsSaga()
   ]);
 }

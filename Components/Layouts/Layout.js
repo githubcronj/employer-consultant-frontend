@@ -22,6 +22,7 @@ function Layout(props) {
     "/editProfile",
     "/setup-details",
     "/searchJob",
+    "/search_job",
     "/resume-templates",
     "/cviewprofile",
     "/samplepage",
