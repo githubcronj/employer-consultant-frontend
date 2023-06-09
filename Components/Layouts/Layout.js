@@ -27,6 +27,8 @@ function Layout(props) {
     "/samplepage",
     "/consultant/applied-jobs",
     "/jobsearch-details",
+    "/resume-created",
+    "/job-apply-search/"
   ].includes(pathname);
   const onlyNav = ["/viewProfileCon"];
   return (

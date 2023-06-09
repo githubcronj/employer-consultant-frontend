@@ -55,20 +55,13 @@ const Setupdetails = () => {
     fileInput.click();
   };
   
-     
-  
-  // new handle
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   const [section, field] = name.split(".");
-  //   setResumeForm((prevData) => ({
-  //     ...prevData,
-  //     [section]: {
-  //       ...prevData[section],
-  //       [field]: value,
-  //     },
-  //   }));
-  // };
+  const [errors, setErrors] = useState({});
+  const renderErrorMessage = (fieldName) => {
+    if (errors[fieldName]) {
+      return <p className="text-red-500 text-xs">{errors[fieldName]}</p>;
+    }
+    return null;
+  };
 
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -239,11 +232,11 @@ const Setupdetails = () => {
  
 
   const handleSave = () => {
+
     const payload = {
       token: finaltoken,
       data: resumeForm,
     };
-    console.log(payload,'payload')
     dispatch({ type: RESUME_REQUEST, payload });
     const cleanData ={
       personalDetails: {
