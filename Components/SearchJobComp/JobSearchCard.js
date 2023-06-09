@@ -11,15 +11,14 @@ const JobSearchCard = ({
   experience,
   location,
   flag,
-  
+  navigate,
   id
 }) => {
-console.log(id,'idddddddddd')
   return (
     <>
       {!flag ? (
         <Box
-        // onClick={()=>navigate(id)}
+        onClick={()=>navigate(id)}
           sx={{
             display: "flex",
             flexDirection: "column",

@@ -29,10 +29,11 @@ const JobSlider = ({ heading, subTitle, location, flag }) => {
   useEffect(() => {
     dispatch(fetchJobsRequest(jobData, finaltoken));
   }, [dispatch]);
+
   const router = useRouter();
 
   const nextclick = (id) => {
-    // console.log(id);
+    console.log(id,'route id');
     router.push(`/jobsearch-details/${id}`);
   };
 
@@ -126,7 +127,6 @@ const JobSlider = ({ heading, subTitle, location, flag }) => {
       />
     ),
   };
-  console.log(heading, "heading");
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
@@ -169,7 +169,7 @@ const JobSlider = ({ heading, subTitle, location, flag }) => {
         <Slider arrows={false} ref={sliderRef} {...settings}>
           {jobData.map((job, index) => {
             // const {logo, duration, title, experience, location} = job;
-            console.log(job.id,'slider')
+            {/* console.log(job._id,'slider') */}
             return (
               <Box key={index}>
                 <JobSearchCard
@@ -179,7 +179,8 @@ const JobSlider = ({ heading, subTitle, location, flag }) => {
                   title={job.jobTitle}
                   experience={job.experience}
                   location={job.location}
-                  // navigate={nextclick}
+                  navigate={nextclick}
+                  id={job._id}
                 />
               </Box>
             );
