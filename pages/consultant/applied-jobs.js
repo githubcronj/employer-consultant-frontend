@@ -3,8 +3,11 @@ import JobDetails from "Components/ConsultantJob/JobDetails";
 import JobList from "Components/ConsultantJob/JobList";
 import Image from "next/image";
 import React from "react";
+import { useRouter } from "next/router";
 
 const AppliedJobs = () => {
+  const router = useRouter();
+
   return (
     <Box
       py={2}
@@ -28,6 +31,7 @@ const AppliedJobs = () => {
           width={42}
           height={42}
           className="cursor-pointer"
+          onClick={()=> router.push("/search_job")}
         />
         <Typography
           sx={{

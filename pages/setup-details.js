@@ -18,8 +18,6 @@ const Setupdetails = () => {
   const [expanded, setExpanded] = React.useState(false);
   const dispatch = useDispatch();
   const resumeData = useSelector((state) => state.resumeDataFillingReducer);
-  console.log("resumeData", resumeData);
-
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
@@ -32,17 +30,18 @@ const Setupdetails = () => {
       birth: "",
       location: "",
       text: "",
+      image: null,
     },
-    educationDetails: [],
-    experienceDetails: [],
-    skillsDetails: [],
-    projectDetails: [],
-    certificationDetails: [],
+    education: [],
+    experience: [],
+    skill: [],
+    project: [],
+    certification: [],
   });
 
-  useEffect(() => {
-    dispatch(resumeDataFillingAction(resumeForm.personalDetails));
-  }, [dispatch, resumeForm.personalDetails]);
+  // useEffect(() => {
+  //   dispatch(resumeDataFillingAction(resumeForm.personalDetails));
+  // }, [dispatch, resumeForm.personalDetails]);
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [tempExp, setTemExp] = useState({});
@@ -55,15 +54,9 @@ const Setupdetails = () => {
     const fileInput = document.getElementById("image");
     fileInput.click();
   };
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      setSelectedImage(URL.createObjectURL(file));
-    } else {
-      setSelectedImage(null);
-    }
-  };
+  
+     
+  
   // new handle
   // const handleInputChange = (e) => {
   //   const { name, value } = e.target;
@@ -80,11 +73,19 @@ const Setupdetails = () => {
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
     if (type === "file") {
+      const [section, field] = name.split(".");
       const file = files[0];
+     
+      
       setResumeForm((prevData) => ({
         ...prevData,
-        [name]: file,
+        [section]: {
+          ...prevData[section],
+          [field]: file,
+        },
       }));
+      setSelectedImage(URL.createObjectURL(file));
+
     } else {
       const [section, field] = name.split(".");
       setResumeForm((prevData) => ({
@@ -96,7 +97,6 @@ const Setupdetails = () => {
       }));
     }
   };
-   console.log(resumeForm,"urdata")
 
   const handleExpChange = (e) => {
     const { name, value } = e.target;
@@ -131,7 +131,7 @@ const Setupdetails = () => {
   const handleExpAdd = () => {
     setResumeForm((prevData) => ({
       ...prevData,
-      experienceDetails: [...prevData.experienceDetails, tempExp],
+      experience: [...prevData.experience, tempExp],
     }));
     setTemExp({});
   };
@@ -139,14 +139,14 @@ const Setupdetails = () => {
   const handleSkillsAdd = () => {
     setResumeForm((prevData) => ({
       ...prevData,
-      skillsDetails: [...prevData.skillsDetails, tempSkills],
+      skill: [...prevData.skill, tempSkills],
     }));
     setempSkills({});
   };
   const handleProjectAdd = () => {
     setResumeForm((prevData) => ({
       ...prevData,
-      projectDetails: [...prevData.projectDetails, tempProject],
+      project: [...prevData.project, tempProject],
     }));
     SetempProject({});
   };
@@ -154,7 +154,7 @@ const Setupdetails = () => {
   const handleCertificateAdd = () => {
     setResumeForm((prevData) => ({
       ...prevData,
-      certificationDetails: [...prevData.certificationDetails, tempCertificate],
+      certification: [...prevData.certification, tempCertificate],
     }));
     SetempCertificate({});
   };
@@ -162,67 +162,67 @@ const Setupdetails = () => {
   const handleEducationAdd = () => {
     setResumeForm((prevData) => ({
       ...prevData,
-      educationDetails: [...prevData.educationDetails, tempeducation],
+      education: [...prevData.education, tempeducation],
     }));
     SetempEdu({});
   };
 
   const handleremovedata = (indexdata) => {
     setResumeForm((prevData) => {
-      const updatedExperienceDetails = prevData.experienceDetails.filter(
+      const updatedExperienceDetails = prevData.experience.filter(
         (_, index) => index !== indexdata
       );
       return {
         ...prevData,
-        experienceDetails: updatedExperienceDetails,
+        experience: updatedExperienceDetails,
       };
     });
   };
 
   const handleSkillsremovedata = (indexdata) => {
     setResumeForm((prevData) => {
-      const updatedDataskills = prevData.skillsDetails.filter(
+      const updatedDataskills = prevData.skill.filter(
         (_, index) => index !== indexdata
       );
       return {
         ...prevData,
-        skillsDetails: updatedDataskills,
+        skill: updatedDataskills,
       };
     });
   };
 
   const handleProjectremovedata = (indexdata) => {
     setResumeForm((prevData) => {
-      const updatedData = prevData.projectDetails.filter(
+      const updatedData = prevData.project.filter(
         (_, index) => index !== indexdata
       );
       return {
         ...prevData,
-        projectDetails: updatedData,
+        project: updatedData,
       };
     });
   };
 
   const handleCertificateremovedata = (indexdata) => {
     setResumeForm((prevData) => {
-      const updatedData1 = prevData.certificationDetails.filter(
+      const updatedData1 = prevData.certification.filter(
         (_, index) => index !== indexdata
       );
       return {
         ...prevData,
-        certificationDetails: updatedData1,
+        certification: updatedData1,
       };
     });
   };
 
   const handleEducationremovedata = (indexdata) => {
     setResumeForm((prevData) => {
-      const updatedDataEdu = prevData.educationDetails.filter(
+      const updatedDataEdu = prevData.education.filter(
         (_, index) => index !== indexdata
       );
       return {
         ...prevData,
-        educationDetails: updatedDataEdu,
+        education: updatedDataEdu,
       };
     });
   };
@@ -243,6 +243,7 @@ const Setupdetails = () => {
       token: finaltoken,
       data: resumeForm,
     };
+    console.log(payload,'payload')
     dispatch({ type: RESUME_REQUEST, payload });
     const cleanData ={
       personalDetails: {
@@ -253,15 +254,18 @@ const Setupdetails = () => {
         birth: "",
         location: "",
         text: "",
+        image:null
       },
-      educationDetails: [],
-      experienceDetails: [],
-      skillsDetails: [],
-      projectDetails: [],
-      certificationDetails: [],
+      education: [],
+      experience: [],
+      skill: [],
+      project: [],
+      certification: [],
     }
     setResumeForm(cleanData);
+    setSelectedImage("")
   };
+ console.log(resumeForm,"in details")
 
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
@@ -309,7 +313,7 @@ const Setupdetails = () => {
               />
             ) : (
               <img src="/Assets/camera-icon.svg" alt="cameraIcon" />
-            )}{" "}
+            )}
             <input
               id="image"
               type="file"
@@ -445,7 +449,7 @@ const Setupdetails = () => {
                   educationDetails={tempeducation}
                   tempeducation={handleEducationChange}
                   handleEducationAdd={handleEducationAdd}
-                  infodata={resumeForm?.educationDetails}
+                  infodata={resumeForm?.education}
                   handleEducationremovedata={handleEducationremovedata}
                 />
               </AccordionDetails>
@@ -467,7 +471,7 @@ const Setupdetails = () => {
                   experienceDetails={tempExp}
                   tempExp={handleExpChange}
                   handleExpAdd={handleExpAdd}
-                  infodata={resumeForm?.experienceDetails}
+                  infodata={resumeForm?.experience}
                   handleremovedata={handleremovedata}
                 />
               </AccordionDetails>
@@ -489,7 +493,7 @@ const Setupdetails = () => {
                   skillsDetails={tempSkills}
                   tempSkills={handleSkillsChange}
                   handleSkillsAdd={handleSkillsAdd}
-                  infodata={resumeForm?.skillsDetails}
+                  infodata={resumeForm?.skill}
                   handleSkillsremovedata={handleSkillsremovedata}
                 />
               </AccordionDetails>
@@ -511,7 +515,7 @@ const Setupdetails = () => {
                   projectDetails={tempProject}
                   tempProject={handleProjectChange}
                   handleProjectAdd={handleProjectAdd}
-                  infodata={resumeForm?.projectDetails}
+                  infodata={resumeForm?.project}
                   handleProjectremovedata={handleProjectremovedata}
                 />
               </AccordionDetails>
@@ -535,7 +539,7 @@ const Setupdetails = () => {
                   certificationDetails={tempCertificate}
                   tempCertificate={handleCertificateChange}
                   handleCertificateAdd={handleCertificateAdd}
-                  infodata={resumeForm?.certificationDetails}
+                  infodata={resumeForm?.certification}
                   handleCertificateremovedata={handleCertificateremovedata}
                 />
               </AccordionDetails>

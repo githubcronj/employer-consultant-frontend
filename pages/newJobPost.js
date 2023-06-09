@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { jobSaveRequest } from "../store/action/jobPostAction";
 import { generateResponseSaveRequest } from "store/action/generateResponseAction";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const NewJobPost = () => {
   const router = useRouter();
@@ -15,6 +16,7 @@ const NewJobPost = () => {
   const [data, setData] = useState(null);
   const [selectedButton, setSelectedButton] = useState("");
   const [isFieldChanged, setIsFieldChanged] = useState(false);
+  const [description, setDescription] = useState("");
   const [jobPostData, setJobPostData] = useState({
     jobTitle: "",
     experience: "",
@@ -22,10 +24,12 @@ const NewJobPost = () => {
     jobType: "",
     minSalary: "",
     maxSalary: "",
-    description: "",
+    // description: "",
     email: "",
     phoneNumber: "",
     salary: "",
+    industryType: "",
+    skills: [],
   });
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
@@ -59,6 +63,22 @@ const NewJobPost = () => {
       }));
     }
   }, [data]);
+  // response
+  const response = useSelector((state) => state?.generateResponseReducer?.data);
+
+  // console.log(response?.key_requirements, "respooonse");
+
+  const defaultDescriptionValue =
+    `${response?.job_description}\n\nKey Requirements:\n` +
+    (response?.key_requirements || [])
+      .map((requirement) => `• ${requirement}`)
+      .join("\n") +
+    "\n\nResponsibilities:\n" +
+    (response?.responsibilities || "") +
+    "\n\nConcluding Details:\n" +
+    (response?.concluding_details || "");
+
+
   const handleSalaryButton = (e) => {
     setSelectedButton(e.target.id);
     setJobPostData((prevValues) => ({
@@ -80,6 +100,18 @@ const NewJobPost = () => {
     }));
   };
 
+  useEffect(() => {
+    setDescription(defaultDescriptionValue);
+  }, [defaultDescriptionValue.length]);
+
+  const handleChangeDesc = (e) => {
+    setDescription(e.target.value)
+    // setDescription((prevValues) => ({
+      // ...prevValues,
+      // description: e.target.value,
+    // }));
+  };
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     // setJobPostData((prevValues) => ({
@@ -87,19 +119,33 @@ const NewJobPost = () => {
     //   [id]: value,
     // }));
 
-    if (id === "experience" || id === "maxSalary" || id === "minSalary") {
+    if (id === "experience") {
       setJobPostData((prevValues) => ({
         ...prevValues,
         [id]: parseInt(value),
       }));
-    } 
+    } else if (id === "maxSalary" || id === "minSalary") {
+      const numericValue = parseInt(value);
+
+      if (!isNaN(numericValue)) {
+        setJobPostData((prevValues) => ({
+          ...prevValues,
+          [id]: numericValue,
+        }));
+      } else {
+        setJobPostData((prevValues) => ({
+          ...prevValues,
+          [id]: "", // Clear the field if the input is not a valid number
+        }));
+      }
+    }
     // else if (response && defaultDescriptionValue && id === "description" && value === "") {
     //   // Handle description field separately
     //   setJobPostData((prevValues) => ({
     //     ...prevValues,
     //     [id]: defaultDescriptionValue,
     //   }));
-    // } 
+    // }
     else {
       setJobPostData((prevValues) => ({
         ...prevValues,
@@ -125,10 +171,12 @@ const NewJobPost = () => {
       "jobType",
       "minSalary",
       "maxSalary",
-      "description",
+      // "description",
       "email",
       "phoneNumber",
       "salary",
+      "industryType",
+      "skills",
     ];
     const errors = {};
     if (jobPostData === null) {
@@ -151,15 +199,11 @@ const NewJobPost = () => {
 
     return Object.keys(errors).length === 0;
   };
-  const response = useSelector((state) => state?.generateResponseReducer?.data);
-  console.log(response?.key_requirements, "respooonse");
-  const defaultDescriptionValue =
-    `${response?.job_description}\n\nKey Requirements:\n` +
-    (response?.key_requirements || [])
-      .map((requirement) => `• ${requirement}`)
-      .join("\n") +
-    "\n\nResponsibilities:\n" +
-    (response?.responsibilities || "");
+  const loading = useSelector(
+    (state) => state?.generateResponseReducer?.loading
+  );
+  console.log("loading", loading);
+
   console.log(defaultDescriptionValue, "gdhhonse");
   const handleGenerateResponse = (e) => {
     const requestData = {
@@ -170,12 +214,29 @@ const NewJobPost = () => {
     dispatch(generateResponseSaveRequest(requestData, finaltoken));
     console.log(requestData);
   };
+
+console.log('descccc',description)
   const handleSave = (e) => {
     e.preventDefault();
-    if (isFormValid()) {
-      dispatch(jobSaveRequest(jobPostData));
-      console.log(jobPostData);
+    const jobData = {
+      jobTitle: jobPostData.jobTitle,
+      experience: jobPostData.experience,
+      deadline: jobPostData.deadline,
+      jobType: jobPostData.jobType,
+      minSalary: jobPostData.minSalary,
+      maxSalary: jobPostData.maxSalary,
+      description: description,
+      email: jobPostData.email,
+      phoneNumber: jobPostData.phoneNumber,
+      salary: jobPostData.salary,
+      industryType: jobPostData.industryType,
+      skills: jobPostData.skills,
+    };
+    console.log('jobdata',jobData);
 
+    if (isFormValid()) {
+      dispatch(jobSaveRequest(jobData,finaltoken));
+    
       // console.log(payload,'ppppp');
       const initialJobPostData = {
         jobTitle: "",
@@ -184,10 +245,12 @@ const NewJobPost = () => {
         jobType: "",
         minSalary: "",
         maxSalary: "",
-        description: "",
+        // description: "",
         email: "",
         phoneNumber: "",
         salary: "",
+        industryType: "",
+        skills: [],
       };
       setJobPostData(initialJobPostData);
       // console.log(jobPostData);
@@ -275,6 +338,12 @@ const NewJobPost = () => {
               <option value='1'>1 year</option>
               <option value='2'>2 year</option>
               <option value='3'>3 year</option>
+              <option value='4'>4 year</option>
+              <option value='5'>5 year</option>
+              <option value='6'>6 year</option>
+              <option value='7'>7 year</option>
+              <option value='8'>8 year</option>
+              <option value='9'>9 year</option>
             </select>
             {renderErrorMessage("experience")}
           </div>
@@ -462,7 +531,7 @@ const NewJobPost = () => {
               onClick={handleGenerateResponse}
               className='px-11 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3'
             >
-              AI Response for Job Description
+              Generate Job Description From AI
             </button>
           </div>
 
@@ -475,15 +544,23 @@ const NewJobPost = () => {
               placeholder=' '
               required
               style={{
-                minHeight: '150px', // Increase the height here
-                ...(errors.description ? { borderColor: 'red' } : {}),
+                minHeight: "180px", // Increase the height here
+                ...(errors.description ? { borderColor: "red" } : {}),
               }}
               // style={{errors.description ? { borderColor: "red" } : {},minHeight: '150px'}}
               className='block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
               value={jobPostData.description}
-              onChange={handleChange}
+              onChange={handleChangeDesc}
               defaultValue={response && defaultDescriptionValue}
+              // defaultValue={response && defaultDescriptionValue}
+              disabled={loading}
             />
+            {loading && (
+              <div className='flex justify-center items-center absolute bottom-[35%] left-[50%]'>
+                <CircularProgress sx={{ color: "#EF4444" }} />
+              </div>
+            )}
+
             <label
               for='description'
               className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
@@ -541,7 +618,95 @@ const NewJobPost = () => {
             </label>
             {renderErrorMessage("phoneNumber")}
           </div>
+
+          {/* industry type */}
+          <div className='relative'>
+            <input
+              type='text'
+              id='industryType'
+              placeholder=' '
+              required
+              //   minlength="10"
+              //   maxlength="12"
+              style={errors.industryType ? { borderColor: "red" } : {}}
+              className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                `}
+              value={jobPostData.industryType}
+              onChange={handleChange}
+            />
+
+            <label
+              for='indusryType'
+              className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+            >
+              Industry Type
+            </label>
+            {renderErrorMessage("Industry Type")}
+          </div>
+          {/* Industry Type */}
+          {/* skills */}
+          <div>
+            <div className='relative flex items-center'>
+              <input
+                type='text'
+                id='skills'
+                placeholder=' '
+                required
+                style={errors.skills ? { borderColor: "red" } : {}}
+                // className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                className='block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
+                value={jobPostData.skills}
+                onChange={handleChange}
+              />
+              <label
+                for='skills'
+                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+              >
+                Skills
+              </label>
+              <button
+                className='absolute right-2 px-6 sm:px-8 py-3 bg-red-500 text-white rounded-[10px]'
+                // onClick={handlePaste}
+              >
+                Add
+              </button>
+              <div></div>
+            </div>
+            <div className='py-4 grid sm:grid-cols-2 gap-7'>
+              {/* <div
+                className='bg-[#F9F6EE] p-6 bordr rounded-xl text-[#1E0F3B] font-bold mt-4'
+                style={{ position: "relative" }}
+              >
+                <div>
+                  <p className=''>test</p>
+                </div>
+                <img
+                  src='/Assets/cross.svg'
+                  alt='cancel'
+                  className=' justify-end'
+                  style={{ position: "absolute", top: "11%", right: "2%" }}
+                />
+              </div>
+              <div
+                className='bg-[#F9F6EE] p-6 bordr rounded-xl text-[#1E0F3B] font-bold mt-4'
+                style={{ position: "relative" }}
+              >
+                <div>
+                  <p className=''>test</p>
+                </div>
+                <img
+                  src='/Assets/cross.svg'
+                  alt='cancel'
+                  className=' justify-end'
+                  style={{ position: "absolute", top: "11%", right: "2%" }}
+                />
+              </div>   */}
+            </div>
+          </div>
+
+          {/* skills */}
         </div>
+
         {/* form section ends here */}
       </div>
     </div>

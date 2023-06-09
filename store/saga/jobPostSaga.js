@@ -7,18 +7,20 @@ import { useEffect, useState } from 'react';
 
 
 function* saveJobPost(action) {
+
+  console.warn('data',action);
  
     const data = {
-      jobTitle: action.payload.jobTitle,
-    experience: action.payload.experience,
-    deadline: action.payload.deadline,
-    email: action.payload.email,
-    jobType: action.payload.jobType,
-    salary: action.payload.salary,
-    minSalary: action.payload.minSalary,
-    maxSalary: action.payload.maxSalary,
-    description: action.payload.description,
-    phoneNumber: action.payload.phoneNumber,
+      jobTitle: action.payload.jobData.jobTitle,
+    experience: action.payload.jobData.experience,
+    deadline: action.payload.jobData.deadline,
+    email: action.payload.jobData.email,
+    jobType: action.payload.jobData.jobType,
+    salary: action.payload.jobData.salary,
+    minSalary: action.payload.jobData.minSalary,
+    maxSalary: action.payload.jobData.maxSalary,
+    description: action.payload.jobData.description,
+    phoneNumber: action.payload.jobData.phoneNumber,
 
   
     }
