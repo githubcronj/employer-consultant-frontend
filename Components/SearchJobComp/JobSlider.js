@@ -8,9 +8,32 @@ import companyLogo from "../../asset/icons/google.svg"
 import next from "../../asset/icons/nextIcon.svg"
 import prev from "../../asset/icons/prevIcon.svg"
 import Image from "next/image";
+import  { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchJobsRequest } from "../../store/action/recommandedJobAction";
+
 
 
 const JobSlider = ({heading,subTitle,location,flag}) => {
+  
+const dispatch = useDispatch();
+const getToken = () => {
+  if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+    const storedData = localStorage.getItem("CurrentUser");
+
+    const tokenset = JSON.parse(storedData);
+    return tokenset?.token?.accessToken;
+  }
+};
+const finaltoken = getToken();
+const jobData = useSelector((state) => state.jobsReducer.GetjobData);
+console.log(jobData)
+useEffect(() => {
+  dispatch(fetchJobsRequest(jobData,finaltoken)); 
+}, [dispatch]);
+
+
+
   const jobs = [
     {
       title: "UX developer",
@@ -114,17 +137,17 @@ const JobSlider = ({heading,subTitle,location,flag}) => {
         {settings.nextArrow}
       </Box>
       <Slider arrows={false} ref={sliderRef} {...settings}>
-        {jobs.map((job, index) => {
-          const {logo, duration, title, experience, location} = job;
+        {jobData.map((job, index) => {
+          // const {logo, duration, title, experience, location} = job;
           return (
             <Box key={index}>
               <JobSearchCard
               flag={flag}
-                logo={logo}
-                duration={duration}
-                title={title}
-                experience={experience}
-                location={location}
+              logo={job.logo ? job.logo : companyLogo} 
+                duration={job.duration}
+                title={job.jobTitle}
+                experience={job.experience}
+                location={job.location}
               />
             </Box>
           );

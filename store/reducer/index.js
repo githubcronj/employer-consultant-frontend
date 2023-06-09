@@ -18,6 +18,7 @@ import resumeDataFillingReducer from "./resumeDataFillingReducer";
 import csvUploadReducer from './csvMultipleJobUploadReducer';
 import generateResponseReducer from './generateResponseReducer';
 import {setDetailsReducer} from './setupDetailsReducer'
+import {jobsReducer} from "./recomandedJobReducer";
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
@@ -39,7 +40,7 @@ const rootReducer = combineReducers({
   generateResponseReducer,
   setDetailsReducer,
   
-
+  jobsReducer
 });
 
 export default rootReducer;
