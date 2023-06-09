@@ -26,16 +26,7 @@ const leftmapping = [
     company: "Spotify",
     Experience: "2 yrs exp",
   },
-  {
-    title: "UX Designer",
-    company: "Spotify",
-    Experience: "2 yrs exp",
-  },
-  {
-    title: "UX Designer",
-    company: "Spotify",
-    Experience: "2 yrs exp",
-  },
+  
 ];
 const JobSearchLeft = () => {
   return (

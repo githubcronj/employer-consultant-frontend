@@ -19,6 +19,8 @@ import csvUploadReducer from './csvMultipleJobUploadReducer';
 import generateResponseReducer from './generateResponseReducer';
 import {setDetailsReducer} from './setupDetailsReducer'
 import {jobsReducer} from "./recomandedJobReducer";
+import applyJobReducer from './applyJobReducer';
+import cancelJobReducer from './cancelJobReducer';
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
@@ -39,8 +41,9 @@ const rootReducer = combineReducers({
   csvUploadReducer,
   generateResponseReducer,
   setDetailsReducer,
-  
-  jobsReducer
+  jobsReducer,
+  applyJobReducer,
+  cancelJobReducer,
 });
 
 export default rootReducer;

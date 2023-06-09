@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import JobSearchLeft from "Components/SearchJob/JobSearchLeft";
 import MainSearch from "Components/SearchJob/MainSearch";
-import JobSearchHeader from "../Components/SearchJob/JobSearchHeader";
+import JobSearchHeader from "Components/SearchJob/JobSearchHeader";
 import JobSearchRight from "Components/SearchJob/JobSearchRight";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchJobsRequest } from "store/action/recommandedJobAction";
 
 const JobSearchDetails = () => {
@@ -21,12 +21,13 @@ const JobSearchDetails = () => {
   };
   const finaltoken = getToken();
   const jobData = useSelector((state) => state.jobsReducer.GetjobData);
-  console.log(finaltoken,'finaltoken')
 
   useEffect(() => {
     dispatch(fetchJobsRequest(jobData,finaltoken));
   }, []);
-
+  let finaldata = jobData?.filter((x, y) => {
+    return id == x?._id;
+  });
 
   return (
     <div>
@@ -42,7 +43,7 @@ const JobSearchDetails = () => {
             <JobSearchHeader />
           </div>
           <div>
-            <MainSearch />
+            <MainSearch finaldata={finaldata}/>
           </div>
         </div>
         <div className=" xl:mr-[20px] lg:mr-[20px] my-[20px] bg-white xl:w-[289px] w-auto max-h-[462px] h-auto ">

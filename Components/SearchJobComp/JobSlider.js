@@ -34,7 +34,7 @@ const JobSlider = ({ heading, subTitle, location, flag }) => {
 
   const nextclick = (id) => {
     console.log(id,'route id');
-    router.push(`/jobsearch-details/${id}`);
+    router.push(`/job-apply-search/${id}`);
   };
 
   const jobs = [
