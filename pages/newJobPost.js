@@ -66,8 +66,6 @@ const NewJobPost = () => {
   // response
   const response = useSelector((state) => state?.generateResponseReducer?.data);
 
-  // console.log(response?.key_requirements, "respooonse");
-
   const defaultDescriptionValue =
     `${response?.job_description}\n\nKey Requirements:\n` +
     (response?.key_requirements || [])
@@ -201,9 +199,9 @@ const NewJobPost = () => {
   const loading = useSelector(
     (state) => state?.generateResponseReducer?.loading
   );
-  console.log("loading", loading);
 
-  console.log(defaultDescriptionValue, "gdhhonse");
+
+ 
   const handleGenerateResponse = (e) => {
     const requestData = {
       jobTitle: jobPostData.jobTitle,
@@ -211,10 +209,9 @@ const NewJobPost = () => {
       experience: jobPostData.experience,
     };
     dispatch(generateResponseSaveRequest(requestData, finaltoken));
-    console.log(requestData);
+
   };
 
-  console.log("descccc", description);
   const handleSave = (e) => {
     e.preventDefault();
     const jobData = {
@@ -231,12 +228,10 @@ const NewJobPost = () => {
       industryType: jobPostData.industryType,
       skills: jobPostData.skills,
     };
-    console.log("jobdata", jobData);
 
     if (isFormValid()) {
       dispatch(jobSaveRequest(jobData, finaltoken));
 
-      // console.log(payload,'ppppp');
       const initialJobPostData = {
         jobTitle: "",
         experience: "",
@@ -252,7 +247,6 @@ const NewJobPost = () => {
         skills: [],
       };
       setJobPostData(initialJobPostData);
-      // console.log(jobPostData);
       router.push("/");
     } else {
       return;
