@@ -34,6 +34,16 @@ const Login = () => {
 
   const isLoggedIn = useSelector((state) => state.LoginReducer.isLoggedIn);
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      if (role === "employer") {
+        router.push("/");
+      } else if (role === "consultant") {
+        router.push("/search_job");
+      }
+    }
+  }, [isLoggedIn, role, router]);
+
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
     if (newAlignment == "android") {
@@ -45,7 +55,7 @@ const Login = () => {
     }
   };
   useEffect(() => {
-    localStorage.setItem('role', 'employer');
+    localStorage.setItem("role", "employer");
   }, []);
 
   const passwordclick = () => {
@@ -80,20 +90,19 @@ const Login = () => {
 
     dispatch(login(payload));
   };
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push("/profile");
-    }
-  }, [isLoggedIn, router]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     router.push("/profile");
+  //   }
+  // }, [isLoggedIn, router]);
 
   const handleGoogleLogin = async (e) => {
     e.preventDefault();
     const callbackUrl = "/googleAuth";
-    try{
+    try {
       await signIn("google", { role, callbackUrl });
-    }
-    catch(error){
-    console.log("error")
+    } catch (error) {
+      console.log("error");
     }
   };
   const facebookClick = () => {
@@ -101,7 +110,7 @@ const Login = () => {
 
     window.open(
       `${process.env.NEXT_PUBLIC_BASE_URL}/facebook/callback`,
-      '_self'
+      "_self"
     );
   };
 
@@ -112,13 +121,13 @@ const Login = () => {
         lg:items-center lg:justify-center md:flex-col
          lg:gap-12 xl:gap-0 h-[100%] lg:h-auto ${styles.desk}`}
       >
-        <div className='xl:mt-0  flex flex-col items-center justify-center align-middle sm:pl-0  sm:mr-[2px] md:mr-[2px] mb-3 xl:-mb-7 flex-1 '>
+        <div className="xl:mt-0  flex flex-col items-center justify-center align-middle sm:pl-0  sm:mr-[2px] md:mr-[2px] mb-3 xl:-mb-7 flex-1 ">
           <div
             style={{ marginTop: "20px" }}
-            className=' xl:w-1/2  md:w-full -ml-[36px] xl:ml-[0px] flex flex-col justify-center items-center pt-0  gap-4 '
+            className=" xl:w-1/2  md:w-full -ml-[36px] xl:ml-[0px] flex flex-col justify-center items-center pt-0  gap-4 "
           >
             <h1
-              className='text-2xl font-bold text-#1E0F3B mb-1 xl:-mt-1 xl:-mb-5 xl:ml-6 lg:ml-6'
+              className="text-2xl font-bold text-#1E0F3B mb-1 xl:-mt-1 xl:-mb-5 xl:ml-6 lg:ml-6"
               style={{ width: "72px", height: "29px", fontSize: "24px" }}
             >
               LOGO
@@ -131,7 +140,7 @@ const Login = () => {
                 width: "412px",
                 height: "60px",
               }}
-              className='flex  rounded-20 transition-all duration-300 ml-8 gap-3  border-radius-2 pl-1'
+              className="flex  rounded-20 transition-all duration-300 ml-8 gap-3  border-radius-2 pl-1"
             >
               <button
                 style={{
@@ -175,25 +184,25 @@ const Login = () => {
             </div>
 
             <div>
-              <h1 className='text-3xl font-bold text-black pb-4 ml-2 xl:-mt-2 xl:-mb-2'>
+              <h1 className="text-3xl font-bold text-black pb-4 ml-2 xl:-mt-2 xl:-mb-2">
                 Log In
               </h1>
             </div>
           </div>
 
-          <div className='xl:pl-10 lg:pl-10 relative'>
+          <div className="xl:pl-10 lg:pl-10 relative">
             <InputComponent
-              type='email'
+              type="email"
               value={email}
-              placeholder='Email address'
+              placeholder="Email address"
               onchange={(e) => emailclicked(e)}
               lefticon={envelope.src}
               emailstyle={emailErr ? true : false}
             />
             {emailErr && (
               <h6
-                variant='h6'
-                className='text-red-500 absolute top-[54px] left-[40px]'
+                variant="h6"
+                className="text-red-500 absolute top-[54px] left-[40px]"
               >
                 {emailErr}
               </h6>
@@ -202,7 +211,7 @@ const Login = () => {
             <InputComponent
               type={displayPassword}
               value={password}
-              placeholder='Set Password'
+              placeholder="Set Password"
               lefticon={lock.src}
               righticon={iconsetone ? eye.src : closedeye.src}
               showpassword={passwordclick}
@@ -211,15 +220,15 @@ const Login = () => {
             />
             {passwordErr && (
               <h6
-                variant='h6'
-                className='text-red-500 absolute top-[134px] left-[40px] w-[620px]'
+                variant="h6"
+                className="text-red-500 absolute top-[134px] left-[40px] w-[620px]"
               >
                 {passwordErr}
               </h6>
             )}
 
-            <Link href='/forgotPassword'>
-              <h3 className='w-full text-right text-[#2B373C] text-[13px] mb-4 font-bold tracking-[0.13px] '>
+            <Link href="/forgotPassword">
+              <h3 className="w-full text-right text-[#2B373C] text-[13px] mb-4 font-bold tracking-[0.13px] ">
                 Forgot Password?
               </h3>
             </Link>
@@ -227,26 +236,26 @@ const Login = () => {
           </div>
 
           <div
-            className='flex items-center xl:pl-10 lg:pl-10 mt-3 sm:w-96'
+            className="flex items-center xl:pl-10 lg:pl-10 mt-3 sm:w-96"
             style={{ width: "435px" }}
           >
-            <hr className='flex-grow border-t-2 border-gray-300 w-24 sm:w-40 mr-5' />
-            <span className='text-black'>OR</span>
-            <hr className='flex-grow border-t-2 border-gray-300 w-24 sm:w-40 ml-5' />
+            <hr className="flex-grow border-t-2 border-gray-300 w-24 sm:w-40 mr-5" />
+            <span className="text-black">OR</span>
+            <hr className="flex-grow border-t-2 border-gray-300 w-24 sm:w-40 ml-5" />
           </div>
-          <div className='flex items-center ml-0 gap-5 mt-3 xl:pl-10 lg:pl-10 '>
+          <div className="flex items-center ml-0 gap-5 mt-3 xl:pl-10 lg:pl-10 ">
             <div>
               <img
-                src='/Assets/googleIcon.png'
-                alt='googleIcon'
+                src="/Assets/googleIcon.png"
+                alt="googleIcon"
                 style={{ width: "50px", height: "50px", cursor: "pointer" }}
                 onClick={handleGoogleLogin}
               />
             </div>
 
             <img
-              src='/Assets/facebookIcon.png'
-              alt='facebookIcon'
+              src="/Assets/facebookIcon.png"
+              alt="facebookIcon"
               style={{ width: "50px", height: "50px", cursor: "pointer" }}
               // onClick={facebookClick}
               onClick={() =>
@@ -255,9 +264,9 @@ const Login = () => {
             />
           </div>
 
-          <h3 className='ml-9 mt-4 '>
+          <h3 className="ml-9 mt-4 ">
             Already have account?
-            <Link href='/register'>
+            <Link href="/register">
               <span
                 style={{
                   color: "#F9342E",
@@ -265,7 +274,7 @@ const Login = () => {
                   fontWeight: "bold",
                 }}
                 onClick={() => console.log("signup clicked")}
-                className='pl-4'
+                className="pl-4"
               >
                 Register
               </span>

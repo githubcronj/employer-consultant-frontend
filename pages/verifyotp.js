@@ -18,7 +18,7 @@ const Verifyotp = () => {
   console.log(data);
   useEffect(() => {
     if (data == 200) {
-      router.push("/login");
+      router.push("/profile");
     }
   }, [data]);
 
@@ -36,40 +36,40 @@ const Verifyotp = () => {
     dispatch({ type: REENTEROTP_REQUEST, payload });
   };
   return (
-    <div className=' flex flex-col items-center m-[23vh]'>
-      <div className=''>
-        <h1 className='font-black text-xl'>LOGO</h1>
+    <div className=" flex flex-col items-center m-[23vh]">
+      <div className="">
+        <h1 className="font-black text-xl">LOGO</h1>
       </div>
-      <div className='flex flex-col items-center p-3'>
-        <h1 className='font-bold p-2 text-lg'>Confirm you email</h1>
-        <h2 className='font-medium'>Type in the code we sent to {email} </h2>
+      <div className="flex flex-col items-center p-3">
+        <h1 className="font-bold p-2 text-lg">Confirm you email</h1>
+        <h2 className="font-medium">Type in the code we sent to {email} </h2>
       </div>
-      <div className='p-2 relative h-[60px]'>
+      <div className="p-2 relative h-[60px]">
         <input
-          className='w-[350px] h-[40px] border border-black pl-[150px]'
-          placeholder='--------'
+          className="w-[350px] h-[40px] border border-black pl-[150px]"
+          placeholder="--------"
           value={otp}
           onChange={(e) => setOtp(e.target.value)}
         />
         {inputOtpErr && (
           <h6
-            variant='h6'
-            className='text-red-500 absolute top-[40px] left-[8px] pt-[2px]'
+            variant="h6"
+            className="text-red-500 absolute top-[40px] left-[8px] pt-[2px]"
           >
             {inputOtpErr}
           </h6>
         )}
       </div>
-      <div className='flex items-center justify-between '>
+      <div className="flex items-center justify-between ">
         <button
           onClick={resendClick}
-          className='border border-blue-500  p-2 text-white rounded-xl m-2 bg-blue-500'
+          className="border border-blue-500  p-2 text-white rounded-xl m-2 bg-blue-500"
         >
           Re-send
         </button>
         <button
           onClick={confirmClick}
-          className='border border-green-500 p-2 text-white rounded-xl m-2 bg-green-500'
+          className="border border-green-500 p-2 text-white rounded-xl m-2 bg-green-500"
         >
           Confirm
         </button>
