@@ -6,21 +6,19 @@ import { makeApiRequest } from '../../utils/api';
 import { useEffect, useState } from 'react';
 
 
+
 function* saveProfile(action) {
+  console.log(action.payload)
  
-    // console.log('in saga',action)
-    const data = {
-      companyName: action.payload.companyName,
-    industryType: action.payload.industryType,
-    // companyId: action.payload.companyId,
-    companyWebsiteUrl: action.payload.companyWebsiteUrl,
-    email: action.payload.email,
-    aboutCompany: action.payload.aboutCompany,
-    companySize: action.payload.companySize,
-    companyLocation: action.payload.companyLocation,
-    companyFoundedDate: action.payload.companyFoundedDate,
-  
-    }
+    const data = new FormData();
+  data.append('companyName', action.payload.companyName);
+  data.append('industryType', action.payload.industryType);
+  data.append('companyWebsiteUrl', action.payload.companyWebsiteUrl);
+  data.append('email', action.payload.email);
+  data.append('aboutCompany', action.payload.aboutCompany);
+  data.append('companySize', action.payload.companySize);
+  data.append('companyLocation', action.payload.companyLocation);
+  data.append('companyFoundedDate', action.payload.companyFoundedDate);
   try {
     
     const response = yield call(makeApiRequest, {

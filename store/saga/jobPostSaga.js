@@ -21,8 +21,7 @@ function* saveJobPost(action) {
     maxSalary: action.payload.jobData.maxSalary,
     description: action.payload.jobData.description,
     phoneNumber: action.payload.jobData.phoneNumber,
-
-  
+    industryType: action.payload.jobData.industryType,
     }
   try {
     

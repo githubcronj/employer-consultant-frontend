@@ -77,72 +77,90 @@ const RightProfile = () => {
               );
             })}
           </div>
-          <div className='bg-[#F9F6EE] p-3'>
-            <p className='font-bold p-2 '>Experience</p>
-            <div
-              className='flex px-2 justify-between '
-              style={{
-                flexDirection: flexing ? "column" : "row",
-                alignItems: flexing ? "baseline" : "center",
-              }}
-            >
-              <div>
-                <p className='font-semibold py-2 text-black-100'>
-                  {response?.experience?.companyName}
-                </p>
-                <p>{response?.experience?.jobPosition}</p>
+          {response?.experience.map((item, index) => {
+            return (
+              <div className='bg-[#F9F6EE] p-3'>
+                <p className='font-bold p-2 '>Experience</p>
+                <div
+                  className='flex px-2 justify-between '
+                  style={{
+                    flexDirection: flexing ? "column" : "row",
+                    alignItems: flexing ? "baseline" : "center",
+                  }}
+                >
+                  <div>
+                    <p className='font-semibold py-2 text-black-100'>
+                      {item?.companyName}
+                    </p>
+                    <p>{item?.jobPosition}</p>
+                  </div>
+                  <div className='flex gap-3 pt-0 items-center'>
+                    <p>{item?.employmentType}</p>
+                    <p className='font-extrabold -mt-1'>.</p>
+                    <p>2 yrs 1 month</p>
+                  </div>
+                </div>
+                <hr className='my-3  w-[100%] border'></hr>
               </div>
-              <div className='flex gap-3 pt-0 items-center'>
-                <p>{response?.experience?.employmentType}</p>
-                <p className='font-extrabold -mt-1'>.</p>
-                <p>2 yrs 1 month</p>
-              </div>
-            </div>
-            <hr className='my-3  w-[100%] border'></hr>
-          </div>
+            );
+          })}
+
           <div className='bg-white p-3'>
             <p className='font-bold p-2'>Education</p>
-            <div
-              className='flex justify-between '
-              style={{
-                flexDirection: flexing ? "column" : "row",
-                alignItems: flexing ? "baseline" : "center",
-              }}
-            >
-              <div className='px-2'>
-                <p className='pb-2'>{response?.education?.degreeName}</p>
-                <p>{response?.education?.institutionName}</p>
-              </div>
-              <div className='px-2'>
-                <p>{response?.education?.year}</p>
-              </div>
-            </div>
+            {response?.education.map((item, index) => {
+              return (
+                <div
+                  className='flex justify-between '
+                  style={{
+                    flexDirection: flexing ? "column" : "row",
+                    alignItems: flexing ? "baseline" : "center",
+                  }}
+                >
+                  <div className='px-2'>
+                    <p className='pb-2'>{item?.degreeName}</p>
+                    <p>{item?.institutionName}</p>
+                  </div>
+                  <div className='px-2'>
+                    <p>{item?.year}</p>
+                  </div>
+                </div>
+              );
+            })}
+
             <hr className='my-3  w-[100%] border'></hr>
           </div>
           <div className='bg-[#F9F6EE] p-3'>
             <p className='font-bold p-2'>Project</p>
-            <div
-              className='flex justify-between '
-              style={{
-                flexDirection: flexing ? "column" : "row",
-                alignItems: flexing ? "baseline" : "center",
-              }}
-            >
-              <div className='px-2'>
-                <p className='font-semibold py-1'>
-                  {response?.project?.projectName}
-                </p>
-                <p>{response?.project?.projectDescription}</p>
-              </div>
-              <div>
-                {response?.project?.startDate} to {response?.project?.endDate}
-              </div>
-            </div>
+            {response?.project?.map((item, index) => {
+              return (
+                <div
+                  className='flex justify-between '
+                  style={{
+                    flexDirection: flexing ? "column" : "row",
+                    alignItems: flexing ? "baseline" : "center",
+                  }}
+                >
+                  <div className='px-2'>
+                    <p className='font-semibold py-1'>
+                      {item?.projectName}
+                    </p>
+                    <p>{item?.projectDescription}</p>
+                  </div>
+                  <div>
+                    {item?.startDate} to{" "}
+                    {item?.endDate}
+                  </div>
+                </div>
+              );
+            })}
+
             <hr className='my-3  w-[100%] border'></hr>
           </div>
           <div className='bg-white pb-2 px-2'>
             <p className='font-bold px-2 pt-2'>Certification</p>
-            <div
+            {response?.certification?.map((item,index) => {
+              return(
+                <div
               className='flex justify-between '
               style={{
                 flexDirection: flexing ? "column" : "row",
@@ -150,12 +168,12 @@ const RightProfile = () => {
               }}
             >
               <div className='font-semibold px-2'>
-                <p className='py-2'>{response?.certification?.courseName}</p>
-                <p>{response?.certification?.issuingOrganization}</p>
+                <p className='py-2'>{item?.courseName}</p>
+                <p>{item?.issuingOrganization}</p>
               </div>
               <div className='px-2'>
                 <a
-                  href={response?.certification?.credentialUrl}
+                  href={item?.credentialUrl}
                   target='_blank'
                 >
                   <p className='text-sky-500 font-semibold cursor-pointer'>
@@ -164,6 +182,9 @@ const RightProfile = () => {
                 </a>
               </div>
             </div>
+              )
+            })}
+            
             <hr className='my-3  w-[100%] border'></hr>
           </div>
         </div>
