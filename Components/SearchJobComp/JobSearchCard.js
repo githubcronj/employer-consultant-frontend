@@ -28,6 +28,7 @@ const JobSearchCard = ({
             margin: "0 1rem",
             position: "relative",
             padding: "1rem",
+            height:"180px",
           }}
         >
           <Box>
@@ -85,6 +86,8 @@ const JobSearchCard = ({
             padding: "1rem",
             justifyContent: "center",
             alignItems: "center",
+            height:"180px",
+
           }}
         >
           <Box>

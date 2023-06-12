@@ -110,6 +110,34 @@ const JobSlider = ({ heading, subTitle, location, flag }) => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 3,
+   
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+         
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+      // You can unslick at a given breakpoint now by adding:
+      // settings: "unslick"
+      // instead of a settings object
+    ],
     prevArrow: (
       <Image
         src={prev}
@@ -126,13 +154,16 @@ const JobSlider = ({ heading, subTitle, location, flag }) => {
         style={{ cursor: "pointer" }}
       />
     ),
+    
   };
   return (
     <Box
-      sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+      sx={{ display: "flex", flexDirection: "column", gap: "1rem",".slick-track": {
+      marginLeft: 0
+    }}}
       position="relative"
       maxWidth="800px"
-      mx="auto"
+      
     >
       <Box sx={{ paddingLeft: "1rem" }}>
         <Typography sx={{ fontSize: "20px", fontWeight: "bold" }}>
@@ -153,20 +184,20 @@ const JobSlider = ({ heading, subTitle, location, flag }) => {
         </Typography>
       </Box>
       <Box
-        position="absolute"
+        position={{sm:"absolute"}}
         top="0"
         right="0"
         display="flex"
         justifyContent="space-between"
         gap=".4rem"
         p={0}
-        zIndex={1}
+        zIndex={1} 
       >
         {settings?.prevArrow}
         {settings?.nextArrow}
       </Box>
       {heading == "Recommended jobs" ? (
-        <Slider arrows={false} ref={sliderRef} {...settings}>
+        <Slider arrows={false} ref={sliderRef} {...settings} >
           {jobData.map((job, index) => {
             // const {logo, duration, title, experience, location} = job;
             {/* console.log(job._id,'slider') */}

@@ -24,9 +24,9 @@ function Layout(props) {
     "/search_job",
     "/resume-templates",
     "/cviewprofile",
-    "/samplepage",
+    // "/samplepage",
     "/consultant/applied-jobs",
-    "/jobsearch-details",
+    // "/jobsearch-details",
     "/resume-created",
     "/job-apply-search/",
     "/googleAuth",
@@ -52,7 +52,7 @@ function Layout(props) {
               </div>
             </div>
           ) : (
-            <div className="relative xl:w-[calc(100%_-_14rem)] lg::w-[calc(100%_-_14rem) sm:w-[calc(100%_-_14rem) md:w-[calc(100%_-_14rem)]">
+            <div className="relative">
               {children}
             </div>
           )}
