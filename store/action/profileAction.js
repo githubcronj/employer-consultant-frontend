@@ -1,10 +1,10 @@
 import * as types from "../type/profileActionType";
 
-export const profileSaveRequest = (profileData) => {
-    console.log('in action',profileData)
+export const profileSaveRequest = (profileData,selectedImage) => {
+    // console.log('in action',profileData)
     return{
     type: types.PROFILE_SAVE_REQUEST,
-    payload: profileData,
+    payload: {profileData,selectedImage}
 }
     
   };
