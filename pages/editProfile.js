@@ -21,7 +21,7 @@ const EditProfile = () => {
   const router = useRouter();
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [data, setData] = useState(null);
-  const [selectedImage, setSelectedImage] = useState("Assets/newCronjLogo.svg");
+  const [selectedImage, setSelectedImage] = useState(null);
   const [formValues, setFormValues] = useState({
     companyName: "",
     industryType: "",
@@ -47,6 +47,7 @@ const EditProfile = () => {
         companyLocation,
         companyFoundedDate,
         accessToken,
+        logo,
       } = formDataa.response;
 
       setFormValues({
@@ -62,7 +63,11 @@ const EditProfile = () => {
         accessToken,
       });
     }
+    setSelectedImage(formDataa?.response?.logo);
   }, [formDataa]);
+  console.log(selectedImage)
+  
+  
 
   useEffect(() => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -98,6 +103,7 @@ const EditProfile = () => {
     const file = e.target.files[0];
 
     if (file) {
+
       setSelectedImage(URL.createObjectURL(file));
     } else {
       setSelectedImage(null);

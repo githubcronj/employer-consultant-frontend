@@ -9,6 +9,7 @@ const Profile = () => {
   // const profileData = useSelector((state) => state.profile.data);
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [displayPreview, setDisplayPreview] = useState(null);
   const [data, setData] = useState(null);
 
   const [formValues, setFormValues] = useState({
@@ -25,6 +26,7 @@ const Profile = () => {
   });
   // console.log(formValues.accessToken)
   const [errors, setErrors] = useState({});
+  
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
       return <p className="text-red-500 text-xs">{errors[fieldName]}</p>;
@@ -39,9 +41,11 @@ const Profile = () => {
     const file = e.target.files[0];
 
     if (file) {
-      setSelectedImage(URL.createObjectURL(file));
+      setSelectedImage(file);
+      setDisplayPreview(URL.createObjectURL(file));
     } else {
       setSelectedImage(null);
+      setDisplayPreview(null);
     }
   };
   const dispatch = useDispatch();
@@ -101,8 +105,7 @@ const Profile = () => {
   const handleSave = (e) => {
     e.preventDefault();
     if (isFormValid() && data?.token?.accessToken) {
-      dispatch(profileSaveRequest(formValues));
-      console.log(dispatch(profileSaveRequest(formValues)))
+      dispatch(profileSaveRequest(formValues,`https://gobbleapp.s3.amazonaws.com/${selectedImage.name}`));
       const initialFormValues = {
         companyName: "",
         industryType: "",
@@ -123,6 +126,7 @@ const Profile = () => {
       return;
     }
   };
+  console.log(`https://gobbleapp.s3.amazonaws.com/${selectedImage?.name}`);
   const handleDateChange = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -187,7 +191,7 @@ const Profile = () => {
           >
             {selectedImage ? (
               <img
-                src={selectedImage}
+                src={displayPreview}
                 style={{ width: "120px", height: "120px" }}
                 alt="selectedImage"
               />
