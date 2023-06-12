@@ -28,30 +28,38 @@ function Layout(props) {
     "/consultant/applied-jobs",
     "/jobsearch-details",
     "/resume-created",
-    "/job-apply-search/"
+    "/job-apply-search/",
   ].includes(pathname);
   const onlyNav = ["/viewProfileCon"];
+
+  const excludeSideBarPaths = ["/job-apply-search"];
+
+  const shouldRenderSidebar =
+    shouldRenderComponents &&
+    !excludeSideBarPaths.some((path) => pathname.startsWith(path));
+
   return (
-    <>
-      <div className='layout '>
-        {shouldRenderComponents && (
-          <>
-            <Navbar />
-            {/* {!onlyNav && ( */}
-            <div className='flex flex-col xl:flex-row lg:flex-row md:flex-row sm:flex-row min-w-[100%] '>
+    <div className="layout">
+      {shouldRenderComponents && (
+        <>
+          <Navbar />
+          {shouldRenderSidebar ? (
+            <div className="flex flex-col xl:flex-row lg:flex-row md:flex-row sm:flex-row min-w-[100%]">
               <SideBar />
-              <div className='relative xl:left-[220px] lg:left-[220px] md:left-[220px] sm:left-[220px] xl:w-[calc(100%_-_14rem)] lg::w-[calc(100%_-_14rem) sm:w-[calc(100%_-_14rem) md:w-[calc(100%_-_14rem)'>
+              <div className="relative xl:left-[220px] lg:left-[220px] md:left-[220px] sm:left-[220px] xl:w-[calc(100%_-_14rem)] lg::w-[calc(100%_-_14rem) sm:w-[calc(100%_-_14rem) md:w-[calc(100%_-_14rem)">
                 {children}
               </div>
             </div>
-            {/* )} */}
-            {/* {onlyNav && <>{children}</>} */}
-          </>
-        )}
+          ) : (
+            <div className="relative xl:w-[calc(100%_-_14rem)] lg::w-[calc(100%_-_14rem) sm:w-[calc(100%_-_14rem) md:w-[calc(100%_-_14rem)]">
+              {children}
+            </div>
+          )}
+        </>
+      )}
 
-        {!shouldRenderComponents && <>{children}</>}
-      </div>
-    </>
+      {!shouldRenderComponents && <>{children}</>}
+    </div>
   );
 }
 
