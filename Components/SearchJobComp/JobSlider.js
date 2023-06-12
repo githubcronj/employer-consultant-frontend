@@ -117,8 +117,7 @@ const JobSlider = ({ heading, subTitle, location, flag }) => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: true,
-          dots: true
+         
         }
       },
       {
