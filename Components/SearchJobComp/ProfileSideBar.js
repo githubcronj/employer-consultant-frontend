@@ -1,13 +1,36 @@
 import { Box, Button, Divider, Paper, Typography } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import profile from "../../asset/images/profile.png";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useRouter } from "next/router";
+import { GET_PROFILE_REQUEST } from "store/type/viewProfileType";
+import { useDispatch } from "react-redux";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const ProfileSideBar = ({ data }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+  const payload = {
+    token: getToken(),
+  };
+  useEffect(() => {
+    dispatch({ type: GET_PROFILE_REQUEST, payload });
+  }, []);
+  // console.log('payload',payload)
+  const response = useSelector(
+    (state) => state?.viewProfileReducer?.CurrentUser
+  );
+  console.log("new response", response?.jobType);
   return (
     <Paper
       elevation={0}
@@ -33,19 +56,24 @@ const ProfileSideBar = ({ data }) => {
         {/* src={data?.user.image} */}
         <Image
           style={{ borderRadius: "50%" }}
-          src="/Assets/homeProfile.png"
-          alt="profile"
-          width="100"
-          height="100"
+          src='/Assets/homeProfile.png'
+          alt='profile'
+          width='100'
+          height='100'
         />
         <Typography sx={{ fontWeight: "bold" }}>{data?.user.name}</Typography>
-        <Typography
-          sx={{ color: "#5E5E5E", fontSize: "14px", textAlign: "center" }}
-        >
-          UX designer &#8226; Fresher
-        </Typography>
+        {response?.experience.map((item, index) => {
+          return (
+            <Typography
+              sx={{ color: "#5E5E5E", fontSize: "14px", textAlign: "center" }}
+            >
+              {item?.jobPosition} &#8226; {response?.jobType}
+            </Typography>
+          );
+        })}
+
         <Button
-          onClick={() => router.push("/view-profile")}
+          onClick={() => router.push("/viewjobpost/cviewprofile")}
           style={{
             background: "#E7E9E9",
             color: "red",
@@ -65,7 +93,7 @@ const ProfileSideBar = ({ data }) => {
           padding: { xs: "1rem" },
         }}
       >
-        <Link href="/consultant/applied-jobs">
+        <Link href='/consultant/applied-jobs'>
           <Button
             style={{
               backgroundColor: "red",
@@ -82,7 +110,7 @@ const ProfileSideBar = ({ data }) => {
             Applied Job
             <span style={{ marginLeft: "3rem" }}>13</span>
             <ArrowForwardIosIcon
-              fontSize="small"
+              fontSize='small'
               style={{ marginLeft: "0.5rem" }}
             />
           </Button>
@@ -103,7 +131,7 @@ const ProfileSideBar = ({ data }) => {
         >
           Interview schedule
           <ArrowForwardIosIcon
-            fontSize="small"
+            fontSize='small'
             style={{ marginLeft: "0.5rem" }}
           />
         </Button>
