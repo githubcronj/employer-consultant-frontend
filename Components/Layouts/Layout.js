@@ -24,9 +24,9 @@ function Layout(props) {
     "/search_job",
     "/resume-templates",
     "/cviewprofile",
-    "/samplepage",
+    // "/samplepage",
     "/consultant/applied-jobs",
-    "/jobsearch-details",
+    // "/jobsearch-details",
     "/resume-created",
     "/job-apply-search/",
   ].includes(pathname);

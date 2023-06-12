@@ -31,16 +31,23 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
     }
   };
   const finaltoken = getToken();
+
   const handleApply = () => {
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: APPLY_JOB_SUCCESS, payload });
     setShowApply(false);
   };
 
-  // useEffect(() => {
-  //   const isJobApplied = appliedJobData.some((job) => job._id === finaldata[0]?._id);
-  //   console.log(isJobApplied, "isJobApplied");
-  // }, [appliedJobData, finaldata]);
+  useEffect(() => {
+    const isJobApplied = appliedJobData.some((job) => job._id === finaldata[0]?._id);
+    
+    if(isJobApplied){
+      setShowApply(false)
+    }else
+    {
+      setShowApply(true)
+    }
+  }, [appliedJobData, finaldata]);
 
   // const handleApply = () => {
   //   const payload = { jobId: finaldata[0]?._id, finaltoken };
