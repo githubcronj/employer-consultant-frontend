@@ -17,7 +17,7 @@ const ProfileSideBar = ({ data }) => {
         gap: "1rem",
         justifyContent: "flex-start",
         alignItems: "center",
-        width: { xs: "100%", md: "20%", lg: "28%" },
+        width: { xs: "100%", lg: "28%" },
       }}
     >
       <Box

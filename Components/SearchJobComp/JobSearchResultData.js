@@ -12,7 +12,8 @@ const JobSearchResultData = ({ handleBox1Click }) => {
         gap: "1rem",
         padding: ".2rem 1rem",
         alignItems: "center",
-        width: { xs: "100%", md: "60%", lg: "100%" },
+        width: { xs: "100%", lg: "60%", xl: "100%" },
+        mb:{lg:"auto",xs:"2rem"}
       }}
     >
       <Typography
@@ -29,15 +30,15 @@ const JobSearchResultData = ({ handleBox1Click }) => {
       <Paper
         elevation={0}
         sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "3rem",
           padding: "1rem",
           overflowY: "scroll",
-          // position: "relative",
-          // width: "100%",
-          // display: { lg: "block", xs: "flex" },
-          // flexDirection: { lg: "row", xs: "column" },
+          position: "relative",
+          width: "100%",
         }}
       >
-        {/* sx={{,,gap:"3rem",padding:"1rem",overflowY: "scroll",position: "relative",width:"100%"}} */}
         <JobSlider heading={"Recommended jobs"} />
         <JobSlider
           heading={"Top Companies"}
