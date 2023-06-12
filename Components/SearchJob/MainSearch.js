@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import google from "../../public/Assets/googleIcon.png";
 import experienceicon from "../../public/Assets/suitcase.svg";
@@ -12,9 +12,13 @@ import scheduler from "../../public/Assets/scheduler.svg";
 import chaticon from "../../public/Assets/chaticon.svg";
 import bookmark from "../../public/Assets/bookmark.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { APPLY_JOB_SUCCESS, CANCEL_JOB_SUCCESS, SAVE_JOB_SUCCESS } from "store/type/applyJobType";
+import {
+  APPLY_JOB_SUCCESS,
+  CANCEL_JOB_SUCCESS,
+  SAVE_JOB_SUCCESS,
+} from "store/type/applyJobType";
 
-const MainSearch = ({ finaldata }) => {
+const MainSearch = ({ finaldata, appliedJobData }) => {
   const [flexing, setFlexing] = useState(false);
   const [showApply, setShowApply] = useState(true);
 
@@ -27,23 +31,35 @@ const MainSearch = ({ finaldata }) => {
     }
   };
   const finaltoken = getToken();
-
   const handleApply = () => {
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: APPLY_JOB_SUCCESS, payload });
     setShowApply(false);
   };
 
+  // useEffect(() => {
+  //   const isJobApplied = appliedJobData.some((job) => job._id === finaldata[0]?._id);
+  //   console.log(isJobApplied, "isJobApplied");
+  // }, [appliedJobData, finaldata]);
+
+  // const handleApply = () => {
+  //   const payload = { jobId: finaldata[0]?._id, finaltoken };
+  //   dispatch({ type: APPLY_JOB_SUCCESS, payload });
+  //   setShowApply(isJobApplied => !isJobApplied);
+
+  // };
+  
   const handleCancel = () => {
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: CANCEL_JOB_SUCCESS, payload });
+  
     setShowApply(true);
   };
-
-  const saveData =() =>{
+  
+  const saveData = () => {
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: SAVE_JOB_SUCCESS, payload });
-  }
+  };
 
   return (
     <div className="bg-white w-auto p-5" style={{ borderRadius: "5px" }}>
@@ -130,7 +146,7 @@ const MainSearch = ({ finaldata }) => {
               </p>
             </div>
             <div>
-              <img src={bookmark.src} alt="bookmark" onClick={saveData}/>
+              <img src={bookmark.src} alt="bookmark" onClick={saveData} />
             </div>
           </div>
           <div className="flex justify-between">

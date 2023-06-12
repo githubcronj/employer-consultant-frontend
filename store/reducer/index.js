@@ -21,6 +21,7 @@ import {setDetailsReducer} from './setupDetailsReducer'
 import {jobsReducer} from "./recomandedJobReducer";
 import applyJobReducer from './applyJobReducer';
 import cancelJobReducer from './cancelJobReducer';
+import appliedJobReducer from './appliedJobReducer';
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
@@ -44,6 +45,7 @@ const rootReducer = combineReducers({
   jobsReducer,
   applyJobReducer,
   cancelJobReducer,
+  appliedJobReducer,
 });
 
 export default rootReducer;
