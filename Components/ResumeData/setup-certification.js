@@ -18,7 +18,8 @@ const SetupCertificate = ({
   const addData = (section) => {
     const isValid = validateForm();
     if (isValid) {
-    handleCertificateAdd(section);}
+      handleCertificateAdd(section);
+    }
   };
   const removeData = (indexdata) => {
     handleCertificateremovedata(indexdata);
@@ -105,7 +106,8 @@ const SetupCertificate = ({
               name="tempCertificate.courseName"
               value={certificationDetails?.courseName || ""}
               onChange={CertificateHandleChange}
-            />{errors.courseName && (
+            />
+            {errors.courseName && (
               <p className="text-red-500 text-xs">{errors.courseName}</p>
             )}
           </div>
@@ -115,13 +117,18 @@ const SetupCertificate = ({
               id="issuingOrganization"
               placeholder="Issuing organization"
               className={`py-5 px-4 border rounded-[10px] ${
-                errors.issuingOrganization ? "border-red-500" : "border-[#D8D8DD]"
+                errors.issuingOrganization
+                  ? "border-red-500"
+                  : "border-[#D8D8DD]"
               } w-full`}
               name="tempCertificate.issuingOrganization"
               value={certificationDetails?.issuingOrganization || ""}
               onChange={CertificateHandleChange}
-            />{errors.issuingOrganization && (
-              <p className="text-red-500 text-xs">{errors.issuingOrganization}</p>
+            />
+            {errors.issuingOrganization && (
+              <p className="text-red-500 text-xs">
+                {errors.issuingOrganization}
+              </p>
             )}
           </div>
           <div>
@@ -130,8 +137,8 @@ const SetupCertificate = ({
                 id="issueDate"
                 placeholderText="Issue date"
                 className={`block py-5 px-4 w-full text-gray-900 border rounded-[10px] ${
-                errors.issueDate ? "border-red-500" : "border-[#D8D8DD]"
-              } border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer `}
+                  errors.issueDate ? "border-red-500" : "border-[#D8D8DD]"
+                } border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer `}
                 name={tempCertificate.issueDate}
                 selected={
                   certificationDetails?.issueDate
@@ -146,7 +153,8 @@ const SetupCertificate = ({
                 className="absolute right-2"
                 onClick={() => document.getElementById("issueDate").click()}
               />
-            </div>{errors.issueDate && (
+            </div>
+            {errors.issueDate && (
               <p className="text-red-500 text-xs">{errors.issueDate}</p>
             )}
           </div>
@@ -157,8 +165,8 @@ const SetupCertificate = ({
                 id="expirationDate"
                 placeholderText="Expiration date"
                 className={`block py-5 px-4 w-full text-gray-900 border rounded-[10px]  border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
-                errors.expirationDate ? "border-red-500" : "border-[#D8D8DD]"
-              }`}
+                  errors.expirationDate ? "border-red-500" : "border-[#D8D8DD]"
+                }`}
                 name={tempCertificate.expirationDate}
                 selected={
                   certificationDetails?.expirationDate
@@ -175,7 +183,8 @@ const SetupCertificate = ({
                   document.getElementById("expirationDate").click()
                 }
               />
-            </div>{errors.expirationDate && (
+            </div>
+            {errors.expirationDate && (
               <p className="text-red-500 text-xs">{errors.expirationDate}</p>
             )}
           </div>
@@ -191,25 +200,26 @@ const SetupCertificate = ({
               name="tempCertificate.credentialUrl"
               value={certificationDetails?.credentialUrl || ""}
               onChange={CertificateHandleChange}
-            />{errors.credentialUrl && (
+            />
+            {errors.credentialUrl && (
               <p className="text-red-500 text-xs">{errors.credentialUrl}</p>
             )}
           </div>
           <div className="sm:col-span-2 ">
             <div>
               <input
-                id="image"
+                id="certificate"
                 type="file"
-                // name="personalDetails.image"
+                name="tempCertificate.certificate"
                 accept=".jpg,.jpeg,.png,.svg"
                 style={{ display: "none" }}
-                onChange={handleFileInputChange}
+                onChange={CertificateHandleChange}
               />
-              <label htmlFor="image">
+              <label htmlFor="certificate">
                 <Button
                   component="span"
                   variant="contained"
-                  style={{background:"#F0142F",boxShadow:"none"}}
+                  style={{ background: "#F0142F", boxShadow: "none" }}
                   className="px-8 py-3 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase"
                 >
                   Add Certificate

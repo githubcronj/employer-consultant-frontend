@@ -113,10 +113,7 @@ const Setupdetails = () => {
         }
       }
     });
-
-    console.log(errors, "error");
     setErrors(errors);
-
     return Object.keys(errors).length === 0;
   };
 
@@ -186,10 +183,17 @@ const Setupdetails = () => {
   };
 
   const handleCertificateChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, files } = e.target;
     const [section, field] = name.split(".");
-    SetempCertificate({ ...tempCertificate, [field]: value });
+  
+    if (type === "file") {
+      const file = files[0];
+      SetempCertificate({ ...tempCertificate, [field]: file });
+    } else {
+      SetempCertificate({ ...tempCertificate, [field]: value });
+    }
   };
+  
 
   const handleEducationChange = (e) => {
     const { name, value } = e.target;

@@ -222,9 +222,9 @@ const SetupExperience = ({
             {/* <Autocomplete
               multiple
               options={techOption}
-              // name="tempExp.techEnviro"
+              name="tempExp.technologyEnvironment"
               // value={experienceDetails?.techEnviro || []}
-              // onChange={(e,value)=>{console.log("input",value)}}
+              onChange={(e,value)=>{console.log("input",value)}}
               // onChange={(e, value) =>
               //   handleExperienceDetailsChange({
               //     target: {
