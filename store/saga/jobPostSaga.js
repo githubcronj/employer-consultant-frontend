@@ -22,6 +22,7 @@ function* saveJobPost(action) {
     description: action.payload.jobData.description,
     phoneNumber: action.payload.jobData.phoneNumber,
     industryType: action.payload.jobData.industryType,
+    skills: action.payload.jobData.skills,
     }
   try {
     
