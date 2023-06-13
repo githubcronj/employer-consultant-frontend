@@ -19,7 +19,12 @@ const NewJobPost = () => {
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [description, setDescription] = useState("");
   const [skill, setSkill] = useState("");
-  const [allData,setAllData] = useState([]);
+  const [responseFlag, setResponseFlag] = useState(false);
+  const [skillFlag, setSkillFlag] = useState(false);
+
+  const [allSkills, setAllSkills] = useState([]);
+
+  const [allResponse, setAllResponse] = useState("");
   const [jobPostData, setJobPostData] = useState({
     jobTitle: "",
     experience: "",
@@ -92,22 +97,39 @@ const NewJobPost = () => {
   }, [data]);
   // response
   const response = useSelector((state) => state?.generateResponseReducer?.data);
-
   // skills response
   const skillResponse = useSelector(
     (state) => state?.generateSkillsReducer?.data
   );
- 
 
-  let defaultDescriptionValue =
-    `${response?.job_description}\n\nKey Requirements:\n` +
-    (response?.key_requirements || [])
+  useEffect(() => {
+    if(skillFlag === true){
+      console.log('skillllll',skillResponse);
+      setAllSkills(skillResponse);
+    }
+    
+    if (responseFlag === true){
+      setAllResponse(response);
+    }
+    
+  }, [response, skillResponse]);
+  console.log('skill and response',skillFlag,responseFlag)
+  console.log("Resposne", allResponse, allSkills);
+
+  if(allResponse !== undefined && response && responseFlag !== false){
+    var defaultDescriptionValue =
+    `${allResponse?.job_description}\n\nKey Requirements:\n` +
+    (allResponse?.key_requirements || [])
       .map((requirement) => `• ${requirement}`)
       .join("\n") +
     "\n\nResponsibilities:\n" +
-    (response?.responsibilities || "") +
+    (allResponse?.responsibilities || "") +
     "\n\nConcluding Details:\n" +
-    (response?.concluding_details || "");
+    (allResponse?.concluding_details || "");
+
+  }
+
+  
 
   const handleSalaryButton = (e) => {
     setSelectedButton(e.target.id);
@@ -132,9 +154,9 @@ const NewJobPost = () => {
 
   useEffect(() => {
     setDescription(defaultDescriptionValue);
-  }, [defaultDescriptionValue.length]);
-  
-  console.log('descriptionnn',description);
+  }, [defaultDescriptionValue?.length]);
+
+  console.log("descriptionnn", description);
   const handleChangeDesc = (e) => {
     setDescription(e.target.value);
     // setDescription((prevValues) => ({
@@ -142,6 +164,7 @@ const NewJobPost = () => {
     // description: e.target.value,
     // }));
   };
+
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -242,15 +265,16 @@ const NewJobPost = () => {
   // function onClick() {
   //   window.location.href = "/"
   // }
-  const handleTransfer = () =>{
+  const handleTransfer = () => {
     setDescription("");
-    defaultDescriptionValue = ""
+    defaultDescriptionValue = "";
 
     router.reload(window.location.pathname);
-    window.location.href = "/"
+    window.location.href = "/";
     // router.push('/');
-  }
- 
+  };
+
+  
   const handleGenerateResponse = (e) => {
     const requestData = {
       jobTitle: jobPostData.jobTitle,
@@ -258,7 +282,8 @@ const NewJobPost = () => {
       experience: jobPostData.experience,
     };
     dispatch(generateResponseSaveRequest(requestData, finaltoken));
-    console.log(requestData);
+    
+    setResponseFlag(true);
   };
 
   const handleGenerateSkills = (e) => {
@@ -267,19 +292,32 @@ const NewJobPost = () => {
       jobType: jobPostData.jobType,
     };
     dispatch(generateSkillsSaveRequest(requestData, finaltoken));
+    setSkillFlag(true);
     console.log(requestData);
   };
-  
+
+  // useEffect(() => {
+  //   if (skillResponse && skillFlag === true) {
+  //     setJobPostData((prevValues) => ({
+  //       ...prevValues,
+  //       ...(jobPostData.skills = [...jobPostData?.skills, ...skillResponse?.skills]),
+  //     }));
+  //   }
+  // }, [skillResponse]);
+
   useEffect(() => {
-    if(skillResponse){
+    if (skillResponse && skillFlag === true) {
       setJobPostData((prevValues) => ({
         ...prevValues,
-        ...jobPostData.skills = [...jobPostData?.skills , ...skillResponse?.skills]
-       }))
+        skills: [...prevValues.skills, ...skillResponse.skills],
+      }));
     }
   }, [skillResponse]);
 
   const handleSave = (e) => {
+   
+    setAllResponse("");
+    setAllSkills([]);
     e.preventDefault();
     const jobData = {
       jobTitle: jobPostData.jobTitle,
@@ -298,16 +336,16 @@ const NewJobPost = () => {
     console.log("jobdata", jobData);
 
     if (isFormValid()) {
-
       // if(skillResponse){
       //   setJobPostData((prevValues) => ({
       //     ...prevValues,
       //     ...jobPostData.skills = [...jobPostData.skills , ...skillResponse.skills]
       //    }))
       // }
-      
+
       dispatch(jobSaveRequest(jobData, finaltoken));
       setDescription("");
+
       defaultDescriptionValue = "";
       // console.log(payload,'ppppp');
       const initialJobPostData = {
@@ -325,26 +363,28 @@ const NewJobPost = () => {
         skills: [],
       };
       setJobPostData(initialJobPostData);
+      // setJobPostData("");
       // console.log(jobPostData);
       router.push("/");
     } else {
       return;
     }
   };
+  console.log('jobpostdata',jobPostData?.skills);
   return (
     <div className='bg-[#2B373C1C] py-4 px-2 sm:px-4'>
       <div className='bg-white'>
         <div className='md:flex justify-between items-center mx-5 sm:mx-9 py-1'>
           <div className='my-3 flex gap-6'>
             {/* <Link href={handleTransfer} > */}
-              <Image
-                src='/Assets/backbtn.svg'
-                alt='back button'
-                width={35}
-                height={35}
-                className='cursor-pointer'
-                onClick={handleTransfer}
-              />
+            <Image
+              src='/Assets/backbtn.svg'
+              alt='back button'
+              width={35}
+              height={35}
+              className='cursor-pointer'
+              onClick={handleTransfer}
+            />
             {/* </Link> */}
             <p className='text-lg sm:text-2xl font-bold'>Create New Job Post</p>
           </div>
@@ -359,9 +399,12 @@ const NewJobPost = () => {
             </div>
             <div>
               {/* <Link href='/'> */}
-                <button onClick={handleTransfer} className='px-8 py-3 bg-white border border-red-500 text-red-500 rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3'>
-                  Cancel
-                </button>
+              <button
+                onClick={handleTransfer}
+                className='px-8 py-3 bg-white border border-red-500 text-red-500 rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3'
+              >
+                Cancel
+              </button>
               {/* </Link> */}
             </div>
           </div>
@@ -717,8 +760,8 @@ const NewJobPost = () => {
                   </div>
                 ))}
               {/* new add skill response */}
-              {Array.isArray(skillResponse?.skills) &&
-                skillResponse?.skills.map((item, index) => (
+              {/* {Array.isArray(skillResponse?.skills) &&
+                allSkills?.skills?.map((item, index) => (
                   <div
                     key={index}
                     className='bg-[#F9F6EE] p-6 bordr rounded-xl text-[#1E0F3B] font-bold mt-4'
@@ -740,7 +783,7 @@ const NewJobPost = () => {
                       }}
                     />
                   </div>
-                ))}
+                ))} */}
             </div>
           </div>
 
