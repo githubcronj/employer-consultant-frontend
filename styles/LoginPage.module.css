@@ -1,11 +1,8 @@
-
-.loginimgbg{
-  background: url("/Assets/employerLoginimg.png")no-repeat center center/cover;
- 
+.loginimgbg {
+  background: url("/Assets/employerLoginimg.png") no-repeat center center/cover;
 }
-.loginimgbg2{
-  background: url("/Assets/consultantimg.png")no-repeat center center/cover;
- 
+.loginimgbg2 {
+  background: url("/Assets/consultantimg.png") no-repeat center center/cover;
 }
 .selectedCard {
   border-left: 4px solid #5e9af8;
@@ -25,77 +22,69 @@
   padding-top: 20px;
   /* Styles for combined selected and shortlisted state */
 }
-.removeButton{
+.removeButton {
   background-color: #5e9af8;
 }
 
-.searchdevider{
-  height: 7vh;
+.searchdevider {
+  height: 55px;
 }
-.searchbox1{
-border-top-left-radius: 13px;
-border-bottom-left-radius: 13px;
-
+.searchbox1 {
+  border-top-left-radius: 13px;
+  border-bottom-left-radius: 13px;
 }
-.searchbox2{
+.searchbox2 {
   border-top-right-radius: 13px;
   border-bottom-right-radius: 13px;
-  
-  }
-  .searchbtn2{
-    display: none !important;
-  }
-  .searchbtn{
-    display: flex;
-  }
+}
+.searchbtn2 {
+  display: none !important;
+}
+.searchbtn {
+  display: flex;
+}
 @media (min-width: 1536px) {
   .desk {
     height: 100vh;
   }
-  
 }
 @media (max-width: 1024px) {
-  .searchdevider{
-    height: 7vh;
+  .searchdevider {
+    height: 55px;
   }
-  .viewJobPostBg{
-    width:700px;
+  .viewJobPostBg {
+    width: 700px;
   }
 }
-@media (max-width:768px) {
-  .jobpostbtnbox{
+@media (max-width: 768px) {
+  .jobpostbtnbox {
     margin-top: 10px;
   }
 }
-@media (max-width:600px) {
- 
-  .searchbtn2{
+@media (max-width: 600px) {
+  .searchbtn2 {
     display: block !important;
     margin-top: 25px !important;
   }
-  .searchbtn{
+  .searchbtn {
     display: none !important;
   }
-  .searchbox1{
+  .searchbox1 {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
-    
-    }
-    .searchbox2{
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-      margin-top: 20px;
-      
-      }
-  .searchdevider{
-   visibility: hidden;
+  }
+  .searchbox2 {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    margin-top: 20px;
+  }
+  .searchdevider {
+    display: none;
   }
 }
 @media (max-width: 410px) {
- 
- 
-  .viewJobPostBg{
-    width:100%;
+  .viewJobPostBg {
+    width: 100%;
   }
   .desk {
     margin-left: 56px;
