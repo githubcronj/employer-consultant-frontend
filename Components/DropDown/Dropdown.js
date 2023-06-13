@@ -3,12 +3,13 @@ import Avatar from 'public/Assets/man.png';
 import DownArrow from 'public/Assets/down-arrow.svg';
 import UpArrow from 'public/Assets/up-arrow.svg';
 import RightArrow from 'public/Assets/right-arrow.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/action/loginaction';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
 import { useSession, signIn } from 'next-auth/react';
+import { PROFILE_REQUEST } from 'store/type/getProfileType';
 const Dropdown = () => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
@@ -36,8 +37,26 @@ const Dropdown = () => {
     };
   }, []);
 
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+  const finaltoken = getToken();
+  const payload = {
+    token: finaltoken,
+  };
+  useEffect(() => {
+    dispatch({ type: PROFILE_REQUEST, payload });
+  }, []);
+  const data1 = useSelector((state) => state.getProfileReducer?.CurrentUser);
+
   const nameParts = session?.user?.name?.split(' ');
-  const firstName = nameParts && nameParts.length > 0 ? nameParts[0] : 'User';
+  const firstName = nameParts && nameParts.length > 0 ? nameParts[0] : data1?.companyName
+  ;
 
   return (
     <div className='flex flex-row'>

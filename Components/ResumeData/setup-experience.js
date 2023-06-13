@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,6 +13,8 @@ const SetupExperience = ({
   handleremovedata,
 }) => {
   const router = useRouter();
+  const [errors, setErrors] = useState({});
+
 
   const handleExperienceDetailsChange = (e) => {
     tempExp(e);
@@ -26,12 +28,15 @@ const SetupExperience = ({
 
   const experiChecked = (e) => {
     if (e.target.checked == true) {
-      router.push("/setup-details");
+      // router.push("/setup-details");
+      
     }
   };
 
   const addData = (section) => {
-    handleExpAdd(section);
+    const isValid = validateForm();
+    if (isValid) {
+    handleExpAdd(section);}
   };
   const removeData = (indexdata) => {
     handleremovedata(indexdata);
@@ -60,7 +65,33 @@ const SetupExperience = ({
       },
     });
   };
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = {};
 
+    if (!experienceDetails.companyName) {
+      newErrors.companyName = "Company Name is required";
+      isValid = false;
+    }
+
+    if (!experienceDetails.jobPosition) {
+      newErrors.jobPosition = "Field is required";
+      isValid = false;
+    }
+
+    if (!experienceDetails.employmentType) {
+      newErrors.employmentType = "Field is required";
+      isValid = false;
+    }
+
+    if (!experienceDetails.joinedDate) {
+      newErrors.joinedDate = "Field is required";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
  
   return (
     <div className=" bg-white">
@@ -96,11 +127,15 @@ const SetupExperience = ({
               id="companyName"
               placeholder="Company Name"
               required
-              className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+              className={`py-5 px-4 border rounded-[10px] ${
+                errors.companyName ? "border-red-500" : "border-[#D8D8DD]"
+              } w-full`}
               name="tempExp.companyName"
               value={experienceDetails?.companyName || ""}
               onChange={handleExperienceDetailsChange}
-            />
+            />{errors.companyName && (
+              <p className="text-red-500 text-xs">{errors.companyName}</p>
+            )}
           </div>
           <div>
             <input
@@ -108,17 +143,21 @@ const SetupExperience = ({
               id="jobPosition"
               placeholder="Job Position"
               required
-              className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+              className={`py-5 px-4 border rounded-[10px] ${
+                errors.jobPosition ? "border-red-500" : "border-[#D8D8DD]"
+              } w-full`}
               name="tempExp.jobPosition"
               value={experienceDetails?.jobPosition || ""}
               onChange={handleExperienceDetailsChange}
-            />
+            />{errors.jobPosition && (
+              <p className="text-red-500 text-xs">{errors.jobPosition}</p>
+            )}
           </div>
           <div>
             <select
               id="employmentType"
               required
-              className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select"
+              className={`py-5 px-4 border rounded-[10px]  w-full custom-select ${errors.employmentType ? "border-red-500" : "border-[#D8D8DD]"}`}
               style={{
                 WebkitAppearance: "none",
                 MozAppearance: "none",
@@ -138,7 +177,9 @@ const SetupExperience = ({
               </option>
               <option value="Full Time">Full Time </option>
               <option value="Part Time">Part Time</option>
-            </select>
+            </select>{errors.employmentType && (
+              <p className="text-red-500 text-xs">{errors.employmentType}</p>
+            )}
           </div>
           <div>
             <div className="relative flex items-center">
@@ -146,7 +187,9 @@ const SetupExperience = ({
                 id="joinedDate"
                 placeholderText="Date of Joined"
                 required
-                className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className={`block py-5 px-4 w-full text-gray-900  border rounded-[10px]  border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                  errors.joinedDate ? "border-red-500" : "border-[#D8D8DD]"
+                }`}
                 name="tempExp.joinedDate"
                 selected={
                   experienceDetails?.joinedDate
@@ -161,7 +204,9 @@ const SetupExperience = ({
                 className="absolute right-2"
                 onClick={() => document.getElementById("joinedDate").click()}
               />
-            </div>{" "}
+            </div>{errors.joinedDate && (
+              <p className="text-red-500 text-xs">{errors.joinedDate}</p>
+            )}
           </div>
           <div>
             {/* <input
@@ -174,12 +219,12 @@ const SetupExperience = ({
               value={experienceDetails?.techEnviro || ""}
               onChange={handleExperienceDetailsChange}
             /> */}
-            <Autocomplete
+            {/* <Autocomplete
               multiple
               options={techOption}
-              // name="tempExp.techEnviro"
+              name="tempExp.technologyEnvironment"
               // value={experienceDetails?.techEnviro || []}
-              // onChange={(e,value)=>{console.log("input",value)}}
+              onChange={(e,value)=>{console.log("input",value)}}
               // onChange={(e, value) =>
               //   handleExperienceDetailsChange({
               //     target: {
@@ -196,7 +241,7 @@ const SetupExperience = ({
                   placeholder="Technology Environmental"
                 />
               )}
-            />
+            /> */}
           </div>
         </div>
         <div className="flex justify-end">
@@ -210,7 +255,6 @@ const SetupExperience = ({
         </div>
       </form>
       {/* block display */}
-      {/* need to work and render properly as per our item data */}
       <div className="py-4 grid sm:grid-cols-2 gap-7">
         {infodata?.map((item, index) => {
           return (

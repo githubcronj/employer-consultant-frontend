@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -10,11 +10,16 @@ const SetupCertificate = ({
   infodata,
   handleCertificateremovedata,
 }) => {
+  const [errors, setErrors] = useState({});
+
   function CertificateHandleChange(e) {
     tempCertificate(e);
   }
   const addData = (section) => {
-    handleCertificateAdd(section);
+    const isValid = validateForm();
+    if (isValid) {
+      handleCertificateAdd(section);
+    }
   };
   const removeData = (indexdata) => {
     handleCertificateremovedata(indexdata);
@@ -49,9 +54,42 @@ const SetupCertificate = ({
       },
     });
   };
+
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
     // Handle the selected file here
+  };
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = {};
+
+    if (!certificationDetails.courseName) {
+      newErrors.courseName = "Course Name is required";
+      isValid = false;
+    }
+
+    if (!certificationDetails.issuingOrganization) {
+      newErrors.issuingOrganization = "Field Name is required";
+      isValid = false;
+    }
+
+    if (!certificationDetails.issueDate) {
+      newErrors.issueDate = "Field is required";
+      isValid = false;
+    }
+
+    if (!certificationDetails.expirationDate) {
+      newErrors.expirationDate = "Field is required";
+      isValid = false;
+    }
+
+    if (!certificationDetails.credentialUrl) {
+      newErrors.credentialUrl = "Field is required";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
   };
   return (
     <div className=" bg-white">
@@ -62,29 +100,45 @@ const SetupCertificate = ({
               type="text"
               id="courseName"
               placeholder="Course Name"
-              className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+              className={`py-5 px-4 border rounded-[10px] ${
+                errors.courseName ? "border-red-500" : "border-[#D8D8DD]"
+              } w-full`}
               name="tempCertificate.courseName"
               value={certificationDetails?.courseName || ""}
               onChange={CertificateHandleChange}
             />
+            {errors.courseName && (
+              <p className="text-red-500 text-xs">{errors.courseName}</p>
+            )}
           </div>
           <div>
             <input
               type="text"
               id="issuingOrganization"
               placeholder="Issuing organization"
-              className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+              className={`py-5 px-4 border rounded-[10px] ${
+                errors.issuingOrganization
+                  ? "border-red-500"
+                  : "border-[#D8D8DD]"
+              } w-full`}
               name="tempCertificate.issuingOrganization"
               value={certificationDetails?.issuingOrganization || ""}
               onChange={CertificateHandleChange}
             />
+            {errors.issuingOrganization && (
+              <p className="text-red-500 text-xs">
+                {errors.issuingOrganization}
+              </p>
+            )}
           </div>
           <div>
             <div className="relative flex items-center">
               <DatePicker
                 id="issueDate"
                 placeholderText="Issue date"
-                className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className={`block py-5 px-4 w-full text-gray-900 border rounded-[10px] ${
+                  errors.issueDate ? "border-red-500" : "border-[#D8D8DD]"
+                } border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer `}
                 name={tempCertificate.issueDate}
                 selected={
                   certificationDetails?.issueDate
@@ -100,6 +154,9 @@ const SetupCertificate = ({
                 onClick={() => document.getElementById("issueDate").click()}
               />
             </div>
+            {errors.issueDate && (
+              <p className="text-red-500 text-xs">{errors.issueDate}</p>
+            )}
           </div>
 
           <div>
@@ -107,7 +164,9 @@ const SetupCertificate = ({
               <DatePicker
                 id="expirationDate"
                 placeholderText="Expiration date"
-                className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className={`block py-5 px-4 w-full text-gray-900 border rounded-[10px]  border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                  errors.expirationDate ? "border-red-500" : "border-[#D8D8DD]"
+                }`}
                 name={tempCertificate.expirationDate}
                 selected={
                   certificationDetails?.expirationDate
@@ -125,6 +184,9 @@ const SetupCertificate = ({
                 }
               />
             </div>
+            {errors.expirationDate && (
+              <p className="text-red-500 text-xs">{errors.expirationDate}</p>
+            )}
           </div>
 
           <div className="sm:col-span-2 ">
@@ -132,27 +194,32 @@ const SetupCertificate = ({
               type="text"
               id="credentialUrl"
               placeholder="Credential URL"
-              className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              className={`block py-5 px-4 w-full text-gray-900 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                errors.expirationDate ? "border-red-500" : "border-[#D8D8DD]"
+              }`}
               name="tempCertificate.credentialUrl"
               value={certificationDetails?.credentialUrl || ""}
               onChange={CertificateHandleChange}
             />
+            {errors.credentialUrl && (
+              <p className="text-red-500 text-xs">{errors.credentialUrl}</p>
+            )}
           </div>
           <div className="sm:col-span-2 ">
             <div>
               <input
-                id="image"
+                id="certificate"
                 type="file"
-                name="personalDetails.image"
+                name="tempCertificate.certificate"
                 accept=".jpg,.jpeg,.png,.svg"
                 style={{ display: "none" }}
-                onChange={handleFileInputChange}
+                onChange={CertificateHandleChange}
               />
-              <label htmlFor="image">
+              <label htmlFor="certificate">
                 <Button
                   component="span"
                   variant="contained"
-                  style={{background:"#F0142F",boxShadow:"none"}}
+                  style={{ background: "#F0142F", boxShadow: "none" }}
                   className="px-8 py-3 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase"
                 >
                   Add Certificate

@@ -41,6 +41,7 @@ const ViewProfile = () => {
       setFlexing(false);
     }
   }, []);
+  console.log(data, "in view profile");
   return (
     <div
       className={`w-[100%] xl:w-auto lg:w-[1000px] sm:w-[720px] md:w-[900px]`}
@@ -53,11 +54,11 @@ const ViewProfile = () => {
        `}
       >
         <div
-          className='bg-white'
+          className="bg-white"
           style={{
             boxShadow: " 0px 2px 10px #4C4E641A",
             borderRadius: "4px",
-            // maxWidth: "1030px",
+            maxWidth: "1536px",
             width: "100%",
           }}
         >
@@ -69,113 +70,111 @@ const ViewProfile = () => {
            }
            `}
           >
-            <div className='flex items-center gap-x-4 '>
+            <div className="flex items-center gap-x-4 ">
               <img
                 src={backbtn.src}
-                alt='back button'
+                alt="back button"
                 width={46}
                 height={46}
-                className='cursor-pointer'
+                className="cursor-pointer"
                 onClick={backClicked}
               />
-              <p className=' text-[26px] text-[#2B373C] sm:text-2xl font-bold'>
+              <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
                 View Profile
               </p>
             </div>
             <button onClick={editClick}>
-              <img src={edit.src} alt='edit' className='w-[125px] h-[51px]' />
+              <img src={edit.src} alt="edit" className="w-[125px] h-[51px]" />
             </button>
           </div>
-          <hr className='mt-[25px]xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
-          <div className='mt-[19px] mx-3 flex justify-between'>
-            <div style={{ width: "100%" }}>
+          <hr className="mt-[25px]xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]"></hr>
+          <div className="mt-[19px] mx-3 flex flex-col lg:flex-row justify-between">
+            <div style={{ width: "100%"}}>
               <div
-                className={`flex items-center mb-[15px] ${
-                  flexing ? "flex-col" : "flex-row"
-                }`}
+                className='flex items-center mb-[15px]'
               >
                 <img
                   src={google.src}
-                  alt='googleIcon'
-                  className='w-[60px] h-[60px]'
+                  alt="googleIcon"
+                  className="w-[60px] h-[60px]"
                 />
-                <p className='w-[54px] xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px] font-bold h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans'>
-                  Google
+                <p className="pl-4 font-bold text-[#000000] text-left font-sans">
+                  {data?.companyName}
                 </p>
               </div>
 
-              <hr className=' ' style={{ width: "100%" }}></hr>
-              <div className='flex justify-between'>
-                <h4 className='h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1'>
+              <hr className=" " style={{ width: "100%" }}></hr>
+              <div className="flex justify-between">
+                <h4 className="h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1">
                   Company ID
                 </h4>
-                <p className='h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1'>
+                <p className="h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1">
                   {data?.companyId}
                 </p>
               </div>
-              <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
-              <div className='flex justify-between'>
-                <h4 className='h-[19px] mb-[18px] mt-[15px]  text-left font-bold font-sans text-[#000000] opacity-1'>
+              <hr className="xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]"></hr>
+              <div className="flex justify-between">
+                <h4 className="h-[19px] mb-[18px] mt-[15px]  text-left font-bold font-sans text-[#000000] opacity-1">
                   Industry type
                 </h4>
-                <p className='h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1'>
+                <p className="h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1">
                   {data?.industryType}
                 </p>
               </div>
-              <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
-              <div className='flex justify-between'>
-                <h4 className='h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1'>
+              <hr className="xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]"></hr>
+              <div className="flex justify-between">
+                <h4 className="h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1">
                   Email
                 </h4>
-                <p className='h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1'>
+                <p className="h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1">
                   {data?.email}
                 </p>
               </div>
-              <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
-              <div className='flex justify-between'>
-                <h4 className='h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1'>
+              <hr className="xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]"></hr>
+              <div className="flex justify-between">
+                <h4 className="h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1">
                   Website URL
                 </h4>
-                <p className='h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1'>
+                <p className="h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1">
                   {data?.companyWebsiteUrl}
                 </p>
               </div>
-              <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
-              <div className='flex justify-between'>
-                <h4 className='h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1'>
+              <hr className="xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]"></hr>
+              <div className="flex justify-between">
+                <h4 className="h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1">
                   Company Size
                 </h4>
-                <p className='h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1'>
+                <p className="h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1">
                   {data?.companySize}
                 </p>
               </div>
-              <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
-              <div className='flex justify-between'>
-                <h4 className='h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1'>
+              <hr className="xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]"></hr>
+              <div className="flex justify-between">
+                <h4 className="h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1">
                   Company Location
                 </h4>
-                <p className='h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1'>
+                <p className="h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1">
                   {data?.companyLocation}
                 </p>
               </div>
-              <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]'></hr>
-              <div className='flex justify-between'>
-                <h4 className='h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1'>
+              <hr className="xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]"></hr>
+              <div className="flex justify-between">
+                <h4 className="h-[19px] mb-[15px] mt-[15px] text-left font-bold font-sans text-[#000000] opacity-1">
                   Founded In
                 </h4>
-                <p className='h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1'>
+                <p className="h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1">
                   {data?.companyFoundedDate}
                 </p>
               </div>
-              <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[25px]'></hr>
+              <hr className="xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[25px]"></hr>
             </div>
-            <div className='border w-[1px] h-[100vh] -mt-[19px] ml-[5px]'></div>
-            <div className='w-[100%] pl-[30px]'>
-              <h1 className='text-[#1E0F3B] mb-[20px] w-[152px] h-[24px] font-bold tracking-[0.2px]'>
+            <div className="border w-[1px] lg:h-[90vh] -mt-[19px] ml-[5px]"></div>
+            <div className="w-[100%] lg:pl-[30px] mb-10 lg:mb-0">
+              <h1 className="text-[#1E0F3B] mt-[20px] lg:mt-0 mb-[20px] w-[152px] h-[24px] font-bold tracking-[0.2px]">
                 About Company
               </h1>
               <p
-                className=' h-auto text-[#1E0F3B] opacity-[0.7] font-normal font-sans text-left'
+                className=" h-auto text-[#1E0F3B] opacity-[0.7] font-normal font-sans text-left"
                 style={{ width: "100%" }}
               >
                 {data?.aboutCompany}

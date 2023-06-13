@@ -37,6 +37,7 @@ const Setupdetails = () => {
     skill: [],
     project: [],
     certification: [],
+    totalExperience: "",
   });
 
   // useEffect(() => {
@@ -54,13 +55,66 @@ const Setupdetails = () => {
     const fileInput = document.getElementById("image");
     fileInput.click();
   };
-  
+
   const [errors, setErrors] = useState({});
+
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
       return <p className="text-red-500 text-xs">{errors[fieldName]}</p>;
     }
     return null;
+  };
+  const isFormValid = () => {
+    const requiredFields = {
+      personalDetails: {
+        fullName: "Full Name",
+        email: "Email",
+        phoneNumber: "Phone Number",
+        gender: "Gender",
+        birth: "Birth (yyyy-mm-dd)",
+        location: "Location",
+        text: "Text",
+        image: "Image",
+      },
+      education: "Education",
+      experience: "Experience",
+      skill: "Skill",
+      project: "Project",
+      certification: "Certification",
+    };
+    const errors = {};
+
+ 
+
+    // Check for required fields in personalDetails
+    const personalDetailsFields = Object.keys(requiredFields.personalDetails);
+    personalDetailsFields.forEach((field) => {
+      if (!resumeForm.personalDetails[field]) {
+        errors[
+          `personalDetails.${field}`
+        ] = `${requiredFields.personalDetails[field]} is required`;
+      }
+    });
+
+       // Validate birth field format
+  const birthRegex = /^\d{4}-\d{2}-\d{2}$/;
+  const birth = resumeForm.personalDetails.birth;
+  if (birth && !birth.match(birthRegex)) {
+    errors["personalDetails.birth"] = "Birth must be in the format yyyy-mm-dd";
+  }
+
+    Object.keys(requiredFields).forEach((section) => {
+      if (section !== "personalDetails" ) {
+        if (
+          Array.isArray(resumeForm[section]) &&
+          resumeForm[section].length === 0
+        ) {
+          errors[section] = `Atleast One entery required`;
+        }
+      }
+    });
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const handleInputChange = (e) => {
@@ -68,8 +122,7 @@ const Setupdetails = () => {
     if (type === "file") {
       const [section, field] = name.split(".");
       const file = files[0];
-     
-      
+
       setResumeForm((prevData) => ({
         ...prevData,
         [section]: {
@@ -78,14 +131,34 @@ const Setupdetails = () => {
         },
       }));
       setSelectedImage(URL.createObjectURL(file));
-
     } else {
       const [section, field] = name.split(".");
+
+      let fieldValue = value;
+
+      // Check specific validations for email field
+      if (field === "email") {
+        // Validate email format
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(value)) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [`${section}.${field}`]: "Invalid email format",
+          }));
+        } else {
+          // Clear the error if email format is valid
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [`${section}.${field}`]: "",
+          }));
+        }
+      }
+
       setResumeForm((prevData) => ({
         ...prevData,
         [section]: {
           ...prevData[section],
-          [field]: value,
+          [field]: fieldValue,
         },
       }));
     }
@@ -110,10 +183,17 @@ const Setupdetails = () => {
   };
 
   const handleCertificateChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, files } = e.target;
     const [section, field] = name.split(".");
-    SetempCertificate({ ...tempCertificate, [field]: value });
+  
+    if (type === "file") {
+      const file = files[0];
+      SetempCertificate({ ...tempCertificate, [field]: file });
+    } else {
+      SetempCertificate({ ...tempCertificate, [field]: value });
+    }
   };
+  
 
   const handleEducationChange = (e) => {
     const { name, value } = e.target;
@@ -220,7 +300,6 @@ const Setupdetails = () => {
     });
   };
 
-
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
@@ -229,36 +308,36 @@ const Setupdetails = () => {
     }
   };
   const finaltoken = getToken();
- 
 
   const handleSave = () => {
-
-    const payload = {
-      token: finaltoken,
-      data: resumeForm,
-    };
-    dispatch({ type: RESUME_REQUEST, payload });
-    const cleanData ={
-      personalDetails: {
-        fullName: "",
-        email: "",
-        phoneNumber: "",
-        gender: "",
-        birth: "",
-        location: "",
-        text: "",
-        image:null
-      },
-      education: [],
-      experience: [],
-      skill: [],
-      project: [],
-      certification: [],
+    if (isFormValid()) {
+      const payload = {
+        token: finaltoken,
+        data: resumeForm,
+      };
+      dispatch({ type: RESUME_REQUEST, payload });
+      const cleanData = {
+        personalDetails: {
+          fullName: "",
+          email: "",
+          phoneNumber: "",
+          gender: "",
+          birth: "",
+          location: "",
+          text: "",
+          image: null,
+        },
+        education: [],
+        experience: [],
+        skill: [],
+        project: [],
+        certification: [],
+      };
+      setResumeForm(cleanData);
+      setSelectedImage("");
     }
-    setResumeForm(cleanData);
-    setSelectedImage("")
   };
- console.log(resumeForm,"in details")
+  console.log(resumeForm, "in details");
 
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
@@ -316,11 +395,17 @@ const Setupdetails = () => {
               onChange={handleInputChange}
             />
           </div>
-          <form>
+
+          <div style={{ textAlign: "center", marginTop: "-1.2rem" }}>
+            {" "}
+            {renderErrorMessage("personalDetails.image")}
+          </div>
+
+          <form className="pt-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 px-4">
               <div className="relative">
                 <label
-                  className="absolute top-[-8px] left-0 ml-2 mt-px  bg-white px-1 text-[#1E0F3B] text-xs font-bold"
+                  className={`absolute top-[-8px] left-0 ml-2 mt-px  bg-white px-1 text-[#1E0F3B] text-xs font-bold `}
                   for="fullName"
                 >
                   Full Name
@@ -330,11 +415,16 @@ const Setupdetails = () => {
                   id="fullName"
                   placeholder="James Joy"
                   required
-                  className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                  className={`py-5 px-4 border rounded-[10px] ${
+                    errors["personalDetails.fullName"]
+                      ? "border-red-500"
+                      : "border-[#D8D8DD]"
+                  } w-full`}
                   name="personalDetails.fullName"
                   value={resumeForm.personalDetails?.fullName || ""}
                   onChange={handleInputChange}
                 />
+                {renderErrorMessage("personalDetails.fullName")}
               </div>
               <div>
                 <input
@@ -342,11 +432,16 @@ const Setupdetails = () => {
                   id="email"
                   placeholder="Email"
                   required
-                  className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                  className={`py-5 px-4 border rounded-[10px] ${
+                    errors["personalDetails.email"]
+                      ? "border-red-500"
+                      : "border-[#D8D8DD]"
+                  } w-full`}
                   name="personalDetails.email"
                   value={resumeForm.personalDetails?.email || ""}
                   onChange={handleInputChange}
                 />
+                {renderErrorMessage("personalDetails.email")}
               </div>
               <div>
                 <input
@@ -354,17 +449,26 @@ const Setupdetails = () => {
                   id="phoneNumber"
                   placeholder="Phone Number"
                   required
-                  className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                  className={`py-5 px-4 border rounded-[10px] ${
+                    errors["personalDetails.phoneNumber"]
+                      ? "border-red-500"
+                      : "border-[#D8D8DD]"
+                  } w-full`}
                   name="personalDetails.phoneNumber"
                   value={resumeForm.personalDetails?.phoneNumber || ""}
                   onChange={handleInputChange}
                 />
+                {renderErrorMessage("personalDetails.phoneNumber")}
               </div>
               <div>
                 <select
                   id="gender"
                   required
-                  className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select"
+                  className={`py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select ${
+                    errors["personalDetails.gender"]
+                      ? "border-red-500"
+                      : "border-[#D8D8DD]"
+                  }`}
                   style={{
                     WebkitAppearance: "none",
                     MozAppearance: "none",
@@ -384,18 +488,23 @@ const Setupdetails = () => {
                   <option value="female">Female</option>
                   <option value="other">Other</option>
                 </select>
+                {renderErrorMessage("personalDetails.gender")}
               </div>
               <div>
                 <input
-                  type="number"
                   id="birth"
                   placeholder="Date of Birth"
                   required
-                  className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                  className={`py-5 px-4 border rounded-[10px] ${
+                    errors["personalDetails.birth"]
+                      ? "border-red-500"
+                      : "border-[#D8D8DD]"
+                  } w-full`}
                   name="personalDetails.birth"
                   value={resumeForm.personalDetails?.birth || ""}
                   onChange={handleInputChange}
                 />
+                {renderErrorMessage("personalDetails.birth")}
               </div>
               <div>
                 <input
@@ -403,11 +512,16 @@ const Setupdetails = () => {
                   id="location"
                   placeholder="Location"
                   required
-                  className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                  className={`py-5 px-4 border rounded-[10px] ${
+                    errors["personalDetails.location"]
+                      ? "border-red-500"
+                      : "border-[#D8D8DD]"
+                  } w-full`}
                   name="personalDetails.location"
                   value={resumeForm.personalDetails?.location || ""}
                   onChange={handleInputChange}
                 />
+                {renderErrorMessage("personalDetails.location")}
               </div>
               <div>
                 <input
@@ -415,11 +529,16 @@ const Setupdetails = () => {
                   id="role"
                   placeholder="Job role"
                   required
-                  className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                  className={`py-5 px-4 border rounded-[10px] ${
+                    errors["personalDetails.text"]
+                      ? "border-red-500"
+                      : "border-[#D8D8DD]"
+                  } w-full`}
                   name="personalDetails.text"
                   value={resumeForm.personalDetails?.text || ""}
                   onChange={handleInputChange}
                 />
+                {renderErrorMessage("personalDetails.text")}
               </div>
             </div>
           </form>
@@ -435,7 +554,12 @@ const Setupdetails = () => {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >
-                <p className="text-[#1E0F3B] font-bold text-lg">Education</p>
+               <p
+                  className={` font-bold text-lg ${
+                    errors["education"] ? "text-[#ed4646]" : "text-[#1E0F3B]"
+                  }`}
+                >
+               Education</p> 
               </AccordionSummary>
               <AccordionDetails>
                 <SetupEducation
@@ -457,7 +581,11 @@ const Setupdetails = () => {
                 aria-controls="panel2a-content"
                 id="panel2a-header"
               >
-                <p className="text-[#1E0F3B] font-bold text-lg">Experience</p>
+                <p
+                  className={` font-bold text-lg ${
+                    errors["experience"] ? "text-[#ed4646]" : "text-[#1E0F3B]"
+                  }`}
+                >Experience</p>
               </AccordionSummary>
               <AccordionDetails>
                 <SetupExperience
@@ -479,7 +607,11 @@ const Setupdetails = () => {
                 aria-controls="panel2a-content"
                 id="panel2a-header"
               >
-                <p className="text-[#1E0F3B] font-bold text-lg">Skill</p>
+                 <p
+                  className={` font-bold text-lg ${
+                    errors["skill"] ? "text-[#ed4646]" : "text-[#1E0F3B]"
+                  }`}
+                >Skill</p>
               </AccordionSummary>
               <AccordionDetails>
                 <SetupSkills
@@ -501,7 +633,11 @@ const Setupdetails = () => {
                 aria-controls="panel2a-content"
                 id="panel2a-header"
               >
-                <p className="text-[#1E0F3B] font-bold text-lg">Project</p>
+                 <p
+                  className={` font-bold text-lg ${
+                    errors["project"] ? "text-[#ed4646]" : "text-[#1E0F3B]"
+                  }`}
+                >Project</p>
               </AccordionSummary>
               <AccordionDetails>
                 <SetupProject
@@ -523,7 +659,11 @@ const Setupdetails = () => {
                 aria-controls="panel2a-content"
                 id="panel2a-header"
               >
-                <p className="text-[#1E0F3B] font-bold text-lg">
+                 <p
+                  className={` font-bold text-lg ${
+                    errors["certification"] ? "text-[#ed4646]" : "text-[#1E0F3B]"
+                  }`}
+                >
                   Certification
                 </p>
               </AccordionSummary>
