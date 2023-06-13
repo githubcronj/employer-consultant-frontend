@@ -18,6 +18,7 @@ import scheduler from "../../public/Assets/scheduler.svg";
 import { DELETE_JOB_REQUEST } from "store/type/deletejobType";
 import DeletePopUP from "../../Components/Delete/deletePopUp";
 import { GET_JOB_REQUEST } from "store/type/getjobType";
+import styles from "../../styles/LoginPage.module.css";
 
 import { object } from "yup";
 const ViewProfile = () => {
@@ -75,7 +76,7 @@ const ViewProfile = () => {
   };
   return (
     <div
-      className={``}
+      className={` ${styles.viewJobPostBg}`}
     >
       {popup && <DeletePopUP id={id} setPopup={setPopup} />}
 
@@ -87,7 +88,7 @@ const ViewProfile = () => {
        `}
       >
         <div
-          className='bg-white'
+          className='bg-white '
           style={{
             boxShadow: " 0px 2px 10px #4C4E641A",
             borderRadius: "4px",
@@ -96,12 +97,12 @@ const ViewProfile = () => {
           }}
         >
           <div
-            className={`grid lg:grid-cols-12 xl:mt-[10px] lg:mt-[10px] md:mt-[10px] sm:mt-[10px]
+            className={`grid lg:grid-cols-12 sm:grid-cols-12 xl:mt-[10px] lg:mt-[10px] md:mt-[10px] sm:mt-[10px]
            pt-[10px] -mt-[10px] xl:pt-[10px] mb-4
            lg:pt-[10px] md:pt-[10px] sm:pt-[10px] items-center mx-4 sm:mr-9 sm:ml-[10px] 
            `}
           >
-            <div className='lg:col-span-8'>
+            <div className='lg:col-span-8 md:col-span-7 sm:col-span-12'>
               <div className='flex items-center gap-x-4 sm:pb-3'>
                 <img
                   src={backbtn.src}
@@ -116,9 +117,9 @@ const ViewProfile = () => {
                 </p>
               </div>
             </div>
-            <div className='lg:col-span-4 flex lg:justify-end md:justify-start'>
-              <div className='grid lg:grid-cols-12'>
-                <div className="lg:col-span-5 md:col-span-5 sm:col-span-12">
+            <div className='lg:col-span-4 md:col-span-5 sm:col-span-12'>
+              <div className={`flex ${styles.jobpostbtnbox}`}>
+                <div>
                 <button
                   onClick={editClick}
                   className='w-[125px] h-[51px] mr-3 px-5 sm:mt-[10px] bg-[#F9342E] text-white border rounded-[13px] flex items-center'
@@ -132,7 +133,7 @@ const ViewProfile = () => {
                 </button>
                 </div>
              
-                  <div className="lg:col-span-6 md:col-span-6 sm:col-span-12">
+                  <div>
                 <button
                   onClick={deleteClicked}
                   className='w-[125px] h-[51px] mr-3 px-5 sm:mt-[10px] bg-[#F9342E] text-white border rounded-[13px] flex items-center'

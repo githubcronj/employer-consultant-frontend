@@ -6,7 +6,7 @@ import { Button, InputAdornment } from "@mui/material";
 import suitCase from "../../asset/icons/suitcase.svg";
 import Image from "next/image";
 import locationIcon from "../../asset/icons/location.svg";
-
+import styles from "../../styles/LoginPage.module.css";
 const SearchJobInput = ({handleBox1Click}) => {
   return (
     <Paper
@@ -15,13 +15,13 @@ const SearchJobInput = ({handleBox1Click}) => {
     >
       <InputBase
       name="jobTitle"
+      className={`${styles.searchbox1}`}
       onClick={handleBox1Click}
         sx={{
           flex: 1,
           alignItems: "center",
           background: "#E7E9E9",
-          borderTopLeftRadius: "13px",
-          borderBottomLeftRadius: "13px",
+          
           padding:".7rem"
         }}
         placeholder="Job Title"
@@ -31,19 +31,19 @@ const SearchJobInput = ({handleBox1Click}) => {
           </InputAdornment>
         }
       />
-      <Divider sx={{ height: "7vh" }} orientation="vertical" />
+      <Divider className={styles.searchdevider}  orientation="vertical" />
       
       <InputBase
       name="location"
       onClick={handleBox1Click}
+      className={`${styles.searchbox2}`}
         sx={{
           flex: 1,
           alignItems: "center",
           display:"flex",
           background: "#E7E9E9",
           padding:".4rem",
-          borderTopRightRadius: "13px",
-          borderBottomRightRadius: "13px",
+        
         }}
         placeholder="Location"
         startAdornment={
@@ -58,10 +58,11 @@ const SearchJobInput = ({handleBox1Click}) => {
         }
         endAdornment={
         
-            <Button onClick={handleBox1Click}  style={{background:"red",padding:".55rem 2rem",color:"white",borderRadius:"10px"}}>Search</Button>
+            <Button className={`${styles.searchbtn}`} onClick={handleBox1Click}  style={{background:"red",padding:".55rem 2rem",color:"white",borderRadius:"10px"}}>Search</Button>
         
         }
       />
+        <Button className={`${styles.searchbtn2}`} onClick={handleBox1Click}  style={{background:"red",padding:".55rem 1rem",color:"white",borderRadius:"10px"}}>Search</Button>
     </Paper>
   );
 };
