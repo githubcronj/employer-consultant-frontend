@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { jobSaveRequest } from "../store/action/jobPostAction";
 import { generateResponseSaveRequest } from "store/action/generateResponseAction";
 import CircularProgress from "@mui/material/CircularProgress";
+import { generateSkillsSaveRequest } from "store/action/generateSkillsAction";
 
 const NewJobPost = () => {
   const router = useRouter();
@@ -17,6 +18,8 @@ const NewJobPost = () => {
   const [selectedButton, setSelectedButton] = useState("");
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [description, setDescription] = useState("");
+  const [skill, setSkill] = useState("");
+  const [allData,setAllData] = useState([]);
   const [jobPostData, setJobPostData] = useState({
     jobTitle: "",
     experience: "",
@@ -31,9 +34,33 @@ const NewJobPost = () => {
     industryType: "",
     skills: [],
   });
+
+  const addSkill = () => {
+    const updatedJobPostData = { ...jobPostData };
+    // Add the new skill to the skills array
+    if (!Array.isArray(updatedJobPostData.skills)) {
+      updatedJobPostData.skills = [];
+    }
+    // Add the new skill to the skills array
+    updatedJobPostData.skills.push(skill);
+    // Update the jobPostData state
+    setJobPostData(updatedJobPostData);
+    setSkill("");
+  };
+  const removeSkill = (index) => {
+    const updatedJobPostData = { ...jobPostData };
+    updatedJobPostData.skills.splice(index, 1);
+    setJobPostData(updatedJobPostData);
+  };
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
       return <p className='text-red-500 text-xs'>{errors[fieldName]}</p>;
+    }
+    return null;
+  };
+  const renderSkillsErrorMessage = () => {
+    if (errors.skills) {
+      return <p className='text-red-500 text-xs'>{errors.skills}</p>;
     }
     return null;
   };
@@ -66,6 +93,12 @@ const NewJobPost = () => {
   // response
   const response = useSelector((state) => state?.generateResponseReducer?.data);
 
+  // skills response
+  const skillResponse = useSelector(
+    (state) => state?.generateSkillsReducer?.data
+  );
+ 
+
   let defaultDescriptionValue =
     `${response?.job_description}\n\nKey Requirements:\n` +
     (response?.key_requirements || [])
@@ -97,10 +130,10 @@ const NewJobPost = () => {
     }));
   };
 
-  // useEffect(() => {
-  //   setDescription(defaultDescriptionValue);
-  // }, [defaultDescriptionValue.length]);
-
+  useEffect(() => {
+    setDescription(defaultDescriptionValue);
+  }, [defaultDescriptionValue.length]);
+  
   console.log('descriptionnn',description);
   const handleChangeDesc = (e) => {
     setDescription(e.target.value);
@@ -192,6 +225,9 @@ const NewJobPost = () => {
     ) {
       errors.email = "Invalid email format";
     }
+    if (!Array.isArray(jobPostData.skills) || jobPostData.skills.length === 0) {
+      errors.skills = "Please add at least one skill";
+    }
 
     setErrors(errors);
 
@@ -200,12 +236,19 @@ const NewJobPost = () => {
   const loading = useSelector(
     (state) => state?.generateResponseReducer?.loading
   );
-
-
+  const skillsLoading = useSelector(
+    (state) => state?.generateSkillsReducer?.loading
+  );
+  // function onClick() {
+  //   window.location.href = "/"
+  // }
   const handleTransfer = () =>{
     setDescription("");
     defaultDescriptionValue = ""
-    router.push('/');
+
+    router.reload(window.location.pathname);
+    window.location.href = "/"
+    // router.push('/');
   }
  
   const handleGenerateResponse = (e) => {
@@ -215,8 +258,26 @@ const NewJobPost = () => {
       experience: jobPostData.experience,
     };
     dispatch(generateResponseSaveRequest(requestData, finaltoken));
-
+    console.log(requestData);
   };
+
+  const handleGenerateSkills = (e) => {
+    const requestData = {
+      jobTitle: jobPostData.jobTitle,
+      jobType: jobPostData.jobType,
+    };
+    dispatch(generateSkillsSaveRequest(requestData, finaltoken));
+    console.log(requestData);
+  };
+  
+  useEffect(() => {
+    if(skillResponse){
+      setJobPostData((prevValues) => ({
+        ...prevValues,
+        ...jobPostData.skills = [...jobPostData?.skills , ...skillResponse?.skills]
+       }))
+    }
+  }, [skillResponse]);
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -234,10 +295,21 @@ const NewJobPost = () => {
       industryType: jobPostData.industryType,
       skills: jobPostData.skills,
     };
+    console.log("jobdata", jobData);
 
     if (isFormValid()) {
-      dispatch(jobSaveRequest(jobData, finaltoken));
 
+      // if(skillResponse){
+      //   setJobPostData((prevValues) => ({
+      //     ...prevValues,
+      //     ...jobPostData.skills = [...jobPostData.skills , ...skillResponse.skills]
+      //    }))
+      // }
+      
+      dispatch(jobSaveRequest(jobData, finaltoken));
+      setDescription("");
+      defaultDescriptionValue = "";
+      // console.log(payload,'ppppp');
       const initialJobPostData = {
         jobTitle: "",
         experience: "",
@@ -253,6 +325,7 @@ const NewJobPost = () => {
         skills: [],
       };
       setJobPostData(initialJobPostData);
+      // console.log(jobPostData);
       router.push("/");
     } else {
       return;
@@ -285,11 +358,11 @@ const NewJobPost = () => {
               </button>
             </div>
             <div>
-              <Link href='/'>
-                <button className='px-8 py-3 bg-white border border-red-500 text-red-500 rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3'>
+              {/* <Link href='/'> */}
+                <button onClick={handleTransfer} className='px-8 py-3 bg-white border border-red-500 text-red-500 rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3'>
                   Cancel
                 </button>
-              </Link>
+              {/* </Link> */}
             </div>
           </div>
         </div>
@@ -570,7 +643,134 @@ const NewJobPost = () => {
             {renderErrorMessage("description")}
           </div>
           {/* jd ends here */}
+          {/* generate skills button */}
+          <div className='sm:col-span-2'>
+            {" "}
+            <button
+              onClick={handleGenerateSkills}
+              className='px-11 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3'
+            >
+              Generate Skills From AI
+            </button>
+          </div>
 
+          {/* skills */}
+          <div className='sm:col-span-2'>
+            <div className='relative flex items-center'>
+              <input
+                type='text'
+                id='skills'
+                placeholder=' '
+                required
+                style={errors.skills ? { borderColor: "red" } : {}}
+                // className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+                className='block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
+                value={skill}
+                onChange={(e) => setSkill(e.target.value)}
+                disabled={skillsLoading}
+              />
+              <label
+                for='skills'
+                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+              >
+                Skills
+              </label>
+
+              <button
+                className='absolute right-2 px-6 sm:px-8 py-3 bg-red-500 text-white rounded-[10px]'
+                onClick={addSkill}
+              >
+                Add
+              </button>
+            </div>
+            <div>{renderSkillsErrorMessage()}</div>
+            {skillsLoading && (
+              <div className='flex justify-center items-center mt-1'>
+                <CircularProgress sx={{ color: "#EF4444" }} />
+              </div>
+            )}
+            <div className='py-4 grid sm:grid-cols-3 gap-7'>
+              {/* {Array.isArray(skillResponse.skills) &&
+                skillResponse.skills.map((item, index) => ( */}
+              {Array.isArray(jobPostData.skills) &&
+                jobPostData.skills.map((item, index) => (
+                  <div
+                    key={index}
+                    className='bg-[#F9F6EE] p-6 bordr rounded-xl text-[#1E0F3B] font-bold mt-4'
+                    style={{ position: "relative" }}
+                  >
+                    <div>
+                      <p className=''>{item}</p>
+                    </div>
+                    <img
+                      src='/Assets/cross.svg'
+                      alt='cancel'
+                      className=' justify-end'
+                      onClick={() => removeSkill(index)}
+                      style={{
+                        position: "absolute",
+                        top: "11%",
+                        right: "2%",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </div>
+                ))}
+              {/* new add skill response */}
+              {Array.isArray(skillResponse?.skills) &&
+                skillResponse?.skills.map((item, index) => (
+                  <div
+                    key={index}
+                    className='bg-[#F9F6EE] p-6 bordr rounded-xl text-[#1E0F3B] font-bold mt-4'
+                    style={{ position: "relative" }}
+                  >
+                    <div>
+                      <p className=''>{item}</p>
+                    </div>
+                    <img
+                      src='/Assets/cross.svg'
+                      alt='cancel'
+                      className=' justify-end'
+                      onClick={() => removeSkill(index)}
+                      style={{
+                        position: "absolute",
+                        top: "11%",
+                        right: "2%",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </div>
+                ))}
+            </div>
+          </div>
+
+          {/* skills */}
+
+          {/* industry type */}
+          <div className='relative'>
+            <input
+              type='text'
+              id='industryType'
+              placeholder=' '
+              required
+              //   minlength="10"
+              //   maxlength="12"
+              style={errors.industryType ? { borderColor: "red" } : {}}
+              className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                `}
+              value={jobPostData.industryType}
+              onChange={handleChange}
+            />
+
+            <label
+              for='indusryType'
+              className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+            >
+              Industry Type
+            </label>
+            {renderErrorMessage("Industry Type")}
+          </div>
+          {/* Industry Type */}
           {/* email */}
           <div className='relative'>
             <input
@@ -618,123 +818,7 @@ const NewJobPost = () => {
             </label>
             {renderErrorMessage("phoneNumber")}
           </div>
-
-          {/* industry type */}
-          <div>
-            <select
-              id='industryType'
-              required
-              className='py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select '
-              style={{
-                WebkitAppearance: "none",
-                MozAppearance: "none",
-                appearance: "none",
-                backgroundImage: "none",
-                backgroundImage: "url(/Assets/down-arrow.svg)",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "95% center",
-                paddingRight: "20px",
-                ...(errors.experience ? { borderColor: "red" } : {}),
-              }}
-              value={jobPostData.industryType}
-              onChange={handleChange}
-            >
-              <option value=''>All Industry Type</option>
-              <option value='Information Technology (IT)'>
-                Information Technology (IT)
-              </option>
-              <option value='Healthcare'>Healthcare</option>
-              <option value='Finance and Banking'>Finance and Banking</option>
-              <option value='Education'>Education</option>
-              <option value='Engineering'>Engineering</option>
-              <option value='Sales and Marketing'>Sales and Marketing</option>
-              <option value='Hospitality and Tourism'>
-                Hospitality and Tourism
-              </option>
-              <option value='Retail'>Retail</option>
-              <option value='Manufacturing'>Manufacturing</option>
-              <option value='Media and Entertainment'>
-                Media and Entertainment
-              </option>
-              <option value='Telecommunications'>Telecommunications</option>
-              <option value='Construction'>Construction</option>
-              <option value='Automotive'>Automotive</option>
-              <option value='Energy and Utilities'>Energy and Utilities</option>
-              <option value='Government and Public Administration'>
-                Government and Public Administration
-              </option>
-              <option value='Non-profit and Charity'>
-                Non-profit and Charity
-              </option>
-              <option value='Consulting'>Consulting</option>
-              <option value='Legal'>Legal</option>
-              <option value='Human Resources'>Human Resources</option>
-              <option value='Fashion and Apparel'>Fashion and Apparel</option>
-            </select>
-            {renderErrorMessage("industryType")}
-          </div>
-          {/* Industry Type */}
-          {/* skills */}
-          <div>
-            <div className='relative flex items-center'>
-              <input
-                type='text'
-                id='skills'
-                placeholder=' '
-                required
-                style={errors.skills ? { borderColor: "red" } : {}}
-                // className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                className='block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                value={jobPostData.skills}
-                onChange={handleChange}
-              />
-              <label
-                for='skills'
-                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
-              >
-                Skills
-              </label>
-              <button
-                className='absolute right-2 px-6 sm:px-8 py-3 bg-red-500 text-white rounded-[10px]'
-                // onClick={handlePaste}
-              >
-                Add
-              </button>
-              <div></div>
-            </div>
-            <div className='py-4 grid sm:grid-cols-2 gap-7'>
-              {/* <div
-                className='bg-[#F9F6EE] p-6 bordr rounded-xl text-[#1E0F3B] font-bold mt-4'
-                style={{ position: "relative" }}
-              >
-                <div>
-                  <p className=''>test</p>
-                </div>
-                <img
-                  src='/Assets/cross.svg'
-                  alt='cancel'
-                  className=' justify-end'
-                  style={{ position: "absolute", top: "11%", right: "2%" }}
-                />
-              </div>
-              <div
-                className='bg-[#F9F6EE] p-6 bordr rounded-xl text-[#1E0F3B] font-bold mt-4'
-                style={{ position: "relative" }}
-              >
-                <div>
-                  <p className=''>test</p>
-                </div>
-                <img
-                  src='/Assets/cross.svg'
-                  alt='cancel'
-                  className=' justify-end'
-                  style={{ position: "absolute", top: "11%", right: "2%" }}
-                />
-              </div>   */}
-            </div>
-          </div>
-
-          {/* skills */}
+          {/* phone number ends */}
         </div>
 
         {/* form section ends here */}

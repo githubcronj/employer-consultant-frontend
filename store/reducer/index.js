@@ -17,6 +17,7 @@ import { viewProfileReducer } from './viewProfileReducer';
 import resumeDataFillingReducer from "./resumeDataFillingReducer";
 import csvUploadReducer from './csvMultipleJobUploadReducer';
 import generateResponseReducer from './generateResponseReducer';
+import generateSkillsReducer from './generateSkillsReducer';
 import {setDetailsReducer} from './setupDetailsReducer'
 import {jobsReducer} from "./recomandedJobReducer";
 import applyJobReducer from './applyJobReducer';
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
   viewProfileReducer,
   csvUploadReducer,
   generateResponseReducer,
+  generateSkillsReducer,
   setDetailsReducer,
   jobsReducer,
   applyJobReducer,

@@ -16,6 +16,7 @@ import watchdeleteJobRequest from "./deletejobSaga";
 import watchviewProfileRequest from "./viewProfileSaga";
 import watchCsvSaveRequest from "./csvMutipleJobUploadSaga";
 import watchGenerateResponseRequest from "./generateResponseSaga";
+import watchGenerateSkillsRequest from "./generateSkillsSaga";
 import watchResumeDetails from "./setupDetailsSaga";
 import { watchjobsSaga } from "./recomandedJobSaga";
 import watchApplyJob from "./applyJobSaga";
@@ -40,6 +41,7 @@ export default function* rootSaga() {
     watchviewProfileRequest(),
     watchCsvSaveRequest(),
     watchGenerateResponseRequest(),
+    watchGenerateSkillsRequest(),
     watchResumeDetails(),
     watchjobsSaga(),
     watchApplyJob(),

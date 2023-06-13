@@ -16,7 +16,7 @@ function* getJob(action) {
     if (filterParams.length>0) {
       url = `/job`;
     } else {
-      url = `/job?${new URLSearchParams(filterParams)}`;
+      url = `/job?&skip=0&limit=5&${new URLSearchParams(filterParams)}`;
     }
     // const url =`/job?${new URLSearchParams(filterParams)}`
     // const url =`/job`    
