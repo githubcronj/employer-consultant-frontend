@@ -84,8 +84,6 @@ const Setupdetails = () => {
     };
     const errors = {};
 
- 
-
     // Check for required fields in personalDetails
     const personalDetailsFields = Object.keys(requiredFields.personalDetails);
     personalDetailsFields.forEach((field) => {
@@ -96,15 +94,16 @@ const Setupdetails = () => {
       }
     });
 
-       // Validate birth field format
-  const birthRegex = /^\d{4}-\d{2}-\d{2}$/;
-  const birth = resumeForm.personalDetails.birth;
-  if (birth && !birth.match(birthRegex)) {
-    errors["personalDetails.birth"] = "Birth must be in the format yyyy-mm-dd";
-  }
+    // Validate birth field format
+    const birthRegex = /^\d{4}-\d{2}-\d{2}$/;
+    const birth = resumeForm.personalDetails.birth;
+    if (birth && !birth.match(birthRegex)) {
+      errors["personalDetails.birth"] =
+        "Birth must be in the format yyyy-mm-dd";
+    }
 
     Object.keys(requiredFields).forEach((section) => {
-      if (section !== "personalDetails" ) {
+      if (section !== "personalDetails") {
         if (
           Array.isArray(resumeForm[section]) &&
           resumeForm[section].length === 0
@@ -185,7 +184,7 @@ const Setupdetails = () => {
   const handleCertificateChange = (e) => {
     const { name, value, type, files } = e.target;
     const [section, field] = name.split(".");
-  
+
     if (type === "file") {
       const file = files[0];
       SetempCertificate({ ...tempCertificate, [field]: file });
@@ -193,7 +192,6 @@ const Setupdetails = () => {
       SetempCertificate({ ...tempCertificate, [field]: value });
     }
   };
-  
 
   const handleEducationChange = (e) => {
     const { name, value } = e.target;
@@ -335,6 +333,7 @@ const Setupdetails = () => {
       };
       setResumeForm(cleanData);
       setSelectedImage("");
+      router.push("/search_job");
     }
   };
   console.log(resumeForm, "in details");
@@ -554,12 +553,13 @@ const Setupdetails = () => {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >
-               <p
+                <p
                   className={` font-bold text-lg ${
                     errors["education"] ? "text-[#ed4646]" : "text-[#1E0F3B]"
                   }`}
                 >
-               Education</p> 
+                  Education
+                </p>
               </AccordionSummary>
               <AccordionDetails>
                 <SetupEducation
@@ -585,7 +585,9 @@ const Setupdetails = () => {
                   className={` font-bold text-lg ${
                     errors["experience"] ? "text-[#ed4646]" : "text-[#1E0F3B]"
                   }`}
-                >Experience</p>
+                >
+                  Experience
+                </p>
               </AccordionSummary>
               <AccordionDetails>
                 <SetupExperience
@@ -607,11 +609,13 @@ const Setupdetails = () => {
                 aria-controls="panel2a-content"
                 id="panel2a-header"
               >
-                 <p
+                <p
                   className={` font-bold text-lg ${
                     errors["skill"] ? "text-[#ed4646]" : "text-[#1E0F3B]"
                   }`}
-                >Skill</p>
+                >
+                  Skill
+                </p>
               </AccordionSummary>
               <AccordionDetails>
                 <SetupSkills
@@ -633,11 +637,13 @@ const Setupdetails = () => {
                 aria-controls="panel2a-content"
                 id="panel2a-header"
               >
-                 <p
+                <p
                   className={` font-bold text-lg ${
                     errors["project"] ? "text-[#ed4646]" : "text-[#1E0F3B]"
                   }`}
-                >Project</p>
+                >
+                  Project
+                </p>
               </AccordionSummary>
               <AccordionDetails>
                 <SetupProject
@@ -659,9 +665,11 @@ const Setupdetails = () => {
                 aria-controls="panel2a-content"
                 id="panel2a-header"
               >
-                 <p
+                <p
                   className={` font-bold text-lg ${
-                    errors["certification"] ? "text-[#ed4646]" : "text-[#1E0F3B]"
+                    errors["certification"]
+                      ? "text-[#ed4646]"
+                      : "text-[#1E0F3B]"
                   }`}
                 >
                   Certification
