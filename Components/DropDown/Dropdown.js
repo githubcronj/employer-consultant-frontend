@@ -27,12 +27,15 @@ const Dropdown = () => {
   };
   const handleLogout = async (e) => {
     e.preventDefault();
-    // await signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_}` });
+    await signOut({
+      callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/login`,
+    });
     // Get the current host IP address
-    const { protocol, host } = window.location;
-    const ipAddress = `${protocol}//${host}`;
+    // const { protocol, host } = window.location;
+    // const ipAddress = `${protocol}//${host}`;
 
-    await signOut({ callbackUrl: `${ipAddress}/login` });
+    // await signOut({ callbackUrl: `${ipAddress}/login` });
+    // router.push("/login");
     localStorage.clear();
   };
   useEffect(() => {
