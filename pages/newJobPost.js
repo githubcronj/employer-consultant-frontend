@@ -79,7 +79,6 @@ const NewJobPost = () => {
     "\n\nConcluding Details:\n" +
     (response?.concluding_details || "");
 
-
   const handleSalaryButton = (e) => {
     setSelectedButton(e.target.id);
     setJobPostData((prevValues) => ({
@@ -106,10 +105,10 @@ const NewJobPost = () => {
   }, [defaultDescriptionValue.length]);
 
   const handleChangeDesc = (e) => {
-    setDescription(e.target.value)
+    setDescription(e.target.value);
     // setDescription((prevValues) => ({
-      // ...prevValues,
-      // description: e.target.value,
+    // ...prevValues,
+    // description: e.target.value,
     // }));
   };
 
@@ -216,7 +215,7 @@ const NewJobPost = () => {
     console.log(requestData);
   };
 
-console.log('descccc',description)
+  console.log("descccc", description);
   const handleSave = (e) => {
     e.preventDefault();
     const jobData = {
@@ -233,11 +232,11 @@ console.log('descccc',description)
       industryType: jobPostData.industryType,
       skills: jobPostData.skills,
     };
-    console.log('jobdata',jobData);
+    console.log("jobdata", jobData);
 
     if (isFormValid()) {
-      dispatch(jobSaveRequest(jobData,finaltoken));
-    
+      dispatch(jobSaveRequest(jobData, finaltoken));
+
       // console.log(payload,'ppppp');
       const initialJobPostData = {
         jobTitle: "",
@@ -621,28 +620,58 @@ console.log('descccc',description)
           </div>
 
           {/* industry type */}
-          <div className='relative'>
-            <input
-              type='text'
+          <div>
+            <select
               id='industryType'
-              placeholder=' '
               required
-              //   minlength="10"
-              //   maxlength="12"
-              style={errors.industryType ? { borderColor: "red" } : {}}
-              className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
-                `}
+              className='py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select '
+              style={{
+                WebkitAppearance: "none",
+                MozAppearance: "none",
+                appearance: "none",
+                backgroundImage: "none",
+                backgroundImage: "url(/Assets/down-arrow.svg)",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "95% center",
+                paddingRight: "20px",
+                ...(errors.experience ? { borderColor: "red" } : {}),
+              }}
               value={jobPostData.industryType}
               onChange={handleChange}
-            />
-
-            <label
-              for='indusryType'
-              className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
             >
-              Industry Type
-            </label>
-            {renderErrorMessage("Industry Type")}
+              <option value=''>All Industry Type</option>
+              <option value='Information Technology (IT)'>
+                Information Technology (IT)
+              </option>
+              <option value='Healthcare'>Healthcare</option>
+              <option value='Finance and Banking'>Finance and Banking</option>
+              <option value='Education'>Education</option>
+              <option value='Engineering'>Engineering</option>
+              <option value='Sales and Marketing'>Sales and Marketing</option>
+              <option value='Hospitality and Tourism'>
+                Hospitality and Tourism
+              </option>
+              <option value='Retail'>Retail</option>
+              <option value='Manufacturing'>Manufacturing</option>
+              <option value='Media and Entertainment'>
+                Media and Entertainment
+              </option>
+              <option value='Telecommunications'>Telecommunications</option>
+              <option value='Construction'>Construction</option>
+              <option value='Automotive'>Automotive</option>
+              <option value='Energy and Utilities'>Energy and Utilities</option>
+              <option value='Government and Public Administration'>
+                Government and Public Administration
+              </option>
+              <option value='Non-profit and Charity'>
+                Non-profit and Charity
+              </option>
+              <option value='Consulting'>Consulting</option>
+              <option value='Legal'>Legal</option>
+              <option value='Human Resources'>Human Resources</option>
+              <option value='Fashion and Apparel'>Fashion and Apparel</option>
+            </select>
+            {renderErrorMessage("industryType")}
           </div>
           {/* Industry Type */}
           {/* skills */}

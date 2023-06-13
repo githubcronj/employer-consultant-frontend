@@ -22,7 +22,6 @@ function* fetchJobs(action) {
       },
       
     });
-    console.log(action,"sskdkskd")
     
     yield put(fetchJobsSuccess(response));
 

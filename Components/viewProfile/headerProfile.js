@@ -9,7 +9,7 @@ const HeaderProfile = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const backClicked = () => {
-    router.push("/searchJob");
+    router.push("/search_job");
   };
   const [flexing, setFlexing] = useState(false);
   const handleResize = () => {

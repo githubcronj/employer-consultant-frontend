@@ -35,60 +35,76 @@ const SearchJob = () => {
       {showBox1 ? (
         <Box
           sx={{
-            display: "flex",
-            flexDirection: { xs: "column", sm: "column", md: "row" },
-            justifyContent: "space-between",
-            padding: "1rem",
-            height: { xs: "auto", sm: "auto", md: "90vh" },
-            justifyContent: "center",
             background: "#F3F5F8",
-            width: { xs: "100%", sm: "100%", md: "100%" },
           }}
         >
-          <ProfileSideBar data={session} />
-          <JobSearchResultData handleBox1Click={handleBox1Click} />
-          <NotificationSideBar />
+          <Box
+            sx={{
+              maxWidth: "1536px",
+              margin: "auto",
+              display: "flex",
+              flexDirection: { xs: "column", sm: "column", lg: "row" },
+              justifyContent: "space-between",
+              py: "3rem",
+              px: { xs: ".8rem", sm: "2rem", md: "5rem" },
+              height: { xs: "auto", sm: "auto" },
+              justifyContent: "center",
+              width: { xs: "100%", sm: "100%", md: "100%" },
+            }}
+          >
+            <ProfileSideBar data={session} />
+            <JobSearchResultData handleBox1Click={handleBox1Click} />
+            <NotificationSideBar />
+          </Box>
         </Box>
       ) : (
         <Box
-          py={2}
           sx={{
-            display: "flex",
-            flexDirection: { xs: "column", sm: "column", md: "row" },
-            justifyContent: "space-between",
-            justifyContent: "center",
             background: "#F3F5F8",
-            px: { xs: ".8rem", sm: "2rem", md: "5rem" },
-            height: { xs: "auto", lg: "100vh" },
           }}
         >
-          <Grid container spacing={3}>
-            <Grid item xs={12} lg={6} sx={{ display: { lg: "none" } }}>
-              <SearchBlock
-                searchOnChangeHandler={searchOnChangeHandler}
-                searchSubmitHandler={searchSubmitHandler}
-                handleBox1Click={handleBox1Click}
-              />
+          <Box
+            py={2}
+            sx={{
+              maxWidth: "1536px",
+              margin: "auto",
+              display: "flex",
+              flexDirection: { xs: "column", sm: "column", md: "row" },
+              justifyContent: "space-between",
+              justifyContent: "center",
+              background: "#F3F5F8",
+              px: { xs: ".8rem", sm: "2rem", md: "5rem" },
+              height: { xs: "auto", lg: "100vh" },
+            }}
+          >
+            <Grid container spacing={3}>
+              <Grid item xs={12} lg={6} sx={{ display: { lg: "none" } }}>
+                <SearchBlock
+                  searchOnChangeHandler={searchOnChangeHandler}
+                  searchSubmitHandler={searchSubmitHandler}
+                  handleBox1Click={handleBox1Click}
+                />
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ marginTop: "4rem" }}>
+                <JobAlert />
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                lg={6}
+                sx={{ display: { xs: "none", lg: "block" } }}
+              >
+                <SearchBlock
+                  searchOnChangeHandler={searchOnChangeHandler}
+                  searchSubmitHandler={searchSubmitHandler}
+                  handleBox1Click={handleBox1Click}
+                />
+              </Grid>
+              <Grid item xs={12} lg={3} sx={{ marginTop: "4rem" }}>
+                <RecentJob />
+              </Grid>
             </Grid>
-            <Grid item xs={12} lg={3} sx={{ marginTop: "4rem" }}>
-              <JobAlert />
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              lg={6}
-              sx={{ display: { xs: "none", lg: "block" } }}
-            >
-              <SearchBlock
-                searchOnChangeHandler={searchOnChangeHandler}
-                searchSubmitHandler={searchSubmitHandler}
-                handleBox1Click={handleBox1Click}
-              />
-            </Grid>
-            <Grid item xs={12} lg={3} sx={{ marginTop: "4rem" }}>
-              <RecentJob />
-            </Grid>
-          </Grid>
+          </Box>
         </Box>
       )}
     </>

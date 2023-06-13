@@ -28,13 +28,13 @@ function* loginSaga(action) {
       toast.success("Login successful");
     } else {
       yield put({ type: LOGIN_ERROR, payload: "Login failed" });
-      toast.error("Login failed");
+      toast.error(response.message);
     }
   } catch (error) {
     console.log(error);
 
     yield put({ type: LOGIN_ERROR, payload: error.message });
-    toast.error("An error occurred");
+    toast.error(error.message);
   }
 }
 
@@ -43,7 +43,7 @@ function* googleloginSaga(action) {
     const response = yield call(makeApiRequest, {
       endpoint: "/auth/login/success",
       method: "POST",
-      data:JSON.stringify(payload),
+      data: action.payload,
     });
 
     if (response.status === 200) {
@@ -56,7 +56,7 @@ function* googleloginSaga(action) {
     console.log(error);
 
     yield put({ type: GOOGLE_LOGIN_ERROR, payload: error.message });
-    toast.error("An error occurred");
+    toast.error(error.message);
   }
 }
 
