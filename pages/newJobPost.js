@@ -17,6 +17,7 @@ const NewJobPost = () => {
   const [selectedButton, setSelectedButton] = useState("");
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [description, setDescription] = useState("");
+  const [skill, setSkill] = useState("");
   const [jobPostData, setJobPostData] = useState({
     jobTitle: "",
     experience: "",
@@ -31,6 +32,27 @@ const NewJobPost = () => {
     industryType: "",
     skills: [],
   });
+   
+ 
+  const addSkill = () => {
+   
+    const updatedJobPostData = { ...jobPostData };
+// Add the new skill to the skills array
+if (!Array.isArray(updatedJobPostData.skills)) {
+  updatedJobPostData.skills = [];
+}
+    // Add the new skill to the skills array
+    updatedJobPostData.skills.push(skill);
+    // Update the jobPostData state
+    setJobPostData(updatedJobPostData);
+    setSkill("");
+  };
+  const removeSkill = (index) => {
+    
+    const updatedJobPostData = { ...jobPostData };
+    updatedJobPostData.skills.splice(index, 1);
+    setJobPostData(updatedJobPostData);
+  };
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
       return <p className='text-red-500 text-xs'>{errors[fieldName]}</p>;
@@ -655,8 +677,8 @@ console.log('descccc',description)
                 style={errors.skills ? { borderColor: "red" } : {}}
                 // className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
                 className='block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                value={jobPostData.skills}
-                onChange={handleChange}
+                value={skill}
+                onChange={(e) => setSkill(e.target.value)}
               />
               <label
                 for='skills'
@@ -666,41 +688,32 @@ console.log('descccc',description)
               </label>
               <button
                 className='absolute right-2 px-6 sm:px-8 py-3 bg-red-500 text-white rounded-[10px]'
-                // onClick={handlePaste}
+                onClick={addSkill}
               >
                 Add
               </button>
               <div></div>
             </div>
             <div className='py-4 grid sm:grid-cols-2 gap-7'>
-              {/* <div
+              {Array.isArray(jobPostData.skills) && jobPostData.skills.map((item,index) => (
+                <div key={index}
                 className='bg-[#F9F6EE] p-6 bordr rounded-xl text-[#1E0F3B] font-bold mt-4'
                 style={{ position: "relative" }}
               >
                 <div>
-                  <p className=''>test</p>
+                  <p className=''>{item}</p>
                 </div>
                 <img
                   src='/Assets/cross.svg'
                   alt='cancel'
                   className=' justify-end'
-                  style={{ position: "absolute", top: "11%", right: "2%" }}
+                  onClick={() => removeSkill(index)}
+                  style={{ position: "absolute", top: "11%", right: "2%" ,cursor:"pointer"}}
                 />
               </div>
-              <div
-                className='bg-[#F9F6EE] p-6 bordr rounded-xl text-[#1E0F3B] font-bold mt-4'
-                style={{ position: "relative" }}
-              >
-                <div>
-                  <p className=''>test</p>
-                </div>
-                <img
-                  src='/Assets/cross.svg'
-                  alt='cancel'
-                  className=' justify-end'
-                  style={{ position: "absolute", top: "11%", right: "2%" }}
-                />
-              </div>   */}
+              ))}
+             
+           
             </div>
           </div>
 
