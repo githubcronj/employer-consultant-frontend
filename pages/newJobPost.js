@@ -31,6 +31,7 @@ const NewJobPost = () => {
     industryType: "",
     skills: [],
   });
+  
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
       return <p className='text-red-500 text-xs'>{errors[fieldName]}</p>;
