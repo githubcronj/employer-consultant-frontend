@@ -66,7 +66,7 @@ const NewJobPost = () => {
   // response
   const response = useSelector((state) => state?.generateResponseReducer?.data);
 
-  const defaultDescriptionValue =
+  let defaultDescriptionValue =
     `${response?.job_description}\n\nKey Requirements:\n` +
     (response?.key_requirements || [])
       .map((requirement) => `• ${requirement}`)
@@ -97,10 +97,11 @@ const NewJobPost = () => {
     }));
   };
 
-  useEffect(() => {
-    setDescription(defaultDescriptionValue);
-  }, [defaultDescriptionValue.length]);
+  // useEffect(() => {
+  //   setDescription(defaultDescriptionValue);
+  // }, [defaultDescriptionValue.length]);
 
+  console.log('descriptionnn',description);
   const handleChangeDesc = (e) => {
     setDescription(e.target.value);
     // setDescription((prevValues) => ({
@@ -201,6 +202,11 @@ const NewJobPost = () => {
   );
 
 
+  const handleTransfer = () =>{
+    setDescription("");
+    defaultDescriptionValue = ""
+    router.push('/');
+  }
  
   const handleGenerateResponse = (e) => {
     const requestData = {
@@ -257,15 +263,16 @@ const NewJobPost = () => {
       <div className='bg-white'>
         <div className='md:flex justify-between items-center mx-5 sm:mx-9 py-1'>
           <div className='my-3 flex gap-6'>
-            <Link href='/'>
+            {/* <Link href={handleTransfer} > */}
               <Image
                 src='/Assets/backbtn.svg'
                 alt='back button'
                 width={35}
                 height={35}
                 className='cursor-pointer'
+                onClick={handleTransfer}
               />
-            </Link>
+            {/* </Link> */}
             <p className='text-lg sm:text-2xl font-bold'>Create New Job Post</p>
           </div>
           <div className='sm:flex gap-2 sm:gap-5'>
@@ -542,7 +549,7 @@ const NewJobPost = () => {
               }}
               // style={{errors.description ? { borderColor: "red" } : {},minHeight: '150px'}}
               className='block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-              value={jobPostData.description}
+              value={description && jobPostData.description}
               onChange={handleChangeDesc}
               defaultValue={response && defaultDescriptionValue}
               // defaultValue={response && defaultDescriptionValue}
