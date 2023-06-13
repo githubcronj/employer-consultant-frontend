@@ -30,20 +30,41 @@ function Layout(props) {
     "/resume-created",
     "/job-apply-search/",
     "/googleAuth",
+    "/viewjobpost/cviewprofile",
+    "/reset-password",
   ].includes(pathname);
   const onlyNav = ["/viewProfileCon"];
 
-  const excludeSideBarPaths = ["/job-apply-search"];
+  const excludeSideBarPaths = ["/job-apply-search", "/reset-password"];
 
   const shouldRenderSidebar =
     shouldRenderComponents &&
     !excludeSideBarPaths.some((path) => pathname.startsWith(path));
 
+  const navbarRoutes = [
+    "/login",
+    "/reset-password",
+    "/googleAuth",
+    "/verifyotp",
+    "/register",
+    "/confirmPassword",
+    "/resetPassword",
+    "/forgotPassword",
+    "/resume-upload",
+    "/resume-json",
+    "/setup-details",
+    "/resume-templates",
+    "/resume-created",
+  ];
+
+  const shouldRenderNavbar = !navbarRoutes.includes(pathname);
+
   return (
     <div className="layout">
+      {shouldRenderNavbar && <Navbar />}
       {shouldRenderComponents && (
         <>
-          <Navbar />
+          {/* <Navbar /> */}
           {shouldRenderSidebar ? (
             <div className="flex flex-col xl:flex-row lg:flex-row md:flex-row sm:flex-row min-w-[100%]">
               <SideBar />
@@ -52,9 +73,7 @@ function Layout(props) {
               </div>
             </div>
           ) : (
-            <div className="relative">
-              {children}
-            </div>
+            <div className="relative">{children}</div>
           )}
         </>
       )}

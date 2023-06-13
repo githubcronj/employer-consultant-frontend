@@ -29,13 +29,74 @@
   background-color: #5e9af8;
 }
 
+.searchdevider{
+  height: 7vh;
+}
+.searchbox1{
+border-top-left-radius: 13px;
+border-bottom-left-radius: 13px;
+
+}
+.searchbox2{
+  border-top-right-radius: 13px;
+  border-bottom-right-radius: 13px;
+  
+  }
+  .searchbtn2{
+    display: none !important;
+  }
+  .searchbtn{
+    display: flex;
+  }
 @media (min-width: 1536px) {
   .desk {
     height: 100vh;
   }
   
 }
+@media (max-width: 1024px) {
+  .searchdevider{
+    height: 7vh;
+  }
+  .viewJobPostBg{
+    width:700px;
+  }
+}
+@media (max-width:768px) {
+  .jobpostbtnbox{
+    margin-top: 10px;
+  }
+}
+@media (max-width:600px) {
+ 
+  .searchbtn2{
+    display: block !important;
+    margin-top: 25px !important;
+  }
+  .searchbtn{
+    display: none !important;
+  }
+  .searchbox1{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    
+    }
+    .searchbox2{
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      margin-top: 20px;
+      
+      }
+  .searchdevider{
+   visibility: hidden;
+  }
+}
 @media (max-width: 410px) {
+ 
+ 
+  .viewJobPostBg{
+    width:100%;
+  }
   .desk {
     margin-left: 56px;
   }

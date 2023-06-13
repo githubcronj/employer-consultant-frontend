@@ -23,6 +23,7 @@ function* loginSaga(action) {
     if (response.status === 200) {
       localStorage.setItem("CurrentUser", JSON.stringify(response.data));
       localStorage.setItem("isLoggedIn", "true");
+      console.log(response);
 
       yield put({ type: LOGIN_SUCCESS, payload: response });
       toast.success("Login successful");
