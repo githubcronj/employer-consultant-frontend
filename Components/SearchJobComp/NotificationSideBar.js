@@ -25,12 +25,22 @@ const NotificationSideBar = () => {
               display: "flex",
               justifyContent: "space-between",
               fontWeight: "bold",
-              alignItems:"center"
+              alignItems: "center",
             }}
           >
             <span>
-            Notifications{" "}
-            <span style={{background:"#F9F6EE",fontWeight:400,fontSize:"14px",color:"#F9342E",padding:"0 5px"}}>3</span>
+              Notifications{" "}
+              <span
+                style={{
+                  background: "#F9F6EE",
+                  fontWeight: 400,
+                  fontSize: "14px",
+                  color: "#F9342E",
+                  padding: "0 5px",
+                }}
+              >
+                3
+              </span>
             </span>
             <ArrowForwardIosIcon
               fontSize="small"
@@ -86,7 +96,7 @@ const NotificationSideBar = () => {
                 display: "flex",
                 justifyContent: "center",
                 gap: "1rem",
-                alignItems:"center",
+                alignItems: "center",
               }}
             >
               <Box sx={{ position: "relative", display: "inline-block" }}>
@@ -151,7 +161,7 @@ const NotificationSideBar = () => {
                 position: "relative",
                 display: "flex",
                 justifyContent: "center",
-                alignItems:"center",
+                alignItems: "center",
                 gap: "1rem",
               }}
             >

@@ -124,7 +124,7 @@ const Login = () => {
         <div className="xl:mt-0  flex flex-col items-center justify-center align-middle sm:pl-0  sm:mr-[2px] md:mr-[2px] mb-3 xl:-mb-7 flex-1 ">
           <div
             style={{ marginTop: "20px" }}
-            className=" xl:w-1/2  md:w-full -ml-[36px] xl:ml-[0px] flex flex-col justify-center items-center pt-0  gap-4 "
+            className=" xl:w-1/2  md:w-full -ml-[36px] lg:ml-0 xl:ml-[0px] flex flex-col justify-center items-center pt-0  gap-4 "
           >
             <h1
               className="text-2xl font-bold text-#1E0F3B mb-1 xl:-mt-1 xl:-mb-5 xl:ml-6 lg:ml-6"
