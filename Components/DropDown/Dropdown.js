@@ -29,7 +29,7 @@ const Dropdown = () => {
     e.preventDefault();
     await signOut({
       redirect: false,
-      // callbackUrl: `/login`,
+      callbackUrl: `/login`,
     });
     router.push("/login");
 
