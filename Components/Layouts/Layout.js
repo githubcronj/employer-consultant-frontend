@@ -55,6 +55,7 @@ function Layout(props) {
     "/setup-details",
     "/resume-templates",
     "/resume-created",
+     "/profile",
   ];
 
   const shouldRenderNavbar = !navbarRoutes.includes(pathname);
