@@ -4,7 +4,7 @@ import DownArrow from "public/Assets/down-arrow.svg";
 import UpArrow from "public/Assets/up-arrow.svg";
 import RightArrow from "public/Assets/right-arrow.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../store/action/loginaction";
+// import { logout } from "../../store/action/loginaction";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
@@ -13,6 +13,7 @@ import { PROFILE_REQUEST } from "store/type/getProfileType";
 const Dropdown = () => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
+  const [role, setRole] = useState("");
   const dropdownRef = useRef(null);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -27,22 +28,29 @@ const Dropdown = () => {
   };
   const handleLogout = async (e) => {
     e.preventDefault();
-    await signOut({
-      callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/login`,
-    });
-    // Get the current host IP address
-    // const { protocol, host } = window.location;
-    // const ipAddress = `${protocol}//${host}`;
-
-    // await signOut({ callbackUrl: `${ipAddress}/login` });
-    // router.push("/login");
+    // await signOut({
+    //   redirect: false,
+    //   // callbackUrl: `/login`,
+    // });
+    // console.log("handleLogout called");
+    // sessionStorage.clear();
+    // localStorage.clear();
+    // await router.push("/login");
+    sessionStorage.clear();
     localStorage.clear();
+    await signOut({ callbackUrl: `/login` });
+    // router.push("/login");
   };
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
+  }, []);
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("CurrentUser"));
+    const role = storedData?.user?.role;
+    setRole(role);
   }, []);
 
   const getToken = () => {
@@ -65,6 +73,7 @@ const Dropdown = () => {
   const nameParts = session?.user?.name?.split(" ");
   const firstName =
     nameParts && nameParts.length > 0 ? nameParts[0] : data1?.companyName;
+
   return (
     <div className="flex flex-row">
       <div className="w-[36px] h-[36px] rounded-full ">
@@ -83,7 +92,11 @@ const Dropdown = () => {
             <li>
               <Link
                 className="flex flex-row  px-4 py-2 text-gray-800 "
-                href="view-profile"
+                href={`${
+                  role === "employer"
+                    ? "view-profile"
+                    : "viewjobpost/cviewprofile"
+                }`}
               >
                 <span className="flex-1 text-[#1E0F3B]">View Profile</span>
                 <img src={RightArrow.src} alt="" />
@@ -92,20 +105,23 @@ const Dropdown = () => {
             <li>
               <Link
                 className="flex flex-row px-4 py-2 text-gray-800"
-                href="/editProfile"
+                // href="/editProfile"
+                href={`${
+                  role === "employer" ? "editProfile" : "setup-details"
+                }`}
               >
                 <span className="flex-1 text-[#1E0F3B] ">Edit Profile</span>
                 <img src={RightArrow.src} alt="" />
               </Link>
             </li>
             <li>
-              <Link
+              <div
                 className="flex flex-row px-4 py-2 text-gray-800 cursor-pointer"
                 onClick={handleLogout}
-                href="/login"
+                // href="/login"
               >
                 <span className="flex-1 text-[#F9342E] ">Logout</span>
-              </Link>
+              </div>
             </li>
           </ul>
         )}
