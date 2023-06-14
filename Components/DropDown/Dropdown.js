@@ -28,8 +28,11 @@ const Dropdown = () => {
   const handleLogout = async (e) => {
     e.preventDefault();
     await signOut({
-      callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/login`,
+      redirect: false,
+      // callbackUrl: `/login`,
     });
+    router.push("/login");
+
     // Get the current host IP address
     // const { protocol, host } = window.location;
     // const ipAddress = `${protocol}//${host}`;
