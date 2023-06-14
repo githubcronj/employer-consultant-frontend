@@ -180,87 +180,87 @@ const ViewProfile = () => {
                     </div>
                   </div>
 
-                  <div className='flex m-3 '>
+                  <div className='flex m-3 items-center'>
                     <img
                       src={experienceicon.src}
                       alt=''
-                      className='w-[44px] h-[44px]'
+                      className='w-[25px] h-[25px] ml-2'
                     />
 
-                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-4 text-xl'>
+                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-8 text-xl'>
                       {item?.experience} years
                     </p>
                   </div>
 
-                  <div className='flex m-3 '>
+                  <div className='flex m-3 items-center'>
                     <img
                       src={building.src}
                       alt=''
-                      className='w-[44px] h-[44px]'
+                      className='w-[25px] h-[25px] ml-2'
                     />
-                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-4 text-xl'>
+                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-8 text-xl'>
                       IT consultancy
                     </p>
                   </div>
-                  <div className='flex m-3 '>
+                  <div className='flex m-3 items-center'>
                     <img
                       src={money.src}
                       alt='money'
-                      className='w-[44px] h-[44px]'
+                      className='w-[25px] h-[25px] ml-2'
                     />
-                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-4 text-xl'>
+                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-8 text-xl'>
                       {item?.salary}
                     </p>
                   </div>
-                  <div className='flex m-3 '>
+                  <div className='flex m-3 items-center'>
                     <img
                       src={laptop.src}
                       alt='laptop'
-                      className='w-[44px] h-[44px]'
+                      className='w-[25px] h-[25px] ml-2'
                     />
-                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-4 text-xl'>
+                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-8 text-xl'>
                       {item?.jobType}{" "}
                     </p>
                   </div>
-                  <div className='flex m-3 '>
+                  <div className='flex m-3 items-center'>
                     <img
                       src={location.src}
                       alt=''
-                      className='w-[44px] h-[44px]'
+                      className='w-[25px] h-[25px] ml-2'
                     />
-                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-4 text-xl'>
+                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-8 text-xl'>
                       Silicon Valley
                     </p>
                   </div>
                   <hr className='xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[25px]'></hr>
 
-                  <div className='flex m-3 '>
+                  <div className='flex m-3 items-center'>
                     <img
                       src={scheduler.src}
                       alt='calender'
-                      className='w-[44px] h-[44px]'
+                      className='w-[25px] h-[25px] ml-2'
                     />
-                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-4 text-xl'>
+                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-8 text-xl'>
                       20-04-2024
                     </p>
                   </div>
-                  <div className='flex m-3 '>
+                  <div className='flex m-3 items-center'>
                     <img
                       src={mail.src}
                       alt='mail'
-                      className='w-[44px] h-[44px]'
+                      className='w-[25px] h-[25px] ml-2'
                     />
-                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-4 text-xl'>
+                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-8 text-xl'>
                       {item?.email}{" "}
                     </p>
                   </div>
-                  <div className='flex m-3 '>
+                  <div className='flex m-3 items-center'>
                     <img
                       src={call.src}
                       alt='Phone number'
-                      className='w-[44px] h-[44px]'
+                      className='w-[25px] h-[25px] ml-2'
                     />
-                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-4 text-xl'>
+                    <p className='h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-8 text-xl'>
                       {item?.phoneNumber}{" "}
                     </p>
                   </div>
