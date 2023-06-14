@@ -12,7 +12,9 @@ function* saveJobPost(action) {
  
     const data = {
       jobTitle: action.payload.jobData.jobTitle,
-    experience: action.payload.jobData.experience,
+    // experience: action.payload.jobData.experience,
+    minExp: action.payload.jobData.minExp,
+    maxExp: action.payload.jobData.maxExp,
     deadline: action.payload.jobData.deadline,
     email: action.payload.jobData.email,
     jobType: action.payload.jobData.jobType,
