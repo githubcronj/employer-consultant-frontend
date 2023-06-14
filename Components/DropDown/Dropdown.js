@@ -28,7 +28,7 @@ const Dropdown = () => {
       setIsOpen(false);
     }
   };
-  const productionUrl = "http://13.53.75.126:3000";
+  const productionUrl = "http://13.53.75.126:3000"; //need to be changed in future
   // const devUrl = "http://13.53.75.126:3000";
   const devUrl = "http://localhost:3000";
   const handleLogout = async (e) => {
@@ -40,7 +40,7 @@ const Dropdown = () => {
     // await router.push("/login");
     sessionStorage.clear();
     localStorage.clear();
-    const url = process.env.NODE_ENV === "production" ? productionUrl : devUrl;
+    const url = process.env.NODE_ENV === "development" ? productionUrl : devUrl;
     window.location = url + "/login";
   };
   console.log(process.env.NODE_ENV, "process.env.NODE_ENV");
