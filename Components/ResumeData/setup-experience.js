@@ -249,6 +249,9 @@ const SetupExperience = ({
                         ? new Date(experienceDetails?.joinedDate)
                         : null
                     }
+                    showMonthDropdown
+                showYearDropdown
+                dropdownMode='select'
                     onChange={handleDateChange}
                   />
                   <img
@@ -297,6 +300,9 @@ const SetupExperience = ({
                           ? new Date(experienceDetails?.endDate)
                           : null
                       }
+                      showMonthDropdown
+                showYearDropdown
+                dropdownMode='select'
                       onChange={handleDateChange2}
                     />
                     <img

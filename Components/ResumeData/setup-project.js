@@ -134,6 +134,9 @@ const SetupProject = ({
                       ? new Date(projectDetails?.startDate)
                       : null
                   }
+                  showMonthDropdown
+                showYearDropdown
+                dropdownMode='select'
                   onChange={handleDateChange}
                 />
                 <img
@@ -162,6 +165,9 @@ const SetupProject = ({
                     ? new Date(projectDetails?.endDate)
                     : null
                 }
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode='select'
                 onChange={handleDateChangeEnd}
               />
               <img
