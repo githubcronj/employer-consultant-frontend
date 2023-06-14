@@ -27,7 +27,9 @@ const NewJobPost = () => {
   const [allResponse, setAllResponse] = useState("");
   const [jobPostData, setJobPostData] = useState({
     jobTitle: "",
-    experience: "",
+    // experience: "",
+    minExp: "",
+    maxExp: "",
     deadline: "",
     jobType: "",
     minSalary: "",
@@ -222,7 +224,9 @@ const NewJobPost = () => {
   const isFormValid = () => {
     const requiredFields = [
       "jobTitle",
-      "experience",
+      // "experience",
+      "minExp",
+      "maxExp",
       "deadline",
       "jobType",
       "minSalary",
@@ -280,7 +284,10 @@ const NewJobPost = () => {
     const requestData = {
       jobTitle: jobPostData.jobTitle,
       jobType: jobPostData.jobType,
-      experience: jobPostData.experience,
+      // experience: jobPostData.experience,
+      // minExp: jobPostData.minExp,
+      maxExp: jobPostData.maxExp,
+
     };
     dispatch(generateResponseSaveRequest(requestData, finaltoken));
 
@@ -321,7 +328,9 @@ const NewJobPost = () => {
     e.preventDefault();
     const jobData = {
       jobTitle: jobPostData.jobTitle,
-      experience: jobPostData.experience,
+      // experience: jobPostData.experience,
+      minExp: jobPostData.minExp,
+      maxExp: jobPostData.maxExp,
       deadline: jobPostData.deadline,
       jobType: jobPostData.jobType,
       minSalary: jobPostData.minSalary,
@@ -350,7 +359,9 @@ const NewJobPost = () => {
       // console.log(payload,'ppppp');
       const initialJobPostData = {
         jobTitle: "",
-        experience: "",
+        // experience: "",
+        minExp: "",
+        maxExp: "",
         deadline: "",
         jobType: "",
         minSalary: "",
@@ -431,7 +442,9 @@ const NewJobPost = () => {
             {renderErrorMessage("jobTitle")}
           </div>
           {/*  */}
-          <div>
+
+          {/* old exp */}
+          {/* <div>
             <select
               id='experience'
               required
@@ -462,7 +475,62 @@ const NewJobPost = () => {
               <option value='9'>9 year</option>
             </select>
             {renderErrorMessage("experience")}
-          </div>
+          </div> */}
+          {/* old exp ends here */}
+
+          {/*  */}
+          {/* min max */}
+          <div className='flex gap-3 justify-evenly md:justify-normal'>
+                {/* min */}
+                <div className='relative'>
+                  <input
+                    type='text'
+                    id='minExp'
+                    placeholder=' '
+                    style={errors.minExp ? { borderColor: "red" } : {}}
+                    required
+                    className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                `}
+                    value={jobPostData.minExp}
+                    onChange={handleChange}
+                  />
+
+                  <label
+                    for='minExp'
+                    className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                  >
+                    Minimum Experience
+                  </label>
+                  {renderErrorMessage("minExp")}
+                </div>
+                {/* max */}
+                <div className='relative'>
+                  <input
+                    type='text'
+                    id='maxExp'
+                    placeholder=' '
+                    required
+                    style={errors.maxExp ? { borderColor: "red" } : {}}
+                    className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                        `}
+                    value={jobPostData.maxExp}
+                    onChange={handleChange}
+                  />
+
+                  <label
+                    for='maxExp'
+                    className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                  >
+                    Maximum Experience
+                  </label>
+                  {renderErrorMessage("maxExp")}
+                </div>
+              </div>
+              {/* min max ends here */}
+
+          {/*  */}
+
+
           {/*  */}
           <div>
             <div className='relative flex items-center'>
