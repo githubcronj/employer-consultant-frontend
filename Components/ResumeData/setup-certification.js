@@ -145,6 +145,10 @@ const SetupCertificate = ({
                     ? new Date(certificationDetails?.issueDate)
                     : null
                 }
+                peekNextMonth
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode='select'
                 onChange={handleDateChange}
               />
               <img
@@ -173,6 +177,10 @@ const SetupCertificate = ({
                     ? new Date(certificationDetails?.expirationDate)
                     : null
                 }
+                peekNextMonth
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode='select'
                 onChange={handleDateChangeEnd}
               />
               <img

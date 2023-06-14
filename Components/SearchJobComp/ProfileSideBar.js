@@ -64,7 +64,7 @@ const ProfileSideBar = ({ data }) => {
         <Typography sx={{ fontWeight: "bold" }}>{data?.user.name}</Typography>
         {response?.experience.map((item, index) => {
           return (
-            <Typography
+            <Typography key={index}
               sx={{ color: "#5E5E5E", fontSize: "14px", textAlign: "center" }}
             >
               {item?.jobPosition} &#8226; {response?.jobType}
