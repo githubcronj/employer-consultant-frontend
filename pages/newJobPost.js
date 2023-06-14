@@ -266,12 +266,7 @@ const NewJobPost = () => {
   //   window.location.href = "/"
   // }
   const handleTransfer = () => {
-    setDescription("");
-    defaultDescriptionValue = "";
-
-    router.reload(window.location.pathname);
-    window.location.href = "/";
-    // router.push('/');
+    router.push('/');
   };
 
   
