@@ -211,6 +211,13 @@ const NewJobPost = () => {
         email: isValidEmail ? "" : "Invalid email format",
       }));
     }
+    if (id === "phoneNumber") {
+      const isValidPhoneNumber = value === "" || /^\d{10}$/.test(value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phoneNumber: isValidPhoneNumber ? "" : "Invalid phone number format",
+      }));
+    }
   };
   const isFormValid = () => {
     const requiredFields = [
@@ -243,6 +250,11 @@ const NewJobPost = () => {
     ) {
       errors.email = "Invalid email format";
     }
+
+    if (jobPostData.phoneNumber !== "" && !/^\d{10}$/.test(jobPostData.phoneNumber)) {
+      errors.phoneNumber = "Invalid phone number format";
+    }
+
     if (!Array.isArray(jobPostData.skills) || jobPostData.skills.length === 0) {
       errors.skills = "Please add at least one skill";
     }
@@ -832,7 +844,7 @@ const NewJobPost = () => {
           {/* phone number */}
           <div className='relative'>
             <input
-              type='number'
+              type='text'
               id='phoneNumber'
               placeholder=' '
               required

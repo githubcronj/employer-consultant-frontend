@@ -10,7 +10,7 @@ const Pagination = ({ postPerPage, totalPost, paginate, currentPage }) => {
     // <div>
 
     // </div>
-    <div className='flex items-center justify-center mt-8'>
+    <div className='flex items-center justify-center py-6'>
       <nav className='relative z-0 inline-flex shadow-sm'>
         <ul className='flex items-center'>
           {currentPage > 1 ? (

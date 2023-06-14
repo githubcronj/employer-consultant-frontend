@@ -20,7 +20,7 @@ const tableHeading = [
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage, setPostPerPage] = useState(5);
+  const [postPerPage, setPostPerPage] = useState(8);
   const dispatch = useDispatch();
   const router = useRouter();
   let payload;
