@@ -15,10 +15,15 @@ const Verifyotp = () => {
     (state) => state.registerReducer?.data?.data?.user?.email
   );
   const data = useSelector((state) => state.otpReducer?.data?.status);
-  console.log(data);
   useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("CurrentUser"));
+    const role = storedData?.user?.role;
     if (data == 200) {
-      router.push("/profile");
+      if (role === "employer") {
+        router.push("/profile");
+      } else if (role === "consultant") {
+        router.push("/resume-upload");
+      }
     }
   }, [data]);
 

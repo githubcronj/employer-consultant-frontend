@@ -8,11 +8,15 @@ const SetupProject = ({
   infodata,
   handleProjectremovedata,
 }) => {
+  const [errors, setErrors] = useState({});
   function projectHandleChange(e) {
     tempProject(e);
   }
   const addData = (section) => {
-    handleProjectAdd(section);
+    const isValid = validateForm();
+    if (isValid) {
+      handleProjectAdd(section);
+    }
   };
   const removeData = (indexdata) => {
     handleProjectremovedata(indexdata);
@@ -21,36 +25,64 @@ const SetupProject = ({
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
-  
+
     // Format the date as "yyyy-mm-dd"
     const formattedDate = `${year}-${month}-${day}`;
-  
+
     projectHandleChange({
       target: {
         name: "tempProject.startDate",
         value: formattedDate || "",
       },
     });
-  
-   
   };
   const handleDateChangeEnd = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
-  
+
     // Format the date as "yyyy-mm-dd"
     const formattedDate = `${year}-${month}-${day}`;
-  
+
     projectHandleChange({
       target: {
         name: "tempProject.endDate",
         value: formattedDate || "",
       },
     });
-  
   };
- 
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = {};
+
+    if (!projectDetails.projectName) {
+      newErrors.projectName = "Project Name is required";
+      isValid = false;
+    }
+
+    if (!projectDetails.projectUrl) {
+      newErrors.projectUrl = "Field is required";
+      isValid = false;
+    }
+
+    if (!projectDetails.startDate) {
+      newErrors.startDate = "Field is required";
+      isValid = false;
+    }
+
+    if (!projectDetails.endDate) {
+      newErrors.endDate = "Field of Passing is required";
+      isValid = false;
+    }
+
+    if (!projectDetails.projectDescription) {
+      newErrors.projectDescription = "Project Description is required";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
   return (
     <div className=" bg-white    ">
       <form onSubmit={(e) => e.preventDefault()}>
@@ -60,22 +92,32 @@ const SetupProject = ({
               type="text"
               id="projectName"
               placeholder="Project name"
-              className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+              className={`py-5 px-4 border rounded-[10px]  w-full ${
+                errors.projectName ? "border-red-500" : "border-[#D8D8DD]"
+              }`}
               name="tempProject.projectName"
               value={projectDetails?.projectName || ""}
               onChange={projectHandleChange}
             />
+            {errors.projectName && (
+              <p className="text-red-500 text-xs">{errors.projectName}</p>
+            )}
           </div>
           <div>
             <input
               type="text"
               id="projectUrl"
               placeholder="Project URL"
-              className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
+              className={`py-5 px-4 border rounded-[10px] w-full ${
+                errors.projectUrl ? "border-red-500" : "border-[#D8D8DD]"
+              }`}
               name="tempProject.projectUrl"
               value={projectDetails?.projectUrl || ""}
               onChange={projectHandleChange}
             />
+            {errors.projectUrl && (
+              <p className="text-red-500 text-xs">{errors.projectUrl}</p>
+            )}
           </div>
           <div>
             <div>
@@ -83,7 +125,9 @@ const SetupProject = ({
                 <DatePicker
                   id="startDate"
                   placeholderText="Start date"
-                  className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  className={`block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                    errors.startDate ? "border-red-500" : "border-[#D8D8DD]"
+                  } `}
                   name={tempProject.startDate}
                   selected={
                     projectDetails?.startDate
@@ -99,6 +143,9 @@ const SetupProject = ({
                   onClick={() => document.getElementById("startDate").click()}
                 />
               </div>
+              {errors.startDate && (
+                <p className="text-red-500 text-xs">{errors.startDate}</p>
+              )}
             </div>
           </div>
           <div>
@@ -106,7 +153,9 @@ const SetupProject = ({
               <DatePicker
                 id="endDate"
                 placeholderText="End Date"
-                className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className={`block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                  errors.endDate ? "border-red-500" : "border-[#D8D8DD]"
+                } `}
                 name={tempProject.endDate}
                 selected={
                   projectDetails?.endDate
@@ -122,18 +171,30 @@ const SetupProject = ({
                 onClick={() => document.getElementById("endDate").click()}
               />
             </div>
+            {errors.endDate && (
+              <p className="text-red-500 text-xs">{errors.endDate}</p>
+            )}
           </div>
 
           <div className="sm:col-span-2 ">
             <textarea
               type="text"
               id="projectDescription"
-              placeholder="Project URL"
-              className="h-[140px] block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder="Project Description"
+              className={`h-[140px] block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                errors.projectDescription
+                  ? "border-red-500"
+                  : "border-[#D8D8DD]"
+              }`}
               name="tempProject.projectDescription"
               value={projectDetails?.projectDescription || ""}
               onChange={projectHandleChange}
             />
+            {errors.projectDescription && (
+              <p className="text-red-500 text-xs">
+                {errors.projectDescription}
+              </p>
+            )}
           </div>
         </div>
         <div className="flex justify-end">
@@ -158,7 +219,9 @@ const SetupProject = ({
               <div>
                 <p className="">{item.projectName}</p>
                 <p className="py-1 px-1 ">{item.projectDescription}</p>
-                <p className="text-[#9C94A2]"><span>{item.startDate}</span> - <span>{item.endDate}</span>  </p>
+                <p className="text-[#9C94A2]">
+                  <span>{item.startDate}</span> - <span>{item.endDate}</span>{" "}
+                </p>
               </div>
               <img
                 src="/Assets/cross.svg"

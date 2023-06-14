@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const SetupSkills = ({
   skillsDetails,
@@ -7,15 +7,33 @@ const SetupSkills = ({
   infodata,
   handleSkillsremovedata,
 }) => {
+  const [errors, setErrors] = useState({});
+
   function skillHandleChange(e) {
     tempSkills(e);
   }
   const addData = (section) => {
-    handleSkillsAdd(section);
+    const isValid = validateForm();
+    if (isValid) {
+      handleSkillsAdd(section);
+    }
   };
 
   const removeData = (indexdata) => {
     handleSkillsremovedata(indexdata);
+  };
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = {};
+
+    if (!skillsDetails.skillName) {
+      newErrors.skillName = "skill is required";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
   };
 
   return (
@@ -29,7 +47,9 @@ const SetupSkills = ({
               id="skillName"
               placeholder="Skill name"
               required
-              className="py-5 pl-4 pr-32 border rounded-[10px] border-[#D8D8DD] w-full"
+              className={`py-5 pl-4 pr-32 border rounded-[10px] border-[#D8D8DD] w-full ${
+                errors.skillName ? "border-red-500" : "border-[#D8D8DD]"
+              }`}
               name="tempSkills.skillName"
               value={skillsDetails?.skillName || ""}
               onChange={skillHandleChange}
@@ -42,6 +62,9 @@ const SetupSkills = ({
               Add
             </button>
           </div>
+          {errors.skillName && (
+            <p className="text-red-500 text-xs">{errors.skillName}</p>
+          )}
         </div>
         <div className="flex justify-end"></div>
       </form>
