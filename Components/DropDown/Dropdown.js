@@ -28,7 +28,7 @@ const Dropdown = () => {
       setIsOpen(false);
     }
   };
-  const productionUrl = "http://13.53.75.126:3000";
+  const productionUrl = "http://13.53.75.126:3000"; //need to be changed in future
   // const devUrl = "http://13.53.75.126:3000";
   const devUrl = "http://localhost:3000";
   const handleLogout = async (e) => {
@@ -40,9 +40,10 @@ const Dropdown = () => {
     // await router.push("/login");
     sessionStorage.clear();
     localStorage.clear();
-    const url = process.env.NODE_ENV === "production" ? productionUrl : devUrl;
+    const url = process.env.NODE_ENV === "development" ? productionUrl : devUrl;
     window.location = url + "/login";
   };
+  console.log(process.env.NODE_ENV, "process.env.NODE_ENV");
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
     return () => {
@@ -68,21 +69,24 @@ const Dropdown = () => {
     token: finaltoken,
   };
   useEffect(() => {
-    if(role === "employer"){
+    if (role === "employer") {
       dispatch({ type: PROFILE_REQUEST, payload });
-    }
-    if(role === "consultant") {
-    dispatch({ type: GET_PROFILE_REQUEST, payload });
+    } else {
+      dispatch({ type: GET_PROFILE_REQUEST, payload });
     }
   }, [role]);
   const response = useSelector(
     (state) => state?.viewProfileReducer?.CurrentUser
   );
- 
+
   const data1 = useSelector((state) => state.getProfileReducer?.CurrentUser);
   const nameParts = session?.user?.name?.split(" ");
   const firstName =
-    nameParts && nameParts.length > 0 ? nameParts[0] : ( role === "employer"? data1?.companyName : response?.fullName);
+    nameParts && nameParts.length > 0
+      ? nameParts[0]
+      : role === "employer"
+      ? data1?.companyName
+      : response?.fullName;
 
   return (
     <div className="flex flex-row">
