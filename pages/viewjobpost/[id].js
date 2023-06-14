@@ -57,6 +57,7 @@ const ViewProfile = () => {
   const response = useSelector(
     (state) => state?.getjobReducer?.CurrentUser?.data
   );
+  
   let finaldata = response?.filter((x, y) => {
     return id == x?._id;
   });
@@ -74,11 +75,12 @@ const ViewProfile = () => {
   const deleteClicked = () => {
     setPopup(true);
   };
+
   return (
     <div
       className={` ${styles.viewJobPostBg}`}
     >
-      {popup && <DeletePopUP id={id} setPopup={setPopup} />}
+      {popup && <DeletePopUP id={id} setPopup={CloseDelete}/>}
 
       <div
         className={`bg-[#2B373C1C] 
@@ -166,7 +168,7 @@ const ViewProfile = () => {
                     />
                     <div>
                       <p className='text-2xl font-extrabold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans'>
-                        UX Designer
+                        {item.jobTitle}
                       </p>
 
                       <div className='flex items-center justify-between align-baseline'>

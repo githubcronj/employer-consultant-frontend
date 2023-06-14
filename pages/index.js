@@ -20,7 +20,7 @@ const tableHeading = [
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage, setPostPerPage] = useState(3);
+  const [postPerPage, setPostPerPage] = useState(5);
   const dispatch = useDispatch();
   const router = useRouter();
   let payload;
@@ -43,8 +43,9 @@ const Home = () => {
   const response = useSelector(
     (state) => state?.getjobReducer?.CurrentUser?.data
   );
-
-  console.log('respoooonnnseee',response);
+  const totalResponse = useSelector(
+    (state) => state?.getjobReducer?.CurrentUser?.total
+  );
 
   const nextclick = (id) => {
     console.log(id);
@@ -143,7 +144,7 @@ const Home = () => {
             </table>
           </div>
           {/*  */}
-          <Pagination postPerPage={postPerPage} totalPost={response?.length} paginate={paginate} currentPage={currentPage}/>
+          <Pagination postPerPage={postPerPage} totalPost={totalResponse} paginate={paginate} currentPage={currentPage}/>
           {/*  */}
         </div>
       </div>
