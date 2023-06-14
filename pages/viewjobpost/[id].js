@@ -80,7 +80,7 @@ const ViewProfile = () => {
     <div
       className={` ${styles.viewJobPostBg}`}
     >
-      {popup && <DeletePopUP id={id} setPopup={CloseDelete}/>}
+      {popup && <DeletePopUP id={id} setPopup={setPopup}/>}
 
       <div
         className={`bg-[#2B373C1C] 
