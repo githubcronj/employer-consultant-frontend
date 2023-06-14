@@ -26,20 +26,20 @@ const Dropdown = () => {
       setIsOpen(false);
     }
   };
+  const productionUrl = "http://13.53.75.126:3000";
+  // const devUrl = "http://13.53.75.126:3000";
+  const devUrl = "http://localhost:3000";
   const handleLogout = async (e) => {
     e.preventDefault();
     // await signOut({
     //   redirect: false,
     //   // callbackUrl: `/login`,
     // });
-    // console.log("handleLogout called");
-    // sessionStorage.clear();
-    // localStorage.clear();
     // await router.push("/login");
     sessionStorage.clear();
     localStorage.clear();
-    await signOut({ callbackUrl: `/login` });
-    // router.push("/login");
+    const url = process.env.NODE_ENV === "production" ? productionUrl : devUrl;
+    window.location = url + "/login";
   };
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
