@@ -103,33 +103,29 @@ const NewJobPost = () => {
   );
 
   useEffect(() => {
-    if(skillFlag === true){
-      console.log('skillllll',skillResponse);
+    if (skillFlag === true) {
+      console.log("skillllll", skillResponse);
       setAllSkills(skillResponse);
     }
-    
-    if (responseFlag === true){
+
+    if (responseFlag === true) {
       setAllResponse(response);
     }
-    
   }, [response, skillResponse]);
-  console.log('skill and response',skillFlag,responseFlag)
+  console.log("skill and response", skillFlag, responseFlag);
   console.log("Resposne", allResponse, allSkills);
 
-  if(allResponse !== undefined && response && responseFlag !== false){
+  if (allResponse !== undefined && response && responseFlag !== false) {
     var defaultDescriptionValue =
-    `${allResponse?.job_description}\n\nKey Requirements:\n` +
-    (allResponse?.key_requirements || [])
-      .map((requirement) => `• ${requirement}`)
-      .join("\n") +
-    "\n\nResponsibilities:\n" +
-    (allResponse?.responsibilities || "") +
-    "\n\nConcluding Details:\n" +
-    (allResponse?.concluding_details || "");
-
+      `${allResponse?.job_description}\n\nKey Requirements:\n` +
+      (allResponse?.key_requirements || [])
+        .map((requirement) => `• ${requirement}`)
+        .join("\n") +
+      "\n\nResponsibilities:\n" +
+      (allResponse?.responsibilities || "") +
+      "\n\nConcluding Details:\n" +
+      (allResponse?.concluding_details || "");
   }
-
-  
 
   const handleSalaryButton = (e) => {
     setSelectedButton(e.target.id);
@@ -164,7 +160,6 @@ const NewJobPost = () => {
     // description: e.target.value,
     // }));
   };
-
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -216,6 +211,13 @@ const NewJobPost = () => {
         email: isValidEmail ? "" : "Invalid email format",
       }));
     }
+    if (id === "phoneNumber") {
+      const isValidPhoneNumber = value === "" || /^\d{10}$/.test(value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phoneNumber: isValidPhoneNumber ? "" : "Invalid phone number format",
+      }));
+    }
   };
   const isFormValid = () => {
     const requiredFields = [
@@ -248,6 +250,11 @@ const NewJobPost = () => {
     ) {
       errors.email = "Invalid email format";
     }
+
+    if (jobPostData.phoneNumber !== "" && !/^\d{10}$/.test(jobPostData.phoneNumber)) {
+      errors.phoneNumber = "Invalid phone number format";
+    }
+
     if (!Array.isArray(jobPostData.skills) || jobPostData.skills.length === 0) {
       errors.skills = "Please add at least one skill";
     }
@@ -266,10 +273,9 @@ const NewJobPost = () => {
   //   window.location.href = "/"
   // }
   const handleTransfer = () => {
-    router.push('/');
+    router.push("/");
   };
 
-  
   const handleGenerateResponse = (e) => {
     const requestData = {
       jobTitle: jobPostData.jobTitle,
@@ -277,7 +283,7 @@ const NewJobPost = () => {
       experience: jobPostData.experience,
     };
     dispatch(generateResponseSaveRequest(requestData, finaltoken));
-    
+
     setResponseFlag(true);
   };
 
@@ -310,7 +316,6 @@ const NewJobPost = () => {
   }, [skillResponse]);
 
   const handleSave = (e) => {
-   
     setAllResponse("");
     setAllSkills([]);
     e.preventDefault();
@@ -365,7 +370,7 @@ const NewJobPost = () => {
       return;
     }
   };
-  console.log('jobpostdata',jobPostData?.skills);
+  console.log("jobpostdata", jobPostData?.skills);
   return (
     <div className='bg-[#2B373C1C] py-4 px-2 sm:px-4'>
       <div className='bg-white'>
@@ -471,6 +476,10 @@ const NewJobPost = () => {
                 selected={
                   jobPostData.deadline ? new Date(jobPostData.deadline) : null
                 }
+                peekNextMonth
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode='select'
                 onChange={handleDateChange}
               />
               <label
@@ -835,7 +844,7 @@ const NewJobPost = () => {
           {/* phone number */}
           <div className='relative'>
             <input
-              type='number'
+              type='text'
               id='phoneNumber'
               placeholder=' '
               required

@@ -1,12 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
-  <g id="Group_35938" data-name="Group 35938" transform="translate(-273 -319)">
-    <rect id="Rectangle_17181" data-name="Rectangle 17181" width="44" height="44" rx="10" transform="translate(273 319)" fill="rgba(253,237,0,0.2)"/>
-    <g id="Layer_2" data-name="Layer 2" transform="translate(45.567 79.806)">
-      <g id="_01.mail" data-name="01.mail">
-        <g id="Group_35939" data-name="Group 35939" transform="translate(117 101)">
-          <path id="Path_34784" data-name="Path 34784" d="M132.428,207.021,121,201.32v11.328a2.173,2.173,0,0,0,2.167,2.167H141.7a2.173,2.173,0,0,0,2.167-2.167V201.439Z" transform="translate(0 -45.756)" fill="#8d8482"/>
-          <path id="Path_34785" data-name="Path 34785" d="M132.438,159.124l11.428-5.578V153.5a2.173,2.173,0,0,0-2.167-2.167H123.167A2.173,2.173,0,0,0,121,153.419Z" fill="#8d8482"/>
-        </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="22.866" height="17.729" viewBox="0 0 22.866 17.729">
+  <g id="Layer_2" data-name="Layer 2" transform="translate(-238 -252.33)">
+    <g id="_01.mail" data-name="01.mail">
+      <g id="Group_35939" data-name="Group 35939" transform="translate(117 101)">
+        <path id="Path_34784" data-name="Path 34784" d="M132.428,207.021,121,201.32v11.328a2.173,2.173,0,0,0,2.167,2.167H141.7a2.173,2.173,0,0,0,2.167-2.167V201.439Z" transform="translate(0 -45.756)" fill="#8e869c"/>
+        <path id="Path_34785" data-name="Path 34785" d="M132.438,159.124l11.428-5.578V153.5a2.173,2.173,0,0,0-2.167-2.167H123.167A2.173,2.173,0,0,0,121,153.419Z" fill="#8e869c"/>
       </g>
     </g>
   </g>
