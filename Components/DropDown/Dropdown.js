@@ -40,7 +40,7 @@ const Dropdown = () => {
     // await router.push("/login");
     sessionStorage.clear();
     localStorage.clear();
-    const url = process.env.NODE_ENV === "development" ? productionUrl : devUrl;
+    const url = process.env.NODE_ENV === "production" ? productionUrl : devUrl;
     window.location = url + "/login";
   };
   console.log(process.env.NODE_ENV, "process.env.NODE_ENV");
