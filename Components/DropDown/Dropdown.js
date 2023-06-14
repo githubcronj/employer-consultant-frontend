@@ -70,7 +70,8 @@ const Dropdown = () => {
   useEffect(() => {
     if(role === "employer"){
       dispatch({ type: PROFILE_REQUEST, payload });
-    }else {
+    }
+    if(role === "consultant") {
     dispatch({ type: GET_PROFILE_REQUEST, payload });
     }
   }, [role]);
