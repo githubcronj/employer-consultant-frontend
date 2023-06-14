@@ -30,7 +30,7 @@ const ProfileSideBar = ({ data }) => {
   const response = useSelector(
     (state) => state?.viewProfileReducer?.CurrentUser
   );
-  console.log("new response", response?.jobType);
+  console.log("new response", response);
   return (
     <Paper
       elevation={0}
@@ -61,7 +61,7 @@ const ProfileSideBar = ({ data }) => {
           width='100'
           height='100'
         />
-        <Typography sx={{ fontWeight: "bold" }}>{data?.user.name}</Typography>
+        <Typography sx={{ fontWeight: "bold" }}>{response?.fullName}</Typography>
         {response?.experience.map((item, index) => {
           return (
             <Typography key={index}
