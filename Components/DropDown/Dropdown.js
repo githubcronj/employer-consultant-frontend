@@ -10,6 +10,8 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useSession, signIn } from "next-auth/react";
 import { PROFILE_REQUEST } from "store/type/getProfileType";
+import { GET_PROFILE_REQUEST } from "store/type/viewProfileType";
+
 const Dropdown = () => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
@@ -66,13 +68,20 @@ const Dropdown = () => {
     token: finaltoken,
   };
   useEffect(() => {
-    dispatch({ type: PROFILE_REQUEST, payload });
-  }, []);
+    if(role === "employer"){
+      dispatch({ type: PROFILE_REQUEST, payload });
+    }else {
+    dispatch({ type: GET_PROFILE_REQUEST, payload });
+    }
+  }, [role]);
+  const response = useSelector(
+    (state) => state?.viewProfileReducer?.CurrentUser
+  );
+ 
   const data1 = useSelector((state) => state.getProfileReducer?.CurrentUser);
-
   const nameParts = session?.user?.name?.split(" ");
   const firstName =
-    nameParts && nameParts.length > 0 ? nameParts[0] : data1?.companyName;
+    nameParts && nameParts.length > 0 ? nameParts[0] : ( role === "employer"? data1?.companyName : response?.fullName);
 
   return (
     <div className="flex flex-row">

@@ -500,7 +500,7 @@ const Setupdetails = () => {
               <div>
                 <input
                   id="birth"
-                  placeholder="Date of Birth"
+                  placeholder="Date of Birth (yyyy-mm-dd)"
                   required
                   className={`py-5 px-4 border rounded-[10px] ${
                     errors["personalDetails.birth"]
