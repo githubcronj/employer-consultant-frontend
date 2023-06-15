@@ -15,6 +15,9 @@ const SetupExperience = ({
   setFresherChecked,
   presentDateCheck,
   setpresentDateCheck,
+  handleautodata,
+  setempautodata,
+  expautodata
 }) => {
   const router = useRouter();
   const [errors, setErrors] = useState({});
@@ -59,9 +62,10 @@ const SetupExperience = ({
 
   const addData = (section) => {
     const isValid = validateForm();
-    // if (isValid) {
+    if (isValid) {
     handleExpAdd(section);
-    // }
+    setempautodata([]);
+    }
   };
   const removeData = (indexdata) => {
     handleremovedata(indexdata);
@@ -133,7 +137,11 @@ const SetupExperience = ({
     setErrors(newErrors);
     return isValid;
   };
-
+  
+  const handledata = (e, value) => {
+    console.log(value, "seeee");
+    handleautodata(value);
+  };
   return (
     <div className=" bg-white">
       {/* first section */}
@@ -250,8 +258,8 @@ const SetupExperience = ({
                         : null
                     }
                     showMonthDropdown
-                showYearDropdown
-                dropdownMode='select'
+                    showYearDropdown
+                    dropdownMode="select"
                     onChange={handleDateChange}
                   />
                   <img
@@ -301,8 +309,8 @@ const SetupExperience = ({
                           : null
                       }
                       showMonthDropdown
-                showYearDropdown
-                dropdownMode='select'
+                      showYearDropdown
+                      dropdownMode="select"
                       onChange={handleDateChange2}
                     />
                     <img
@@ -334,39 +342,23 @@ const SetupExperience = ({
                 )}
               </div>
               <div>
-                {/* <input
-              type="text"
-              id="techEnviro"
-              placeholder="Technology Environmental "
-              required
-              className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-              name="tempExp.techEnviro"
-              value={experienceDetails?.techEnviro || ""}
-              onChange={handleExperienceDetailsChange}
-            /> */}
-                {/* <Autocomplete
-              multiple
-              options={techOption}
-              name="tempExp.technologyEnvironment"
-              // value={experienceDetails?.techEnviro || []}
-              onChange={(e,value)=>{console.log("input",value)}}
-              // onChange={(e, value) =>
-              //   handleExperienceDetailsChange({
-              //     target: {
-              //       name: "tempExp.techEnviro",
-              //       value: value || [],
-              //     },
-              //   })
-              // }
-              getOptionLabel={(option) => option.title}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Technology Environmental"
-                  placeholder="Technology Environmental"
+                <Autocomplete
+                  multiple
+                  id="technologyEnvironment"
+                  options={techOption}
+                  name="tempExp.technologyEnvironment"
+                  onChange={handledata}
+                  value={expautodata}
+                  getOptionLabel={(option) => option.title}
+                  filterSelectedOptions
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Technology Environmental"
+                      placeholder="Technology Environmental"
+                    />
+                  )}
                 />
-              )}
-            /> */}
               </div>
             </div>
             <div className="flex justify-end">
