@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateField, clearFields } from "store/slices/formSlice";
 import { resumeDataFillingAction } from "store/action/resumeDataFillingAction";
 import Link from "next/link";
+import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 
 const FormTable = () => {
   const dispatch = useDispatch();
@@ -388,4 +389,4 @@ const FormTable = () => {
   );
 };
 
-export default FormTable;
+export default withConsultantAuth(FormTable);

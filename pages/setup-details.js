@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { resumeDataFillingAction } from "store/action/resumeDataFillingAction";
 import Link from "next/link";
 import { RESUME_REQUEST } from "store/type/setupDetailsType";
+import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 const Setupdetails = () => {
   const router = useRouter();
   const [expanded, setExpanded] = React.useState(false);
@@ -1057,5 +1058,4 @@ const Setupdetails = () => {
   );
 };
 
-export default Setupdetails;
-
+export default withConsultantAuth(Setupdetails);
