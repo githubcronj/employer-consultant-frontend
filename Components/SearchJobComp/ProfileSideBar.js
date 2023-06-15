@@ -56,15 +56,18 @@ const ProfileSideBar = ({ data }) => {
         {/* src={data?.user.image} */}
         <Image
           style={{ borderRadius: "50%" }}
-          src='/Assets/homeProfile.png'
-          alt='profile'
-          width='100'
-          height='100'
+          src="/Assets/homeProfile.png"
+          alt="profile"
+          width="100"
+          height="100"
         />
-        <Typography sx={{ fontWeight: "bold" }}>{response?.fullName}</Typography>
+        <Typography sx={{ fontWeight: "bold" }}>
+          {response?.fullName}
+        </Typography>
         {response?.experience.map((item, index) => {
           return (
-            <Typography key={index}
+            <Typography
+              key={index}
               sx={{ color: "#5E5E5E", fontSize: "14px", textAlign: "center" }}
             >
               {item?.jobPosition} &#8226; {response?.jobType}
@@ -93,7 +96,7 @@ const ProfileSideBar = ({ data }) => {
           padding: { xs: "1rem" },
         }}
       >
-        <Link href='/consultant/applied-jobs'>
+        <Link href="/consultant/applied-jobs">
           <Button
             style={{
               backgroundColor: "red",
@@ -105,12 +108,13 @@ const ProfileSideBar = ({ data }) => {
               textTransform: "none",
               fontSize: "16px",
               padding: "0.5rem 1rem",
+              whiteSpace: "nowrap",
             }}
           >
             Applied Job
             <span style={{ marginLeft: "3rem" }}>13</span>
             <ArrowForwardIosIcon
-              fontSize='small'
+              fontSize="small"
               style={{ marginLeft: "0.5rem" }}
             />
           </Button>
@@ -131,7 +135,7 @@ const ProfileSideBar = ({ data }) => {
         >
           Interview schedule
           <ArrowForwardIosIcon
-            fontSize='small'
+            fontSize="small"
             style={{ marginLeft: "0.5rem" }}
           />
         </Button>
