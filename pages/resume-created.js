@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/router";
+import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 
 const ResumeCreated = () => {
   const router = useRouter();
@@ -39,4 +40,4 @@ const ResumeCreated = () => {
   );
 };
 
-export default ResumeCreated;
+export default withConsultantAuth(ResumeCreated);

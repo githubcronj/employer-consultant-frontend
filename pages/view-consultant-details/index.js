@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 import ViewConsultantDetail from "Components/ViewConsultant";
 import React from "react";
 
@@ -12,4 +13,4 @@ const viewConsultant = () => {
   );
 };
 
-export default viewConsultant;
+export default withEmployerAuth(viewConsultant);

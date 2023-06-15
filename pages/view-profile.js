@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { PROFILE_REQUEST } from "store/type/getProfileType";
 import { useSelector } from "react-redux";
+import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 const ViewProfile = () => {
   const [flexing, setFlexing] = useState(false);
   const route = useRouter();
@@ -89,10 +90,8 @@ const ViewProfile = () => {
           </div>
           <hr className="mt-[25px]xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]"></hr>
           <div className="mt-[19px] mx-3 flex flex-col lg:flex-row justify-between">
-            <div style={{ width: "100%"}}>
-              <div
-                className='flex items-center mb-[15px]'
-              >
+            <div style={{ width: "100%" }}>
+              <div className="flex items-center mb-[15px]">
                 <img
                   src={google.src}
                   alt="googleIcon"
@@ -186,4 +185,4 @@ const ViewProfile = () => {
     </div>
   );
 };
-export default ViewProfile;
+export default withEmployerAuth(ViewProfile);
