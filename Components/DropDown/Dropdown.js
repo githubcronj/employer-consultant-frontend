@@ -43,6 +43,15 @@ const Dropdown = () => {
     const url = process.env.NODE_ENV === "development" ? productionUrl : devUrl;
     window.location = url + "/login";
   };
+
+  function handleNavigate(url1, url2) {
+    if (role === "employer") {
+      router.push(`/${url1}`);
+    } else {
+      router.push(`/${url2}`);
+    }
+  }
+
   console.log(process.env.NODE_ENV, "process.env.NODE_ENV");
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
@@ -72,8 +81,8 @@ const Dropdown = () => {
     if (role === "employer") {
       dispatch({ type: PROFILE_REQUEST, payload });
     }
-    if(role === "consultant") {
-    dispatch({ type: GET_PROFILE_REQUEST, payload });
+    if (role === "consultant") {
+      dispatch({ type: GET_PROFILE_REQUEST, payload });
     }
   }, [role]);
   const response = useSelector(
@@ -105,29 +114,33 @@ const Dropdown = () => {
         {isOpen && (
           <ul className="dropdown-content absolute bg-[#F9F6EE] mt-[0.8rem] py-1 whitespace-nowrap shadow-[0px_6px_16px_rgba(0,0,0,0.16)] opacity-100 z-50 right-0 w-[146px] rounded-[10px] ">
             <li>
-              <Link
+              <div
                 className="flex flex-row  px-4 py-2 text-gray-800 "
-                href={`${
-                  role === "employer"
-                    ? "view-profile"
-                    : "viewjobpost/cviewprofile"
-                }`}
+                // href={`${
+                //   role === "employer"
+                //     ? "view-profile"
+                //     : "viewjobpost/cviewprofile"
+                // }`}
+                onClick={() =>
+                  handleNavigate("view-profile", "viewjobpost/cviewprofile")
+                }
               >
                 <span className="flex-1 text-[#1E0F3B]">View Profile</span>
                 <img src={RightArrow.src} alt="" />
-              </Link>
+              </div>
             </li>
             <li>
-              <Link
+              <div
                 className="flex flex-row px-4 py-2 text-gray-800"
                 // href="/editProfile"
-                href={`${
-                  role === "employer" ? "editProfile" : "setup-details"
-                }`}
+                // href={`${
+                //   role === "employer" ? "editProfile" : "setup-details"
+                // }`}
+                onClick={() => handleNavigate("editProfile", "search_job")}
               >
                 <span className="flex-1 text-[#1E0F3B] ">Edit Profile</span>
                 <img src={RightArrow.src} alt="" />
-              </Link>
+              </div>
             </li>
             <li>
               <div
