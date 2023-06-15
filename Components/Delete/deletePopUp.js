@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useRef } from "react";
 import deletebutton from "../../public/Assets/delete.svg";
 import cancelbutton from "../../public/Assets/cancelbtn.svg";
@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { DELETE_JOB_REQUEST } from "store/type/deletejobType";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import { deleteJobRequest } from "store/action/deleteJobPostAction";
 const DeletejobModal = ({ id, setPopup }) => {
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -21,6 +22,7 @@ const DeletejobModal = ({ id, setPopup }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
+
 
   const [flexing, setflexing] = useState("");
 
@@ -41,22 +43,31 @@ const DeletejobModal = ({ id, setPopup }) => {
 
   const response = useSelector((state) => state?.getjobReducer?.CurrentUser);
 
+  const data = useSelector(
+    (state) => state?.deletejobReducer?.CurrentUser
+  );
   const deleteClick = () => {
     let payload = {
       token: getToken(),
       id: { id },
     };
-    dispatch({ type: DELETE_JOB_REQUEST, payload });
+    
+    // const result = dispatch({ type: DELETE_JOB_REQUEST, payload });
+    // console.log('dispatch',result);
+    dispatch(deleteJobRequest(payload, () => {  
+      router.push("/");
+    }));
+
+    
+   
+    // if(data?.status === 200) {
+    //   router.push("/");
+    // }
+    console.warn('modaldelete')
   };
 
-  const data = useSelector(
-    (state) => state?.deletejobReducer?.CurrentUser?.status
-  );
-  useEffect(() => {
-    if (data == 200) {
-      router.push("/");
-    }
-  }, [data]);
+  
+
 
   return (
     <>
