@@ -110,7 +110,7 @@ const Setupdetails = () => {
     }
 
     Object.keys(requiredFields).forEach((section) => {
-      if (section !== "personalDetails") {
+      if (section !== "personalDetails" && section !== "certification") {
         if (
           Array.isArray(resumeForm[section]) &&
           resumeForm[section].length === 0
@@ -608,6 +608,7 @@ const Setupdetails = () => {
                   setFresherChecked={setFresherChecked}
                   presentDateCheck={presentDateCheck}
                   setpresentDateCheck={setpresentDateCheck}
+                  setTemExp={setTemExp}
                 />
               </AccordionDetails>
             </Accordion>
@@ -678,11 +679,7 @@ const Setupdetails = () => {
                 id="panel2a-header"
               >
                 <p
-                  className={` font-bold text-lg ${
-                    errors["certification"]
-                      ? "text-[#ed4646]"
-                      : "text-[#1E0F3B]"
-                  }`}
+                  className={`font-bold text-lg`}
                 >
                   Certification
                 </p>
