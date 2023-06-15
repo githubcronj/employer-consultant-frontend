@@ -128,6 +128,7 @@ const NewJobPost = () => {
       "\n\nConcluding Details:\n" +
       (allResponse?.concluding_details || "");
   }
+  console.log("all", allResponse);
 
   const handleSalaryButton = (e) => {
     setSelectedButton(e.target.id);
@@ -255,7 +256,10 @@ const NewJobPost = () => {
       errors.email = "Invalid email format";
     }
 
-    if (jobPostData.phoneNumber !== "" && !/^\d{10}$/.test(jobPostData.phoneNumber)) {
+    if (
+      jobPostData.phoneNumber !== "" &&
+      !/^\d{10}$/.test(jobPostData.phoneNumber)
+    ) {
       errors.phoneNumber = "Invalid phone number format";
     }
 
@@ -287,7 +291,6 @@ const NewJobPost = () => {
       // experience: jobPostData.experience,
       // minExp: jobPostData.minExp,
       maxExp: jobPostData.maxExp,
-
     };
     dispatch(generateResponseSaveRequest(requestData, finaltoken));
 
@@ -323,8 +326,6 @@ const NewJobPost = () => {
   }, [skillResponse]);
 
   const handleSave = (e) => {
-    setAllResponse("");
-    setAllSkills([]);
     e.preventDefault();
     const jobData = {
       jobTitle: jobPostData.jobTitle,
@@ -354,6 +355,9 @@ const NewJobPost = () => {
 
       dispatch(jobSaveRequest(jobData, finaltoken));
       setDescription("");
+
+      setAllResponse("");
+      setAllSkills([]);
 
       defaultDescriptionValue = "";
       // console.log(payload,'ppppp');
@@ -481,55 +485,54 @@ const NewJobPost = () => {
           {/*  */}
           {/* min max */}
           <div className='flex gap-3 justify-evenly md:justify-normal'>
-                {/* min */}
-                <div className='relative'>
-                  <input
-                    type='text'
-                    id='minExp'
-                    placeholder=' '
-                    style={errors.minExp ? { borderColor: "red" } : {}}
-                    required
-                    className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+            {/* min */}
+            <div className='relative'>
+              <input
+                type='text'
+                id='minExp'
+                placeholder=' '
+                style={errors.minExp ? { borderColor: "red" } : {}}
+                required
+                className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
-                    value={jobPostData.minExp}
-                    onChange={handleChange}
-                  />
+                value={jobPostData.minExp}
+                onChange={handleChange}
+              />
 
-                  <label
-                    for='minExp'
-                    className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
-                  >
-                    Minimum Experience
-                  </label>
-                  {renderErrorMessage("minExp")}
-                </div>
-                {/* max */}
-                <div className='relative'>
-                  <input
-                    type='text'
-                    id='maxExp'
-                    placeholder=' '
-                    required
-                    style={errors.maxExp ? { borderColor: "red" } : {}}
-                    className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+              <label
+                for='minExp'
+                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+              >
+                Minimum Experience
+              </label>
+              {renderErrorMessage("minExp")}
+            </div>
+            {/* max */}
+            <div className='relative'>
+              <input
+                type='text'
+                id='maxExp'
+                placeholder=' '
+                required
+                style={errors.maxExp ? { borderColor: "red" } : {}}
+                className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
                         `}
-                    value={jobPostData.maxExp}
-                    onChange={handleChange}
-                  />
+                value={jobPostData.maxExp}
+                onChange={handleChange}
+              />
 
-                  <label
-                    for='maxExp'
-                    className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
-                  >
-                    Maximum Experience
-                  </label>
-                  {renderErrorMessage("maxExp")}
-                </div>
-              </div>
-              {/* min max ends here */}
+              <label
+                for='maxExp'
+                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+              >
+                Maximum Experience
+              </label>
+              {renderErrorMessage("maxExp")}
+            </div>
+          </div>
+          {/* min max ends here */}
 
           {/*  */}
-
 
           {/*  */}
           <div>
