@@ -64,16 +64,16 @@ const ProfileSideBar = ({ data }) => {
         <Typography sx={{ fontWeight: "bold" }}>
           {response?.fullName}
         </Typography>
-        {response?.experience.map((item, index) => {
-          return (
-            <Typography
-              key={index}
-              sx={{ color: "#5E5E5E", fontSize: "14px", textAlign: "center" }}
-            >
-              {item?.jobPosition} &#8226; {response?.jobType}
-            </Typography>
-          );
-        })}
+        {/* {response?.experience.map((item, index) => { */}
+        {/* return ( */}
+        <Typography
+          // key={index}
+          sx={{ color: "#5E5E5E", fontSize: "14px", textAlign: "center" }}
+        >
+          {response?.jobRole}
+        </Typography>
+        {/* );
+        })} */}
 
         <Button
           onClick={() => router.push("/viewjobpost/cviewprofile")}

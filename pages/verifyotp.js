@@ -83,4 +83,4 @@ const Verifyotp = () => {
     </div>
   );
 };
-export default withAuthRedirect(Verifyotp);
+export default Verifyotp;
