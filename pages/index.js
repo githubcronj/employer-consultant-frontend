@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { use, useEffect } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import UploadCSVModal from './uploadCSVModal';
 import FilterModal from './filterModal';
 import { useDispatch } from 'react-redux';
@@ -8,7 +8,8 @@ import { GET_JOB_REQUEST } from 'store/type/getjobType';
 import { useSelector } from 'react-redux';
 import ProtectedRoute from 'Components/ProtectedRoute/ProtectedRoute';
 import withAuth from 'Components/ProtectedRoute/WithAuth';
-import withEmployerAuth from 'Components/ProtectedRoute/withEmployerAuth';
+import withEmployerAuth from 'Components/ProtectedRoute/withEmployerAuth';import Pagination from 'Components/Pagination/pagination';
+
 const tableHeading = [
   'Applied Consultant',
   'Job Title',
@@ -20,6 +21,8 @@ const tableHeading = [
 ];
 
 const Home = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(8);
   const dispatch = useDispatch();
   const router = useRouter();
   let payload;
@@ -32,20 +35,29 @@ const Home = () => {
     }
   });
 
+  // useEffect(() => {
+  //   dispatch({ type: GET_JOB_REQUEST, payload });
+  // }, []);
   useEffect(() => {
-    dispatch({ type: GET_JOB_REQUEST, payload });
+    dispatch({ type: GET_JOB_REQUEST, payload});
   }, []);
+  
   const response = useSelector(
     (state) => state?.getjobReducer?.CurrentUser?.data
   );
-
-  console.log(response);
+  const totalResponse = useSelector(
+    (state) => state?.getjobReducer?.CurrentUser?.total
+  );
 
   const nextclick = (id) => {
     console.log(id);
     router.push(`/viewjobpost/${id}`);
   };
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const currentPosts = response?.slice(indexOfFirstPost, indexOfLastPost);
   
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
    
@@ -109,7 +121,7 @@ const Home = () => {
                 </tr>
               </thead>
               <tbody className=' text-black text-md'>
-                {response?.map((row, index) => (
+                {currentPosts?.map((row, index) => (
                   <tr onClick={() => nextclick(row?._id)}
                     key={index}
                     className={
@@ -134,6 +146,9 @@ const Home = () => {
               </tbody>
             </table>
           </div>
+          {/*  */}
+          <Pagination postPerPage={postPerPage} totalPost={totalResponse} paginate={paginate} currentPage={currentPage}/>
+          {/*  */}
         </div>
       </div>
     </div>

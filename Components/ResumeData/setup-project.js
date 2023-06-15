@@ -134,6 +134,9 @@ const SetupProject = ({
                       ? new Date(projectDetails?.startDate)
                       : null
                   }
+                  showMonthDropdown
+                showYearDropdown
+                dropdownMode='select'
                   onChange={handleDateChange}
                 />
                 <img
@@ -154,14 +157,17 @@ const SetupProject = ({
                 id="endDate"
                 placeholderText="End Date"
                 className={`block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
-                    errors.endDate ? "border-red-500" : "border-[#D8D8DD]"
-                  } `}
+                  errors.endDate ? "border-red-500" : "border-[#D8D8DD]"
+                } `}
                 name={tempProject.endDate}
                 selected={
                   projectDetails?.endDate
                     ? new Date(projectDetails?.endDate)
                     : null
                 }
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode='select'
                 onChange={handleDateChangeEnd}
               />
               <img
@@ -180,10 +186,12 @@ const SetupProject = ({
             <textarea
               type="text"
               id="projectDescription"
-              placeholder="Project URL"
+              placeholder="Project Description"
               className={`h-[140px] block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
-                    errors.projectDescription ? "border-red-500" : "border-[#D8D8DD]"
-                  }`}
+                errors.projectDescription
+                  ? "border-red-500"
+                  : "border-[#D8D8DD]"
+              }`}
               name="tempProject.projectDescription"
               value={projectDetails?.projectDescription || ""}
               onChange={projectHandleChange}

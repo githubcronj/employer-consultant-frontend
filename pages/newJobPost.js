@@ -27,7 +27,9 @@ const NewJobPost = () => {
   const [allResponse, setAllResponse] = useState("");
   const [jobPostData, setJobPostData] = useState({
     jobTitle: "",
-    experience: "",
+    // experience: "",
+    minExp: "",
+    maxExp: "",
     deadline: "",
     jobType: "",
     minSalary: "",
@@ -103,33 +105,29 @@ const NewJobPost = () => {
   );
 
   useEffect(() => {
-    if(skillFlag === true){
-      console.log('skillllll',skillResponse);
+    if (skillFlag === true) {
+      console.log("skillllll", skillResponse);
       setAllSkills(skillResponse);
     }
-    
-    if (responseFlag === true){
+
+    if (responseFlag === true) {
       setAllResponse(response);
     }
-    
   }, [response, skillResponse]);
-  console.log('skill and response',skillFlag,responseFlag)
+  console.log("skill and response", skillFlag, responseFlag);
   console.log("Resposne", allResponse, allSkills);
 
-  if(allResponse !== undefined && response && responseFlag !== false){
+  if (allResponse !== undefined && response && responseFlag !== false) {
     var defaultDescriptionValue =
-    `${allResponse?.job_description}\n\nKey Requirements:\n` +
-    (allResponse?.key_requirements || [])
-      .map((requirement) => `• ${requirement}`)
-      .join("\n") +
-    "\n\nResponsibilities:\n" +
-    (allResponse?.responsibilities || "") +
-    "\n\nConcluding Details:\n" +
-    (allResponse?.concluding_details || "");
-
+      `${allResponse?.job_description}\n\nKey Requirements:\n` +
+      (allResponse?.key_requirements || [])
+        .map((requirement) => `• ${requirement}`)
+        .join("\n") +
+      "\n\nResponsibilities:\n" +
+      (allResponse?.responsibilities || "") +
+      "\n\nConcluding Details:\n" +
+      (allResponse?.concluding_details || "");
   }
-
-  
 
   const handleSalaryButton = (e) => {
     setSelectedButton(e.target.id);
@@ -164,7 +162,6 @@ const NewJobPost = () => {
     // description: e.target.value,
     // }));
   };
-
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -216,11 +213,20 @@ const NewJobPost = () => {
         email: isValidEmail ? "" : "Invalid email format",
       }));
     }
+    if (id === "phoneNumber") {
+      const isValidPhoneNumber = value === "" || /^\d{10}$/.test(value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phoneNumber: isValidPhoneNumber ? "" : "Invalid phone number format",
+      }));
+    }
   };
   const isFormValid = () => {
     const requiredFields = [
       "jobTitle",
-      "experience",
+      // "experience",
+      "minExp",
+      "maxExp",
       "deadline",
       "jobType",
       "minSalary",
@@ -248,6 +254,11 @@ const NewJobPost = () => {
     ) {
       errors.email = "Invalid email format";
     }
+
+    if (jobPostData.phoneNumber !== "" && !/^\d{10}$/.test(jobPostData.phoneNumber)) {
+      errors.phoneNumber = "Invalid phone number format";
+    }
+
     if (!Array.isArray(jobPostData.skills) || jobPostData.skills.length === 0) {
       errors.skills = "Please add at least one skill";
     }
@@ -266,18 +277,20 @@ const NewJobPost = () => {
   //   window.location.href = "/"
   // }
   const handleTransfer = () => {
-    router.push('/');
+    router.push("/");
   };
 
-  
   const handleGenerateResponse = (e) => {
     const requestData = {
       jobTitle: jobPostData.jobTitle,
       jobType: jobPostData.jobType,
-      experience: jobPostData.experience,
+      // experience: jobPostData.experience,
+      // minExp: jobPostData.minExp,
+      maxExp: jobPostData.maxExp,
+
     };
     dispatch(generateResponseSaveRequest(requestData, finaltoken));
-    
+
     setResponseFlag(true);
   };
 
@@ -310,13 +323,14 @@ const NewJobPost = () => {
   }, [skillResponse]);
 
   const handleSave = (e) => {
-   
     setAllResponse("");
     setAllSkills([]);
     e.preventDefault();
     const jobData = {
       jobTitle: jobPostData.jobTitle,
-      experience: jobPostData.experience,
+      // experience: jobPostData.experience,
+      minExp: jobPostData.minExp,
+      maxExp: jobPostData.maxExp,
       deadline: jobPostData.deadline,
       jobType: jobPostData.jobType,
       minSalary: jobPostData.minSalary,
@@ -345,7 +359,9 @@ const NewJobPost = () => {
       // console.log(payload,'ppppp');
       const initialJobPostData = {
         jobTitle: "",
-        experience: "",
+        // experience: "",
+        minExp: "",
+        maxExp: "",
         deadline: "",
         jobType: "",
         minSalary: "",
@@ -365,7 +381,7 @@ const NewJobPost = () => {
       return;
     }
   };
-  console.log('jobpostdata',jobPostData?.skills);
+  console.log("jobpostdata", jobPostData?.skills);
   return (
     <div className='bg-[#2B373C1C] py-4 px-2 sm:px-4'>
       <div className='bg-white'>
@@ -426,7 +442,9 @@ const NewJobPost = () => {
             {renderErrorMessage("jobTitle")}
           </div>
           {/*  */}
-          <div>
+
+          {/* old exp */}
+          {/* <div>
             <select
               id='experience'
               required
@@ -457,7 +475,62 @@ const NewJobPost = () => {
               <option value='9'>9 year</option>
             </select>
             {renderErrorMessage("experience")}
-          </div>
+          </div> */}
+          {/* old exp ends here */}
+
+          {/*  */}
+          {/* min max */}
+          <div className='flex gap-3 justify-evenly md:justify-normal'>
+                {/* min */}
+                <div className='relative'>
+                  <input
+                    type='text'
+                    id='minExp'
+                    placeholder=' '
+                    style={errors.minExp ? { borderColor: "red" } : {}}
+                    required
+                    className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                `}
+                    value={jobPostData.minExp}
+                    onChange={handleChange}
+                  />
+
+                  <label
+                    for='minExp'
+                    className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                  >
+                    Minimum Experience
+                  </label>
+                  {renderErrorMessage("minExp")}
+                </div>
+                {/* max */}
+                <div className='relative'>
+                  <input
+                    type='text'
+                    id='maxExp'
+                    placeholder=' '
+                    required
+                    style={errors.maxExp ? { borderColor: "red" } : {}}
+                    className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                        `}
+                    value={jobPostData.maxExp}
+                    onChange={handleChange}
+                  />
+
+                  <label
+                    for='maxExp'
+                    className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                  >
+                    Maximum Experience
+                  </label>
+                  {renderErrorMessage("maxExp")}
+                </div>
+              </div>
+              {/* min max ends here */}
+
+          {/*  */}
+
+
           {/*  */}
           <div>
             <div className='relative flex items-center'>
@@ -471,6 +544,10 @@ const NewJobPost = () => {
                 selected={
                   jobPostData.deadline ? new Date(jobPostData.deadline) : null
                 }
+                peekNextMonth
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode='select'
                 onChange={handleDateChange}
               />
               <label
@@ -835,7 +912,7 @@ const NewJobPost = () => {
           {/* phone number */}
           <div className='relative'>
             <input
-              type='number'
+              type='text'
               id='phoneNumber'
               placeholder=' '
               required

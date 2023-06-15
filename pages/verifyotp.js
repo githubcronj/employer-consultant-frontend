@@ -22,7 +22,7 @@ const Verifyotp = () => {
       if (role === "employer") {
         router.push("/profile");
       } else if (role === "consultant") {
-        router.push("/setup-details");
+        router.push("/resume-upload");
       }
     }
   }, [data]);

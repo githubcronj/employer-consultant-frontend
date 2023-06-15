@@ -21,15 +21,23 @@ const Setupdetails = () => {
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  const [resumeFormData, setresumeFormData] = useState(resumeData);
+
+  useEffect(() => {
+    // dispatch(resumeDataFillingAction(resumeForm.personalDetails));
+    setresumeFormData(resumeData);
+  }, [resumeData]);
+
   const [resumeForm, setResumeForm] = useState({
     personalDetails: {
-      fullName: "",
-      email: "",
-      phoneNumber: "",
-      gender: "",
-      birth: "",
-      location: "",
-      text: "",
+      fullName: resumeFormData?.resumeData?.personalDetails?.fullName,
+      email: resumeFormData?.resumeData?.personalDetails?.email,
+      phoneNumber: resumeFormData?.resumeData?.personalDetails?.phoneNumber,
+      gender: resumeFormData?.resumeData?.personalDetails?.gender,
+      birth: resumeFormData?.resumeData?.personalDetails?.birth,
+      location: resumeFormData?.resumeData?.personalDetails?.location,
+      text: resumeFormData?.resumeData?.personalDetails?.text,
       image: null,
     },
     education: [],
@@ -40,16 +48,15 @@ const Setupdetails = () => {
     totalExperience: "",
   });
 
-  // useEffect(() => {
-  //   dispatch(resumeDataFillingAction(resumeForm.personalDetails));
-  // }, [dispatch, resumeForm.personalDetails]);
-
   const [selectedImage, setSelectedImage] = useState(null);
   const [tempExp, setTemExp] = useState({});
   const [tempSkills, setempSkills] = useState({});
   const [tempProject, SetempProject] = useState({});
   const [tempCertificate, SetempCertificate] = useState({});
   const [tempeducation, SetempEdu] = useState({});
+  const [fresherChecked, setFresherChecked] = useState(false);
+  const [presentDateCheck, setpresentDateCheck] = useState(false);
+  const template = router.query.templateId;
 
   const handleCameraIconClick = () => {
     const fileInput = document.getElementById("image");
@@ -333,7 +340,8 @@ const Setupdetails = () => {
       };
       setResumeForm(cleanData);
       setSelectedImage("");
-      router.push("/search_job");
+      // router.push("/search_job");
+      router.push("resume-created");
     }
   };
   console.log(resumeForm, "in details");
@@ -342,7 +350,7 @@ const Setupdetails = () => {
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
       <div className="flex justify-between items-center mx-5 sm:mx-9">
         <div className="flex items-center gap-x-4 ">
-          <Link href="/resume-templates">
+          <Link href="/resume-upload">
             <Image
               src="/Assets/backbtn.svg"
               alt="back button"
@@ -492,7 +500,7 @@ const Setupdetails = () => {
               <div>
                 <input
                   id="birth"
-                  placeholder="Date of Birth"
+                  placeholder="Date of Birth (yyyy-mm-dd)"
                   required
                   className={`py-5 px-4 border rounded-[10px] ${
                     errors["personalDetails.birth"]
@@ -596,6 +604,10 @@ const Setupdetails = () => {
                   handleExpAdd={handleExpAdd}
                   infodata={resumeForm?.experience}
                   handleremovedata={handleremovedata}
+                  fresherChecked={fresherChecked}
+                  setFresherChecked={setFresherChecked}
+                  presentDateCheck={presentDateCheck}
+                  setpresentDateCheck={setpresentDateCheck}
                 />
               </AccordionDetails>
             </Accordion>
@@ -689,8 +701,347 @@ const Setupdetails = () => {
           </div>
         </div>
         {/* section 2 */}
-        <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0">
-          <img src="/Assets/resumeTemplate.png" alt="cameraIcon" />
+        <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll ">
+          {/* <img src="/Assets/resumeTemplate.png" alt="cameraIcon" /> */}
+          {template === "templateOne" ? (
+            <div className="flex flex-col justify-center ">
+              <div>
+                <div className="m-[20px] p-[20px] border border-[#ccc] rounded-[5px] ">
+                  <div className="flex items-center">
+                    <div className="w-[80px] h-[80px] mr-[20px] ">
+                      {/* <img
+                      src={resumeForm.personalDetails.image.name}
+                      alt="Profile"
+                      className="w-full h-full rounded-[50%] "
+                    /> */}
+                      {selectedImage ? (
+                        <img
+                          src={selectedImage}
+                          style={{ width: "fit-content", height: "auto" }}
+                          alt="selectedImage"
+                        />
+                      ) : (
+                        <img src="/Assets/camera-icon.svg" alt="cameraIcon" />
+                      )}
+                    </div>
+                    <div className="flex flex-row">
+                      <div className="text-[20px] font-bold ">
+                        {resumeForm.personalDetails.fullName}
+                      </div>
+                      <div className="text-[24px] text-[#888] ">
+                        {resumeForm.personalDetails.text}
+                      </div>
+                    </div>
+                  </div>
+                  <div>email:-{resumeForm.personalDetails.email}</div>
+                  <div>
+                    Contact Number:-{resumeForm.personalDetails.phoneNumber}{" "}
+                  </div>
+                  <div className="">{resumeForm.personalDetails.location}</div>
+
+                  <div className="content">
+                    <div className="mb-[20px] ">
+                      <h2>Education</h2>
+                      {resumeForm.education.map((item, index) => {
+                        return (
+                          <div className="item" key={index}>
+                            <div className="text-[18px] font-bold ">
+                              {/* Bachelor of Science in Computer Science */}
+                              {item.level} in {item.degreeName}
+                            </div>
+                            <div className="text-[14px] text-[#888] mb-[10px] ">
+                              {/* University of XYZ, 2015-2019 */}
+                              {item.institutionName}
+                              <span>,</span> {item.year}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {!fresherChecked ? (
+                      <div className="mb-[20px]">
+                        <h2>Experience</h2>
+                        {resumeForm.experience.map((item, index) => {
+                          return (
+                            <div className="item" key={index}>
+                              <div className="text-[18px] font-bold ">
+                                {/* Frontend Developer */}
+                                {item.jopPosition}
+                              </div>
+                              <div className="text-[14px] text-[#888] mb-[10px] ">
+                                {/* ABC Company, 2019-Present */}
+                                {item.companyName} <span>,</span>{" "}
+                                {item.joinedDate} <span>-</span>{" "}
+                                {presentDateCheck ? "Present" : item.endDate}
+                              </div>
+                              <div>{item.description}</div>
+                              {/* <ul className="pl-[20px] m-0 ">
+                              <li className="mb-[5px] ">
+                                Developed and maintained responsive web
+                                applications using React.js
+                              </li>
+                              <li className="mb-[5px] ">
+                                Collaborated with designers to implement user
+                                interface components
+                              </li>
+                              <li className="mb-[5px] ">
+                                Worked with backend developers to integrate APIs
+                              </li>
+                            </ul> */}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : null}
+                    <div className="mb-[20px] ">
+                      <h2>Skills</h2>
+                      <div className="item">
+                        <ul className="m-0 flex flex-row ">
+                          {resumeForm.skill.map((item, index) => {
+                            return (
+                              <li className="mb-[5px] ml-[8px] " key={index}>
+                                {item.skillName}
+                              </li>
+                            );
+                          })}
+
+                          {/* <li className="mb-[5px] ">HTML</li>
+                        <li className="mb-[5px] ">CSS</li>
+                        <li className="mb-[5px] ">JavaScript</li>
+                        <li className="mb-[5px] ">Git</li> */}
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="mb-[20px] ">
+                      <h2>projects</h2>
+                      <div>
+                        {resumeForm.project.map((item, index) => {
+                          return (
+                            <div key={index} className="">
+                              <div className="flex flex-row gap-[5px]">
+                                <p>{item.projectName}</p>
+                                <a
+                                  href={item.projectUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-400 underline italic "
+                                >
+                                  link
+                                </a>
+                                <span>
+                                  {item.startDate} <span>-</span> {item.endDate}
+                                </span>
+                              </div>
+                              <p>{item.projectDescription}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    <div className="mb-[20px] ">
+                      <h2>Certification</h2>
+                      <div>
+                        {resumeForm.certification.map((item, index) => {
+                          return (
+                            <div key={index} className="">
+                              <div className="flex flex-row gap-[5px]">
+                                <p>{item.courseName}</p>
+                                <p>{item.issuingOrganization}</p>
+                                <a
+                                  href={item.projectUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-400 underline italic "
+                                >
+                                  link
+                                </a>
+                              </div>
+                              <div>
+                                {item.issueDate} <span>-</span>{" "}
+                                {item.expirationDate}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
+          {template === "templateTwo" ? (
+            <div className="m-[20px] p-[20px] border border-[#ccc] rounded-[5px] ">
+              <div className="flex justify-center mb-[30px]">
+                <div className="flex items-center">
+                  {/* <img
+                    src="/Assets/appleIcon.png"
+                    alt="Profile"
+                    className="profile-image"
+                  /> */}
+                  <div className="w-[80px] h-[80px] mr-[20px] ">
+                    {selectedImage ? (
+                      <img
+                        src={selectedImage}
+                        style={{ width: "fit-content", height: "auto" }}
+                        alt="selectedImage"
+                      />
+                    ) : (
+                      <img src="/Assets/camera-icon.svg" alt="cameraIcon" />
+                    )}
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="text-[24px] font-bold mb-[10px] ">
+                      {/* John Doe */}
+                      {resumeForm.personalDetails.fullName}
+                    </div>
+                    <div className="text-[18px] text-[#888] mb-[10px] ">
+                      {resumeForm.personalDetails.text}
+                    </div>
+                    <div className="contact">
+                      <span className="block mb-[5px] ">
+                        Email: {resumeForm.personalDetails.email}
+                      </span>
+                      <span className="block mb-[5px] ">
+                        Phone: {resumeForm.personalDetails.phoneNumber}
+                      </span>
+                      <span className="block mb-[5px] ">
+                        Location: {resumeForm.personalDetails.location}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="content">
+                <div className="mb-[20px]">
+                  <h2>Education</h2>
+                  {resumeForm.education.map((item, index) => {
+                    return (
+                      <div className="item" key={index}>
+                        <div className="text-[18px] font-bold mb-[10px] ">
+                          {/* Bachelor of Science in Computer Science */}
+                          {item.level} in {item.degreeName}
+                        </div>
+                        <div className="text-[14px] text-[#888] mb-[10px] ">
+                          {/* University of XYZ, 2015-2019 */}
+                          {item.institutionName}
+                          <span>,</span> {item.year}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                {!fresherChecked ? (
+                  <div className="mb-[20px]">
+                    <h2>Experience</h2>
+                    {resumeForm.experience.map((item, index) => {
+                      return (
+                        <div className="item" key={index}>
+                          <div className="text-[18px] font-bold mb-[10px] ">
+                            {/* Frontend Developer */}
+                            {item.jopPosition}
+                          </div>
+                          <div className="text-[14px] text-[#888] mb-[10px] ">
+                            {/* ABC Company, 2019-Present */}
+                            {item.companyName} <span>,</span> {item.joinedDate}{" "}
+                            <span>-</span>{" "}
+                            {presentDateCheck ? "Present" : item.endDate}
+                          </div>
+                          <div>{item.description}</div>
+                          {/* <ul className="pl-[20px] m-0 ">
+                            <li className="mb-[5px]">
+                              Developed and maintained responsive web
+                              applications using React.js
+                            </li>
+                            <li className="mb-[5px]">
+                              Collaborated with designers to implement user
+                              interface components
+                            </li>
+                            <li>
+                              Worked with backend developers to integrate APIs
+                            </li>
+                          </ul> */}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : null}
+                <div className="mb-[20px]">
+                  <h2>Skills</h2>
+                  <div className="item">
+                    <ul className="m-0 flex flex-row ">
+                      {resumeForm.skill.map((item, index) => {
+                        return (
+                          <li className="mb-[5px] ml-[8px] " key={index}>
+                            {item.skillName}
+                          </li>
+                        );
+                      })}
+                      {/* <li className="mb-[5px]">React.js</li>
+                      <li className="mb-[5px]">HTML</li>
+                      <li className="mb-[5px]">CSS</li>
+                      <li className="mb-[5px]">JavaScript</li>
+                      <li className="mb-[5px]">Git</li> */}
+                    </ul>
+                  </div>
+                </div>
+                <div className="mb-[20px] ">
+                  <h2>projects</h2>
+                  <div>
+                    {resumeForm.project.map((item, index) => {
+                      return (
+                        <div key={index} className="">
+                          <div className="flex flex-row gap-[5px]">
+                            <p>{item.projectName}</p>
+                            <a
+                              href={item.projectUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-400 underline italic "
+                            >
+                              link
+                            </a>
+                            <span>
+                              {item.startDate} <span>-</span> {item.endDate}
+                            </span>
+                          </div>
+                          <p>{item.projectDescription}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="mb-[20px] ">
+                  <h2>Certification</h2>
+                  <div>
+                    {resumeForm.certification.map((item, index) => {
+                      return (
+                        <div key={index} className="">
+                          <div className="flex flex-row gap-[5px]">
+                            <p>{item.courseName}</p>
+                            <p>{item.issuingOrganization}</p>
+                            <a
+                              href={item.projectUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-400 underline italic "
+                            >
+                              link
+                            </a>
+                          </div>
+                          <div>
+                            {item.issueDate} <span>-</span>{" "}
+                            {item.expirationDate}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
