@@ -36,7 +36,9 @@ const Dropdown = () => {
 
     // await signOut({ callbackUrl: `${ipAddress}/login` });
     // router.push("/login");
-    localStorage.clear();
+    localStorage.removeItem('CurrentUser');
+ 
+  
   };
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);

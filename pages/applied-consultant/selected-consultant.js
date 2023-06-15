@@ -12,6 +12,8 @@ import Link from "next/link";
 
 import ConfirmationModal from "Components/Modals/ConfirmationModal";
 import FeedbackModal from "Components/Modals/feedbackModal";
+import withAuth from "Components/ProtectedRoute/WithAuth";
+import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 
 const selectedConsultsnt = () => {
   const router = useRouter();
@@ -327,4 +329,4 @@ const selectedConsultsnt = () => {
   );
 };
 
-export default selectedConsultsnt;
+export default withEmployerAuth(selectedConsultsnt);

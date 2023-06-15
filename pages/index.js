@@ -6,7 +6,9 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { GET_JOB_REQUEST } from 'store/type/getjobType';
 import { useSelector } from 'react-redux';
-
+import ProtectedRoute from 'Components/ProtectedRoute/ProtectedRoute';
+import withAuth from 'Components/ProtectedRoute/WithAuth';
+import withEmployerAuth from 'Components/ProtectedRoute/withEmployerAuth';
 const tableHeading = [
   'Applied Consultant',
   'Job Title',
@@ -46,6 +48,7 @@ const Home = () => {
   
 
   return (
+   
     <div>
       <div className='bg-[#2B373C1C] py-4 px-2 sm:px-4'>
         <div className='bg-white pt-3'>
@@ -134,7 +137,8 @@ const Home = () => {
         </div>
       </div>
     </div>
+   
   );
 };
 
-export default Home;
+export default withEmployerAuth(Home);

@@ -7,6 +7,8 @@ import ProfileSideBar from "../../Components/SearchJobComp/ProfileSideBar";
 import JobAlert from "Components/SearchJob/jobAlert";
 import RecentJob from "Components/SearchJob/recentJob";
 import SearchBlock from "Components/SearchJob/searchBlock";
+import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
+
 const SearchJob = () => {
   const { data: session } = useSession();
   const [showBox1, setShowBox1] = useState(true);
@@ -111,4 +113,6 @@ const SearchJob = () => {
   );
 };
 
-export default SearchJob;
+// export default SearchJob;
+
+export default withConsultantAuth(SearchJob);

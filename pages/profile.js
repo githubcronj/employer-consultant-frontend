@@ -4,7 +4,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { profileSaveRequest } from "../store/action/profileAction";
-
+import withAuth from "Components/ProtectedRoute/WithAuth";
+import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
+import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 const Profile = () => {
   // const profileData = useSelector((state) => state.profile.data);
   const [isFieldChanged, setIsFieldChanged] = useState(false);
@@ -430,4 +432,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default withEmployerAuth(Profile);

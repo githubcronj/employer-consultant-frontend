@@ -4,6 +4,7 @@ import JobList from "Components/ConsultantJob/JobList";
 import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/router";
+import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 
 const AppliedJobs = () => {
   const router = useRouter();
@@ -61,4 +62,4 @@ const AppliedJobs = () => {
   );
 };
 
-export default AppliedJobs;
+export default withConsultantAuth(AppliedJobs);

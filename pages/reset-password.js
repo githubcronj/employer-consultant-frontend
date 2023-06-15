@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { resetPassword } from '../store/action/forgetPasAction';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-
+import withAuthRedirect from 'Components/ProtectedRoute/WithAuthRedirect';
 
 const ResetPassword = () => {
   const router = useRouter();
@@ -269,4 +269,5 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+
+export default withAuthRedirect(ResetPassword);

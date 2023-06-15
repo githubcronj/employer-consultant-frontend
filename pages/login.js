@@ -14,13 +14,13 @@ import { useRouter } from "next/router";
 import { login, googleLogin } from "../store/action/loginaction";
 import { facebookLogin } from "store/action/fbAction";
 import { useSession, signIn, signOut } from "next-auth/react";
-
+import withAuthRedirect from "Components/ProtectedRoute/WithAuthRedirect";
 const Login = () => {
   const { data: session } = useSession();
   console.log("🚀 ~ file: Login.js:20 ~ Login ~ session:", session);
   const router = useRouter();
   const dispatch = useDispatch();
-  const [role, setRole] = useState("employer");
+  const [role, setRole] = useState("");
   const [alignment, setAlignment] = useState("web");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,10 +54,21 @@ const Login = () => {
       localStorage.setItem("role", "employer");
     }
   };
+  // useEffect(() => {
+  //   localStorage.setItem("role", "consultant");
+  // }, []);
   useEffect(() => {
-    localStorage.setItem("role", "employer");
+    const role = localStorage.getItem('role')
+    if(role == "consultant"){
+      localStorage.setItem("role", "consultant");
+      setRole("consultant")
+    }
+    else{
+      localStorage.setItem("role", "employer");
+      setRole("employer") 
+    }
+   
   }, []);
-
   const passwordclick = () => {
     setDisplayPassword(displayPassword == "password" ? "text" : "password");
     setIconsetOne(!iconsetone);
@@ -145,16 +156,16 @@ const Login = () => {
               <button
                 style={{
                   borderRadius: "15px",
-                  backgroundColor: alignment === "web" ? "#ffffff" : "#EEEFEF",
-                  padding: alignment === "web" ? "12px" : "12px",
-                  fontWeight: alignment === "web" ? "700" : "400",
+                  backgroundColor: role == "employer" ? "#ffffff" : "#EEEFEF",
+                  padding: role == "employer" ? "12px" : "12px",
+                  fontWeight: role == "employer" ? "700" : "400",
                   margin: "5px",
                   width: "140px",
                 }}
                 className={`${
-                  alignment === "web" ? "bg-primary" : "bg-white"
+                  role == "employer" ? "bg-primary" : "bg-white"
                 } flex-1 py-2 px-4 rounded-20 transition-all duration-300 ${
-                  alignment === "web" ? "bg-primary" : "bg-white border-primary"
+                  role == "employer" ? "bg-primary" : "bg-white border-primary"
                 }  sm:w-auto md:w-1/4 lg:w-1/5`}
                 onClick={(e) => handleChange(e, "web")}
               >
@@ -162,18 +173,18 @@ const Login = () => {
               </button>
               <button
                 style={{
-                  padding: alignment === "android" ? "12px" : "12px",
+                  padding: role == "consultant" ? "12px" : "12px",
                   borderRadius: "15px",
                   backgroundColor:
-                    alignment === "android" ? "#ffffff" : "#EEEFEF",
-                  fontWeight: alignment === "android" ? "700" : "400",
+                    role == "consultant" ? "#ffffff" : "#EEEFEF",
+                  fontWeight: role == "consultant" ? "700" : "400",
                   margin: "5px",
                   width: "140px",
                 }}
                 className={`${
-                  alignment === "android" ? "bg-primary " : "bg-white"
+                  role == "consultant" ? "bg-primary " : "bg-white"
                 } flex-1 py-2 px-4 rounded-20 transition-all duration-300 ${
-                  alignment === "android"
+                  role == "consultant"
                     ? "bg-primary"
                     : "bg-white border-primary"
                 }  sm:w-auto md:w-1/4 lg:w-1/5`}
@@ -296,5 +307,5 @@ const Login = () => {
     </>
   );
 };
+export default withAuthRedirect(Login);
 
-export default Login;
