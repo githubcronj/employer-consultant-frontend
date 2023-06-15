@@ -19,7 +19,7 @@ import withAuthRedirect from 'Components/ProtectedRoute/WithAuthRedirect';
 const ForgotPassword= () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [role, setRole] = useState('employer');
+  const [role, setRole] = useState('');
   const [alignment, setAlignment] = useState('web');
   const [email, setEmail] = useState('');
   const [showModal, setShowModal] = useState(false);
