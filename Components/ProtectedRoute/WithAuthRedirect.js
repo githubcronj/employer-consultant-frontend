@@ -11,14 +11,12 @@ const withAuthRedirect = (WrappedComponent, redirectPath = '') => {
 
       if (token) {
         // User is already authenticated
-        if(userRole === 'consultant' && (router.pathname === '/login' || router.pathname === '/register' || router.pathname === '/forgotPassword' || router.pathname === '/reset-password')) {
-          // Redirect consultant to /searchjob if trying to access login
+        if (userRole === 'consultant' && (router.pathname === '/login' || router.pathname === '/register' || router.pathname === '/forgotPassword' || router.pathname === '/reset-password')) {
+          // Redirect consultant to /search_job if trying to access login, register, forgotPassword, or reset-password
           router.push('/search_job');
-          console.log("consultant")
-        } else if (userRole === 'employer' && (router.pathname === '/login' || router.pathname === '/register' || router.pathname === '/forgotPassword' || router.pathname === '/reset-password')){
-          // Redirect employer to / if trying to access login
+        } else if (userRole === 'employer' && (router.pathname === '/login' || router.pathname === '/register' || router.pathname === '/forgotPassword' || router.pathname === '/reset-password')) {
+          // Redirect employer to / if trying to access login, register, forgotPassword, or reset-password
           router.push('/');
-          console.log("employer")
         } else {
           // Redirect to a different page if already authenticated
           router.push(redirectPath);
