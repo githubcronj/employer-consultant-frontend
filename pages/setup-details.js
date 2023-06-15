@@ -56,6 +56,7 @@ const Setupdetails = () => {
   const [tempeducation, SetempEdu] = useState({});
   const [fresherChecked, setFresherChecked] = useState(false);
   const [presentDateCheck, setpresentDateCheck] = useState(false);
+  const [expautodata, setempautodata] = useState([]);
   const template = router.query.templateId;
 
   const handleCameraIconClick = () => {
@@ -176,6 +177,14 @@ const Setupdetails = () => {
     setTemExp({ ...tempExp, [field]: value });
   };
 
+  useEffect(() => {
+    setTemExp({ ...tempExp, technologyEnvironment: expautodata });
+  }, [expautodata]);
+
+  useEffect(() => {
+    console.log(resumeData);
+  }, [resumeData]);
+
   const handleSkillsChange = (e) => {
     const { name, value } = e.target;
     const [section, field] = name.split(".");
@@ -212,6 +221,7 @@ const Setupdetails = () => {
       experience: [...prevData.experience, tempExp],
     }));
     setTemExp({});
+    setempautodata([]);
   };
 
   const handleSkillsAdd = () => {
@@ -243,6 +253,10 @@ const Setupdetails = () => {
       education: [...prevData.education, tempeducation],
     }));
     SetempEdu({});
+  };
+  const handleautodata = (data) => {
+    console.log("dingding", data);
+    setempautodata(data);
   };
 
   const handleremovedata = (indexdata) => {
@@ -608,7 +622,9 @@ const Setupdetails = () => {
                   setFresherChecked={setFresherChecked}
                   presentDateCheck={presentDateCheck}
                   setpresentDateCheck={setpresentDateCheck}
-                  setTemExp={setTemExp}
+                  handleautodata={handleautodata}
+                  setempautodata={setempautodata}
+                  expautodata={expautodata}
                 />
               </AccordionDetails>
             </Accordion>
@@ -678,11 +694,7 @@ const Setupdetails = () => {
                 aria-controls="panel2a-content"
                 id="panel2a-header"
               >
-                <p
-                  className={`font-bold text-lg`}
-                >
-                  Certification
-                </p>
+                <p className={`font-bold text-lg`}>Certification</p>
               </AccordionSummary>
               <AccordionDetails>
                 <SetupCertificate
@@ -1046,3 +1058,4 @@ const Setupdetails = () => {
 };
 
 export default Setupdetails;
+
