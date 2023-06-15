@@ -7,6 +7,7 @@ import suitCase from "../../asset/icons/suitcase.svg";
 import Image from "next/image";
 import locationIcon from "../../asset/icons/location.svg";
 import RecentSearch from "./recentSearch";
+import styles from "../../styles/LoginPage.module.css";
 const SearchBlock = ({
   searchOnChangeHandler,
   searchSubmitHandler,
@@ -50,13 +51,14 @@ const SearchBlock = ({
         <InputBase
           autoFocus
           name="jobTitle"
+          className={`${styles.searchbox1}`}
           onChange={searchOnChangeHandler}
           sx={{
             flex: 1,
             alignItems: "center",
             background: "#E7E9E9",
-            borderTopLeftRadius: "13px",
-            borderBottomLeftRadius: "13px",
+            // borderTopLeftRadius: "13px",
+            // borderBottomLeftRadius: "13px",
             padding: ".7rem",
           }}
           placeholder="Job Title"
@@ -66,19 +68,27 @@ const SearchBlock = ({
             </InputAdornment>
           }
         />
-        <Divider sx={{ height: "7vh" }} orientation="vertical" />
+        <Divider
+          className={styles.searchdevider}
+          orientation="vertical"
+          style={{
+            borderWidth: "1.5px",
+            height: "55px",
+          }}
+        />
 
         <InputBase
           name="location"
           onChange={searchOnChangeHandler}
+          className={`${styles.searchbox2}`}
           sx={{
             flex: 1,
             alignItems: "center",
             display: "flex",
             background: "#E7E9E9",
             padding: ".4rem",
-            borderTopRightRadius: "13px",
-            borderBottomRightRadius: "13px",
+            // borderTopRightRadius: "13px",
+            // borderBottomRightRadius: "13px",
           }}
           placeholder="Location"
           startAdornment={
@@ -88,6 +98,7 @@ const SearchBlock = ({
           }
           endAdornment={
             <Button
+              className={`${styles.searchbtn}`}
               onClick={searchSubmitHandler}
               style={{
                 background: "red",
@@ -100,6 +111,18 @@ const SearchBlock = ({
             </Button>
           }
         />
+        <Button
+          className={`${styles.searchbtn2}`}
+          onClick={handleBox1Click}
+          style={{
+            background: "red",
+            padding: ".55rem 1rem",
+            color: "white",
+            borderRadius: "10px",
+          }}
+        >
+          Search
+        </Button>
       </Paper>
       <RecentSearch />
     </Box>

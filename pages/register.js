@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import { googleLogin } from "../store/action/loginaction";
 import { facebookLogin } from "store/action/fbAction";
 import { useSession, signIn, signOut } from "next-auth/react";
+import withAuthRedirect from "Components/ProtectedRoute/WithAuthRedirect";
 const Register = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -291,4 +292,5 @@ const Register = () => {
   );
 };
 
-export default Register;
+
+export default withAuthRedirect(Register);

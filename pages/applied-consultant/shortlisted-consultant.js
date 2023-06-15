@@ -11,6 +11,8 @@ import UxDesignerCard from "Components/Cards/ConsultantsCard";
 import Link from "next/link";
 
 import ConfirmationModal from "Components/Modals/ConfirmationModal";
+import withAuth from "Components/ProtectedRoute/WithAuth";
+import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 
 const ShortlistedConsultant = () => {
   const router = useRouter();
@@ -313,4 +315,5 @@ const ShortlistedConsultant = () => {
   );
 };
 
-export default ShortlistedConsultant;
+
+export default withEmployerAuth(ShortlistedConsultant);
