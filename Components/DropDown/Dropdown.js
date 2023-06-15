@@ -28,7 +28,7 @@ const Dropdown = () => {
       setIsOpen(false);
     }
   };
-  const productionUrl = "http://localhost:3000"; //need to be changed in future
+  const productionUrl = "http://13.53.75.126:3000"; //need to be changed in future
   // const devUrl = "http://13.53.75.126:3000";
   const devUrl = "http://localhost:3000";
   const handleLogout = async (e) => {
