@@ -6,7 +6,9 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { GET_JOB_REQUEST } from 'store/type/getjobType';
 import { useSelector } from 'react-redux';
-import Pagination from 'Components/Pagination/pagination';
+import ProtectedRoute from 'Components/ProtectedRoute/ProtectedRoute';
+import withAuth from 'Components/ProtectedRoute/WithAuth';
+import withEmployerAuth from 'Components/ProtectedRoute/withEmployerAuth';import Pagination from 'Components/Pagination/pagination';
 
 const tableHeading = [
   'Applied Consultant',
@@ -58,6 +60,7 @@ const Home = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
+   
     <div>
       <div className='bg-[#2B373C1C] py-4 px-2 sm:px-4'>
         <div className='bg-white pt-3'>
@@ -149,7 +152,8 @@ const Home = () => {
         </div>
       </div>
     </div>
+   
   );
 };
 
-export default Home;
+export default withEmployerAuth(Home);

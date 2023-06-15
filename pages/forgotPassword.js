@@ -15,6 +15,7 @@ import validator from 'validator';
 import { useRouter } from 'next/router';
 import { forgotPassword } from '../store/action/forgetPasAction';
 import Modal from '../Components/Modals/Modals';
+import withAuthRedirect from 'Components/ProtectedRoute/WithAuthRedirect';
 const ForgotPassword= () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -230,4 +231,5 @@ const ForgotPassword= () => {
   );
 };
 
-export default ForgotPassword;
+
+export default withAuthRedirect(ForgotPassword);

@@ -42,6 +42,7 @@ const Dropdown = () => {
     localStorage.clear();
     const url = process.env.NODE_ENV === "development" ? productionUrl : devUrl;
     window.location = url + "/login";
+    localStorage.removeItem('CurrentUser');
   };
 
   function handleNavigate(url1, url2) {

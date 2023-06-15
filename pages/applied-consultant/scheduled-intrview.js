@@ -11,6 +11,8 @@ import ConsultantCard, {
 import Link from "next/link";
 
 import ConfirmationModal from "Components/Modals/ConfirmationModal";
+import withAuth from "Components/ProtectedRoute/WithAuth";
+import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 
 const ScheduleInterview = () => {
   const router = useRouter();
@@ -343,4 +345,4 @@ const ScheduleInterview = () => {
   );
 };
 
-export default ScheduleInterview;
+export default withEmployerAuth(ScheduleInterview);

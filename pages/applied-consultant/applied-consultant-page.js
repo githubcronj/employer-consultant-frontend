@@ -7,6 +7,8 @@ import Popoverr from "Components/PopOver/popOver";
 import {cardData} from "../../Components/Cards/ConsultantsCard";
 import ConsultantCard from "Components/Cards/ConsultantsCard";
 import Link from 'next/link';
+import withAuth from "Components/ProtectedRoute/WithAuth";
+import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 
 
 const AppliedConsultant = () => {
@@ -341,5 +343,5 @@ const AppliedConsultant = () => {
   
   );
 };
+export default withEmployerAuth(AppliedConsultant);
 
-export default AppliedConsultant;
