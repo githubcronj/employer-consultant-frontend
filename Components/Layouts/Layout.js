@@ -26,6 +26,7 @@ function Layout(props) {
     "/cviewprofile",
     // "/samplepage",
     "/consultant/applied-jobs",
+    "/consultant-applied-jobs/applied-jobs",
     // "/jobsearch-details",
     "/resume-created",
     "/job-apply-search/",
