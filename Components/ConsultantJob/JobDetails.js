@@ -1,49 +1,43 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import Image from "next/image";
-import React from "react";
-export const data1 = [
-  {
-    tagImg: "/Assets/exp1.svg",
-    title: "2yr Experience",
-  },
-  {
-    tagImg: "/Assets/exp2.svg",
-    title: "1000+ Employee - IT Services and Consulting",
-  },
-  {
-    tagImg: "/Assets/exp3.svg",
-    title: "10$ /hr",
-  },
-  {
-    tagImg: "/Assets/exp4.svg",
-    title: "Full Time",
-  },
-  {
-    tagImg: "/Assets/exp4.svg",
-    title: "Silicon valley",
-  },
-];
-export const data2 = [
-  {
-    tagImg: "/Assets/exp6.svg",
-    title: "20-04-2024",
-  },
-  {
-    tagImg: "/Assets/exp7.svg",
-    title: "Companyname@gmail.com",
-  },
-  {
-    tagImg: "/Assets/exp8.svg",
-    title: "496 013 5893",
-  },
-];
-const JobDetails = () => {
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { appliedJobSuccess } from "store/action/applyJobAction";
+import { SAVE_JOB_SUCCESS } from "store/type/applyJobType";
+
+const JobDetails = ({ detail }) => {
+  const dispatch = useDispatch();
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+
+  const finaltoken = getToken();
+
+  const jobData = useSelector((state) => state?.appliedJobReducer?.data);
+
+  console.log("jobbbxx", jobData);
+  useEffect(() => {
+    dispatch(appliedJobSuccess(finaltoken));
+  }, []);
+
+  const saveData = () => {
+    const payload = { jobId: jobData?._id, finaltoken };
+    dispatch({ type: SAVE_JOB_SUCCESS, payload });
+  };
+
+  const finalData = jobData?.filter((index, item) => index?._id == detail);
+  console.log("final", finalData);
   return (
     <Grid container>
       <Grid
-
         sx={{
-          height:{ xs:"auto",md: "720px"},
+          height: { xs: "auto", md: "720px" },
           overflowY: "scroll",
           scrollbarWidth: "none",
           "-ms-overflow-style": "none",
@@ -52,18 +46,19 @@ const JobDetails = () => {
           },
           borderLeft: "1px solid #D0D0D6",
           borderRight: "1px solid #D0D0D6",
-          px:{xs:"1rem",sm:"2rem",lg:"3.5rem"} 
+          px: { xs: "1rem", sm: "2rem", lg: "3.5rem" },
         }}
         item
         py={1}
-        xs={12} sm={9}
+        xs={12}
+        sm={9}
       >
         <Box
           sx={{
             display: "flex",
-            justifyContent: {xs:"flex-start",md:"space-between"},
-            alignItems: {xs:"flex-start",md:"center"},
-            flexDirection:{xs:"column",md:"row"}
+            justifyContent: { xs: "flex-start", md: "space-between" },
+            alignItems: { xs: "flex-start", md: "center" },
+            flexDirection: { xs: "column", md: "row" },
           }}
         >
           <Box
@@ -74,16 +69,19 @@ const JobDetails = () => {
             }}
           >
             <Image
-              src="/Assets/google.svg"
-              alt="profile"
+              src='/Assets/google.svg'
+              alt='profile'
               height={63}
               width={63}
-              
-
             />
             <Box ml={1}>
-              <Typography sx={{ fontWeight: "bold", fontSize: { xs:"18px",sm:"26px"} }}>
-                UX Designer
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: { xs: "18px", sm: "26px" },
+                }}
+              >
+                {finalData[0]?.jobTitle ? finalData[0]?.jobTitle : "NA"}
               </Typography>
               <Typography
                 sx={{
@@ -123,29 +121,106 @@ const JobDetails = () => {
         </Box>
         <Box py={2} sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box>
-            {data1.map((item, ind) => {
-              return (
-                <Box
-                  key={ind}
-                  py={2}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "start",
-                    alignItem: "center",
-                  }}
-                >
-                  <Image
-                    src={item.tagImg}
-                    alt="profile"
-                    height={44}
-                    width={44}
-                  />
-                  <Typography px={2} sx={{ color: "#1E0F3B" }}>
-                    {item.title}
-                  </Typography>
-                </Box>
-              );
-            })}
+            {/* {data1.map((item, ind) => { */}
+            {/* return ( */}
+            <Box
+              py={2}
+              sx={{
+                display: "flex",
+                justifyContent: "start",
+                alignItem: "center",
+              }}
+            >
+              <Image
+                src='/Assets/suitcase.svg'
+                alt='profile'
+                height={25}
+                width={25}
+              />
+              <Typography px={5} sx={{ color: "#1E0F3B" }}>
+                {finalData[0]?.experience
+                  ? `${finalData[0]?.experience} Years Experience`
+                  : "NA"}
+              </Typography>
+            </Box>
+            {/* 2 */}
+            <Box
+              py={2}
+              sx={{
+                display: "flex",
+                justifyContent: "start",
+                alignItem: "center",
+              }}
+            >
+              <Image
+                src='/Assets/building.svg'
+                alt='profile'
+                height={25}
+                width={25}
+              />
+              <Typography px={5} sx={{ color: "#1E0F3B" }}>
+                {finalData[0]?.industryType ? finalData[0]?.industryType : "NA"}
+              </Typography>
+            </Box>
+            {/* 3 */}
+            <Box
+              py={2}
+              sx={{
+                display: "flex",
+                justifyContent: "start",
+                alignItem: "center",
+              }}
+            >
+              <Image
+                src='/Assets/money.svg'
+                alt='profile'
+                height={25}
+                width={25}
+              />
+              <Typography px={5} sx={{ color: "#1E0F3B" }}>
+                {finalData[0]?.salary ? finalData[0]?.salary : "NA"}
+              </Typography>
+            </Box>
+            {/* 4 */}
+            <Box
+              py={2}
+              sx={{
+                display: "flex",
+                justifyContent: "start",
+                alignItem: "center",
+              }}
+            >
+              <Image
+                src='/Assets/laptop.svg'
+                alt='profile'
+                height={25}
+                width={25}
+              />
+              <Typography px={5} sx={{ color: "#1E0F3B" }}>
+                {finalData[0]?.jobType ? finalData[0]?.jobType : "NA"}
+              </Typography>
+            </Box>
+            {/* 5 */}
+            <Box
+              py={2}
+              sx={{
+                display: "flex",
+                justifyContent: "start",
+                alignItem: "center",
+              }}
+            >
+              <Image
+                src='/Assets/location.svg'
+                alt='profile'
+                height={25}
+                width={25}
+              />
+              <Typography px={5} sx={{ color: "#1E0F3B" }}>
+                {finalData[0]?.location ? finalData[0]?.location : "NA"}
+              </Typography>
+            </Box>
+            {/* ); */}
+            {/* })} */}
           </Box>
           <Box
             py={2}
@@ -156,15 +231,16 @@ const JobDetails = () => {
             }}
           >
             <Image
-              src="/Assets/savebtn.svg"
-              alt="profile"
+              onClick={saveData}
+              src='/Assets/savebtn.svg'
+              alt='profile'
               height={54}
               width={54}
               style={{ paddingBottom: "1rem" }}
             />
             <Image
-              src="/Assets/chatbtn.svg"
-              alt="profile"
+              src='/Assets/chatbtn.svg'
+              alt='profile'
               height={54}
               width={54}
             />
@@ -172,29 +248,66 @@ const JobDetails = () => {
         </Box>
         <Box sx={{ borderTop: "1px solid #D0D0D6" }}>
           <Box py={3}>
-            {data2.map((item, ind) => {
-              return (
-                <Box
-                  key={ind}
-                  py={2}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "start",
-                    alignItem: "center",
-                  }}
-                >
-                  <Image
-                    src={item.tagImg}
-                    alt="profile"
-                    height={44}
-                    width={44}
-                  />
-                  <Typography px={2} sx={{ color: "#1E0F3B" }}>
-                    {item.title}
-                  </Typography>
-                </Box>
-              );
-            })}
+            {/* {data2.map((item, ind) => { */}
+            {/* return ( */}
+            <Box
+              py={2}
+              sx={{
+                display: "flex",
+                justifyContent: "start",
+                alignItem: "center",
+              }}
+            >
+              <Image
+                src='/Assets/scheduler.svg'
+                alt='profile'
+                height={25}
+                width={25}
+              />
+              <Typography px={5} sx={{ color: "#1E0F3B" }}>
+                {finalData[0]?.deadline ? finalData[0]?.deadline : "12-09-2023"}
+              </Typography>
+            </Box>
+            {/* 2 */}
+            <Box
+              py={2}
+              sx={{
+                display: "flex",
+                justifyContent: "start",
+                alignItem: "center",
+              }}
+            >
+              <Image
+                src='/Assets/mail.svg'
+                alt='profile'
+                height={25}
+                width={25}
+              />
+              <Typography px={5} sx={{ color: "#1E0F3B" }}>
+                {finalData[0]?.email}
+              </Typography>
+            </Box>
+            {/* 3 */}
+            <Box
+              py={2}
+              sx={{
+                display: "flex",
+                justifyContent: "start",
+                alignItem: "center",
+              }}
+            >
+              <Image
+                src='/Assets/call.svg'
+                alt='profile'
+                height={25}
+                width={25}
+              />
+              <Typography px={5} sx={{ color: "#1E0F3B" }}>
+                {finalData[0]?.phoneNumber ? finalData[0]?.phoneNumber : "NA"}
+              </Typography>
+            </Box>
+            {/* ); */}
+            {/* })} */}
           </Box>
         </Box>
 
@@ -207,34 +320,19 @@ const JobDetails = () => {
           </Typography>
           <Box>
             <Typography sx={{ color: "#7E84A3" }} py={3}>
-              Accenture is a leading global professional services company that
-              helps the world’s leading businesses, governments and other
-              organizations build their digital core, optimize their operations,
-              accelerate revenue growth and enhance citizen services—creating
-              tangible value at speed and scale. We are a talent and innovation
-              led company with 738,000 people serving clients in more than 120
-              countries. Technology is at the core of change today, and we are
-              one of the world’s leaders in helping drive that change, with
-              strong ecosystem relationships.
-            </Typography>
-            <Typography sx={{ color: "#7E84A3" }}>
-              We combine our strength in technology with unmatched industry
-              experience, functional expertise and global delivery capability.
-              We are uniquely able to deliver tangible outcomes because of our
-              broad range of services, solutions and assets across Strategy &
-              Consulting, Technology, Operations, Industry X and Accenture Song.
-              These capabilities, together with our culture of shared success
-              and commitment to creating 360° value, enable us to help our
-              clients succeed and build trusted, lasting relationships. We
-              measure our success by the 360° value we create for our clients,
-              each other, our shareholders, partners and communities. Visit us
-              at www.accenture.com.
+              {finalData[0]?.description ? finalData[0]?.description : "NA"}
             </Typography>
           </Box>
         </Box>
       </Grid>
       <Grid item xs={12} sm={3}>
-        <Box sx={{ background: "#E6E4E9", mr: {xs:".5rem",lg:"3.2rem"}, p: "1rem" }}>
+        <Box
+          sx={{
+            background: "#E6E4E9",
+            mr: { xs: ".5rem", lg: "3.2rem" },
+            p: "1rem",
+          }}
+        >
           <Box mb={2}>
             <Typography sx={{ color: "#1E0F3B" }}>Job Applied</Typography>
             <Typography

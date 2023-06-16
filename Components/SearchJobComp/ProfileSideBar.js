@@ -8,6 +8,7 @@ import { GET_PROFILE_REQUEST } from "store/type/viewProfileType";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { appliedJobSuccess } from "store/action/applyJobAction";
 
 const ProfileSideBar = ({ data }) => {
   const router = useRouter();
@@ -23,13 +24,18 @@ const ProfileSideBar = ({ data }) => {
   const payload = {
     token: getToken(),
   };
+  const finaltoken = getToken();
+
   useEffect(() => {
     dispatch({ type: GET_PROFILE_REQUEST, payload });
   }, []);
-  // console.log('payload',payload)
+  useEffect(() => {
+    dispatch(appliedJobSuccess(finaltoken));
+  }, []);
   const response = useSelector(
     (state) => state?.viewProfileReducer?.CurrentUser
   );
+  const jobData = useSelector((state) => state?.appliedJobReducer?.data);
   console.log("new response", response);
   return (
     <Paper
@@ -96,7 +102,7 @@ const ProfileSideBar = ({ data }) => {
           padding: { xs: "1rem" },
         }}
       >
-        <Link href="/consultant/applied-jobs">
+        <Link href="/consultant-applied-jobs/applied-jobs">
           <Button
             style={{
               backgroundColor: "red",
@@ -112,7 +118,7 @@ const ProfileSideBar = ({ data }) => {
             }}
           >
             Applied Job
-            <span style={{ marginLeft: "3rem" }}>13</span>
+            <span style={{ marginLeft: "3rem" }}>{jobData?.length}</span>
             <ArrowForwardIosIcon
               fontSize="small"
               style={{ marginLeft: "0.5rem" }}

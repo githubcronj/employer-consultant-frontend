@@ -1,14 +1,16 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import JobDetails from "Components/ConsultantJob/JobDetails";
+
 import JobList from "Components/ConsultantJob/JobList";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 
 const AppliedJobs = () => {
   const router = useRouter();
-
+  const [detail, setDetail] = useState();
+  console.log(detail,'dddd')
   return (
     <Box
       py={2}
@@ -51,10 +53,10 @@ const AppliedJobs = () => {
         justifyContent: "center", }}>
         <Grid container spacing={1}>
           <Grid item xs={12} md={3}>
-            <JobList />
+            <JobList setDetail={setDetail}/>
           </Grid>
           <Grid  item xs={12} md={9}>
-            <JobDetails/>
+            <JobDetails detail={detail}/>
           </Grid>
         </Grid>
       </Box>

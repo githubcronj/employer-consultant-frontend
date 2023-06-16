@@ -1,89 +1,81 @@
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
-import React, { useState } from "react";
-export const listData = [
-  {
-    id: 1,
-    jobTitle: "UX Designer",
-    experience1: "Spotify",
-    experience2: " 2 yr Exp",
-    imageSrc: "/Assets/spotify.svg",
-  },
-  {
-    id: 2,
-    jobTitle: "UX Designer",
-    experience1: "Spotify",
-    experience2: " 2 yr Exp",
-    imageSrc: "/Assets/google.svg",
-  },
-  {
-    id: 3,
-    jobTitle: "UX Designer",
-    experience1: "Spotify",
-    experience2: " 2 yr Exp",
-    imageSrc: "/Assets/spotify.svg",
-  },
-  {
-    id: 4,
-    jobTitle: "UX Designer",
-    experience1: "Spotify",
-    experience2: " 2 yr Exp",
-    imageSrc: "/Assets/spotify.svg",
-  },
-  {
-    id: 5,
-    jobTitle: "UX Designer",
-    experience1: "Spotify",
-    experience2: " 2 yr Exp",
-    imageSrc: "/Assets/spotify.svg",
-  },
-  {
-    id: 6,
-    jobTitle: "UX Designer",
-    experience1: "Spotify",
-    experience2: " 2 yr Exp",
-    imageSrc: "/Assets/spotify.svg",
-  },
-];
-const JobList = () => {
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  appliedJobRequest,
+  appliedJobSuccess,
+} from "store/action/applyJobAction";
+
+const JobList = ({ setDetail }) => {
+  // added
+  const dispatch = useDispatch();
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+
+  const finaltoken = getToken();
+
+  const jobData = useSelector((state) => state?.appliedJobReducer?.data);
+ 
+  useEffect(() => {
+    setDetail(jobData[0]?._id);
+  }, [jobData]);
+
+  useEffect(() => {
+    dispatch(appliedJobSuccess(finaltoken));
+  }, []);
+
+  // added
   const [selectedItemId, setSelectedItemId] = useState(null);
 
   const handleItemClick = (itemId) => {
     setSelectedItemId(itemId);
+    setDetail(itemId);
   };
   return (
-    <Box  py={{ xs: 1, lg: 2 }}>
+    <Box py={{ xs: 1, lg: 2 }}>
       <Typography
-      px={{ xs: 1, md: 2, lg: 3 }}
-      mb={2}
+        px={{ xs: 1, md: 2, lg: 3 }}
+        mb={2}
         sx={{ fontSize: "18px", fontWeight: "bold", color: "#1E0F3B" }}
       >
-        7 Jobs
+        {`${jobData?.length} Jobs`}
+       
       </Typography>
       <Box>
-        {listData.map((item) => {
-          const isSelected = item.id === selectedItemId;
+
+        {jobData?.map((item, index) => {
+          const isSelected = item?._id === selectedItemId;
           return (
             <Box
               py={2}
               px={{ xs: 1, md: 2, lg: 3 }}
-              key={item.id}
-              onClick={() => handleItemClick(item.id)}
+              key={index}
+              onClick={() => handleItemClick(item?._id)}
               sx={{
                 display: "flex",
                 alignItems: "center",
                 borderBottom: ".5px solid #EAE9EA",
-                borderLeft: isSelected ? "4px solid #5e9af8" :"none",
-                background: isSelected ? "linear-gradient(to left, #5e9af800, #5e9af833)" : "transparent",
+                borderLeft: isSelected ? "4px solid #5e9af8" : "none",
+                background: isSelected
+                  ? "linear-gradient(to left, #5e9af800, #5e9af833)"
+                  : "transparent",
                 // backgroundColor: isSelected ? "blue" : "transparent",
               }}
             >
               <Image
-                src={item.imageSrc}
-                alt="back button"
+                src='/Assets/spotify.svg'
+                alt='back button'
                 width={46}
                 height={46}
-                className="cursor-pointer w-10 h-10 rounded-full mr-4"
+                className='cursor-pointer w-10 h-10 rounded-full mr-4'
               />
               <Box>
                 <Typography sx={{ fontWeight: "bold" }}>
@@ -92,7 +84,9 @@ const JobList = () => {
                 <Typography
                   sx={{ opacity: "0.7", color: "#5E5E5E", py: ".5rem" }}
                 >
-                  {item.experience1} &#8729; {item.experience2}
+                  {`${item.industryType} . ${
+                    item?.experience ? `${item.experience} Yrs` : ""
+                  }`}
                 </Typography>
               </Box>
             </Box>
