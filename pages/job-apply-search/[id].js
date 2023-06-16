@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchJobsRequest } from "store/action/recommandedJobAction";
 import { appliedJobSuccess } from "store/action/applyJobAction";
+import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 
 const JobSearchDetails = () => {
   const router = useRouter();
@@ -23,13 +24,11 @@ const JobSearchDetails = () => {
 
   const finaltoken = getToken();
   const jobData = useSelector((state) => state.jobsReducer.GetjobData);
-  const appliedJobData = useSelector((state) => state.appliedJobReducer.data)
+  const appliedJobData = useSelector((state) => state.appliedJobReducer.data);
 
- 
   useEffect(() => {
-    dispatch(fetchJobsRequest(jobData,finaltoken));
+    dispatch(fetchJobsRequest(jobData, finaltoken));
     dispatch(appliedJobSuccess(finaltoken));
-
   }, []);
 
   let finaldata = jobData?.filter((x, y) => {
@@ -50,7 +49,7 @@ const JobSearchDetails = () => {
             <JobSearchHeader />
           </div>
           <div>
-            <MainSearch finaldata={finaldata} appliedJobData={appliedJobData}/>
+            <MainSearch finaldata={finaldata} appliedJobData={appliedJobData} />
           </div>
         </div>
         <div className=" xl:mr-[20px] lg:mr-[20px] my-[20px] bg-white xl:w-[289px] w-auto max-h-[462px] h-auto ">
@@ -63,4 +62,4 @@ const JobSearchDetails = () => {
     </div>
   );
 };
-export default JobSearchDetails;
+export default withConsultantAuth(JobSearchDetails);

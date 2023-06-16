@@ -1,3 +1,4 @@
+import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -226,4 +227,4 @@ const SelectResumeTemplatePage = () => {
   );
 };
 
-export default SelectResumeTemplatePage;
+export default withConsultantAuth(SelectResumeTemplatePage);

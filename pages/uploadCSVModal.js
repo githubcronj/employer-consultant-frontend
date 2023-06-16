@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Papa from "papaparse";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { useRef } from "react";
-import { csvSaveRequest } from '../store/action/csvMultipleJobUploadAction';
-
+import { csvSaveRequest } from "../store/action/csvMultipleJobUploadAction";
+import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 
 const UploadCSVModal = () => {
   const dispatch = useDispatch();
@@ -24,12 +24,11 @@ const UploadCSVModal = () => {
   // console.log(finaltoken)
 
   // const handleFileUpload = () => {
- 
+
   //   console.log(uploadedFile,'<-----')
   //   const file = fileInputRef.current.files[0];
   //   if (file) {
   //     const allowedTypes = ["text/csv"];
-      
 
   //     if (!allowedTypes.includes(file.type)) {
   //       setErrorMessage(
@@ -60,37 +59,31 @@ const UploadCSVModal = () => {
   //             phoneNumber: row[9]
   //           }))
   //         };
-      
+
   //         dispatch(csvSaveRequest(jsonData, finaltoken));
   //       },
   //     });
   //   }
   // };
   const handleFileUpload = () => {
- 
-    console.log(uploadedFile,'<-----')
+    console.log(uploadedFile, "<-----");
     const file = fileInputRef.current.files[0];
     if (file) {
       const allowedTypes = ["text/csv"];
-      
 
       if (!allowedTypes.includes(file.type)) {
-        setErrorMessage(
-          "Invalid file type. Only CSV is allowed."
-        );
+        setErrorMessage("Invalid file type. Only CSV is allowed.");
         return;
       }
 
       setUploadedFile(file);
-      console.log('file',file)
-      console.log('fileee',uploadedFile)
+      console.log("file", file);
+      console.log("fileee", uploadedFile);
       setErrorMessage(""); // Reset the error message
       // dispatch(csvSaveRequest(file,finaltoken));
-     
     }
   };
   const handleExport = () => {
-
     if (!uploadedFile) {
       setErrorMessage("Please upload a file.");
       return;
@@ -98,7 +91,7 @@ const UploadCSVModal = () => {
 
     Papa.parse(uploadedFile, {
       complete: function (results) {
-        console.log('Finished:', results.data);
+        console.log("Finished:", results.data);
         const jsonData = {
           jobs: results.data.slice(1).map((row) => ({
             jobTitle: row[0],
@@ -110,17 +103,16 @@ const UploadCSVModal = () => {
             maxSalary: Number(row[6]),
             description: row[7],
             email: row[8],
-            phoneNumber: row[9]
-          }))
+            phoneNumber: row[9],
+          })),
         };
-    
+
         dispatch(csvSaveRequest(jsonData, finaltoken));
         setShowModal(false);
       },
     });
-    
-  }
-  
+  };
+
   const handleRemoveFile = (event) => {
     setUploadedFile(null);
     setErrorMessage("");
@@ -168,7 +160,10 @@ const UploadCSVModal = () => {
                   </div>
 
                   <div>
-                    <button onClick={handleExport} className="px-8 py-4 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
+                    <button
+                      onClick={handleExport}
+                      className="px-8 py-4 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3"
+                    >
                       Export
                     </button>
                   </div>
@@ -234,4 +229,4 @@ const UploadCSVModal = () => {
   );
 };
 
-export default UploadCSVModal;
+export default withEmployerAuth(UploadCSVModal);

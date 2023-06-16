@@ -53,9 +53,9 @@ const LeftProfile = () => {
                 <p>{response?.jobRole}</p>
                 <p className="font-extrabold -mt-1">.</p>
                 <p>
-                  {response?.totalExperience === 0
+                  {response?.totalExperience == (undefined || 0)
                     ? "Fresher"
-                    : `${response?.totalExperience} Years`}
+                    : `NA`}
                 </p>
               </div>
             </div>

@@ -3,6 +3,7 @@ import React from "react";
 import JobAlert from "Components/SearchJob/jobAlert";
 import RecentJob from "Components/SearchJob/recentJob";
 import SearchBlock from "Components/SearchJob/searchBlock";
+import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 const samplepage = () => {
   return (
     <Box
@@ -13,8 +14,8 @@ const samplepage = () => {
         justifyContent: "space-between",
         justifyContent: "center",
         background: "#F3F5F8",
-        px: {xs:".8rem", sm: "2rem", md: "5rem" },
-        height:{xs:"auto",lg:"100vh"}
+        px: { xs: ".8rem", sm: "2rem", md: "5rem" },
+        height: { xs: "auto", lg: "100vh" },
       }}
     >
       <Grid container spacing={3}>
@@ -32,4 +33,4 @@ const samplepage = () => {
   );
 };
 
-export default samplepage;
+export default withConsultantAuth(samplepage);

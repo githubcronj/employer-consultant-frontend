@@ -22,6 +22,7 @@ function* sendResumeData(action) {
   formData.append("jobRole", action.payload.data.personalDetails.text);
   const imageFile = action.payload.data.personalDetails.image;
   formData.append("image", imageFile, imageFile.name);
+  formData.append("totalExperience", action.payload.data.personalDetails.totalExperience);
   
   action.payload.data.education.forEach((education, index) => {
     Object.entries(education).forEach(([key, value]) => {

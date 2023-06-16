@@ -4,6 +4,7 @@ import { Avatar, Box, Divider, Grid, Typography } from "@mui/material";
 import resume from "../../public/Assets/resumeTemplate.png";
 import { CalendarView } from "Components/ViewConsultantDetails/CalendarView";
 import ProjectType from "Components/ViewConsultantDetails/ProjectType";
+import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 const ViewDetails = () => {
   return (
     <div>
@@ -45,11 +46,17 @@ const ViewDetails = () => {
               >
                 <CalendarView />
               </Grid>
-              <Grid item xs={12}  md={4} lg={5} xl={4} sx={{margin:"auto"}}>
-                <Image style={{margin:"auto"}} src={resume} alt="resume" width={485} height={683} />
+              <Grid item xs={12} md={4} lg={5} xl={4} sx={{ margin: "auto" }}>
+                <Image
+                  style={{ margin: "auto" }}
+                  src={resume}
+                  alt="resume"
+                  width={485}
+                  height={683}
+                />
               </Grid>
               <Grid item xs={12} md={4} lg={4} xl={4}>
-               <ProjectType/>
+                <ProjectType />
               </Grid>
             </Grid>
           </Box>
@@ -59,4 +66,4 @@ const ViewDetails = () => {
   );
 };
 
-export default ViewDetails;
+export default withEmployerAuth(ViewDetails);

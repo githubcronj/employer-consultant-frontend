@@ -10,6 +10,7 @@ import {
   submitJobFormData,
 } from "store/action/editJobPostAction";
 import { GET_JOB_REQUEST } from "store/type/getjobType";
+import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 
 const EditJobPost = () => {
   const dispatch = useDispatch();
@@ -91,7 +92,7 @@ const EditJobPost = () => {
 
   const renderErrorMessage = (fieldName) => {
     if (errors[fieldName]) {
-      return <p className='text-red-500 text-xs'>{errors[fieldName]}</p>;
+      return <p className="text-red-500 text-xs">{errors[fieldName]}</p>;
     }
     return null;
   };
@@ -227,33 +228,33 @@ const EditJobPost = () => {
     }
   }, [finaldata?.length > 0]);
   return (
-    <div className='bg-[#2B373C1C] py-4 px-2 sm:px-4'>
-      <div className='bg-white'>
-        <div className='md:flex justify-between items-center mx-5 sm:mx-9 py-1'>
-          <div className='my-3 flex gap-6'>
+    <div className="bg-[#2B373C1C] py-4 px-2 sm:px-4">
+      <div className="bg-white">
+        <div className="md:flex justify-between items-center mx-5 sm:mx-9 py-1">
+          <div className="my-3 flex gap-6">
             <Link href={`/viewjobpost/${id}`}>
               <Image
-                src='/Assets/backbtn.svg'
-                alt='back button'
+                src="/Assets/backbtn.svg"
+                alt="back button"
                 width={35}
                 height={35}
-                className='cursor-pointer'
+                className="cursor-pointer"
               />
             </Link>
-            <p className='text-lg sm:text-2xl font-bold'>Edit Job Post</p>
+            <p className="text-lg sm:text-2xl font-bold">Edit Job Post</p>
           </div>
-          <div className='sm:flex gap-2 sm:gap-5'>
+          <div className="sm:flex gap-2 sm:gap-5">
             <div>
               <button
                 onClick={handleSave}
-                className='px-11 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3'
+                className="px-11 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3"
               >
                 Save
               </button>
             </div>
             <div>
               <Link href={`/viewjobpost/${id}`}>
-                <button className='px-8 py-3 bg-white border border-red-500 text-red-500 rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3'>
+                <button className="px-8 py-3 bg-white border border-red-500 text-red-500 rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
                   Cancel
                 </button>
               </Link>
@@ -261,21 +262,21 @@ const EditJobPost = () => {
           </div>
         </div>
         {/* form section */}
-        <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 mx-3 lg:mx-20 lg:px-10 xl:px-20 py-8 my-3'>
-          <div className='relative'>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mx-3 lg:mx-20 lg:px-10 xl:px-20 py-8 my-3">
+          <div className="relative">
             <label
-              className='absolute top-[-8px] left-0 ml-2 mt-px  bg-white px-1 text-[#1E0F3B] text-xs font-bold'
-              for='jobTitle'
+              className="absolute top-[-8px] left-0 ml-2 mt-px  bg-white px-1 text-[#1E0F3B] text-xs font-bold"
+              for="jobTitle"
             >
               Job Title
             </label>
             <input
-              type='text'
-              id='jobTitle'
-              placeholder='UX Designer'
+              type="text"
+              id="jobTitle"
+              placeholder="UX Designer"
               style={errors.jobTitle ? { borderColor: "red" } : {}}
               required
-              className='py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full'
+              className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
               value={editJobPostData.jobTitle}
               onChange={handleChange}
             />
@@ -284,9 +285,9 @@ const EditJobPost = () => {
           {/* old experience*/}
           {/* <div>
             <select
-              id='experience'
+              id="experience"
               required
-              className='py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select '
+              className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select "
               style={{
                 WebkitAppearance: "none",
                 MozAppearance: "none",
@@ -301,10 +302,10 @@ const EditJobPost = () => {
               value={editJobPostData.experience}
               onChange={handleChange}
             >
-              <option value=''>Experience</option>
-              <option value='1'>1 year</option>
-              <option value='2'>2 year</option>
-              <option value='3'>3 year</option>
+              <option value="">Experience</option>
+              <option value="1">1 year</option>
+              <option value="2">2 year</option>
+              <option value="3">3 year</option>
             </select>
             {renderErrorMessage("experience")}
           </div> */}
@@ -361,10 +362,10 @@ const EditJobPost = () => {
 
 
           <div>
-            <div className='relative flex items-center'>
+            <div className="relative flex items-center">
               <DatePicker
-                id='deadline'
-                placeholderText='Application Deadline'
+                id="deadline"
+                placeholderText="Application Deadline"
                 required
                 className={`block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
                   errors.deadline ? "border-red-500" : ""
@@ -377,15 +378,15 @@ const EditJobPost = () => {
                 onChange={handleDateChange}
               />
               <label
-                for='deadline'
-                className='absolute hidden my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                for="deadline"
+                className="absolute hidden my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Founded In{" "}
               </label>
               <img
-                src='/Assets/calendar.svg'
-                alt='calendar'
-                className='absolute right-2'
+                src="/Assets/calendar.svg"
+                alt="calendar"
+                className="absolute right-2"
                 onClick={() => document.getElementById("deadline").click()}
               />{" "}
             </div>
@@ -395,9 +396,9 @@ const EditJobPost = () => {
 
           <div>
             <select
-              id='jobType'
+              id="jobType"
               required
-              className='py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select'
+              className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select"
               style={{
                 WebkitAppearance: "none",
                 MozAppearance: "none",
@@ -412,74 +413,74 @@ const EditJobPost = () => {
               value={editJobPostData.jobType}
               onChange={handleChange}
             >
-              <option value=''>Job Type</option>
-              <option value='full-time'>Full time</option>
-              <option value='part-time'>Part time</option>
-              <option value='contract'>Contract</option>
-              <option value='freelance'>Freelance</option>
-              <option value='temporary'>Temporary</option>
-              <option value='internship'>Internship</option>
+              <option value="">Job Type</option>
+              <option value="full-time">Full time</option>
+              <option value="part-time">Part time</option>
+              <option value="contract">Contract</option>
+              <option value="freelance">Freelance</option>
+              <option value="temporary">Temporary</option>
+              <option value="internship">Internship</option>
             </select>
             {renderErrorMessage("jobType")}
           </div>
 
           {/*  salary starts here  */}
-          <div className='relative sm:col-span-2'>
+          <div className="relative sm:col-span-2">
             <div
-              className='absolute top-[-8px] left-0 ml-2 mt-px  bg-white px-1 text-[#1E0F3B] text-xs font-bold'
-              for='jobTitle'
+              className="absolute top-[-8px] left-0 ml-2 mt-px  bg-white px-1 text-[#1E0F3B] text-xs font-bold"
+              for="jobTitle"
             >
               Salary
             </div>
-            <div className='py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full grid grid-cols-1 md:grid-cols-2'>
-              <div className='my-3 md:my-0'>
-                <ul className='justify-center md:justify-normal flex gap-3 sm:gap-8 md:gap-3 items-center'>
+            <div className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full grid grid-cols-1 md:grid-cols-2">
+              <div className="my-3 md:my-0">
+                <ul className="justify-center md:justify-normal flex gap-3 sm:gap-8 md:gap-3 items-center">
                   <li>
-                    <div className='flex'>
+                    <div className="flex">
                       <input
-                        type='checkbox'
-                        id='hourly'
+                        type="checkbox"
+                        id="hourly"
                         checked={selectedButton === "hourly"}
                         onChange={handleSalaryButton}
-                        className='peer hidden'
+                        className="peer hidden"
                       />
                       <label
-                        for='hourly'
-                        className='select-none cursor-pointer rounded-lg bg-gray-200 py-5 text-md sm:text-lg px-3 sm:px-6 text-gray-700 transition-colors duration-200 ease-in-out peer-checked:bg-[#5E9AF8] peer-checked:text-white peer-checked:border-0 '
+                        for="hourly"
+                        className="select-none cursor-pointer rounded-lg bg-gray-200 py-5 text-md sm:text-lg px-3 sm:px-6 text-gray-700 transition-colors duration-200 ease-in-out peer-checked:bg-[#5E9AF8] peer-checked:text-white peer-checked:border-0 "
                       >
                         Hourly
                       </label>
                     </div>
                   </li>
                   <li>
-                    <div className='flex'>
+                    <div className="flex">
                       <input
-                        type='checkbox'
-                        id='monthly'
-                        className='peer hidden'
+                        type="checkbox"
+                        id="monthly"
+                        className="peer hidden"
                         checked={selectedButton === "monthly"}
                         onChange={handleSalaryButton}
                       />
                       <label
-                        for='monthly'
-                        className='select-none cursor-pointer rounded-lg bg-gray-200 py-5 text-md sm:text-lg px-3 sm:px-5 text-gray-700 transition-colors duration-200 ease-in-out peer-checked:bg-[#5E9AF8] peer-checked:text-white peer-checked:border-0'
+                        for="monthly"
+                        className="select-none cursor-pointer rounded-lg bg-gray-200 py-5 text-md sm:text-lg px-3 sm:px-5 text-gray-700 transition-colors duration-200 ease-in-out peer-checked:bg-[#5E9AF8] peer-checked:text-white peer-checked:border-0"
                       >
                         Monthly
                       </label>
                     </div>
                   </li>
                   <li>
-                    <div className='flex'>
+                    <div className="flex">
                       <input
-                        type='checkbox'
-                        id='yearly'
-                        className='peer hidden'
+                        type="checkbox"
+                        id="yearly"
+                        className="peer hidden"
                         checked={selectedButton === "yearly"}
                         onChange={handleSalaryButton}
                       />
                       <label
-                        for='yearly'
-                        className='select-none cursor-pointer rounded-lg bg-gray-200 py-5 text-md sm:text-lg px-4 sm:px-7 text-gray-700 transition-colors duration-200 ease-in-out peer-checked:bg-[#5E9AF8] peer-checked:text-white peer-checked:border-0 '
+                        for="yearly"
+                        className="select-none cursor-pointer rounded-lg bg-gray-200 py-5 text-md sm:text-lg px-4 sm:px-7 text-gray-700 transition-colors duration-200 ease-in-out peer-checked:bg-[#5E9AF8] peer-checked:text-white peer-checked:border-0 "
                       >
                         Yearly
                       </label>
@@ -488,13 +489,13 @@ const EditJobPost = () => {
                 </ul>
               </div>
               {/* min max */}
-              <div className='flex gap-3 justify-evenly md:justify-normal'>
+              <div className="flex gap-3 justify-evenly md:justify-normal">
                 {/* min */}
-                <div className='relative'>
+                <div className="relative">
                   <input
-                    type='text'
-                    id='minSalary'
-                    placeholder=' '
+                    type="text"
+                    id="minSalary"
+                    placeholder=" "
                     style={errors.minSalary ? { borderColor: "red" } : {}}
                     required
                     className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
@@ -504,19 +505,19 @@ const EditJobPost = () => {
                   />
 
                   <label
-                    for='minSalary'
-                    className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                    for="minSalary"
+                    className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
                   >
                     Min
                   </label>
                   {renderErrorMessage("minSalary")}
                 </div>
                 {/* max */}
-                <div className='relative'>
+                <div className="relative">
                   <input
-                    type='text'
-                    id='maxSalary'
-                    placeholder=' '
+                    type="text"
+                    id="maxSalary"
+                    placeholder=" "
                     required
                     style={errors.maxSalary ? { borderColor: "red" } : {}}
                     className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
@@ -526,8 +527,8 @@ const EditJobPost = () => {
                   />
 
                   <label
-                    for='maxSalary'
-                    className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                    for="maxSalary"
+                    className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
                   >
                     Max
                   </label>
@@ -540,20 +541,20 @@ const EditJobPost = () => {
           {/* salary ends here */}
 
           {/* jd */}
-          <div className='sm:col-span-2 relative'>
+          <div className="sm:col-span-2 relative">
             <textarea
-              type='text'
-              id='description'
-              placeholder=' '
+              type="text"
+              id="description"
+              placeholder=" "
               required
               style={errors.description ? { borderColor: "red" } : {}}
-              className='block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
+              className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               value={editJobPostData.description}
               onChange={handleChange}
             />
             <label
-              for='description'
-              className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+              for="description"
+              className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
             >
               Job Description
             </label>
@@ -561,11 +562,11 @@ const EditJobPost = () => {
           </div>
           {/* jd ends here */}
           {/* email */}
-          <div className='relative'>
+          <div className="relative">
             <input
-              type='text'
-              id='email'
-              placeholder=' '
+              type="text"
+              id="email"
+              placeholder=" "
               required
               style={errors.email ? { borderColor: "red" } : {}}
               className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
@@ -575,8 +576,8 @@ const EditJobPost = () => {
             />
 
             <label
-              htmlFor='email'
-              className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+              htmlFor="email"
+              className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
             >
               Email
             </label>
@@ -584,11 +585,11 @@ const EditJobPost = () => {
             {renderErrorMessage("email")}
           </div>
           {/* phone number */}
-          <div className='relative'>
+          <div className="relative">
             <input
-              type='number'
-              id='phoneNumber'
-              placeholder=' '
+              type="number"
+              id="phoneNumber"
+              placeholder=" "
               required
               //   minlength="10"
               //   maxlength="12"
@@ -600,8 +601,8 @@ const EditJobPost = () => {
             />
 
             <label
-              for='phoneNumber'
-              className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+              for="phoneNumber"
+              className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
             >
               Phone Number
             </label>
@@ -614,4 +615,4 @@ const EditJobPost = () => {
   );
 };
 
-export default EditJobPost;
+export default withEmployerAuth(EditJobPost);
