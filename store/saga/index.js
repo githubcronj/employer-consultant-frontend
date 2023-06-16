@@ -23,7 +23,7 @@ import watchApplyJob from "./applyJobSaga";
 import watchcancelJob from "./cancelJobSaga";
 import watchSavelJob from "./saveJobSaga";
 import watchAppliedJob from "./appliedJobSaga";
-
+import {watchAppliedConsultantSaga} from "./fetchAppliedConsultantsaga"
 export default function* rootSaga() {
   yield all([
     watchLogin(),
@@ -49,6 +49,7 @@ export default function* rootSaga() {
     watchApplyJob(),
     watchcancelJob(),
     watchSavelJob(),
-    watchAppliedJob()
+    watchAppliedJob(),
+    watchAppliedConsultantSaga(),
   ]);
 }

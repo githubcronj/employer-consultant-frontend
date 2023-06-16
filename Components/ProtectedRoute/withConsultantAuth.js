@@ -1,11 +1,13 @@
 import ProtectedRoute from './ProtectedRoute';
 
 const withConsultantAuth = (WrappedComponent) => {
-  return (props) => (
+  const ComponentWithConsultantAuth = (props) => (
     <ProtectedRoute role="consultant">
-      <WrappedComponent {...props} />
-    </ProtectedRoute>
+    <WrappedComponent {...props} />
+  </ProtectedRoute>
   );
+  return ComponentWithConsultantAuth;
 };
 
 export default withConsultantAuth;
+

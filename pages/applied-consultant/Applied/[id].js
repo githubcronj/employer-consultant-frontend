@@ -4,18 +4,18 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import Popoverr from "Components/PopOver/popOver";
-import {cardData} from "../../Components/Cards/ConsultantsCard";
+import {cardData} from "../../../Components/Cards/ConsultantsCard";
 import ConsultantCard from "Components/Cards/ConsultantsCard";
 import Link from 'next/link';
 import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { FETCH_APPLIED_CONSULTANT_SUCCESS } from "store/type/fetchAppliedConsultantType";
-import { fetchAppliedConsultantRequest } from '../../store/action/fetchAppliedConsultantAction';
+import { FETCH_APPLIED_CONSULTANT_REQUEST, FETCH_APPLIED_CONSULTANT_SUCCESS } from "store/type/fetchAppliedConsultantType";
+import { fetchAppliedConsultantRequest } from '../../../store/action/fetchAppliedConsultantAction';
 
 const AppliedConsultant = () => {
  
   const router = useRouter();
-
+const id = router.query;
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
@@ -28,11 +28,11 @@ const AppliedConsultant = () => {
   const backClicked = () => {
     router.push("/");
   };
- 
+   const appliedjobData = useSelector((state) => state.fetchappliedConsultantReducer.fetchappliedconsultantData);
   const getToken = () => {
           if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
             const storedData = localStorage.getItem("CurrentUser");
-            console.log(storedData,"storedsata");
+            
             const tokenset = JSON.parse(storedData);
             return tokenset?.token?.accessToken;
           
@@ -40,18 +40,25 @@ const AppliedConsultant = () => {
         };
 
         const accessToken = getToken();
-        console.log(accessToken," I AM accesstoken")
+        
+        const payload = {
+          jobId:id,
+          accessToken:accessToken
+        }
+       
+//   useEffect(() => {
+      
+//           dispatch(fetchAppliedConsultantRequest(payload.jobId ,payload.accessToken ));
+//           dispatch({ type: GET_JOB_REQUEST, payload: filterParams, accessToken: finaltoken });
+//   }, []);
   useEffect(() => {
-          const accessToken = getToken();
-          console.log(accessToken,"I AM ACCESSTOKEN")
-          dispatch(fetchAppliedConsultantRequest(accessToken));
-  }, []);
+      
+        
+          // dispatch({ type:FETCH_APPLIED_CONSULTANT_REQUEST, payload});
+          dispatch({ type: FETCH_APPLIED_CONSULTANT_REQUEST, payload:id, accessToken });
+        }, [id]);
 
-  const response = useSelector(
-    (state) => state?.getjobReducer?.CurrentUser
-  );
 
-console.log(response,"response")
 
   const handleCardClick = (id) => {
     setSelectedCard(id);
