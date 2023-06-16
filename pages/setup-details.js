@@ -566,7 +566,7 @@ const Setupdetails = () => {
               <div>
                 <input
                   type="number"
-                  id="role"
+                  id="totalExperience"
                   placeholder="Total year of Experience"
                   required
                   className={`py-5 px-4 border rounded-[10px] ${
