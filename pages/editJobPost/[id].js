@@ -51,13 +51,16 @@ const EditJobPost = () => {
   const [isFieldChanged, setIsFieldChanged] = useState(false);
   const [editJobPostData, setEditJobPostData] = useState({
     jobTitle: "",
-    experience: "",
+    // experience: "",
+    minExp: "",
+    maxExp: "",
     deadline: "",
     jobType: "",
     minSalary: "",
     maxSalary: "",
     description: "",
     email: "",
+    salary: "",
     phoneNumber: "",
   });
 
@@ -96,6 +99,10 @@ const EditJobPost = () => {
 
   const handleSalaryButton = (e) => {
     setSelectedButton(e.target.id);
+    setEditJobPostData((prevValues) => ({
+      ...prevValues,
+      salary: e.target.id,
+    }));
   };
   const handleDateChange = (date) => {
     const year = date.getFullYear();
@@ -132,11 +139,14 @@ const EditJobPost = () => {
     const requiredFields = [
       "jobTitle",
       "experience",
+      "minExp",
+      "maxExp",
       "deadline",
       "jobType",
       "minSalary",
       "maxSalary",
       "description",
+      // "salary",
       "email",
       "phoneNumber",
     ];
@@ -164,12 +174,15 @@ const EditJobPost = () => {
       dispatch(submitJobFormData(editJobPostData, data, id));
       const initialJobPostData = {
         jobTitle: "",
-        experience: "",
+        // experience: "",
+        minExp: "",
+        maxExp: "",
         deadline: "",
         jobType: "",
         minSalary: "",
         maxSalary: "",
         description: "",
+        salary: "",
         email: "",
         phoneNumber: "",
       };
@@ -184,25 +197,31 @@ const EditJobPost = () => {
     if (finaldata) {
       const {
         jobTitle,
-        experience,
+        // experience,
+        minExp,
+        maxExp,
         deadline,
         jobType,
         minSalary,
         maxSalary,
         description,
         email,
+        salary,
         phoneNumber,
       } = finaldata[0];
 
       setEditJobPostData({
         jobTitle,
-        experience,
+        // experience,
+        minExp,
+        maxExp,
         deadline,
         jobType,
         minSalary,
         maxSalary,
         description,
         email,
+        salary,
         phoneNumber,
       });
     } else {
@@ -263,8 +282,8 @@ const EditJobPost = () => {
             />
             {renderErrorMessage("jobTitle")}
           </div>
-          {/*  */}
-          <div>
+          {/* old experience*/}
+          {/* <div>
             <select
               id="experience"
               required
@@ -289,8 +308,59 @@ const EditJobPost = () => {
               <option value="3">3 year</option>
             </select>
             {renderErrorMessage("experience")}
+          </div> */}
+          {/* old experience ends here */}
+
+          {/* min max */}
+          <div className='flex gap-3 justify-evenly md:justify-normal'>
+            {/* min */}
+            <div className='relative'>
+              <input
+                type='text'
+                id='minExp'
+                placeholder=' '
+                style={errors.minExp ? { borderColor: "red" } : {}}
+                required
+                className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                `}
+                value={editJobPostData.minExp}
+                onChange={handleChange}
+              />
+
+              <label
+                for='minExp'
+                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+              >
+                Minimum Experience
+              </label>
+              {renderErrorMessage("minExp")}
+            </div>
+            {/* max */}
+            <div className='relative'>
+              <input
+                type='text'
+                id='maxExp'
+                placeholder=' '
+                required
+                style={errors.maxExp ? { borderColor: "red" } : {}}
+                className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                        `}
+                value={editJobPostData.maxExp}
+                onChange={handleChange}
+              />
+
+              <label
+                for='maxExp'
+                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+              >
+                Maximum Experience
+              </label>
+              {renderErrorMessage("maxExp")}
+            </div>
           </div>
-          {/*  */}
+          {/* min max ends here */}
+
+
           <div>
             <div className="relative flex items-center">
               <DatePicker
