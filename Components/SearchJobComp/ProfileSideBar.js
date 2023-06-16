@@ -119,7 +119,7 @@ const ProfileSideBar = ({ data }) => {
             />
           </Button>
         </Link>
-
+        <Link href="/consultant-interview">
         <Button
           style={{
             backgroundColor: "red",
@@ -139,6 +139,7 @@ const ProfileSideBar = ({ data }) => {
             style={{ marginLeft: "0.5rem" }}
           />
         </Button>
+        </Link>
       </Box>
     </Paper>
   );
