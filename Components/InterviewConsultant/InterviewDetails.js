@@ -22,7 +22,7 @@ export const data1 = [
     title: "Full Time",
   },
   {
-    tagImg: "/Assets/exp4.svg",
+    tagImg: "/Assets/exp5.svg",
     title: "Silicon valley",
   },
 ];
