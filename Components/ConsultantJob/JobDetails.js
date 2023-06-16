@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { appliedJobSuccess } from "store/action/applyJobAction";
+import { SAVE_JOB_SUCCESS } from "store/type/applyJobType";
 
 const JobDetails = ({ detail }) => {
   const dispatch = useDispatch();
@@ -24,6 +25,11 @@ const JobDetails = ({ detail }) => {
   useEffect(() => {
     dispatch(appliedJobSuccess(finaltoken));
   }, []);
+
+  const saveData = () => {
+    const payload = { jobId: jobData?._id, finaltoken };
+    dispatch({ type: SAVE_JOB_SUCCESS, payload });
+  };
 
   const finalData = jobData?.filter((index, item) => index?._id == detail);
   console.log("final", finalData);
@@ -225,6 +231,7 @@ const JobDetails = ({ detail }) => {
             }}
           >
             <Image
+              onClick={saveData}
               src='/Assets/savebtn.svg'
               alt='profile'
               height={54}
