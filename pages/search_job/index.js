@@ -1,6 +1,6 @@
 import { Box, Paper, Grid } from "@mui/material";
 import { useSession } from "next-auth/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import JobSearchResultData from "../../Components/SearchJobComp/JobSearchResultData";
 import NotificationSideBar from "../../Components/SearchJobComp/NotificationSideBar";
 import ProfileSideBar from "../../Components/SearchJobComp/ProfileSideBar";
@@ -8,11 +8,17 @@ import JobAlert from "Components/SearchJob/jobAlert";
 import RecentJob from "Components/SearchJob/recentJob";
 import SearchBlock from "Components/SearchJob/searchBlock";
 import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
-
+import { fetchRecommendJobs } from "../../store/action/recommandedJobAction";
+import { useDispatch, useSelector } from "react-redux";
 const SearchJob = () => {
   const { data: session } = useSession();
+  const dispatch = useDispatch();
   const [showBox1, setShowBox1] = useState(true);
-
+  const [recommandvalue, setRecommanddata] = useState(false);
+  const recommanddata = useSelector((state) => state?.jobsReducer?.isgetdata);
+  useEffect(() => {
+    setRecommanddata(recommanddata);
+  }, [recommanddata]);
   const handleBox1Click = () => {
     setShowBox1(!showBox1);
   };
@@ -28,10 +34,27 @@ const SearchJob = () => {
       [name]: value,
     }));
   };
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+  const finaltoken = getToken();
 
   const searchSubmitHandler = () => {
-    alert(JSON.stringify(searchData));
+    dispatch(fetchRecommendJobs(searchData, finaltoken));
   };
+  useEffect(() => {
+    if (recommandvalue) {
+      setSearchData({
+        jobTitle: "",
+        location: "",
+      });
+    }
+  }, [recommandvalue]);
   return (
     <>
       {showBox1 ? (
@@ -55,7 +78,11 @@ const SearchJob = () => {
             }}
           >
             <ProfileSideBar data={session} />
-            <JobSearchResultData handleBox1Click={handleBox1Click} />
+            <JobSearchResultData
+              searchOnChangeHandler={searchOnChangeHandler}
+              searchSubmitHandler={searchSubmitHandler}
+              searchData={searchData}
+            />
             <NotificationSideBar />
           </Box>
         </Box>
@@ -84,7 +111,8 @@ const SearchJob = () => {
                 <SearchBlock
                   searchOnChangeHandler={searchOnChangeHandler}
                   searchSubmitHandler={searchSubmitHandler}
-                  handleBox1Click={handleBox1Click}
+                  // handleBox1Click={handleBox1Click}
+                  searchData={searchData}
                 />
               </Grid>
               <Grid item xs={12} lg={3} sx={{ marginTop: "4rem" }}>
@@ -99,7 +127,6 @@ const SearchJob = () => {
                 <SearchBlock
                   searchOnChangeHandler={searchOnChangeHandler}
                   searchSubmitHandler={searchSubmitHandler}
-                  handleBox1Click={handleBox1Click}
                 />
               </Grid>
               <Grid item xs={12} lg={3} sx={{ marginTop: "4rem" }}>

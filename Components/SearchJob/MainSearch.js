@@ -39,13 +39,15 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
   };
 
   useEffect(() => {
-    const isJobApplied = appliedJobData.some((job) => job._id === finaldata[0]?._id);
-    
-    if(isJobApplied){
-      setShowApply(false)
-    }else
-    {
-      setShowApply(true)
+    console.log("datata", finaldata);
+    const isJobApplied = appliedJobData.some(
+      (job) => job._id === finaldata[0]?._id
+    );
+
+    if (isJobApplied) {
+      setShowApply(false);
+    } else {
+      setShowApply(true);
     }
   }, [appliedJobData, finaldata]);
 
@@ -55,14 +57,14 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
   //   setShowApply(isJobApplied => !isJobApplied);
 
   // };
-  
+
   const handleCancel = () => {
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: CANCEL_JOB_SUCCESS, payload });
-  
+
     setShowApply(true);
   };
-  
+
   const saveData = () => {
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: SAVE_JOB_SUCCESS, payload });
@@ -79,7 +81,7 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
               }`}
             >
               <img
-                src={google.src}
+                src={finaldata[0]?.logo}
                 alt="googleIcon"
                 className="w-[63px] h-[63px] "
               />

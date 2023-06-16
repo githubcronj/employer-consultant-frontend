@@ -7,7 +7,11 @@ import suitCase from "../../asset/icons/suitcase.svg";
 import Image from "next/image";
 import locationIcon from "../../asset/icons/location.svg";
 import styles from "../../styles/LoginPage.module.css";
-const SearchJobInput = ({ handleBox1Click }) => {
+const SearchJobInput = ({
+  searchOnChangeHandler,
+  searchSubmitHandler,
+  searchData,
+}) => {
   return (
     <Paper
       component="form"
@@ -22,7 +26,8 @@ const SearchJobInput = ({ handleBox1Click }) => {
       <InputBase
         name="jobTitle"
         className={`${styles.searchbox1}`}
-        onClick={handleBox1Click}
+        onChange={searchOnChangeHandler}
+        value={searchData?.jobTitle}
         sx={{
           flex: 1,
           alignItems: "center",
@@ -48,8 +53,9 @@ const SearchJobInput = ({ handleBox1Click }) => {
 
       <InputBase
         name="location"
-        onClick={handleBox1Click}
+        onChange={searchOnChangeHandler}
         className={`${styles.searchbox2}`}
+        value={searchData?.location}
         sx={{
           flex: 1,
           alignItems: "center",
@@ -66,7 +72,7 @@ const SearchJobInput = ({ handleBox1Click }) => {
         endAdornment={
           <Button
             className={`${styles.searchbtn}`}
-            onClick={handleBox1Click}
+            onClick={searchSubmitHandler}
             style={{
               background: "red",
               padding: ".55rem 2rem",
@@ -80,7 +86,7 @@ const SearchJobInput = ({ handleBox1Click }) => {
       />
       <Button
         className={`${styles.searchbtn2}`}
-        onClick={handleBox1Click}
+        onClick={searchSubmitHandler}
         style={{
           background: "red",
           padding: ".55rem 1rem",

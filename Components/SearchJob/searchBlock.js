@@ -11,7 +11,7 @@ import styles from "../../styles/LoginPage.module.css";
 const SearchBlock = ({
   searchOnChangeHandler,
   searchSubmitHandler,
-  handleBox1Click,
+  searchData,
 }) => {
   return (
     <Box>
@@ -22,7 +22,7 @@ const SearchBlock = ({
           width={38}
           height={38}
           className="cursor-pointer"
-          onClick={handleBox1Click}
+          // onClick={handleBox1Click}
         />
         <Typography
           sx={{
@@ -52,6 +52,7 @@ const SearchBlock = ({
           autoFocus
           name="jobTitle"
           className={`${styles.searchbox1}`}
+          value={searchData?.jobTitle}
           onChange={searchOnChangeHandler}
           sx={{
             flex: 1,
@@ -80,6 +81,7 @@ const SearchBlock = ({
         <InputBase
           name="location"
           onChange={searchOnChangeHandler}
+          value={searchData?.location}
           className={`${styles.searchbox2}`}
           sx={{
             flex: 1,
@@ -113,7 +115,7 @@ const SearchBlock = ({
         />
         <Button
           className={`${styles.searchbtn2}`}
-          onClick={handleBox1Click}
+          // onClick={handleBox1Click}
           style={{
             background: "red",
             padding: ".55rem 1rem",

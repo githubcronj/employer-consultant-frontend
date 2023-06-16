@@ -3,7 +3,11 @@ import SearchJobInput from "Components/SearchJobComp/SearchJobInput";
 import React from "react";
 import JobSlider from "./JobSlider";
 
-const JobSearchResultData = ({ handleBox1Click }) => {
+const JobSearchResultData = ({
+  searchOnChangeHandler,
+  searchSubmitHandler,
+  searchData,
+}) => {
   return (
     <Box
       sx={{
@@ -13,7 +17,7 @@ const JobSearchResultData = ({ handleBox1Click }) => {
         padding: ".2rem 1rem",
         alignItems: "center",
         width: { xs: "100%", lg: "60%", xl: "100%" },
-        mb:{lg:"auto",xs:"2rem"}
+        mb: { lg: "auto", xs: "2rem" },
       }}
     >
       <Typography
@@ -26,7 +30,11 @@ const JobSearchResultData = ({ handleBox1Click }) => {
       >
         Search Job
       </Typography>
-      <SearchJobInput handleBox1Click={handleBox1Click} />
+      <SearchJobInput
+        searchOnChangeHandler={searchOnChangeHandler}
+        searchSubmitHandler={searchSubmitHandler}
+        searchData={searchData}
+      />
       <Paper
         elevation={0}
         sx={{
