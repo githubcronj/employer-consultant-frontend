@@ -5,6 +5,7 @@ const initialState = {
 };
 
 const applyJobReducer = (state = initialState, action) => {
+ 
   switch (action.type) {
     case types.JOB_SUCCESS:
       return {

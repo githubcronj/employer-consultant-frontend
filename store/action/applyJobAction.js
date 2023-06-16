@@ -42,6 +42,13 @@ export function saveJobError(error) {
   };
 }
 
+export function appliedJobRequest(payload) {
+  return {
+    type: types.APPLIED_JOB_REQUEST,
+    payload: payload,
+  };
+}
+
 export function appliedJobSuccess(payload) {
   return {
     type: types.APPLIED_JOB_SUCCESS,

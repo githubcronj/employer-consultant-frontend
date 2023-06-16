@@ -96,7 +96,7 @@ const ProfileSideBar = ({ data }) => {
           padding: { xs: "1rem" },
         }}
       >
-        <Link href="/consultant/applied-jobs">
+        <Link href="/consultant-applied-jobs/applied-jobs">
           <Button
             style={{
               backgroundColor: "red",

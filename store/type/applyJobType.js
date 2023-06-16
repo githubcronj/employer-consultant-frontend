@@ -1,5 +1,6 @@
 export const APPLY_JOB_SUCCESS = "APPLY_JOB_SUCCESS";
 export const APPLY_JOB_FAILURE = "APPLY_JOB_FAILURE";
+export const APPLY_JOB_REQUEST =  "APPLY_JOB_REQUEST"
 export const JOB_SUCCESS = "JOB_SUCCESS";//for reducer
 export const JOB_FAILURE = "JOB_FAILURE";//for reducer
 
@@ -15,6 +16,7 @@ export const SAVE_FAILURE = "SAVE_FAILURE";
 
 export const APPLIED_JOB_SUCCESS = "APPLIED_JOB_SUCCESS";
 export const APPLIED_JOB_FAILURE = "APPLIED_JOB_FAILURE";
+export const APPLIED_JOB_REQUEST = "APPLIED_JOB_REQUEST";
 export const APPLIED_SUCCESS = "APPLIED_SUCCESS";
 export const APPLIED_FAILURE = "APPLIED_FAILURE";
 
