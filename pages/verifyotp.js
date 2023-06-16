@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import withAuthRedirect from "Components/ProtectedRoute/WithAuthRedirect";
 const Verifyotp = () => {
   const [otp, setOtp] = useState("");
   const [inputOtpErr, setInputOtpErr] = useState("");

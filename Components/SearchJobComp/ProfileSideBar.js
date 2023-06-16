@@ -8,6 +8,7 @@ import { GET_PROFILE_REQUEST } from "store/type/viewProfileType";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { appliedJobSuccess } from "store/action/applyJobAction";
 
 const ProfileSideBar = ({ data }) => {
   const router = useRouter();
@@ -23,13 +24,18 @@ const ProfileSideBar = ({ data }) => {
   const payload = {
     token: getToken(),
   };
+  const finaltoken = getToken();
+
   useEffect(() => {
     dispatch({ type: GET_PROFILE_REQUEST, payload });
   }, []);
-  // console.log('payload',payload)
+  useEffect(() => {
+    dispatch(appliedJobSuccess(finaltoken));
+  }, []);
   const response = useSelector(
     (state) => state?.viewProfileReducer?.CurrentUser
   );
+  const jobData = useSelector((state) => state?.appliedJobReducer?.data);
   console.log("new response", response);
   return (
     <Paper
@@ -64,16 +70,16 @@ const ProfileSideBar = ({ data }) => {
         <Typography sx={{ fontWeight: "bold" }}>
           {response?.fullName}
         </Typography>
-        {response?.experience.map((item, index) => {
-          return (
-            <Typography
-              key={index}
-              sx={{ color: "#5E5E5E", fontSize: "14px", textAlign: "center" }}
-            >
-              {item?.jobPosition} &#8226; {response?.jobType}
-            </Typography>
-          );
-        })}
+        {/* {response?.experience.map((item, index) => { */}
+        {/* return ( */}
+        <Typography
+          // key={index}
+          sx={{ color: "#5E5E5E", fontSize: "14px", textAlign: "center" }}
+        >
+          {response?.jobRole}
+        </Typography>
+        {/* );
+        })} */}
 
         <Button
           onClick={() => router.push("/viewjobpost/cviewprofile")}
@@ -96,7 +102,7 @@ const ProfileSideBar = ({ data }) => {
           padding: { xs: "1rem" },
         }}
       >
-        <Link href="/consultant/applied-jobs">
+        <Link href="/consultant-applied-jobs/applied-jobs">
           <Button
             style={{
               backgroundColor: "red",
@@ -112,14 +118,14 @@ const ProfileSideBar = ({ data }) => {
             }}
           >
             Applied Job
-            <span style={{ marginLeft: "3rem" }}>13</span>
+            <span style={{ marginLeft: "3rem" }}>{jobData?.length}</span>
             <ArrowForwardIosIcon
               fontSize="small"
               style={{ marginLeft: "0.5rem" }}
             />
           </Button>
         </Link>
-
+        <Link href="/consultant-interview">
         <Button
           style={{
             backgroundColor: "red",
@@ -139,6 +145,7 @@ const ProfileSideBar = ({ data }) => {
             style={{ marginLeft: "0.5rem" }}
           />
         </Button>
+        </Link>
       </Box>
     </Paper>
   );

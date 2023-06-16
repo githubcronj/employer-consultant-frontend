@@ -24,31 +24,31 @@ const HeaderProfile = () => {
   }, [handleResize]);
 
   const editClick = () => {
-    router.push("/setup-details");
+    router.push("/search_job");
   };
   return (
     <div
       className={`justify-between xl:mt-[10px] lg:mt-[10px] md:mt-[10px] sm:mt-[10px]
-           pt-[11px] -mt-[4px] xl:pt-[10px] mb-6 
+           pt-[11px] -mt-[4px] xl:pt-[10px] mb-6
            lg:pt-[10px] md:pt-[10px] sm:pt-[10px] items-center mx-4 sm:mr-9 sm:ml-[10px] flex
            `}
       style={{ flexDirection: flexing ? "column" : "row" }}
     >
-      <div className='flex items-center gap-x-4 '>
+      <div className="flex items-center gap-x-4 ">
         <img
           src={backbtn.src}
-          alt='back button'
+          alt="back button"
           width={46}
           height={46}
-          className='cursor-pointer -ml-3'
+          className="cursor-pointer -ml-3"
           onClick={backClicked}
         />
-        <p className=' text-[26px] text-[#2B373C] sm:text-2xl font-bold'>
+        <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
           View Profile
         </p>
       </div>
       <button>
-        <img src={edit.src} className='cursor-pointer' onClick={editClick} />
+        <img src={edit.src} className="cursor-pointer" onClick={editClick} />
       </button>
     </div>
   );

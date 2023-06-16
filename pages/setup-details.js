@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { resumeDataFillingAction } from "store/action/resumeDataFillingAction";
 import Link from "next/link";
 import { RESUME_REQUEST } from "store/type/setupDetailsType";
+import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 const Setupdetails = () => {
   const router = useRouter();
   const [expanded, setExpanded] = React.useState(false);
@@ -39,13 +40,13 @@ const Setupdetails = () => {
       location: resumeFormData?.resumeData?.personalDetails?.location,
       text: resumeFormData?.resumeData?.personalDetails?.text,
       image: null,
+      totalExperience:""
     },
     education: [],
     experience: [],
     skill: [],
     project: [],
     certification: [],
-    totalExperience: "",
   });
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -83,6 +84,7 @@ const Setupdetails = () => {
         location: "Location",
         text: "Text",
         image: "Image",
+        totalExperience:"Experience"
       },
       education: "Education",
       experience: "Experience",
@@ -560,6 +562,23 @@ const Setupdetails = () => {
                   onChange={handleInputChange}
                 />
                 {renderErrorMessage("personalDetails.text")}
+              </div>
+              <div>
+                <input
+                  type="number"
+                  id="totalExperience"
+                  placeholder="Total year of Experience"
+                  required
+                  className={`py-5 px-4 border rounded-[10px] ${
+                    errors["personalDetails.totalExperience"]
+                      ? "border-red-500"
+                      : "border-[#D8D8DD]"
+                  } w-full`}
+                  name="personalDetails.totalExperience"
+                  value={resumeForm.personalDetails?.totalExperience || ""}
+                  onChange={handleInputChange}
+                />
+                {renderErrorMessage("personalDetails.totalExperience")}
               </div>
             </div>
           </form>
@@ -1057,5 +1076,4 @@ const Setupdetails = () => {
   );
 };
 
-export default Setupdetails;
-
+export default withConsultantAuth(Setupdetails);

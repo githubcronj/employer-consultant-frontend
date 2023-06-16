@@ -10,6 +10,7 @@ import {
 import { Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
+import withAuthRedirect from "Components/ProtectedRoute/WithAuthRedirect";
 
 const GoogleAuth = () => {
   const router = useRouter();
@@ -69,4 +70,4 @@ const GoogleAuth = () => {
   );
 };
 
-export default GoogleAuth;
+export default withAuthRedirect(GoogleAuth);

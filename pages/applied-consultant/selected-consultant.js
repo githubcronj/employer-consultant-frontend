@@ -7,7 +7,6 @@ import ConsultantCard, {
   cardData,
 } from "../../Components/Cards/ConsultantsCard";
 
-
 import Link from "next/link";
 
 import ConfirmationModal from "Components/Modals/ConfirmationModal";
@@ -15,26 +14,19 @@ import FeedbackModal from "Components/Modals/feedbackModal";
 import withAuth from "Components/ProtectedRoute/WithAuth";
 import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 
-const selectedConsultsnt = () => {
+const SelectedConsultant = () => {
   const router = useRouter();
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
 
-  const [shortlistMessage, setShortlistMessage] = useState(
-    `Shortlisted`
-  );
-  const [scheduledMessage, setScheduledMessage] = useState(
-    `Sheduled.`
-  );
+  const [shortlistMessage, setShortlistMessage] = useState(`Shortlisted`);
+  const [scheduledMessage, setScheduledMessage] = useState(`Sheduled.`);
 
-  const [invitationMessage, setInvitationMessage] = useState(
-    `Interview invited.`
-  );
+  const [invitationMessage, setInvitationMessage] =
+    useState(`Interview invited.`);
 
-  const [selectedMessage, setSelectedMessage] = useState(
-    `Selected.`)
-
+  const [selectedMessage, setSelectedMessage] = useState(`Selected.`);
 
   const [invitationClick, setinvitationClick] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
@@ -56,19 +48,18 @@ const selectedConsultsnt = () => {
   const handleCardClick = (id) => {
     setSelectedCard(id);
   };
-  const openviewFeedbackModal= () => {
+  const openviewFeedbackModal = () => {
     setModalOpen(true);
   };
   const openSelectConsultantModal = () => {
-    setModalOpen(true)
-  }
+    setModalOpen(true);
+  };
   const handleScheduleClick = (id) => {
     if (!shortlistedCards.includes(id)) {
       setShortlistedCards([...shortlistedCards, id]);
       const currentDate = new Date().toLocaleDateString("en-US");
       const message = `Add to schedule.\n${currentDate} `;
       setinvitationClick(message);
-    
     }
   };
 
@@ -87,7 +78,6 @@ const selectedConsultsnt = () => {
     );
     setShortlistedCards(updatedShortlistedCards);
     setinvitationClick(false);
-   
   };
   const [errors, setErrors] = useState({});
 
@@ -119,17 +109,15 @@ const selectedConsultsnt = () => {
   return (
     <div className=" grid lg:grid-cols-12 sm:grid-col-span-2 bg-[#2B373C1C] py-5 px-2 sm:px-2">
       <div className="lg:col-start-1 lg:col-end-12  sm:col-span-3">
-      <div className="grid lg:grid-cols-12  gap-4 mx-2 sm:mx-6 bg-white border px-4 py-4">
+        <div className="grid lg:grid-cols-12  gap-4 mx-2 sm:mx-6 bg-white border px-4 py-4">
           <div className="flex items-center lg:col-span-4 sm:col-span-2">
             <div>
               <p className="text-[26px] text-[#2B373C] sm:text-2xl font-bold">
-              Selected Consultant
+                Selected Consultant
               </p>
             </div>
           </div>
           <div className="  lg:col-span-5 sm:col-span-2">
-          
-     
             <div>
               <select
                 id="experience1"
@@ -155,10 +143,8 @@ const selectedConsultsnt = () => {
               </select>
             </div>
           </div>
-          <div className="lg:col-span-3">
-         
-          </div>
-                </div>
+          <div className="lg:col-span-3"></div>
+        </div>
         <div className="grid lg:grid-cols-12  gap-4 mx-2 sm:mx-6 bg-[#F9F6EE] border px-4 py-4">
           <div className="lg:col-span-4">
             <div className="relative w-full">
@@ -199,7 +185,6 @@ const selectedConsultsnt = () => {
               <p className=" text-[16px] text-[#2B373C]  font-bold">
                 {cardData.length} Selected Consultants
               </p>
-             
             </div>
             <div
               className="h-[550px] overflow-auto"
@@ -217,7 +202,6 @@ const selectedConsultsnt = () => {
                   shortlisted={shortlistedCards.includes(card.id)}
                   onClick={() => handleCardClick(card.id)}
                   onRemove={() => handleRemoveClick(card.id)}
-                 
                 >
                   {card.id === selectedCard && (
                     <div className="flex flex-col gap-y-4">
@@ -248,59 +232,46 @@ const selectedConsultsnt = () => {
             </div>
           </div>
           <div className=" flex flex-col  lg:justify-normal sm:justify-center py-6 px-3 lg:col-span-1 border-l lg:ml-12 sm:ml-0">
-
             <div className="flex items-center justify-center mt-2">
-                <div className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] lg:ml-[-50px] sm:ml-[0px]">
+              <div className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] lg:ml-[-50px] sm:ml-[0px]">
                 <div className="px-1 py-2">
-                <p className="font-bold ">
-                
-                {shortlistMessage}
-          
-              </p>
-              <p>  {new Date().toLocaleDateString("en-US")}</p>
+                  <p className="font-bold ">{shortlistMessage}</p>
+                  <p> {new Date().toLocaleDateString("en-US")}</p>
                 </div>
                 <div className="px-1 py-2">
-              <p  className="font-bold">
-
-                {scheduledMessage}
-               
-              </p>
-              <p>  {new Date().toLocaleDateString("en-US")}</p>
-              </div>
-              <div className="px-1 py-2">
-              <p  className="font-bold">
-                {invitationMessage}
-                
-              </p>
-              <p>  {new Date().toLocaleDateString("en-US")}</p>
-              </div>
-              <div className="px-1 py-2">
-              <p className="font-bold">
-                {selectedMessage}
-              </p>
-              <p>  {new Date().toLocaleDateString("en-US")}</p>
-              </div>
+                  <p className="font-bold">{scheduledMessage}</p>
+                  <p> {new Date().toLocaleDateString("en-US")}</p>
                 </div>
-              
+                <div className="px-1 py-2">
+                  <p className="font-bold">{invitationMessage}</p>
+                  <p> {new Date().toLocaleDateString("en-US")}</p>
+                </div>
+                <div className="px-1 py-2">
+                  <p className="font-bold">{selectedMessage}</p>
+                  <p> {new Date().toLocaleDateString("en-US")}</p>
+                </div>
+              </div>
             </div>
-        
-             
-            
-              
-            
-            
 
-          
-        
-            {yesClicked ? <Popoverr text={"View Feedback"}>
-              <button onClick={openviewFeedbackModal} className="flex justify-end px-3 py-3">
-                <img src="/Assets/viewFeedback.svg" alt="tick" />
-              </button>
-            </Popoverr> :     <Popoverr text={"Give feedback of consultant"}>
-              <button onClick={openSelectConsultantModal} className="flex justify-end px-3 py-3">
-                <img src="/Assets/feedback.svg" alt="tick" />
-              </button>
-            </Popoverr>}
+            {yesClicked ? (
+              <Popoverr text={"View Feedback"}>
+                <button
+                  onClick={openviewFeedbackModal}
+                  className="flex justify-end px-3 py-3"
+                >
+                  <img src="/Assets/viewFeedback.svg" alt="tick" />
+                </button>
+              </Popoverr>
+            ) : (
+              <Popoverr text={"Give feedback of consultant"}>
+                <button
+                  onClick={openSelectConsultantModal}
+                  className="flex justify-end px-3 py-3"
+                >
+                  <img src="/Assets/feedback.svg" alt="tick" />
+                </button>
+              </Popoverr>
+            )}
             <hr />
             <Popoverr text={"Chat with consultant"}>
               <button className="flex justify-end px-3 py-3">
@@ -313,12 +284,11 @@ const selectedConsultsnt = () => {
               </button>
             </Popoverr>
             <FeedbackModal
-               text={"Feedback"}
-               isOpen={modalOpen}
-               onClose={handleCloseModal}
-               onYes={handleYes}
-               
-               onNo={handleNo}
+              text={"Feedback"}
+              isOpen={modalOpen}
+              onClose={handleCloseModal}
+              onYes={handleYes}
+              onNo={handleNo}
             />
           </div>
         </div>
@@ -329,4 +299,4 @@ const selectedConsultsnt = () => {
   );
 };
 
-export default withEmployerAuth(selectedConsultsnt);
+export default withEmployerAuth(SelectedConsultant);

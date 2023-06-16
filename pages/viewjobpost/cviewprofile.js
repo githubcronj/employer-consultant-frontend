@@ -3,6 +3,7 @@ import HeaderProfile from "Components/viewProfile/headerProfile";
 import LeftProfile from "Components/viewProfile/leftProfile";
 import RightProfile from "Components/viewProfile/rightProfile";
 import { useEffect } from "react";
+import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 const ViewProfile = () => {
   const [flexing, setFlexing] = useState(false);
   const handleResize = () => {
@@ -16,16 +17,16 @@ const ViewProfile = () => {
     window.addEventListener("resize", handleResize);
   }, [handleResize]);
   return (
-    <div className='bg-[#2B373C1C] pt-1 px-3 sm:px-10 h-fit' >
-      <div >
+    <div className="bg-[#2B373C1C] pt-1 px-3 sm:px-10 h-fit">
+      <div>
         <HeaderProfile />
       </div>
       <div
-        className='flex bg-white'
+        className="flex bg-white"
         style={{
           flexDirection: flexing ? "column" : "row",
           scrollbarWidth: "none",
-          borderRadius:"10px"
+          borderRadius: "10px",
         }}
       >
         <LeftProfile />
@@ -34,4 +35,4 @@ const ViewProfile = () => {
     </div>
   );
 };
-export default ViewProfile;
+export default withConsultantAuth(ViewProfile);

@@ -26,12 +26,14 @@ function Layout(props) {
     "/cviewprofile",
     // "/samplepage",
     "/consultant/applied-jobs",
+    "/consultant-applied-jobs/applied-jobs",
     // "/jobsearch-details",
     "/resume-created",
     "/job-apply-search/",
     "/googleAuth",
     "/viewjobpost/cviewprofile",
     "/reset-password",
+    "/consultant-interview"
   ].includes(pathname);
   const onlyNav = ["/viewProfileCon"];
 
