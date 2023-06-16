@@ -131,7 +131,7 @@ const ViewProfile = () => {
                       alt="edit"
                       className="mr-2"
                     />
-                    <span className="font-semibold font-ProductSans">EDIT</span>
+                    <span className="font-semibold">EDIT</span>
                   </button>
                 </div>
 
@@ -145,9 +145,7 @@ const ViewProfile = () => {
                       alt="edit"
                       className="mr-2"
                     />
-                    <span className="font-semibold font-ProductSans">
-                      DELETE
-                    </span>
+                    <span className="font-semibold">DELETE</span>
                   </button>
                 </div>
               </div>
