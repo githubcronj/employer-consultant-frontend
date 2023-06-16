@@ -1,11 +1,13 @@
 import ProtectedRoute from './ProtectedRoute';
 
 const withEmployerAuth = (WrappedComponent) => {
-  return (props) => (
+  const ComponentWithEmployerAuth = (props) => (
     <ProtectedRoute role="employer">
       <WrappedComponent {...props} />
     </ProtectedRoute>
   );
+
+  return ComponentWithEmployerAuth;
 };
 
 export default withEmployerAuth;
