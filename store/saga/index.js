@@ -23,6 +23,7 @@ import watchApplyJob from "./applyJobSaga";
 import watchcancelJob from "./cancelJobSaga";
 import watchSavelJob from "./saveJobSaga";
 import watchAppliedJob from "./appliedJobSaga";
+import watchSavedJob from "./savedJobSaga";
 import {watchAppliedConsultantSaga} from "./fetchAppliedConsultantsaga"
 import watchEditResumeProfile from "./editConsultantProfileSaga";
 export default function* rootSaga() {
@@ -51,6 +52,7 @@ export default function* rootSaga() {
     watchcancelJob(),
     watchSavelJob(),
     watchAppliedJob(),
+    watchSavedJob(),,
     watchAppliedConsultantSaga(),
     watchEditResumeProfile(),
   ]);
