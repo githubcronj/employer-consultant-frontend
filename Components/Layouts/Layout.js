@@ -27,6 +27,7 @@ function Layout(props) {
     // "/samplepage",
     "/consultant/applied-jobs",
     "/consultant-applied-jobs/applied-jobs",
+    "/consultant-saved-jobs/saved-jobs",
     // "/jobsearch-details",
     "/resume-created",
     "/job-apply-search/",

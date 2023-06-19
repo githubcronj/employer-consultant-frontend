@@ -35,6 +35,13 @@ const JobList = ({ setDetail}) => {
   // added
   const [selectedItemId, setSelectedItemId] = useState(null);
 
+  useEffect(() => {
+    if (jobData && jobData.length > 0) {
+      setSelectedItemId(jobData[0]._id); // Select the first item by default
+      setDetail(jobData[0]._id);
+    }
+  }, [jobData]);
+
   const handleItemClick = (itemId) => {
     setSelectedItemId(itemId);
     setDetail(itemId);

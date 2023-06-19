@@ -14,6 +14,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ForumIcon from "@mui/icons-material/Forum";
 import LayersIcon from "@mui/icons-material/Layers";
+import Link from "next/link";
 
 const NotificationSideBar = () => {
   return (
@@ -43,7 +44,7 @@ const NotificationSideBar = () => {
               </span>
             </span>
             <ArrowForwardIosIcon
-              fontSize="small"
+              fontSize='small'
               style={{ marginLeft: "0.5rem", color: "gray" }}
             />
           </Typography>
@@ -73,7 +74,7 @@ const NotificationSideBar = () => {
                 gap: "1rem",
               }}
             >
-              <Image src={spotify} alt="logo" width="32" height="32" />
+              <Image src={spotify} alt='logo' width='32' height='32' />
               <Typography
                 sx={{
                   position: "absolute",
@@ -103,16 +104,16 @@ const NotificationSideBar = () => {
                 <Image
                   style={{ position: "relative", zIndex: 1 }}
                   src={spotify}
-                  alt="logo"
-                  width="50"
-                  height="50"
+                  alt='logo'
+                  width='50'
+                  height='50'
                 />
                 <Image
                   style={{ position: "absolute", top: 0, left: ".4rem" }}
                   src={ellipse}
-                  alt="logo"
-                  width="50"
-                  height="50"
+                  alt='logo'
+                  width='50'
+                  height='50'
                 />
               </Box>
               <Typography
@@ -139,7 +140,7 @@ const NotificationSideBar = () => {
                 gap: "1rem",
               }}
             >
-              <Image src={spotify} alt="logo" width="32" height="32" />
+              <Image src={spotify} alt='logo' width='32' height='32' />
               <Typography
                 sx={{
                   position: "absolute",
@@ -169,16 +170,16 @@ const NotificationSideBar = () => {
                 <Image
                   style={{ position: "relative", zIndex: 1 }}
                   src={spotify}
-                  alt="logo"
-                  width="50"
-                  height="50"
+                  alt='logo'
+                  width='50'
+                  height='50'
                 />
                 <Image
                   style={{ position: "absolute", top: 0, left: ".4rem" }}
                   src={ellipse}
-                  alt="logo"
-                  width="50"
-                  height="50"
+                  alt='logo'
+                  width='50'
+                  height='50'
                 />
               </Box>
               <Typography
@@ -203,10 +204,10 @@ const NotificationSideBar = () => {
         </Box>
       </Paper>
       <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <Button
+        <Link href='/consultant-saved-jobs/saved-jobs'>
+         <Button
           style={{
             background: "white",
-
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -214,25 +215,27 @@ const NotificationSideBar = () => {
             textTransform: "none",
             fontSize: "16px",
             padding: "0.5rem 1rem",
+            width:'100%',
           }}
         >
-          <span
-            style={{
-              display: "flex",
-              justifyContent: "flex-start",
-              alignItems: "center",
-              gap: ".3rem",
-              color: "red",
-            }}
-          >
-            <BookmarkBorderIcon />
-            Saved Job{" "}
-          </span>
-          <ArrowForwardIosIcon
-            fontSize="small"
-            style={{ marginLeft: "0.5rem", color: "gray" }}
-          />
-        </Button>
+            <span
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                gap: ".3rem",
+                color: "red",
+              }}
+            >
+              <BookmarkBorderIcon />
+              Saved Job{" "}
+            </span>
+            <ArrowForwardIosIcon
+              fontSize='small'
+              style={{ marginLeft: "0.5rem", color: "gray" }}
+            />
+          </Button>
+        </Link>
         <Button
           style={{
             background: "white",
@@ -258,7 +261,7 @@ const NotificationSideBar = () => {
             Chat{" "}
           </span>
           <ArrowForwardIosIcon
-            fontSize="small"
+            fontSize='small'
             style={{ marginLeft: "0.5rem", color: "gray" }}
           />
         </Button>
@@ -288,7 +291,7 @@ const NotificationSideBar = () => {
             Project & tasks{" "}
           </span>
           <ArrowForwardIosIcon
-            fontSize="small"
+            fontSize='small'
             style={{ marginLeft: "0.5rem", color: "gray" }}
           />
         </Button>

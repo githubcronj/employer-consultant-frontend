@@ -23,6 +23,7 @@ import {jobsReducer} from "./recomandedJobReducer";
 import applyJobReducer from './applyJobReducer';
 import cancelJobReducer from './cancelJobReducer';
 import appliedJobReducer from './appliedJobReducer';
+import savedJobReducer from './savedJobReducer';
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
@@ -48,6 +49,7 @@ const rootReducer = combineReducers({
   applyJobReducer,
   cancelJobReducer,
   appliedJobReducer,
+  savedJobReducer,
 });
 
 export default rootReducer;

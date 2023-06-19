@@ -1,13 +1,15 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect } from "react";
+import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-
 import { appliedJobSuccess } from "store/action/applyJobAction";
 import { CANCEL_JOB_SUCCESS, SAVE_JOB_SUCCESS } from "store/type/applyJobType";
 
 const JobDetails = ({ detail, setRemove }) => {
+ 
   const dispatch = useDispatch();
+  const router = useRouter();
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
@@ -34,14 +36,13 @@ const JobDetails = ({ detail, setRemove }) => {
   const finalData = jobData?.filter((index, item) => index?._id == detail);
 
   console.log("final", finalData);
-  console.log("joobbb iddd  ", finalData[0]?._id);
-
 
   const handleCancel = () => {
     const payload = { jobId: finalData[0]?._id, finaltoken };
     dispatch({ type: CANCEL_JOB_SUCCESS, payload });
-    setRemove(true);
-    console.log(dispatch({ type: CANCEL_JOB_SUCCESS, payload }))
+    // setRemove(true);
+    router.push('/search_job');
+  
   };
 
   return (
