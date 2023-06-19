@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const withAuthRedirect = (WrappedComponent, redirectPath = '') => {
   const AuthenticatedComponent = (props) => {
     const router = useRouter();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
       const token = typeof window !== 'undefined' && localStorage.getItem('CurrentUser');
@@ -21,10 +22,13 @@ const withAuthRedirect = (WrappedComponent, redirectPath = '') => {
           // Redirect to a different page if already authenticated
           router.push(redirectPath);
         }
+      }else{
+          setIsAuthenticated(true);
       }
-    }, []);
+    }, [router , redirectPath]);
 
-    return <WrappedComponent {...props} />;
+
+    return isAuthenticated ? <WrappedComponent {...props}/> : null;
   };
 
   return AuthenticatedComponent;

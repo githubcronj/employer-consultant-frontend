@@ -51,7 +51,7 @@ const Home = () => {
 
   const nextclick = (id) => {
     console.log(id);
-    router.push(`/viewjobpost/${id}`);
+    router.push(`/applied-consultant/Applied/${id}`);
   };
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
@@ -122,7 +122,7 @@ const Home = () => {
               </thead>
               <tbody className=' text-black text-md'>
                 {currentPosts?.map((row, index) => (
-                  <tr onClick={() => nextclick(row?._id)}
+                  <tr onClick={() => nextclick(row._id)}
                     key={index}
                     className={
                       index % 2 === 0

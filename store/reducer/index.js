@@ -24,6 +24,7 @@ import applyJobReducer from './applyJobReducer';
 import cancelJobReducer from './cancelJobReducer';
 import appliedJobReducer from './appliedJobReducer';
 import savedJobReducer from './savedJobReducer';
+import fetchappliedConsultantReducer from "./fetchAppliedconsultantReducer"
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
@@ -50,6 +51,7 @@ const rootReducer = combineReducers({
   cancelJobReducer,
   appliedJobReducer,
   savedJobReducer,
+  fetchappliedConsultantReducer,
 });
 
 export default rootReducer;
