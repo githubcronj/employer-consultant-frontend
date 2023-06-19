@@ -31,8 +31,8 @@ const id = router.query;
     router.push("/");
   };
   const nextclick = (id) => {
-    console.log(id,"iddd");
-    router.push(`/viewjobpost/${id}`);
+    console.log(id.id,"iddd");
+    router.push(`/viewjobpost/${id.id}`);
 
   };
    
@@ -70,7 +70,10 @@ const onSearch = (e) => {
  const appliedjobData = useSelector((state) => state.fetchappliedConsultantReducer.fetchappliedconsultantData.payload?.data?.appliedConsultant);
 console.log(appliedjobData , "applied consultant")
 
+
 const consultantId =appliedjobData?.length>0 && appliedjobData[0]?._id; 
+const JobId =appliedjobData?.length>0 && appliedjobData[0]?.id;
+console.log(JobId,"jobid viewjobpoat")
 console.log(consultantId,"cosultantid")
   const handleCardClick = (id) => {
     setSelectedCard(id);
@@ -167,7 +170,7 @@ console.log(jobId,"jbid reject")
     <p className="text-[16px] text-[#2B373C]">12-09-2023</p>
   </div>
   
-  <div onClick={nextclick} className="flex items-center  lg:justify-end gap-x-4 lg:col-span-1 sm:col-span-2">
+  <div onClick={() => nextclick(id)} className="flex items-center  lg:justify-end gap-x-4 lg:col-span-1 sm:col-span-2">
     <p className="text-[16px] text-[#5E9AF8] font-bold">View Job Post</p>
     <img src="/Assets/forwardArr.svg" alt="frw-ar" />
   </div>
