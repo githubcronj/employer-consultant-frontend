@@ -9,18 +9,19 @@ import ConsultantCard from "Components/Cards/ConsultantsCard";
 import Link from 'next/link';
 import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { FETCH_APPLIED_CONSULTANT_REQUEST, FETCH_APPLIED_CONSULTANT_SUCCESS } from "store/type/fetchAppliedConsultantType";
-import { fetchAppliedConsultantRequest } from '../../../store/action/fetchAppliedConsultantAction';
+import { FETCH_APPLIED_CONSULTANT_REQUEST, FETCH_APPLIED_CONSULTANT_SUCCESS, REMOVE_APPLIED_CONSULTANT_REQUEST } from "store/type/fetchAppliedConsultantType";
+import { Box } from "@mui/material";
+
 
 const AppliedConsultant = () => {
  
-  const router = useRouter();
+const router = useRouter();
 const id = router.query;
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
   const [shortlistMessage, setShortlistMessage] = useState("");
-  const [search, setSearch] = useState("");
+  const [search, setsearch] = useState("");
  
 
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const id = router.query;
   const backClicked = () => {
     router.push("/");
   };
-   const appliedjobData = useSelector((state) => state.fetchappliedConsultantReducer.fetchappliedconsultantData);
+   
   const getToken = () => {
           if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
             const storedData = localStorage.getItem("CurrentUser");
@@ -40,24 +41,28 @@ const id = router.query;
         };
 
         const accessToken = getToken();
-        
-        const payload = {
-          jobId:id,
-          accessToken:accessToken
-        }
-       
-//   useEffect(() => {
-      
-//           dispatch(fetchAppliedConsultantRequest(payload.jobId ,payload.accessToken ));
-//           dispatch({ type: GET_JOB_REQUEST, payload: filterParams, accessToken: finaltoken });
-//   }, []);
-  useEffect(() => {
-      
-        
-          // dispatch({ type:FETCH_APPLIED_CONSULTANT_REQUEST, payload});
-          dispatch({ type: FETCH_APPLIED_CONSULTANT_REQUEST, payload:id, accessToken });
-        }, [id]);
 
+
+
+const onSearch = (e) => {
+
+  // setsearch(e.target.value);
+
+
+  dispatch({ type: FETCH_APPLIED_CONSULTANT_REQUEST,payload:id ,accessToken,search});
+ 
+};
+  useEffect(() => {
+     dispatch({ type: FETCH_APPLIED_CONSULTANT_REQUEST, payload:id, accessToken,search });
+ }, [id]);
+
+
+//  useEffect(() => {
+//   dispatch({ type: REMOVE_APPLIED_CONSULTANT_REQUEST});
+// }, []);
+
+ const appliedjobData = useSelector((state) => state.fetchappliedConsultantReducer.fetchappliedconsultantData.payload?.data?.appliedConsultant);
+console.log(appliedjobData , "applied consultant")
 
 
   const handleCardClick = (id) => {
@@ -154,11 +159,14 @@ const id = router.query;
   <div className="col-span-1 sm:col-span-2 lg:col-span-1">
     <div className="relative w-full">
       <input
+      onClick={onSearch}
+      onChange={(e) => setsearch(e.target.value)}
         type="text"
         id="simple-search"
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
         placeholder="Search"
         required
+       
       />
       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
         <Image src="/Assets/searchIcon.svg" alt="Search Icon" width={16} height={16} />
@@ -257,37 +265,42 @@ const id = router.query;
         >
             <div className="flex px-3">
             <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
-            {cardData.length} Consultant
+           
+  Consultant
           </p>
           <div className="bg-[#5E9AF8] ml-2 px-2 py-1 border rounded text-[#ffffff]">{shortlistedCount}</div>
             </div>
             <div className="h-[550px] overflow-auto"
               style={{ scrollbarWidth: "thin" }}>
-    
-    {cardData.map((card) => (
-  <ConsultantCard
-    key={card.id}
-    id={card.id}
-    name={card.name}
-    jobTitle={card.jobTitle}
-    experience={card.experience}
-    imageSrc={card.imageSrc}
-    selected={card.id === selectedCard}
-    shortlisted={shortlistedCards.includes(card.id)}
-    onClick={() => handleCardClick(card.id)} 
-    onRemove={() => handleRemoveClick(card.id)}
-   
-  >
-    {card.id === selectedCard && (
-      <div className="flex flex-col gap-y-4">
-        {renderShortlistButton()}
-        <Link href="/consultant/[id]" as={`/consultant/${card.id}`}>
-          <a>View Details</a>
-        </Link>
-      </div>
-    )}
-  </ConsultantCard>
-))}
+ {appliedjobData?.length>0 ? (
+  appliedjobData?.map((card, index) => (
+    <Box key={index}>
+      <ConsultantCard
+        key={card._id}
+        name={card.fullName}
+        jobTitle={card.jobRole}
+        experience={card.totalExperience}
+        // imageSrc={card.imageSrc}
+        selected={card._id === selectedCard}
+        shortlisted={shortlistedCards.includes(card._id)}
+        onClick={() => handleCardClick(card._id)} 
+        onRemove={() => handleRemoveClick(card._id)}
+      >
+        {card.id === selectedCard && (
+          <div className="flex flex-col gap-y-4">
+            {renderShortlistButton()}
+            <Link href="/consultant/[id]" as={`/consultant/${card._id}`}>
+              <a>View Details</a>
+            </Link>
+          </div>
+        )}
+      </ConsultantCard>
+    </Box>
+  ))
+) : (
+  <p>No data available</p>
+)}
+
 </div>
             
         <div>

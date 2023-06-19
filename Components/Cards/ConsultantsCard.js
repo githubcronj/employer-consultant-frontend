@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "../../styles/LoginPage.module.css";
+
 export const cardData = [
   {
     id: 1,
@@ -70,6 +71,7 @@ export const cardData = [
   },
 ];
 const ConsultantCard = ({
+  id,
   name,
   jobTitle,
   experience,
@@ -107,7 +109,7 @@ const ConsultantCard = ({
               {name}
             </p>
             <p className="text-gray-600 mt-2">
-              {jobTitle} . {experience}
+              {jobTitle} . {experience} yr Exp
             </p>
           </div>
           <div> {showCheckbox && (

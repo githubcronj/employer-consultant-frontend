@@ -2,7 +2,11 @@
 import * as types from "../type/fetchAppliedConsultantType";
 const INITIAL_STATE = {
   isfetchappliedconsultantData: false,
+  isremoveappliedconsultantData:false,
+
   fetchappliedconsultantData: [],
+  removeappliedconsultantData:[],
+
 };
 
 export function fetchappliedConsultantReducer(state = INITIAL_STATE, action) {
@@ -15,18 +19,34 @@ export function fetchappliedConsultantReducer(state = INITIAL_STATE, action) {
         isfetchappliedconsultantData: false,
       };
 
-    case types.FETCH_JOBS_SUCCESS:
+    case types.FETCH_APPLIED_CONSULTANT_SUCCESS:
       return {
         ...state,
-        fetchappliedconsultantData: action.payload.data,
+        fetchappliedconsultantData: action.payload,
         isfetchappliedconsultantData: true,
       };
 
-    case types.FETCH_JOBS_FAILURE:
+    case types.FETCH_APPLIED_CONSULTANT_FAILURE:
       return {
         ...state,
         isfetchappliedconsultantData: false,
       };
+    case types.REMOVE_APPLIED_CONSULTANT_REQUEST:
+      return{
+        ...state,
+        isremoveappliedconsultantData:false,
+      };
+    case types.REMOVE_APPLIED_CONSULTANT_SUCCESS:
+      return {
+        ...state,
+        removeappliedconsultantData: action.payload,
+        isremoveappliedconsultantData: true,
+      };
+    case types.REMOVE_APPLIED_CONSULTANT_FAILURE:
+      return{
+        ...state,
+        isremoveappliedconsultantData:false,
+      }
   
     default:
       return state;
