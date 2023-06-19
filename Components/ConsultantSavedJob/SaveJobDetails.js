@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { appliedJobSuccess } from "store/action/applyJobAction";
 import { CANCEL_JOB_SUCCESS, SAVE_JOB_SUCCESS } from "store/type/applyJobType";
 
-const JobDetails = ({ detail, setRemove }) => {
+const SaveJobDetails = ({ detail, remove }) => {
   const dispatch = useDispatch();
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -32,16 +32,17 @@ const JobDetails = ({ detail, setRemove }) => {
   };
 
   const finalData = jobData?.filter((index, item) => index?._id == detail);
+  const removeData = jobData?.filter((index, item) => index?._id == remove);
 
   console.log("final", finalData);
+  console.log("removee", removeData);
   console.log("joobbb iddd  ", finalData[0]?._id);
 
 
   const handleCancel = () => {
     const payload = { jobId: finalData[0]?._id, finaltoken };
     dispatch({ type: CANCEL_JOB_SUCCESS, payload });
-    setRemove(true);
-    console.log(dispatch({ type: CANCEL_JOB_SUCCESS, payload }))
+    remove(finalData[0]?._id);
   };
 
   return (
@@ -381,4 +382,4 @@ const JobDetails = ({ detail, setRemove }) => {
   );
 };
 
-export default JobDetails;
+export default SaveJobDetails;

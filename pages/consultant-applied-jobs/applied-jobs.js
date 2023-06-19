@@ -10,7 +10,9 @@ import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 const AppliedJobs = () => {
   const router = useRouter();
   const [detail, setDetail] = useState();
-  console.log(detail,'dddd')
+  const [remove, setRemove] = useState(false);
+  console.log(detail,'dddd');
+  console.log(remove,'remove');
   return (
     <Box
       py={2}
@@ -53,10 +55,10 @@ const AppliedJobs = () => {
         justifyContent: "center", }}>
         <Grid container spacing={1}>
           <Grid item xs={12} md={3}>
-            <JobList setDetail={setDetail}/>
+            <JobList setDetail={setDetail} remove={remove}/>
           </Grid>
           <Grid  item xs={12} md={9}>
-            <JobDetails detail={detail}/>
+            <JobDetails detail={detail} setRemove={setRemove} />
           </Grid>
         </Grid>
       </Box>

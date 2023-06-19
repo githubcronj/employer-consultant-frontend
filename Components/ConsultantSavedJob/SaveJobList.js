@@ -8,7 +8,7 @@ import {
   appliedJobSuccess,
 } from "store/action/applyJobAction";
 
-const JobList = ({ setDetail}) => {
+const SaveJobList = ({ setDetail, setRemove }) => {
   // added
   const dispatch = useDispatch();
   const getToken = () => {
@@ -26,6 +26,7 @@ const JobList = ({ setDetail}) => {
  
   useEffect(() => {
     setDetail(jobData[0]?._id);
+    setRemove(jobData[0]?._id);
   }, [jobData]);
 
   useEffect(() => {
@@ -99,4 +100,4 @@ const JobList = ({ setDetail}) => {
   );
 };
 
-export default JobList;
+export default SaveJobList;
