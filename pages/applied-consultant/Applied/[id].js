@@ -11,6 +11,7 @@ import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { FETCH_APPLIED_CONSULTANT_REQUEST, FETCH_APPLIED_CONSULTANT_SUCCESS, REMOVE_APPLIED_CONSULTANT_REQUEST } from "store/type/fetchAppliedConsultantType";
 import { Box } from "@mui/material";
+import { removeAppliedConsultantRequest } from "store/action/fetchAppliedConsultantAction";
 
 
 const AppliedConsultant = () => {
@@ -29,6 +30,11 @@ const id = router.query;
   const backClicked = () => {
     router.push("/");
   };
+  const nextclick = (id) => {
+    console.log(id,"iddd");
+    router.push(`/viewjobpost/${id}`);
+
+  };
    
   const getToken = () => {
           if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -42,7 +48,7 @@ const id = router.query;
 
         const accessToken = getToken();
 
-
+console.log(accessToken, "45 line")
 
 const onSearch = (e) => {
 
@@ -64,7 +70,8 @@ const onSearch = (e) => {
  const appliedjobData = useSelector((state) => state.fetchappliedConsultantReducer.fetchappliedconsultantData.payload?.data?.appliedConsultant);
 console.log(appliedjobData , "applied consultant")
 
-
+const consultantId =appliedjobData?.length>0 && appliedjobData[0]?._id; 
+console.log(consultantId,"cosultantid")
   const handleCardClick = (id) => {
     setSelectedCard(id);
   };
@@ -86,6 +93,18 @@ console.log(appliedjobData , "applied consultant")
     const updatedShortlistedCards = shortlistedCards.filter((cardId) => cardId !== selectedCard);
     setShortlistedCards(updatedShortlistedCards);
     setShortlistMessage(false);
+    const jobId = id; // Assuming job ID is available in id object
+  
+console.log(jobId,"jbid reject")
+  
+  console.log(accessToken,"token reject")
+  const rejectPayload = {
+    jobId: id,
+    consultantId:consultantId,
+    accessToken
+  };
+
+  dispatch(removeAppliedConsultantRequest(rejectPayload));
   };
   
    const [errors, setErrors] = useState({});
@@ -147,12 +166,12 @@ console.log(appliedjobData , "applied consultant")
     <p className="text-[16px] text-[#2B373C]">$10-15 /hr .</p>
     <p className="text-[16px] text-[#2B373C]">12-09-2023</p>
   </div>
-  <Link href='/viewjobpost/${id}'>
-  <div className="flex items-center  lg:justify-end gap-x-4 lg:col-span-1 sm:col-span-2">
+  
+  <div onClick={nextclick} className="flex items-center  lg:justify-end gap-x-4 lg:col-span-1 sm:col-span-2">
     <p className="text-[16px] text-[#5E9AF8] font-bold">View Job Post</p>
     <img src="/Assets/forwardArr.svg" alt="frw-ar" />
   </div>
-  </Link>
+ 
 </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-2 sm:mx-6 bg-[#F9F6EE] border px-4 py-4">
@@ -327,7 +346,7 @@ console.log(appliedjobData , "applied consultant")
             <p className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] ml-[-50px]">{shortlistMessage}</p>
           </div>
             <Popoverr text={"Reject the consultant"}>
-            <button onClick={handleRemoveShortlisted} className="flex justify-end px-3 py-3">
+            <button  className="flex justify-end px-3 py-3">
               <img src="/Assets/removeShortlistedButton.svg" alt="tick"/>
             </button>
             </Popoverr></>

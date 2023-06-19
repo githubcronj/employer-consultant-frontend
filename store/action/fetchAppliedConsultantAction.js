@@ -30,12 +30,11 @@ export function fetchAppliedConsultantFailure(payload) {
 }
 
 
-export function removeAppliedConsultantRequest(payload, accessToken) {
-  console.log(payload,"asasadda")
+export function removeAppliedConsultantRequest(payload) {
+  console.log(payload , "action for f=reject")
   return {
     type: types.REMOVE_APPLIED_CONSULTANT_REQUEST,
-  payload:payload,
-  accessToken:accessToken
+  payload:payload
   };
 }
 
