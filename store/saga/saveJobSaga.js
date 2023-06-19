@@ -1,6 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { makeApiRequest } from "../../utils/api";
 import {  SAVE_FAILURE, SAVE_JOB_SUCCESS, SAVE_SUCCESS } from "store/type/applyJobType";
+import { toast } from "react-toastify";
 
 function* saveJobData(action) {
   try {
@@ -19,10 +20,12 @@ function* saveJobData(action) {
     });
 
     yield put({ type: SAVE_SUCCESS, payload: response.data });
+    toast.success("Job saved successful");
     console.log("test in saga", response.data);
   } catch (error) {
     console.log("API call error:", error);
     yield put({ type: SAVE_FAILURE, payload: error });
+    toast.error(error.message);
   }
 }
 

@@ -1,13 +1,13 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
-import JobDetails from "Components/ConsultantJob/JobDetails";
 
-import JobList from "Components/ConsultantJob/JobList";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
+import SaveJobDetails from "Components/ConsultantSavedJob/SaveJobDetails";
+import SaveJobList from "Components/ConsultantSavedJob/SaveJobList";
 
-const AppliedJobs = () => {
+const SavedJobs = () => {
   const router = useRouter();
   const [detail, setDetail] = useState();
   const [remove, setRemove] = useState(false);
@@ -46,7 +46,7 @@ const AppliedJobs = () => {
             marginLeft: "1.5rem",
           }}
         >
-          Applied Jobs
+          Saved Jobs
         </Typography>
       </Stack>
       <Box sx={{ background: "#FFFFFF", borderRadius: "15px", display: "flex",
@@ -55,10 +55,10 @@ const AppliedJobs = () => {
         justifyContent: "center", }}>
         <Grid container spacing={1}>
           <Grid item xs={12} md={3}>
-            <JobList setDetail={setDetail} remove={remove}/>
+            <SaveJobList setDetail={setDetail} remove={remove}/>
           </Grid>
           <Grid  item xs={12} md={9}>
-            <JobDetails detail={detail} setRemove={setRemove} />
+            <SaveJobDetails detail={detail} setRemove={setRemove} />
           </Grid>
         </Grid>
       </Box>
@@ -66,4 +66,4 @@ const AppliedJobs = () => {
   );
 };
 
-export default withConsultantAuth(AppliedJobs);
+export default withConsultantAuth(SavedJobs);
