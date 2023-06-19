@@ -7,8 +7,9 @@ import {
   appliedJobRequest,
   appliedJobSuccess,
 } from "store/action/applyJobAction";
+import { savedJobRequest, savedJobSuccess } from "store/action/savedJobAction";
 
-const JobList = ({ setDetail}) => {
+const SaveJobList = ({ setDetail, setRemove }) => {
   // added
   const dispatch = useDispatch();
   const getToken = () => {
@@ -23,30 +24,35 @@ const JobList = ({ setDetail}) => {
   const finaltoken = getToken();
 
   const jobData = useSelector((state) => state?.appliedJobReducer?.data);
- 
+  const saveJobData = useSelector((state) => state?.savedJobReducer?.data[0]?.job);
+  console.log('saveevevve',saveJobData);
+  // console.log('jojooooo',jobData);
+
   useEffect(() => {
     setDetail(jobData[0]?._id);
   }, [jobData]);
 
+
   useEffect(() => {
-    dispatch(appliedJobSuccess(finaltoken));
+    dispatch(savedJobRequest(finaltoken));
   }, []);
+
 
   // added
   const [selectedItemId, setSelectedItemId] = useState(null);
-
+  // newww
   useEffect(() => {
-    if (jobData && jobData.length > 0) {
-      setSelectedItemId(jobData[0]._id); // Select the first item by default
-      setDetail(jobData[0]._id);
+    if (saveJobData && saveJobData.length > 0) {
+      setSelectedItemId(saveJobData[0]._id); // Select the first item by default
+      setDetail(saveJobData[0]._id);
     }
-  }, [jobData]);
+  }, [saveJobData]);
 
   const handleItemClick = (itemId) => {
     setSelectedItemId(itemId);
     setDetail(itemId);
   };
-  
+
   return (
     <Box py={{ xs: 1, lg: 2 }}>
       <Typography
@@ -54,12 +60,10 @@ const JobList = ({ setDetail}) => {
         mb={2}
         sx={{ fontSize: "18px", fontWeight: "bold", color: "#1E0F3B" }}
       >
-        {`${jobData?.length} Jobs`}
-       
+        {`${saveJobData?.length} Saved Jobs`}
       </Typography>
       <Box>
-
-        {jobData?.map((item, index) => {
+        {saveJobData?.map((item, index) => {
           const isSelected = item?._id === selectedItemId;
           // const isRemoved = item?.id === ;
           return (
@@ -71,6 +75,7 @@ const JobList = ({ setDetail}) => {
               sx={{
                 display: "flex",
                 alignItems: "center",
+                justifyContent: "space-between",
                 borderBottom: ".5px solid #EAE9EA",
                 borderLeft: isSelected ? "4px solid #5e9af8" : "none",
                 background: isSelected
@@ -79,24 +84,36 @@ const JobList = ({ setDetail}) => {
                 // backgroundColor: isSelected ? "blue" : "transparent",
               }}
             >
-              <Image
-                src='/Assets/spotify.svg'
-                alt='back button'
-                width={46}
-                height={46}
-                className='cursor-pointer w-10 h-10 rounded-full mr-4'
-              />
-              <Box>
-                <Typography sx={{ fontWeight: "bold" }}>
-                  {item.jobTitle}
-                </Typography>
-                <Typography
-                  sx={{ opacity: "0.7", color: "#5E5E5E", py: ".5rem" }}
-                >
-                  {`${item.industryType} . ${
-                    item?.experience ? `${item.experience} Yrs` : ""
-                  }`}
-                </Typography>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Image
+                  src='/Assets/spotify.svg'
+                  alt='back button'
+                  width={46}
+                  height={46}
+                  className='cursor-pointer w-10 h-10 rounded-full mr-4'
+                />
+                <Box>
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    {item.jobTitle}
+                  </Typography>
+                  <Typography
+                    sx={{ opacity: "0.7", color: "#5E5E5E", py: ".5rem" }}
+                  >
+                    {`${item.industryType} . ${
+                      item?.experience ? `${item.experience} Yrs` : ""
+                    }`}
+                  </Typography>
+                </Box>
+              </Box>
+
+              <Box sx={{ textAlign: "right" }}>
+                <Image
+                  src='/Assets/bookmark-blue.svg'
+                  alt='back button'
+                  width={20}
+                  height={20}
+                  className='cursor-pointer'
+                />
               </Box>
             </Box>
           );
@@ -106,4 +123,4 @@ const JobList = ({ setDetail}) => {
   );
 };
 
-export default JobList;
+export default SaveJobList;

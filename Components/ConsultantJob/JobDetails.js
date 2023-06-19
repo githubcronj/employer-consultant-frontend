@@ -1,13 +1,15 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect } from "react";
+import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-
 import { appliedJobSuccess } from "store/action/applyJobAction";
-import { SAVE_JOB_SUCCESS } from "store/type/applyJobType";
+import { CANCEL_JOB_SUCCESS, SAVE_JOB_SUCCESS } from "store/type/applyJobType";
 
-const JobDetails = ({ detail }) => {
+const JobDetails = ({ detail, setRemove }) => {
+ 
   const dispatch = useDispatch();
+  const router = useRouter();
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
@@ -32,7 +34,17 @@ const JobDetails = ({ detail }) => {
   };
 
   const finalData = jobData?.filter((index, item) => index?._id == detail);
+
   console.log("final", finalData);
+
+  const handleCancel = () => {
+    const payload = { jobId: finalData[0]?._id, finaltoken };
+    dispatch({ type: CANCEL_JOB_SUCCESS, payload });
+    // setRemove(true);
+    router.push('/search_job');
+  
+  };
+
   return (
     <Grid container>
       <Grid
@@ -102,18 +114,35 @@ const JobDetails = ({ detail }) => {
               alignItems: "center",
             }}
           >
-            <Button
-              style={{ background: "#f9f6ee" }}
-              sx={{
-                fontWeight: "bold",
-                color: "#1E0F3B",
-                py: "1rem",
-                px: "26px",
-                borderRadius: "15px",
-              }}
-            >
-              APPLIED
-            </Button>
+            <Box sx={{}}>
+              <Button
+                style={{ background: "#f9f6ee" }}
+                sx={{
+                  fontWeight: "bold",
+                  color: "#1E0F3B",
+                  py: "1rem",
+                  px: "26px",
+                  mx:1,
+                  borderRadius: "15px",
+                }}
+              >
+                APPLIED
+              </Button>
+              <Button
+                style={{ background: "#F9342E" }}
+                sx={{
+                  fontWeight: "bold",
+                  color: "#ffffff",
+                  py: "1rem",
+                  px: "26px",
+                  mx:1,
+                  borderRadius: "15px",
+                }}
+                onClick={handleCancel}
+              >
+                Cancel
+              </Button>
+            </Box>
             <Typography pt={2} sx={{ float: "right" }}>
               12-04-2023
             </Typography>
