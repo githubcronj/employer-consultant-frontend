@@ -1,4 +1,4 @@
-import { Box, Paper, Grid } from "@mui/material";
+import { Box, Paper, Grid, Button } from "@mui/material";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import JobSearchResultData from "../../Components/SearchJobComp/JobSearchResultData";
@@ -8,14 +8,20 @@ import JobAlert from "Components/SearchJob/jobAlert";
 import RecentJob from "Components/SearchJob/recentJob";
 import SearchBlock from "Components/SearchJob/searchBlock";
 import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
+import RecentSearch from "Components/SearchJob/recentSearch";
 
 const SearchJob = () => {
   const { data: session } = useSession();
-  const [showBox1, setShowBox1] = useState(true);
+  const [showBox1, setShowBox1] = useState(false);
 
   const handleBox1Click = () => {
     setShowBox1(!showBox1);
   };
+
+  const handleCloseSection = () => {
+    setShowBox1(false);
+  };
+
   const [searchData, setSearchData] = useState({
     jobTitle: "",
     location: "",
@@ -32,87 +38,62 @@ const SearchJob = () => {
   const searchSubmitHandler = () => {
     alert(JSON.stringify(searchData));
   };
+
   return (
     <>
-      {showBox1 ? (
+      <Box sx={{ background: "#F3F5F8" }}>
         <Box
           sx={{
-            background: "#F3F5F8",
+            maxWidth: "1536px",
+            margin: "auto",
+            display: "flex",
+            flexDirection: { xs: "column", sm: "column", lg: "row" },
+            justifyContent: "space-between",
+            py: "3rem",
+            px: { xs: ".8rem", sm: "2rem", md: "5rem" },
+            height: { xs: "auto", sm: "auto" },
+            justifyContent: "center",
+            width: { xs: "100%", sm: "100%", md: "100%" },
           }}
         >
-          <Box
-            sx={{
-              maxWidth: "1536px",
-              margin: "auto",
-              display: "flex",
-              flexDirection: { xs: "column", sm: "column", lg: "row" },
-              justifyContent: "space-between",
-              py: "3rem",
-              px: { xs: ".8rem", sm: "2rem", md: "5rem" },
-              height: { xs: "auto", sm: "auto" },
-              justifyContent: "center",
-              width: { xs: "100%", sm: "100%", md: "100%" },
-            }}
-          >
-            <ProfileSideBar data={session} />
-            <JobSearchResultData handleBox1Click={handleBox1Click} />
-            <NotificationSideBar />
-          </Box>
+          <ProfileSideBar data={session} />
+          <JobSearchResultData
+            handleBox1Click={handleBox1Click}
+            showBox1={showBox1}
+          />
+          <NotificationSideBar />
         </Box>
-      ) : (
+      </Box>
+      {showBox1 && (
         <Box
           sx={{
-            background: "#F3F5F8",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            zIndex: 9999,
           }}
         >
           <Box
-            py={2}
             sx={{
-              maxWidth: "1536px",
-              margin: "auto",
-              display: "flex",
-              flexDirection: { xs: "column", sm: "column", md: "row" },
-              justifyContent: "space-between",
-              justifyContent: "center",
-              background: "#F3F5F8",
-              px: { xs: ".8rem", sm: "2rem", md: "5rem" },
-              height: { xs: "auto", lg: "100vh" },
+              backgroundColor: "white",
+              padding: "2rem",
+              borderRadius: "8px",
+              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
             }}
           >
-            <Grid container spacing={3}>
-              <Grid item xs={12} lg={6} sx={{ display: { lg: "none" } }}>
-                <SearchBlock
-                  searchOnChangeHandler={searchOnChangeHandler}
-                  searchSubmitHandler={searchSubmitHandler}
-                  handleBox1Click={handleBox1Click}
-                />
-              </Grid>
-              <Grid item xs={12} lg={3} sx={{ marginTop: "4rem" }}>
-                <JobAlert />
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                lg={6}
-                sx={{ display: { xs: "none", lg: "block" } }}
-              >
-                <SearchBlock
-                  searchOnChangeHandler={searchOnChangeHandler}
-                  searchSubmitHandler={searchSubmitHandler}
-                  handleBox1Click={handleBox1Click}
-                />
-              </Grid>
-              <Grid item xs={12} lg={3} sx={{ marginTop: "4rem" }}>
-                <RecentJob />
-              </Grid>
-            </Grid>
+            <RecentSearch />
+            <Button onClick={handleCloseSection}>Close</Button>
           </Box>
         </Box>
       )}
     </>
   );
 };
-
-// export default SearchJob;
 
 export default withConsultantAuth(SearchJob);

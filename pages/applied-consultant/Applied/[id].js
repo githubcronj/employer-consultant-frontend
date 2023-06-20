@@ -47,8 +47,6 @@ const AppliedConsultant = () => {
 
   const accessToken = getToken();
 
-  console.log(accessToken, "45 line");
-
   const onSearch = (e) => {
     setsearch(e.target.value);
 
@@ -83,13 +81,15 @@ const AppliedConsultant = () => {
     setSelectedCard(id);
   };
 
-  const handleShortlistClick = (id) => {
+  const handleShortlistClick = () => {
     if (!shortlistedCards.includes(id)) {
       setShortlistedCards([...shortlistedCards, id]);
       const currentDate = new Date().toLocaleDateString("en-US");
       const message = `Shortlisted.\n${currentDate}`;
       setShortlistMessage(message);
     }
+    const jobId = id;
+    console.log( jobId ,"jobid shortlist ")
     const shortlistPayload = {
       jobId: id,
       consultantId: consultantId,
@@ -108,7 +108,7 @@ const AppliedConsultant = () => {
     setShortlistedCards(updatedShortlistedCards);
     setShortlistMessage(false);
     const jobId = id;
-
+    console.log( jobId ,"jobid REMOVE ")
     const rejectPayload = {
       jobId: id,
       consultantId: consultantId,
