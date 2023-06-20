@@ -9,6 +9,7 @@ import RecentJob from "Components/SearchJob/recentJob";
 import SearchBlock from "Components/SearchJob/searchBlock";
 import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 import RecentSearch from "Components/SearchJob/recentSearch";
+import SearchJobInput from "Components/SearchJobComp/SearchJobInput";
 
 const SearchJob = () => {
   const { data: session } = useSession();
@@ -65,6 +66,7 @@ const SearchJob = () => {
         </Box>
       </Box>
       {showBox1 && (
+
         <Box
           sx={{
             position: "fixed",
@@ -81,12 +83,14 @@ const SearchJob = () => {
         >
           <Box
             sx={{
+              width:"50%",
               backgroundColor: "white",
               padding: "2rem",
               borderRadius: "8px",
               boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
             }}
           >
+              <SearchJobInput handleBox1Click={handleBox1Click} />
             <RecentSearch />
             <Button onClick={handleCloseSection}>Close</Button>
           </Box>

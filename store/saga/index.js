@@ -25,6 +25,7 @@ import watchSavelJob from "./saveJobSaga";
 import watchAppliedJob from "./appliedJobSaga";
 import watchSavedJob from "./savedJobSaga";
 import {watchAppliedConsultantSaga} from "./fetchAppliedConsultantsaga"
+import watchEditResumeProfile from "./editConsultantProfileSaga";
 import { watchshortlistConsultantSaga } from "./shortlistSaga";
 export default function* rootSaga() {
   yield all([
@@ -54,6 +55,7 @@ export default function* rootSaga() {
     watchAppliedJob(),
     watchSavedJob(),,
     watchAppliedConsultantSaga(),
+    watchEditResumeProfile(),
     watchshortlistConsultantSaga()
   ]);
 }

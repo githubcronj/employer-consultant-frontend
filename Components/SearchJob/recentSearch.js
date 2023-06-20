@@ -7,6 +7,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 const RecentSearch = () => {
   return (
     <Box mt={3} sx={{ background: "#fff", py: "0.5rem", borderRadius: "4px" }}>
+
     <Stack
       direction="row"
       justifyContent="space-between"

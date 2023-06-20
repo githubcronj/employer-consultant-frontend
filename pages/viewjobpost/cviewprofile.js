@@ -4,6 +4,7 @@ import LeftProfile from "Components/viewProfile/leftProfile";
 import RightProfile from "Components/viewProfile/rightProfile";
 import { useEffect } from "react";
 import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
+import JobAlert from "Components/SearchJob/jobAlert";
 const ViewProfile = () => {
   const [flexing, setFlexing] = useState(false);
   const handleResize = () => {
@@ -17,7 +18,7 @@ const ViewProfile = () => {
     window.addEventListener("resize", handleResize);
   }, [handleResize]);
   return (
-    <div className="bg-[#2B373C1C] pt-1 px-3 sm:px-10 h-fit">
+    <div className="bg-[#2B373C1C] pt-1 px-3 sm:px-10 h-fit max-w-[1536px] mx-auto ">
       <div>
         <HeaderProfile />
       </div>
@@ -31,6 +32,7 @@ const ViewProfile = () => {
       >
         <LeftProfile />
         <RightProfile />
+        <JobAlert />
       </div>
     </div>
   );
