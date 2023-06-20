@@ -28,3 +28,28 @@ export function fetchAppliedConsultantFailure(payload) {
     payload: payload,
   };
 }
+
+
+export function removeAppliedConsultantRequest(payload) {
+  console.log(payload , "action for f=reject")
+  return {
+    type: types.REMOVE_APPLIED_CONSULTANT_REQUEST,
+  payload:payload
+  };
+}
+
+export function removeAppliedConsultantSuccess(payload) {
+  return {
+    type: types.REMOVE_APPLIED_CONSULTANT_SUCCESS,
+    payload: {
+      payload: payload,
+    },
+  };
+}
+
+export function removeAppliedConsultantFailure(payload) {
+  return {
+    type: types.REMOVE_APPLIED_CONSULTANT_FAILURE,
+    payload: payload,
+  };
+}
