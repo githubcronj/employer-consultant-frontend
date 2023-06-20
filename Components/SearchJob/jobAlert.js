@@ -5,7 +5,16 @@ import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 const JobAlert = () => {
   return (
-    <Box sx={{ background: "#fff", py: "1rem", borderRadius: "4px" }}>
+    <Box
+      sx={{
+        background: "#fff",
+        py: "1rem",
+        borderRadius: "4px",
+        display: "flex",
+        flexDirection: "column",
+        flex: "0.5",
+      }}
+    >
       <Stack
         direction="row"
         justifyContent="space-between"

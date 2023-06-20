@@ -1,7 +1,7 @@
 import React from "react";
 import backbtn from "../../public/Assets/backbtn.svg";
 import { useRouter } from "next/router";
-import edit from "../../public/Assets/edit.svg";
+import editIcon from "../../public/Assets/edit-icon.svg";
 import { GET_PROFILE_REQUEST } from "store/type/viewProfileType";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -24,7 +24,7 @@ const HeaderProfile = () => {
   }, [handleResize]);
 
   const editClick = () => {
-    router.push("/search_job");
+    router.push("/edit-consultant-profile");
   };
   return (
     <div
@@ -47,8 +47,13 @@ const HeaderProfile = () => {
           View Profile
         </p>
       </div>
-      <button>
-        <img src={edit.src} className="cursor-pointer" onClick={editClick} />
+      <button
+        className="uppercase text-[16px] font-bold text-[#FFFFFF] w-[125px] h-[51px] bg-[#F9342E] rounded-[20px] ml-3 m-6 mb-0 cursor-pointer flex items-center justify-center "
+        onClick={editClick}
+      >
+        <img src={editIcon.src} alt="edit icon" className="ml-3 " />
+        {/* <img src={edit.src} className="cursor-pointer" onClick={editClick} /> */}
+        <span className="uppercase flex-1">EDIT</span>
       </button>
     </div>
   );

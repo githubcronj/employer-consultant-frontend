@@ -42,7 +42,10 @@ const LeftProfile = () => {
     dispatch({ type: GET_PROFILE_REQUEST, payload });
   }, []);
   return (
-    <div className=" w-auto h-[100vh]" style={{ overflow: "hidden" }}>
+    <div
+      className=" w-auto max-w-[400px] h-[100vh] flex flex-1"
+      style={{ overflow: "hidden" }}
+    >
       <div>
         <div className="">
           <div className="bg-white flex">

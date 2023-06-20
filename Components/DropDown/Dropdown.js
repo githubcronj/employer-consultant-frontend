@@ -28,11 +28,12 @@ const Dropdown = () => {
       setIsOpen(false);
     }
   };
-  const productionUrl = "http://13.53.75.126:3000"; //need to be changed in future
-  // const devUrl = "http://13.53.75.126:3000";
-  const devUrl = "http://localhost:3000";
+  // const productionUrl = "http://13.53.75.126:3000"; //need to be changed in future
+  const productionUrl = process.env.NEXT_PUBLIC_FRONTEND_PROD_URL;
+  // const devUrl = "http://localhost:3000";
+  const devUrl = process.env.NEXT_PUBLIC_FRONTEND_LOCAL_URL;
   const handleLogout = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     // await signOut({
     //   redirect: false,
     //   // callbackUrl: `/login`,
@@ -45,6 +46,14 @@ const Dropdown = () => {
     localStorage.removeItem("CurrentUser");
   };
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      handleLogout();
+      // router.push("/login");
+    }, 1800000);
+    return () => clearTimeout(timeout);
+  }, []);
+
   function handleNavigate(url1, url2) {
     if (role === "employer") {
       router.push(`/${url1}`);
@@ -52,8 +61,6 @@ const Dropdown = () => {
       router.push(`/${url2}`);
     }
   }
-
-  console.log(process.env.NODE_ENV, "process.env.NODE_ENV");
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
     return () => {
