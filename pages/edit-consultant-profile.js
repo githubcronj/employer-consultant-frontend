@@ -257,7 +257,7 @@ const EditConsultantProfile = () => {
       };
     });
   };
- 
+
   // for skills
 
   const handleSkillsChange = (e) => {
@@ -337,8 +337,6 @@ const EditConsultantProfile = () => {
     token: finaltoken,
   };
 
-  
-
   useEffect(() => {
     if (response) {
       const {
@@ -382,23 +380,21 @@ const EditConsultantProfile = () => {
     }
   }, [response]);
   // console.log(response,"response edit")
- const route = useRouter();
+  const route = useRouter();
   const handleSave = () => {
     // if (isFormValid()) {
-      const payload = {
-        token: finaltoken,
-        data: resumeForm,
-        id:response._id
+    const payload = {
+      token: finaltoken,
+      data: resumeForm,
+      id: response._id,
+    };
 
-      };
-      
-      console.log("dispatchhh",response)
-      dispatch(EditConsultantSuccess(payload));
-      setTimeout(() => {
-        route.push("/viewjobpost/cviewprofile")
-      }, 3000);
-      
-      
+    console.log("dispatchhh", response);
+    dispatch(EditConsultantSuccess(payload));
+    setTimeout(() => {
+      route.push("/viewjobpost/cviewprofile");
+    }, 3000);
+
     //   const cleanData = {
     //     personalDetails: {
     //       fullName: "",
@@ -428,7 +424,7 @@ const EditConsultantProfile = () => {
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
       <div className="flex justify-between items-center mx-5 sm:mx-9">
         <div className="flex items-center gap-x-4 ">
-          <Link href="/resume-upload">
+          <Link href="/viewjobpost/cviewprofile">
             <Image
               src="/Assets/backbtn.svg"
               alt="back button"
@@ -438,7 +434,7 @@ const EditConsultantProfile = () => {
             />
           </Link>
           <p className="text-[26px] text-[#2B373C] sm:text-2xl font-bold">
-          Edit Profile
+            Edit Profile
           </p>
         </div>
         <button
