@@ -1,0 +1,14 @@
+import React from 'react'
+
+const pagination = ({postPerPage, totalPost}) => {
+    const pageNumbers = [];
+
+    for (let i = 1; i<= Math.ceil(totalPost / postPerPage); i++) {
+        pageNumbers.push(i);
+    }
+  return (
+    <div>pagination</div>
+  )
+}
+
+export default pagination

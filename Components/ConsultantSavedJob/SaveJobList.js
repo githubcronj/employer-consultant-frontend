@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   appliedJobRequest,
   appliedJobSuccess,
@@ -25,8 +26,7 @@ const SaveJobList = ({ setDetail, setRemove }) => {
 
   const jobData = useSelector((state) => state?.appliedJobReducer?.data);
   const saveJobData = useSelector((state) => state?.savedJobReducer?.data[0]?.job);
-  console.log('saveevevve',saveJobData);
-  // console.log('jojooooo',jobData);
+  
 
   useEffect(() => {
     setDetail(jobData[0]?._id);
@@ -54,7 +54,9 @@ const SaveJobList = ({ setDetail, setRemove }) => {
   };
 
   return (
-    <Box py={{ xs: 1, lg: 2 }}>
+    <>
+     {saveJobData ? (
+      <Box py={{ xs: 1, lg: 2 }}>
       <Typography
         px={{ xs: 1, md: 2, lg: 3 }}
         mb={2}
@@ -120,6 +122,12 @@ const SaveJobList = ({ setDetail, setRemove }) => {
         })}
       </Box>
     </Box>
+    ) : (
+      <Box sx={{display:'flex', justifyContent:'center', alignItems:'center', mt:'50%'}}>
+        <CircularProgress sx={{ color: "#EF4444" }} />
+      </Box>
+    )}
+    </>
   );
 };
 
