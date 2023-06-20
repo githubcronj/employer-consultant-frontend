@@ -3,15 +3,17 @@ import { Box, Button, Divider, Grid, Stack, Typography } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
 const RecentSearch = () => {
   return (
-    <Box mt={3} sx={{ background: "#fff", py: "1rem", borderRadius: "4px" }}>
+    <Box mt={3} sx={{ background: "#fff", py: "0.5rem", borderRadius: "4px" }}>
+
     <Stack
       direction="row"
       justifyContent="space-between"
       alignItems="center"
       spacing={2}
-      py={2}
+      py={1}
       px={2}
     >
       <Typography

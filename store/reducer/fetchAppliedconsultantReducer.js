@@ -10,7 +10,7 @@ const INITIAL_STATE = {
 };
 
 export function fetchappliedConsultantReducer(state = INITIAL_STATE, action) {
-  console.log(action.payload , "reducer")
+  // console.log(action.payload , "reducer")
   switch (action.type) {
   
     case types.FETCH_APPLIED_CONSULTANT_REQUEST:
