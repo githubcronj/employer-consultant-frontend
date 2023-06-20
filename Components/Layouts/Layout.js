@@ -34,7 +34,8 @@ function Layout(props) {
     "/googleAuth",
     "/viewjobpost/cviewprofile",
     "/reset-password",
-    "/consultant-interview"
+    "/consultant-interview",
+    "/edit-consultant-profile"
   ].includes(pathname);
   const onlyNav = ["/viewProfileCon"];
 
