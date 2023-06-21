@@ -732,7 +732,7 @@ const Setupdetails = () => {
         <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll ">
           {/* <img src="/Assets/resumeTemplate.png" alt="cameraIcon" /> */}
           {template === "templateOne" ? (
-            <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll ">
+            <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll max-w-[700px] ">
               {/* resume */}
               {/* <div className='grid sm:grid-cols-5 bg-black lg:px-4'> */}
               <div className="sm:flex items-center bg-black lg:px-4">
@@ -756,7 +756,7 @@ const Setupdetails = () => {
 
                 {/* <div className='sm:col-span-3 mx-3 my-10'> */}
                 <div className="w-[68%] px-3 py-4 bg-black">
-                  <div className="text-[24px] font-bold mb-[10px] text-white">
+                  <div className="text-[24px] font-bold mb-[10px] text-white break-words">
                     {resumeForm.personalDetails.fullName &&
                       resumeForm.personalDetails.fullName}
                     {resumeForm.personalDetails.fullName === ""
@@ -766,7 +766,7 @@ const Setupdetails = () => {
                       ? "David Anderson"
                       : null}
                   </div>
-                  <div className="text-[16px] w-[fit-content] font-medium text-white bg-gray-800 p-1">
+                  <div className="text-[16px] w-[fit-content] font-medium text-white bg-gray-800 p-1 break-words">
                     {resumeForm.personalDetails.text &&
                       resumeForm.personalDetails.text}
                     {resumeForm.personalDetails.text === ""
@@ -780,10 +780,10 @@ const Setupdetails = () => {
                   <div className="grid grid-cols-2 gap-2 my-10">
                     {/* 1 */}
                     <div>
-                      <div className="text-[14px] text-white font-bold">
+                      <div className="text-[14px] text-white font-bold break-words">
                         Phone:
                       </div>
-                      <div className="text-[16px] text-white">
+                      <div className="text-[16px] text-white break-words">
                         {resumeForm.personalDetails.phoneNumber &&
                           resumeForm.personalDetails.phoneNumber}
                         {resumeForm.personalDetails.phoneNumber === ""
@@ -796,10 +796,10 @@ const Setupdetails = () => {
                     </div>
                     {/* 2 */}
                     <div>
-                      <div className="text-[14px] text-white font-bold">
+                      <div className="text-[14px] text-white font-bold break-words">
                         Email
                       </div>
-                      <div className="text-[16px] text-white">
+                      <div className="text-[16px] text-white break-words">
                         {resumeForm.personalDetails.email &&
                           resumeForm.personalDetails.email}
                         {resumeForm.personalDetails.email === ""
@@ -813,10 +813,10 @@ const Setupdetails = () => {
 
                     {/* 3 */}
                     <div>
-                      <div className="text-[14px] text-white font-bold">
+                      <div className="text-[14px] text-white font-bold break-words">
                         Gender:
                       </div>
-                      <div className="text-[16px] text-white">
+                      <div className="text-[16px] text-white break-words">
                         {resumeForm.personalDetails.gender &&
                           resumeForm.personalDetails.gender}
                         {resumeForm.personalDetails.gender === ""
@@ -832,10 +832,10 @@ const Setupdetails = () => {
 
                     {/* 1 */}
                     <div>
-                      <div className="text-[14px] text-white font-bold">
+                      <div className="text-[14px] text-white font-bold break-words">
                         Loaction:
                       </div>
-                      <div className="text-[16px] text-white">
+                      <div className="text-[16px] text-white break-words">
                         {resumeForm.personalDetails.location &&
                           resumeForm.personalDetails.location}
                         {resumeForm.personalDetails.location === ""
@@ -848,10 +848,10 @@ const Setupdetails = () => {
                     </div>
                     {/* 2 */}
                     <div>
-                      <div className="text-[14px] text-white font-bold">
+                      <div className="text-[14px] text-white font-bold break-words">
                         Year of Experience
                       </div>
-                      <div className="text-[16px] text-white">
+                      <div className="text-[16px] text-white break-words">
                         {resumeForm.personalDetails.totalExperience &&
                           resumeForm.personalDetails.totalExperience}
                         {resumeForm.personalDetails.totalExperience === ""
@@ -874,30 +874,32 @@ const Setupdetails = () => {
 
                 <div className="flex items-center py-10 pl-4 sm:w-[32%]">
                   <div>
-                    <div className="text-[20px] font-bold mb-[10px]">
+                    <div className="text-[20px] font-bold mb-[10px] break-words">
                       Education
                     </div>
                     {resumeForm.education.length == 0 ? (
                       <div className="my-3">
-                        <div className="text-[15px]">2020</div>
-                        <div className="text-[15px] font-bold">
+                        <div className="text-[15px] break-words">2020</div>
+                        <div className="text-[15px] font-bold break-words">
                           BCA in Bachelor Degree
                         </div>
-                        <div className="text-[15px]">Mumbai University</div>
+                        <div className="text-[15px] break-words">
+                          Mumbai University
+                        </div>
                       </div>
                     ) : null}
                     {resumeForm.education.map((item, index) => {
                       return (
                         <div className="my-3" key={index}>
-                          <div className="text-[15px]">
+                          <div className="text-[15px] break-words">
                             {item.year}
                             {/* 2020 */}
                           </div>
-                          <div className="text-[15px] font-bold">
+                          <div className="text-[15px] font-bold break-words">
                             {item.level} in {item.degreeName}
                             {/* BCA in Bachelor Degree */}
                           </div>
-                          <div className="text-[15px]">
+                          <div className="text-[15px] break-words">
                             {item.institutionName}
                             {/* Mumbai University */}
                           </div>
@@ -907,7 +909,9 @@ const Setupdetails = () => {
 
                     {/* skills */}
 
-                    <div className="text-[20px] font-bold mt-8">Skills</div>
+                    <div className="text-[20px] font-bold mt-8 break-words">
+                      Skills
+                    </div>
                     {resumeForm.skill.length == 0 ? (
                       <div className="my-3 flex items-center gap-2">
                         <div>
@@ -917,7 +921,9 @@ const Setupdetails = () => {
                             className=""
                           />
                         </div>
-                        <div className="text-[15px] font-bold">Javascript</div>
+                        <div className="text-[15px] font-bold break-words">
+                          Javascript
+                        </div>
                       </div>
                     ) : null}
                     {resumeForm.skill.map((item, index) => {
@@ -933,7 +939,7 @@ const Setupdetails = () => {
                               className=""
                             />
                           </div>
-                          <div className="text-[15px] font-bold">
+                          <div className="text-[15px] font-bold break-words">
                             {item.skillName}
                           </div>
                         </div>
@@ -949,24 +955,26 @@ const Setupdetails = () => {
                   <div>
                     {!fresherChecked ? (
                       <div>
-                        <h2 className="text-[20px] font-bold mb-[10px]">
+                        <h2 className="text-[20px] font-bold mb-[10px] break-words">
                           Experience
                         </h2>
                         {resumeForm.experience.length == 0 ? (
                           <div className="grid sm:grid-cols-5 gap-2 my-2">
                             {/* 1 */}
                             <div className="sm:col-span-2">
-                              <div className="text-[15px]">2020 to 2021</div>
-                              <div className="text-[15px] font-bold">
+                              <div className="text-[15px] break-words">
+                                2020 to 2021
+                              </div>
+                              <div className="text-[15px] font-bold break-words">
                                 Company Name
                               </div>
                             </div>
                             {/* 2 */}
                             <div className="sm:col-span-3">
-                              <div className="text-[15px] font-bold">
+                              <div className="text-[15px] font-bold break-words">
                                 Senior Developer
                               </div>
-                              <div className="text-[15px]">
+                              <div className="text-[15px] break-words">
                                 Description - In publishing and graphic design,
                                 Lorem ipsum is a placeholder text commonly used
                                 to demonstrate the visual form of a document or
@@ -984,7 +992,7 @@ const Setupdetails = () => {
                             >
                               {/* 1 */}
                               <div className="sm:col-span-2">
-                                <div className="text-[15px]">
+                                <div className="text-[15px] break-words">
                                   {item?.joinedDate?.split("-")[0]}{" "}
                                   <span> to </span>
                                   {presentDateCheck
@@ -992,18 +1000,18 @@ const Setupdetails = () => {
                                     : item?.endDate?.split("-")[0]}
                                   {/* 2020 to 2021 */}
                                 </div>
-                                <div className="text-[15px] font-bold">
+                                <div className="text-[15px] font-bold break-words">
                                   {item.companyName}
                                   {/* Company Name */}
                                 </div>
                               </div>
                               {/* 2 */}
                               <div className="sm:col-span-3">
-                                <div className="text-[15px] font-bold">
+                                <div className="text-[15px] font-bold break-words">
                                   {/* Senior Developer */}
                                   {item.jobPosition}
                                 </div>
-                                <div className="text-[15px]">
+                                <div className="text-[15px] break-words">
                                   {item.description}
                                 </div>
                               </div>
@@ -1018,22 +1026,26 @@ const Setupdetails = () => {
                     {/* Projects */}
 
                     <div>
-                      <h2 className="text-[20px] font-bold mb-[10px]">
+                      <h2 className="text-[20px] font-bold mb-[10px] break-words">
                         Projects
                       </h2>
                       {resumeForm.project.length == 0 ? (
                         <div className="grid sm:grid-cols-5 gap-2 my-2">
                           {/* 1 */}
                           <div className="sm:col-span-2">
-                            <div className="text-[15px]">2020 to 2021</div>
-                            <div className="text-[15px] font-bold">
+                            <div className="text-[15px] break-words">
+                              2020 to 2021
+                            </div>
+                            <div className="text-[15px] font-bold break-words">
                               Project Name
                             </div>
                           </div>
                           {/* 2 */}
                           <div className="sm:col-span-3">
-                            <div className="text-[15px] font-bold">Link</div>
-                            <div className="text-[15px]">
+                            <div className="text-[15px] font-bold break-words">
+                              Link
+                            </div>
+                            <div className="text-[15px] break-words">
                               In publishing and graphic design, Lorem ipsum is a
                               placeholder text commonly used to demonstrate the
                               visual form of a document or a typeface without
@@ -1050,29 +1062,29 @@ const Setupdetails = () => {
                           >
                             {/* 1 */}
                             <div className="sm:col-span-2">
-                              <div className="text-[15px]">
+                              <div className="text-[15px] break-words">
                                 {item?.startDate?.split("-")[0]}{" "}
                                 <span> to </span>
                                 {item?.endDate?.split("-")[0]}
                                 {/* 2020 to 2021 */}
                               </div>
-                              <div className="text-[15px] font-bold">
+                              <div className="text-[15px] font-bold break-words">
                                 {item.projectName}
                               </div>
                             </div>
                             {/* 2 */}
                             <div className="sm:col-span-3">
-                              <div className="text-[15px] font-bold">
+                              <div className="text-[15px] font-bold break-words">
                                 <a
                                   href={item.projectUrl}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="text-blue-400 underline italic "
+                                  className="text-blue-400 underline italic break-words "
                                 >
                                   link
                                 </a>
                               </div>
-                              <div className="text-[15px]">
+                              <div className="text-[15px] w-full break-words ">
                                 {item.projectDescription}
                               </div>
                             </div>
@@ -1085,11 +1097,11 @@ const Setupdetails = () => {
                     <div>
                       {resumeForm.certification.length == 0 ? (
                         <div>
-                          <div className="text-[20px] font-bold mt-8">
+                          <div className="text-[20px] font-bold mt-8 break-words">
                             Certfication
                           </div>
                           <div>
-                            <div className="text-[15px] font-bold">
+                            <div className="text-[15px] font-bold break-words">
                               Big Data Certification Course by Caltech
                             </div>
 
@@ -1099,7 +1111,7 @@ const Setupdetails = () => {
                             <div>
                               <a
                                 href="http://localhost:3000/resume"
-                                className="text-blue-400 underline italic "
+                                className="text-blue-400 underline italic break-words "
                               >
                                 view certificate
                               </a>
@@ -1117,7 +1129,7 @@ const Setupdetails = () => {
                       {resumeForm.certification.map((item, index) => {
                         return (
                           <div key={index}>
-                            <div className="text-[15px] font-bold">
+                            <div className="text-[15px] font-bold break-words">
                               {item.courseName} <span> by </span>
                               {item.issuingOrganization}
                             </div>
@@ -1130,7 +1142,7 @@ const Setupdetails = () => {
                                 href={item.credentialUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-400 underline italic "
+                                className="text-blue-400 underline italic break-words "
                               >
                                 view certificate
                               </a>
@@ -1148,7 +1160,7 @@ const Setupdetails = () => {
           ) : null}
 
           {template === "templateTwo" ? (
-            <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll ">
+            <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll w-full break-words ">
               {/* resume */}
               {/* <div className='grid sm:grid-cols-5 bg-black lg:px-4'> */}
               <div className="sm:flex items-center bg-[#ebcbbb] sm:bg-[#6c999a]">
@@ -1172,7 +1184,7 @@ const Setupdetails = () => {
 
                 {/* <div className='sm:col-span-3 mx-3 my-10'> */}
                 <div className="w-[68%] px-3 py-4 bg-[#ebcbbb]">
-                  <div className="text-[24px] font-bold mb-[10px]">
+                  <div className="text-[24px] font-bold mb-[10px] break-words">
                     {resumeForm.personalDetails.fullName &&
                       resumeForm.personalDetails.fullName}
                     {resumeForm.personalDetails.fullName === ""
@@ -1182,7 +1194,7 @@ const Setupdetails = () => {
                       ? "David Anderson"
                       : null}
                   </div>
-                  <div className="text-[16px] w-[fit-content] font-medium">
+                  <div className="text-[16px] w-[fit-content] font-medium break-words">
                     {resumeForm.personalDetails.text &&
                       resumeForm.personalDetails.text}
                     {resumeForm.personalDetails.text === ""
@@ -1196,7 +1208,9 @@ const Setupdetails = () => {
                   <div className="grid grid-cols-2 gap-2 my-10">
                     {/* 1 */}
                     <div>
-                      <div className="text-[14px] font-bold">Phone:</div>
+                      <div className="text-[14px] font-bold break-words">
+                        Phone:
+                      </div>
                       <div className="text-[16px]">
                         {resumeForm.personalDetails.phoneNumber &&
                           resumeForm.personalDetails.phoneNumber}
@@ -1210,7 +1224,9 @@ const Setupdetails = () => {
                     </div>
                     {/* 2 */}
                     <div>
-                      <div className="text-[14px] font-bold">Email</div>
+                      <div className="text-[14px] font-bold break-words">
+                        Email
+                      </div>
                       <div className="text-[16px]">
                         {" "}
                         {resumeForm.personalDetails.email &&
@@ -1257,7 +1273,7 @@ const Setupdetails = () => {
                     </div>
                     {/* 2 */}
                     <div>
-                      <div className="text-[14px] font-bold">
+                      <div className="text-[14px] font-bold break-words">
                         Year of Experience
                       </div>
                       <div className="text-[16px]">
@@ -1279,21 +1295,23 @@ const Setupdetails = () => {
                 </div>
               </div>
 
-              <div className="flex items-start bg-[#6c999a]">
+              <div className="flex items-start bg-[#6c999a] break-words">
                 {/* education and skills */}
 
                 <div className="flex items-center py-10 px-4 sm:w-[32%]">
                   <div>
-                    <div className="text-[20px] font-bold mb-[10px] text-white">
+                    <div className="text-[20px] font-bold mb-[10px] text-white break-words">
                       Education
                     </div>
                     {resumeForm.education.length == 0 ? (
                       <div className="my-3">
-                        <div className="text-[15px] text-white">2020</div>
-                        <div className="text-[15px] font-bold text-white">
+                        <div className="text-[15px] text-white break-words">
+                          2020
+                        </div>
+                        <div className="text-[15px] font-bold text-white break-words">
                           BCA in Bachelor Degree
                         </div>
-                        <div className="text-[15px] text-white">
+                        <div className="text-[15px] text-white break-words">
                           Mumbai University
                         </div>
                       </div>
@@ -1302,15 +1320,15 @@ const Setupdetails = () => {
                     {resumeForm.education.map((item, index) => {
                       return (
                         <div className="my-3" key={index}>
-                          <div className="text-[15px] text-white">
+                          <div className="text-[15px] text-white break-words">
                             {item.year}
                             {/* 2020 */}
                           </div>
-                          <div className="text-[15px] text-white font-bold">
+                          <div className="text-[15px] text-white font-bold break-words">
                             {item.level} in {item.degreeName}
                             {/* BCA in Bachelor Degree */}
                           </div>
-                          <div className="text-[15px] text-white">
+                          <div className="text-[15px] text-white break-words">
                             {item.institutionName}
                             {/* Mumbai University */}
                           </div>
@@ -1320,7 +1338,7 @@ const Setupdetails = () => {
 
                     {/* skills */}
 
-                    <div className="text-[20px] font-bold mt-8 text-white">
+                    <div className="text-[20px] font-bold mt-8 text-white break-words">
                       Skills
                     </div>
                     {resumeForm.skill.length == 0 ? (
@@ -1332,7 +1350,7 @@ const Setupdetails = () => {
                             className=""
                           ></img>
                         </div>
-                        <div className="text-[15px] font-bold text-white">
+                        <div className="text-[15px] font-bold text-white break-words">
                           Javascript
                         </div>
                       </div>
@@ -1351,7 +1369,7 @@ const Setupdetails = () => {
                               className=""
                             ></img>
                           </div>
-                          <div className="text-[15px] font-bold text-white">
+                          <div className="text-[15px] font-bold text-white break-words">
                             {item.skillName}
                           </div>
                         </div>
@@ -1367,24 +1385,26 @@ const Setupdetails = () => {
                   <div>
                     {!fresherChecked ? (
                       <div>
-                        <h2 className="text-[20px] font-bold mb-[10px]">
+                        <h2 className="text-[20px] font-bold mb-[10px] break-words">
                           Experience
                         </h2>
                         {resumeForm.experience.length == 0 ? (
                           <div className="grid sm:grid-cols-5 gap-2 my-2">
                             {/* 1 */}
                             <div className="sm:col-span-2">
-                              <div className="text-[15px]">2020 to 2021</div>
-                              <div className="text-[15px] font-bold">
+                              <div className="text-[15px] break-words">
+                                2020 to 2021
+                              </div>
+                              <div className="text-[15px] font-bold break-words">
                                 Company Name
                               </div>
                             </div>
                             {/* 2 */}
                             <div className="sm:col-span-3">
-                              <div className="text-[15px] font-bold">
+                              <div className="text-[15px] font-bold break-words">
                                 Senior Developer
                               </div>
-                              <div className="text-[15px]">
+                              <div className="text-[15px] break-words">
                                 Description - In publishing and graphic design,
                                 Lorem ipsum is a placeholder text commonly used
                                 to demonstrate the visual form of a document or
@@ -1402,7 +1422,7 @@ const Setupdetails = () => {
                             >
                               {/* 1 */}
                               <div className="sm:col-span-2">
-                                <div className="text-[15px]">
+                                <div className="text-[15px] break-words">
                                   {item?.joinedDate?.split("-")[0]}{" "}
                                   <span> to </span>
                                   {presentDateCheck
@@ -1410,18 +1430,18 @@ const Setupdetails = () => {
                                     : item?.endDate?.split("-")[0]}
                                   {/* 2020 to 2021 */}
                                 </div>
-                                <div className="text-[15px] font-bold">
+                                <div className="text-[15px] font-bold break-words">
                                   {item.companyName}
                                   {/* Company Name */}
                                 </div>
                               </div>
                               {/* 2 */}
                               <div className="sm:col-span-3">
-                                <div className="text-[15px] font-bold">
+                                <div className="text-[15px] font-bold break-words">
                                   {/* Senior Developer */}
                                   {item.jobPosition}
                                 </div>
-                                <div className="text-[15px]">
+                                <div className="text-[15px] break-words">
                                   {item.description}
                                 </div>
                               </div>
@@ -1436,22 +1456,26 @@ const Setupdetails = () => {
                     {/* Projects */}
 
                     <div>
-                      <h2 className="text-[20px] font-bold mb-[10px]">
+                      <h2 className="text-[20px] font-bold mb-[10px] break-words">
                         Projects
                       </h2>
                       {resumeForm.project.length == 0 ? (
                         <div className="grid sm:grid-cols-5 gap-2 my-2">
                           {/* 1 */}
                           <div className="sm:col-span-2">
-                            <div className="text-[15px]">2020 to 2021</div>
-                            <div className="text-[15px] font-bold">
+                            <div className="text-[15px] break-words">
+                              2020 to 2021
+                            </div>
+                            <div className="text-[15px] font-bold break-words">
                               Project Name
                             </div>
                           </div>
                           {/* 2 */}
                           <div className="sm:col-span-3">
-                            <div className="text-[15px] font-bold">Link</div>
-                            <div className="text-[15px]">
+                            <div className="text-[15px] font-bold break-words">
+                              Link
+                            </div>
+                            <div className="text-[15px] break-words">
                               In publishing and graphic design, Lorem ipsum is a
                               placeholder text commonly used to demonstrate the
                               visual form of a document or a typeface without
@@ -1468,29 +1492,29 @@ const Setupdetails = () => {
                           >
                             {/* 1 */}
                             <div className="sm:col-span-2">
-                              <div className="text-[15px]">
+                              <div className="text-[15px] break-words">
                                 {item?.startDate?.split("-")[0]}{" "}
                                 <span> to </span>
                                 {item?.endDate?.split("-")[0]}
                                 {/* 2020 to 2021 */}
                               </div>
-                              <div className="text-[15px] font-bold">
+                              <div className="text-[15px] font-bold break-words">
                                 {item.projectName}
                               </div>
                             </div>
                             {/* 2 */}
                             <div className="sm:col-span-3">
-                              <div className="text-[15px] font-bold">
+                              <div className="text-[15px] font-bold break-words">
                                 <a
                                   href={item.projectUrl}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="text-blue-400 underline italic "
+                                  className="text-blue-400 underline italic break-words "
                                 >
                                   link
                                 </a>
                               </div>
-                              <div className="text-[15px]">
+                              <div className="text-[15px] break-words">
                                 {item.projectDescription}
                               </div>
                             </div>
@@ -1503,11 +1527,11 @@ const Setupdetails = () => {
                     <div>
                       {resumeForm.certification.length == 0 ? (
                         <div>
-                          <div className="text-[20px] font-bold mt-8">
+                          <div className="text-[20px] font-bold mt-8 break-words">
                             Certfication
                           </div>
                           <div>
-                            <div className="text-[15px] font-bold">
+                            <div className="text-[15px] font-bold break-words">
                               Big Data Certification Course by Caltech
                             </div>
 
@@ -1517,7 +1541,7 @@ const Setupdetails = () => {
                             <div>
                               <a
                                 href="http://localhost:3000/resume"
-                                className="text-blue-400 underline italic "
+                                className="text-blue-400 underline italic break-words "
                               >
                                 view certificate
                               </a>
@@ -1527,7 +1551,7 @@ const Setupdetails = () => {
                       ) : null}
 
                       {resumeForm.certification.length != 0 && (
-                        <div className="text-[20px] font-bold mt-8">
+                        <div className="text-[20px] font-bold mt-8 break-words">
                           Certfication
                         </div>
                       )}
@@ -1535,7 +1559,7 @@ const Setupdetails = () => {
                       {resumeForm.certification.map((item, index) => {
                         return (
                           <div key={index}>
-                            <div className="text-[15px] font-bold">
+                            <div className="text-[15px] font-bold break-words">
                               {item.courseName} <span> by </span>
                               {item.issuingOrganization}
                             </div>
@@ -1548,7 +1572,7 @@ const Setupdetails = () => {
                                 href={item.credentialUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-400 underline italic "
+                                className="text-blue-400 underline italic break-words "
                               >
                                 view certificate
                               </a>
