@@ -40,7 +40,7 @@ const Setupdetails = () => {
       location: resumeFormData?.resumeData?.personalDetails?.location,
       text: resumeFormData?.resumeData?.personalDetails?.text,
       image: null,
-      totalExperience:""
+      totalExperience: "",
     },
     education: [],
     experience: [],
@@ -84,7 +84,7 @@ const Setupdetails = () => {
         location: "Location",
         text: "Text",
         image: "Image",
-        totalExperience:"Experience"
+        totalExperience: "Experience",
       },
       education: "Education",
       experience: "Experience",
@@ -732,339 +732,833 @@ const Setupdetails = () => {
         <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll ">
           {/* <img src="/Assets/resumeTemplate.png" alt="cameraIcon" /> */}
           {template === "templateOne" ? (
-            <div className="flex flex-col justify-center ">
-              <div>
-                <div className="m-[20px] p-[20px] border border-[#ccc] rounded-[5px] ">
-                  <div className="flex items-center">
-                    <div className="w-[80px] h-[80px] mr-[20px] ">
-                      {/* <img
-                      src={resumeForm.personalDetails.image.name}
-                      alt="Profile"
-                      className="w-full h-full rounded-[50%] "
-                    /> */}
-                      {selectedImage ? (
-                        <img
-                          src={selectedImage}
-                          style={{ width: "fit-content", height: "auto" }}
-                          alt="selectedImage"
-                        />
-                      ) : (
-                        <img src="/Assets/camera-icon.svg" alt="cameraIcon" />
-                      )}
-                    </div>
-                    <div className="flex flex-row">
-                      <div className="text-[20px] font-bold ">
-                        {resumeForm.personalDetails.fullName}
-                      </div>
-                      <div className="text-[24px] text-[#888] ">
-                        {resumeForm.personalDetails.text}
-                      </div>
-                    </div>
-                  </div>
-                  <div>email:-{resumeForm.personalDetails.email}</div>
-                  <div>
-                    Contact Number:-{resumeForm.personalDetails.phoneNumber}{" "}
-                  </div>
-                  <div className="">{resumeForm.personalDetails.location}</div>
+            <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll ">
+              {/* resume */}
+              {/* <div className='grid sm:grid-cols-5 bg-black lg:px-4'> */}
+              <div className="sm:flex items-center bg-black lg:px-4">
+                {/* <div className='sm:col-span-2 flex items-center my-10'> */}
+                <div className="w-[32%] flex items-center my-4 bg-[#FAD02C] rounded-full">
+                  {selectedImage ? (
+                    <img
+                      src={selectedImage}
+                      style={{ width: "fit-content", height: "auto" }}
+                      alt="selectedImage"
+                      className="h-[93%] w-[100%]"
+                    />
+                  ) : (
+                    <img
+                      src="/Assets/image.svg"
+                      alt="profile"
+                      className="h-[93%] w-[100%]"
+                    />
+                  )}
+                </div>
 
-                  <div className="content">
-                    <div className="mb-[20px] ">
-                      <h2>Education</h2>
-                      {resumeForm.education.map((item, index) => {
-                        return (
-                          <div className="item" key={index}>
-                            <div className="text-[18px] font-bold ">
-                              {/* Bachelor of Science in Computer Science */}
-                              {item.level} in {item.degreeName}
+                {/* <div className='sm:col-span-3 mx-3 my-10'> */}
+                <div className="w-[68%] px-3 py-4 bg-black">
+                  <div className="text-[24px] font-bold mb-[10px] text-white">
+                    {resumeForm.personalDetails.fullName &&
+                      resumeForm.personalDetails.fullName}
+                    {resumeForm.personalDetails.fullName === ""
+                      ? "David Anderson"
+                      : null}
+                    {resumeForm.personalDetails.fullName === undefined
+                      ? "David Anderson"
+                      : null}
+                  </div>
+                  <div className="text-[16px] w-[fit-content] font-medium text-white bg-gray-800 p-1">
+                    {resumeForm.personalDetails.text &&
+                      resumeForm.personalDetails.text}
+                    {resumeForm.personalDetails.text === ""
+                      ? "UX Designer"
+                      : null}
+                    {resumeForm.personalDetails.text === undefined
+                      ? "UX Designer"
+                      : null}
+                    <span>- job role</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 my-10">
+                    {/* 1 */}
+                    <div>
+                      <div className="text-[14px] text-white font-bold">
+                        Phone:
+                      </div>
+                      <div className="text-[16px] text-white">
+                        {resumeForm.personalDetails.phoneNumber &&
+                          resumeForm.personalDetails.phoneNumber}
+                        {resumeForm.personalDetails.phoneNumber === ""
+                          ? "+0000 0000 000"
+                          : null}
+                        {resumeForm.personalDetails.phoneNumber === undefined
+                          ? "+0000 0000 000"
+                          : null}
+                      </div>
+                    </div>
+                    {/* 2 */}
+                    <div>
+                      <div className="text-[14px] text-white font-bold">
+                        Email
+                      </div>
+                      <div className="text-[16px] text-white">
+                        {resumeForm.personalDetails.email &&
+                          resumeForm.personalDetails.email}
+                        {resumeForm.personalDetails.email === ""
+                          ? "abc@email.com"
+                          : null}
+                        {resumeForm.personalDetails.email === undefined
+                          ? "abc@email.com"
+                          : null}
+                      </div>
+                    </div>
+
+                    {/* 3 */}
+                    <div>
+                      <div className="text-[14px] text-white font-bold">
+                        Gender:
+                      </div>
+                      <div className="text-[16px] text-white">
+                        {resumeForm.personalDetails.gender &&
+                          resumeForm.personalDetails.gender}
+                        {resumeForm.personalDetails.gender === ""
+                          ? "Male"
+                          : null}
+                        {resumeForm.personalDetails.gender === undefined
+                          ? "Male"
+                          : null}
+                      </div>
+                    </div>
+
+                    {/* new */}
+
+                    {/* 1 */}
+                    <div>
+                      <div className="text-[14px] text-white font-bold">
+                        Loaction:
+                      </div>
+                      <div className="text-[16px] text-white">
+                        {resumeForm.personalDetails.location &&
+                          resumeForm.personalDetails.location}
+                        {resumeForm.personalDetails.location === ""
+                          ? "Banglore"
+                          : null}
+                        {resumeForm.personalDetails.location === undefined
+                          ? "Banglore"
+                          : null}
+                      </div>
+                    </div>
+                    {/* 2 */}
+                    <div>
+                      <div className="text-[14px] text-white font-bold">
+                        Year of Experience
+                      </div>
+                      <div className="text-[16px] text-white">
+                        {resumeForm.personalDetails.totalExperience &&
+                          resumeForm.personalDetails.totalExperience}
+                        {resumeForm.personalDetails.totalExperience === ""
+                          ? "5"
+                          : null}
+                        {resumeForm.personalDetails.totalExperience ===
+                        undefined
+                          ? "5"
+                          : null}
+                        <span>{` years`}</span>
+                      </div>
+                    </div>
+                    {/* 3 */}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-start lg:mx-4 bg-[#EEEFEF]">
+                {/* education and skills */}
+
+                <div className="flex items-center py-10 pl-4 sm:w-[32%]">
+                  <div>
+                    <div className="text-[20px] font-bold mb-[10px]">
+                      Education
+                    </div>
+                    {resumeForm.education.length == 0 ? (
+                      <div className="my-3">
+                        <div className="text-[15px]">2020</div>
+                        <div className="text-[15px] font-bold">
+                          BCA in Bachelor Degree
+                        </div>
+                        <div className="text-[15px]">Mumbai University</div>
+                      </div>
+                    ) : null}
+                    {resumeForm.education.map((item, index) => {
+                      return (
+                        <div className="my-3" key={index}>
+                          <div className="text-[15px]">
+                            {item.year}
+                            {/* 2020 */}
+                          </div>
+                          <div className="text-[15px] font-bold">
+                            {item.level} in {item.degreeName}
+                            {/* BCA in Bachelor Degree */}
+                          </div>
+                          <div className="text-[15px]">
+                            {item.institutionName}
+                            {/* Mumbai University */}
+                          </div>
+                        </div>
+                      );
+                    })}
+
+                    {/* skills */}
+
+                    <div className="text-[20px] font-bold mt-8">Skills</div>
+                    {resumeForm.skill.length == 0 ? (
+                      <div className="my-3 flex items-center gap-2">
+                        <div>
+                          <img
+                            src="/Assets/pointer.svg"
+                            alt="points"
+                            className=""
+                          />
+                        </div>
+                        <div className="text-[15px] font-bold">Javascript</div>
+                      </div>
+                    ) : null}
+                    {resumeForm.skill.map((item, index) => {
+                      return (
+                        <div
+                          className="my-3 flex items-center gap-2"
+                          key={index}
+                        >
+                          <div>
+                            <img
+                              src="/Assets/pointer.svg"
+                              alt="points"
+                              className=""
+                            />
+                          </div>
+                          <div className="text-[15px] font-bold">
+                            {item.skillName}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* skills */}
+                </div>
+                {/* expe and projects */}
+
+                <div className="px-3 py-10 sm:w-[68%] bg-white">
+                  <div>
+                    {!fresherChecked ? (
+                      <div>
+                        <h2 className="text-[20px] font-bold mb-[10px]">
+                          Experience
+                        </h2>
+                        {resumeForm.experience.length == 0 ? (
+                          <div className="grid sm:grid-cols-5 gap-2 my-2">
+                            {/* 1 */}
+                            <div className="sm:col-span-2">
+                              <div className="text-[15px]">2020 to 2021</div>
+                              <div className="text-[15px] font-bold">
+                                Company Name
+                              </div>
                             </div>
-                            <div className="text-[14px] text-[#888] mb-[10px] ">
-                              {/* University of XYZ, 2015-2019 */}
-                              {item.institutionName}
-                              <span>,</span> {item.year}
+                            {/* 2 */}
+                            <div className="sm:col-span-3">
+                              <div className="text-[15px] font-bold">
+                                Senior Developer
+                              </div>
+                              <div className="text-[15px]">
+                                Description - In publishing and graphic design,
+                                Lorem ipsum is a placeholder text commonly used
+                                to demonstrate the visual form of a document or
+                                a typeface without relying on meaningful
+                                content.
+                              </div>
+                            </div>
+                          </div>
+                        ) : null}
+                        {resumeForm?.experience?.map((item, index) => {
+                          return (
+                            <div
+                              className="grid sm:grid-cols-5 gap-2 my-2"
+                              key={index}
+                            >
+                              {/* 1 */}
+                              <div className="sm:col-span-2">
+                                <div className="text-[15px]">
+                                  {item?.joinedDate?.split("-")[0]}{" "}
+                                  <span> to </span>
+                                  {presentDateCheck
+                                    ? "Present"
+                                    : item?.endDate?.split("-")[0]}
+                                  {/* 2020 to 2021 */}
+                                </div>
+                                <div className="text-[15px] font-bold">
+                                  {item.companyName}
+                                  {/* Company Name */}
+                                </div>
+                              </div>
+                              {/* 2 */}
+                              <div className="sm:col-span-3">
+                                <div className="text-[15px] font-bold">
+                                  {/* Senior Developer */}
+                                  {item.jobPosition}
+                                </div>
+                                <div className="text-[15px]">
+                                  {item.description}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : null}
+
+                    {/* end exp */}
+
+                    {/* Projects */}
+
+                    <div>
+                      <h2 className="text-[20px] font-bold mb-[10px]">
+                        Projects
+                      </h2>
+                      {resumeForm.project.length == 0 ? (
+                        <div className="grid sm:grid-cols-5 gap-2 my-2">
+                          {/* 1 */}
+                          <div className="sm:col-span-2">
+                            <div className="text-[15px]">2020 to 2021</div>
+                            <div className="text-[15px] font-bold">
+                              Project Name
+                            </div>
+                          </div>
+                          {/* 2 */}
+                          <div className="sm:col-span-3">
+                            <div className="text-[15px] font-bold">Link</div>
+                            <div className="text-[15px]">
+                              In publishing and graphic design, Lorem ipsum is a
+                              placeholder text commonly used to demonstrate the
+                              visual form of a document or a typeface without
+                              relying on meaningful content.
+                            </div>
+                          </div>
+                        </div>
+                      ) : null}
+                      {resumeForm?.project?.map((item, index) => {
+                        return (
+                          <div
+                            className="grid sm:grid-cols-5 gap-2 my-2"
+                            key={index}
+                          >
+                            {/* 1 */}
+                            <div className="sm:col-span-2">
+                              <div className="text-[15px]">
+                                {item?.startDate?.split("-")[0]}{" "}
+                                <span> to </span>
+                                {item?.endDate?.split("-")[0]}
+                                {/* 2020 to 2021 */}
+                              </div>
+                              <div className="text-[15px] font-bold">
+                                {item.projectName}
+                              </div>
+                            </div>
+                            {/* 2 */}
+                            <div className="sm:col-span-3">
+                              <div className="text-[15px] font-bold">
+                                <a
+                                  href={item.projectUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-400 underline italic "
+                                >
+                                  link
+                                </a>
+                              </div>
+                              <div className="text-[15px]">
+                                {item.projectDescription}
+                              </div>
                             </div>
                           </div>
                         );
                       })}
                     </div>
 
-                    {!fresherChecked ? (
-                      <div className="mb-[20px]">
-                        <h2>Experience</h2>
-                        {resumeForm.experience.map((item, index) => {
-                          return (
-                            <div className="item" key={index}>
-                              <div className="text-[18px] font-bold ">
-                                {/* Frontend Developer */}
-                                {item.jopPosition}
-                              </div>
-                              <div className="text-[14px] text-[#888] mb-[10px] ">
-                                {/* ABC Company, 2019-Present */}
-                                {item.companyName} <span>,</span>{" "}
-                                {item.joinedDate} <span>-</span>{" "}
-                                {presentDateCheck ? "Present" : item.endDate}
-                              </div>
-                              <div>{item.description}</div>
-                              {/* <ul className="pl-[20px] m-0 ">
-                              <li className="mb-[5px] ">
-                                Developed and maintained responsive web
-                                applications using React.js
-                              </li>
-                              <li className="mb-[5px] ">
-                                Collaborated with designers to implement user
-                                interface components
-                              </li>
-                              <li className="mb-[5px] ">
-                                Worked with backend developers to integrate APIs
-                              </li>
-                            </ul> */}
+                    {/* skills */}
+                    <div>
+                      {resumeForm.certification.length == 0 ? (
+                        <div>
+                          <div className="text-[20px] font-bold mt-8">
+                            Certfication
+                          </div>
+                          <div>
+                            <div className="text-[15px] font-bold">
+                              Big Data Certification Course by Caltech
                             </div>
-                          );
-                        })}
-                      </div>
-                    ) : null}
-                    <div className="mb-[20px] ">
-                      <h2>Skills</h2>
-                      <div className="item">
-                        <ul className="m-0 flex flex-row ">
-                          {resumeForm.skill.map((item, index) => {
-                            return (
-                              <li className="mb-[5px] ml-[8px] " key={index}>
-                                {item.skillName}
-                              </li>
-                            );
-                          })}
 
-                          {/* <li className="mb-[5px] ">HTML</li>
-                        <li className="mb-[5px] ">CSS</li>
-                        <li className="mb-[5px] ">JavaScript</li>
-                        <li className="mb-[5px] ">Git</li> */}
-                        </ul>
-                      </div>
-                    </div>
-                    <div className="mb-[20px] ">
-                      <h2>projects</h2>
-                      <div>
-                        {resumeForm.project.map((item, index) => {
-                          return (
-                            <div key={index} className="">
-                              <div className="flex flex-row gap-[5px]">
-                                <p>{item.projectName}</p>
-                                <a
-                                  href={item.projectUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-blue-400 underline italic "
-                                >
-                                  link
-                                </a>
-                                <span>
-                                  {item.startDate} <span>-</span> {item.endDate}
-                                </span>
-                              </div>
-                              <p>{item.projectDescription}</p>
+                            <div>issued On: 20-02-2020</div>
+                            <div>expiration Date: 20-02-2020</div>
+
+                            <div>
+                              <a
+                                href="http://localhost:3000/resume"
+                                className="text-blue-400 underline italic "
+                              >
+                                view certificate
+                              </a>
                             </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                    <div className="mb-[20px] ">
-                      <h2>Certification</h2>
-                      <div>
-                        {resumeForm.certification.map((item, index) => {
-                          return (
-                            <div key={index} className="">
-                              <div className="flex flex-row gap-[5px]">
-                                <p>{item.courseName}</p>
-                                <p>{item.issuingOrganization}</p>
-                                <a
-                                  href={item.projectUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-blue-400 underline italic "
-                                >
-                                  link
-                                </a>
-                              </div>
-                              <div>
-                                {item.issueDate} <span>-</span>{" "}
-                                {item.expirationDate}
-                              </div>
+                          </div>
+                        </div>
+                      ) : null}
+
+                      {resumeForm.certification.length != 0 && (
+                        <div className="text-[20px] font-bold mt-8">
+                          Certfication
+                        </div>
+                      )}
+
+                      {resumeForm.certification.map((item, index) => {
+                        return (
+                          <div key={index}>
+                            <div className="text-[15px] font-bold">
+                              {item.courseName} <span> by </span>
+                              {item.issuingOrganization}
                             </div>
-                          );
-                        })}
-                      </div>
+
+                            <div>issued On: {item.issueDate}</div>
+                            <div>expiration Date: {item.expirationDate}</div>
+
+                            <div>
+                              <a
+                                href={item.credentialUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-400 underline italic "
+                              >
+                                view certificate
+                              </a>
+                            </div>
+                          </div>
+                        );
+                      })}
+
+                      {/* end */}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           ) : null}
+
           {template === "templateTwo" ? (
-            <div className="m-[20px] p-[20px] border border-[#ccc] rounded-[5px] ">
-              <div className="flex justify-center mb-[30px]">
-                <div className="flex items-center">
-                  {/* <img
-                    src="/Assets/appleIcon.png"
-                    alt="Profile"
-                    className="profile-image"
-                  /> */}
-                  <div className="w-[80px] h-[80px] mr-[20px] ">
-                    {selectedImage ? (
-                      <img
-                        src={selectedImage}
-                        style={{ width: "fit-content", height: "auto" }}
-                        alt="selectedImage"
-                      />
-                    ) : (
-                      <img src="/Assets/camera-icon.svg" alt="cameraIcon" />
-                    )}
+            <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll ">
+              {/* resume */}
+              {/* <div className='grid sm:grid-cols-5 bg-black lg:px-4'> */}
+              <div className="sm:flex items-center bg-[#ebcbbb] sm:bg-[#6c999a]">
+                {/* <div className='sm:col-span-2 flex items-center my-10'> */}
+                <div className="w-[32%] flex items-center my-4 bg-[#FAD02C] rounded-full">
+                  {selectedImage ? (
+                    <img
+                      src={selectedImage}
+                      style={{ width: "fit-content", height: "auto" }}
+                      alt="selectedImage"
+                      className="h-[93%] w-[100%]"
+                    />
+                  ) : (
+                    <img
+                      src="/Assets/image.svg"
+                      alt="profile"
+                      className="h-[93%] w-[100%]"
+                    />
+                  )}
+                </div>
+
+                {/* <div className='sm:col-span-3 mx-3 my-10'> */}
+                <div className="w-[68%] px-3 py-4 bg-[#ebcbbb]">
+                  <div className="text-[24px] font-bold mb-[10px]">
+                    {resumeForm.personalDetails.fullName &&
+                      resumeForm.personalDetails.fullName}
+                    {resumeForm.personalDetails.fullName === ""
+                      ? "David Anderson"
+                      : null}
+                    {resumeForm.personalDetails.fullName === undefined
+                      ? "David Anderson"
+                      : null}
                   </div>
-                  <div className="flex flex-col">
-                    <div className="text-[24px] font-bold mb-[10px] ">
-                      {/* John Doe */}
-                      {resumeForm.personalDetails.fullName}
+                  <div className="text-[16px] w-[fit-content] font-medium">
+                    {resumeForm.personalDetails.text &&
+                      resumeForm.personalDetails.text}
+                    {resumeForm.personalDetails.text === ""
+                      ? "UX Designer"
+                      : null}
+                    {resumeForm.personalDetails.text === undefined
+                      ? "UX Designer"
+                      : null}
+                    <span>- job role</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 my-10">
+                    {/* 1 */}
+                    <div>
+                      <div className="text-[14px] font-bold">Phone:</div>
+                      <div className="text-[16px]">
+                        {resumeForm.personalDetails.phoneNumber &&
+                          resumeForm.personalDetails.phoneNumber}
+                        {resumeForm.personalDetails.phoneNumber === ""
+                          ? "+0000 0000 000"
+                          : null}
+                        {resumeForm.personalDetails.phoneNumber === undefined
+                          ? "+0000 0000 000"
+                          : null}
+                      </div>
                     </div>
-                    <div className="text-[18px] text-[#888] mb-[10px] ">
-                      {resumeForm.personalDetails.text}
+                    {/* 2 */}
+                    <div>
+                      <div className="text-[14px] font-bold">Email</div>
+                      <div className="text-[16px]">
+                        {" "}
+                        {resumeForm.personalDetails.email &&
+                          resumeForm.personalDetails.email}
+                        {resumeForm.personalDetails.email === ""
+                          ? "abc@email.com"
+                          : null}
+                        {resumeForm.personalDetails.email === undefined
+                          ? "abc@email.com"
+                          : null}
+                      </div>
                     </div>
-                    <div className="contact">
-                      <span className="block mb-[5px] ">
-                        Email: {resumeForm.personalDetails.email}
-                      </span>
-                      <span className="block mb-[5px] ">
-                        Phone: {resumeForm.personalDetails.phoneNumber}
-                      </span>
-                      <span className="block mb-[5px] ">
-                        Location: {resumeForm.personalDetails.location}
-                      </span>
+
+                    {/* 3 */}
+                    <div>
+                      <div className="text-[14px] font-bold">Gender:</div>
+                      <div className="text-[16px]">
+                        {resumeForm.personalDetails.gender &&
+                          resumeForm.personalDetails.gender}
+                        {resumeForm.personalDetails.gender === ""
+                          ? "Male"
+                          : null}
+                        {resumeForm.personalDetails.gender === undefined
+                          ? "Male"
+                          : null}
+                      </div>
                     </div>
+
+                    {/* new */}
+
+                    {/* 1 */}
+                    <div>
+                      <div className="text-[14px] font-bold">Loaction:</div>
+                      <div className="text-[16px]">
+                        {resumeForm.personalDetails.location &&
+                          resumeForm.personalDetails.location}
+                        {resumeForm.personalDetails.location === ""
+                          ? "Banglore"
+                          : null}
+                        {resumeForm.personalDetails.location === undefined
+                          ? "Banglore"
+                          : null}
+                      </div>
+                    </div>
+                    {/* 2 */}
+                    <div>
+                      <div className="text-[14px] font-bold">
+                        Year of Experience
+                      </div>
+                      <div className="text-[16px]">
+                        {resumeForm.personalDetails.totalExperience &&
+                          resumeForm.personalDetails.totalExperience}
+                        {resumeForm.personalDetails.totalExperience === ""
+                          ? "5"
+                          : null}
+                        {resumeForm.personalDetails.totalExperience ===
+                        undefined
+                          ? "5"
+                          : null}
+                        <span>{` years`}</span>
+                      </div>
+                    </div>
+
+                    {/* 3 */}
                   </div>
                 </div>
               </div>
-              <div className="content">
-                <div className="mb-[20px]">
-                  <h2>Education</h2>
-                  {resumeForm.education.map((item, index) => {
-                    return (
-                      <div className="item" key={index}>
-                        <div className="text-[18px] font-bold mb-[10px] ">
-                          {/* Bachelor of Science in Computer Science */}
-                          {item.level} in {item.degreeName}
+
+              <div className="flex items-start bg-[#6c999a]">
+                {/* education and skills */}
+
+                <div className="flex items-center py-10 px-4 sm:w-[32%]">
+                  <div>
+                    <div className="text-[20px] font-bold mb-[10px] text-white">
+                      Education
+                    </div>
+                    {resumeForm.education.length == 0 ? (
+                      <div className="my-3">
+                        <div className="text-[15px] text-white">2020</div>
+                        <div className="text-[15px] font-bold text-white">
+                          BCA in Bachelor Degree
                         </div>
-                        <div className="text-[14px] text-[#888] mb-[10px] ">
-                          {/* University of XYZ, 2015-2019 */}
-                          {item.institutionName}
-                          <span>,</span> {item.year}
+                        <div className="text-[15px] text-white">
+                          Mumbai University
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
-                {!fresherChecked ? (
-                  <div className="mb-[20px]">
-                    <h2>Experience</h2>
-                    {resumeForm.experience.map((item, index) => {
+                    ) : null}
+
+                    {resumeForm.education.map((item, index) => {
                       return (
-                        <div className="item" key={index}>
-                          <div className="text-[18px] font-bold mb-[10px] ">
-                            {/* Frontend Developer */}
-                            {item.jopPosition}
+                        <div className="my-3" key={index}>
+                          <div className="text-[15px] text-white">
+                            {item.year}
+                            {/* 2020 */}
                           </div>
-                          <div className="text-[14px] text-[#888] mb-[10px] ">
-                            {/* ABC Company, 2019-Present */}
-                            {item.companyName} <span>,</span> {item.joinedDate}{" "}
-                            <span>-</span>{" "}
-                            {presentDateCheck ? "Present" : item.endDate}
+                          <div className="text-[15px] text-white font-bold">
+                            {item.level} in {item.degreeName}
+                            {/* BCA in Bachelor Degree */}
                           </div>
-                          <div>{item.description}</div>
-                          {/* <ul className="pl-[20px] m-0 ">
-                            <li className="mb-[5px]">
-                              Developed and maintained responsive web
-                              applications using React.js
-                            </li>
-                            <li className="mb-[5px]">
-                              Collaborated with designers to implement user
-                              interface components
-                            </li>
-                            <li>
-                              Worked with backend developers to integrate APIs
-                            </li>
-                          </ul> */}
+                          <div className="text-[15px] text-white">
+                            {item.institutionName}
+                            {/* Mumbai University */}
+                          </div>
+                        </div>
+                      );
+                    })}
+
+                    {/* skills */}
+
+                    <div className="text-[20px] font-bold mt-8 text-white">
+                      Skills
+                    </div>
+                    {resumeForm.skill.length == 0 ? (
+                      <div className="my-3 flex items-center gap-2">
+                        <div>
+                          <img
+                            src="/Assets/pointer-white.svg"
+                            alt="points"
+                            className=""
+                          ></img>
+                        </div>
+                        <div className="text-[15px] font-bold text-white">
+                          Javascript
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {resumeForm.skill.map((item, index) => {
+                      return (
+                        <div
+                          className="my-3 flex items-center gap-2"
+                          key={index}
+                        >
+                          <div>
+                            <img
+                              src="/Assets/pointer-white.svg"
+                              alt="points"
+                              className=""
+                            ></img>
+                          </div>
+                          <div className="text-[15px] font-bold text-white">
+                            {item.skillName}
+                          </div>
                         </div>
                       );
                     })}
                   </div>
-                ) : null}
-                <div className="mb-[20px]">
-                  <h2>Skills</h2>
-                  <div className="item">
-                    <ul className="m-0 flex flex-row ">
-                      {resumeForm.skill.map((item, index) => {
+
+                  {/* skills */}
+                </div>
+                {/* expe and projects */}
+
+                <div className="px-3 py-10 sm:w-[68%] bg-white">
+                  <div>
+                    {!fresherChecked ? (
+                      <div>
+                        <h2 className="text-[20px] font-bold mb-[10px]">
+                          Experience
+                        </h2>
+                        {resumeForm.experience.length == 0 ? (
+                          <div className="grid sm:grid-cols-5 gap-2 my-2">
+                            {/* 1 */}
+                            <div className="sm:col-span-2">
+                              <div className="text-[15px]">2020 to 2021</div>
+                              <div className="text-[15px] font-bold">
+                                Company Name
+                              </div>
+                            </div>
+                            {/* 2 */}
+                            <div className="sm:col-span-3">
+                              <div className="text-[15px] font-bold">
+                                Senior Developer
+                              </div>
+                              <div className="text-[15px]">
+                                Description - In publishing and graphic design,
+                                Lorem ipsum is a placeholder text commonly used
+                                to demonstrate the visual form of a document or
+                                a typeface without relying on meaningful
+                                content.
+                              </div>
+                            </div>
+                          </div>
+                        ) : null}
+                        {resumeForm?.experience?.map((item, index) => {
+                          return (
+                            <div
+                              className="grid sm:grid-cols-5 gap-2 my-2"
+                              key={index}
+                            >
+                              {/* 1 */}
+                              <div className="sm:col-span-2">
+                                <div className="text-[15px]">
+                                  {item?.joinedDate?.split("-")[0]}{" "}
+                                  <span> to </span>
+                                  {presentDateCheck
+                                    ? "Present"
+                                    : item?.endDate?.split("-")[0]}
+                                  {/* 2020 to 2021 */}
+                                </div>
+                                <div className="text-[15px] font-bold">
+                                  {item.companyName}
+                                  {/* Company Name */}
+                                </div>
+                              </div>
+                              {/* 2 */}
+                              <div className="sm:col-span-3">
+                                <div className="text-[15px] font-bold">
+                                  {/* Senior Developer */}
+                                  {item.jobPosition}
+                                </div>
+                                <div className="text-[15px]">
+                                  {item.description}
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : null}
+
+                    {/* end exp */}
+
+                    {/* Projects */}
+
+                    <div>
+                      <h2 className="text-[20px] font-bold mb-[10px]">
+                        Projects
+                      </h2>
+                      {resumeForm.project.length == 0 ? (
+                        <div className="grid sm:grid-cols-5 gap-2 my-2">
+                          {/* 1 */}
+                          <div className="sm:col-span-2">
+                            <div className="text-[15px]">2020 to 2021</div>
+                            <div className="text-[15px] font-bold">
+                              Project Name
+                            </div>
+                          </div>
+                          {/* 2 */}
+                          <div className="sm:col-span-3">
+                            <div className="text-[15px] font-bold">Link</div>
+                            <div className="text-[15px]">
+                              In publishing and graphic design, Lorem ipsum is a
+                              placeholder text commonly used to demonstrate the
+                              visual form of a document or a typeface without
+                              relying on meaningful content.
+                            </div>
+                          </div>
+                        </div>
+                      ) : null}
+                      {resumeForm?.project?.map((item, index) => {
                         return (
-                          <li className="mb-[5px] ml-[8px] " key={index}>
-                            {item.skillName}
-                          </li>
+                          <div
+                            className="grid sm:grid-cols-5 gap-2 my-2"
+                            key={index}
+                          >
+                            {/* 1 */}
+                            <div className="sm:col-span-2">
+                              <div className="text-[15px]">
+                                {item?.startDate?.split("-")[0]}{" "}
+                                <span> to </span>
+                                {item?.endDate?.split("-")[0]}
+                                {/* 2020 to 2021 */}
+                              </div>
+                              <div className="text-[15px] font-bold">
+                                {item.projectName}
+                              </div>
+                            </div>
+                            {/* 2 */}
+                            <div className="sm:col-span-3">
+                              <div className="text-[15px] font-bold">
+                                <a
+                                  href={item.projectUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-400 underline italic "
+                                >
+                                  link
+                                </a>
+                              </div>
+                              <div className="text-[15px]">
+                                {item.projectDescription}
+                              </div>
+                            </div>
+                          </div>
                         );
                       })}
-                      {/* <li className="mb-[5px]">React.js</li>
-                      <li className="mb-[5px]">HTML</li>
-                      <li className="mb-[5px]">CSS</li>
-                      <li className="mb-[5px]">JavaScript</li>
-                      <li className="mb-[5px]">Git</li> */}
-                    </ul>
-                  </div>
-                </div>
-                <div className="mb-[20px] ">
-                  <h2>projects</h2>
-                  <div>
-                    {resumeForm.project.map((item, index) => {
-                      return (
-                        <div key={index} className="">
-                          <div className="flex flex-row gap-[5px]">
-                            <p>{item.projectName}</p>
-                            <a
-                              href={item.projectUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-400 underline italic "
-                            >
-                              link
-                            </a>
-                            <span>
-                              {item.startDate} <span>-</span> {item.endDate}
-                            </span>
-                          </div>
-                          <p>{item.projectDescription}</p>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                <div className="mb-[20px] ">
-                  <h2>Certification</h2>
-                  <div>
-                    {resumeForm.certification.map((item, index) => {
-                      return (
-                        <div key={index} className="">
-                          <div className="flex flex-row gap-[5px]">
-                            <p>{item.courseName}</p>
-                            <p>{item.issuingOrganization}</p>
-                            <a
-                              href={item.projectUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-400 underline italic "
-                            >
-                              link
-                            </a>
+                    </div>
+
+                    {/* skills */}
+                    <div>
+                      {resumeForm.certification.length == 0 ? (
+                        <div>
+                          <div className="text-[20px] font-bold mt-8">
+                            Certfication
                           </div>
                           <div>
-                            {item.issueDate} <span>-</span>{" "}
-                            {item.expirationDate}
+                            <div className="text-[15px] font-bold">
+                              Big Data Certification Course by Caltech
+                            </div>
+
+                            <div>issued On: 20-02-2020</div>
+                            <div>expiration Date: 20-02-2020</div>
+
+                            <div>
+                              <a
+                                href="http://localhost:3000/resume"
+                                className="text-blue-400 underline italic "
+                              >
+                                view certificate
+                              </a>
+                            </div>
                           </div>
                         </div>
-                      );
-                    })}
+                      ) : null}
+
+                      {resumeForm.certification.length != 0 && (
+                        <div className="text-[20px] font-bold mt-8">
+                          Certfication
+                        </div>
+                      )}
+
+                      {resumeForm.certification.map((item, index) => {
+                        return (
+                          <div key={index}>
+                            <div className="text-[15px] font-bold">
+                              {item.courseName} <span> by </span>
+                              {item.issuingOrganization}
+                            </div>
+
+                            <div>issued On: {item.issueDate}</div>
+                            <div>expiration Date: {item.expirationDate}</div>
+
+                            <div>
+                              <a
+                                href={item.credentialUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-400 underline italic "
+                              >
+                                view certificate
+                              </a>
+                            </div>
+                          </div>
+                        );
+                      })}
+
+                      {/* end */}
+                    </div>
                   </div>
                 </div>
               </div>
