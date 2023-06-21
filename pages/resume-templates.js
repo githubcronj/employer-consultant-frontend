@@ -4,65 +4,203 @@ import { useState } from "react";
 
 const TemplateOne = () => {
   return (
-    <div className="flex flex-col justify-center ">
-      <div>
-        <div className="m-[20px] p-[20px] border border-[#ccc] rounded-[5px] ">
-          <div className="flex items-center">
-            <div className="w-[80px] h-[80px] mr-[20px] ">
-              <img
-                src="/Assets/appleIcon.png"
-                alt="Profile"
-                className="w-full h-full rounded-[50%] "
-              />
-            </div>
-            <div className="text-[20px] font-bold ">John Doe</div>
-            <div className="text-[24px] text-[#888] ">Web Developer</div>
+    <div className="mx-auto mt-8 lg:mx-0 max-h-[800px] lg:mt-0 overflow-y-scroll max-w-[800px] ">
+      {/* resume */}
+      {/* <div className='grid sm:grid-cols-5 bg-black lg:px-4'> */}
+      <div className="sm:flex items-center bg-black lg:px-4">
+        {/* <div className='sm:col-span-2 flex items-center my-10'> */}
+        <div className="w-[32%] flex items-center my-4 bg-[#FAD02C] rounded-full">
+          <img
+            src="/Assets/image.svg"
+            alt="profile"
+            className="h-[93%] w-[100%]"
+          ></img>
+        </div>
+
+        {/* <div className='sm:col-span-3 mx-3 my-10'> */}
+        <div className="w-[68%] px-3 py-4 bg-black">
+          <div className="text-[24px] font-bold mb-[10px] text-white">
+            David Anderson
           </div>
-          <div className="content">
-            <div className="mb-[20px] ">
-              <h2>Education</h2>
-              <div className="item">
-                <div className="text-[18px] font-bold ">
-                  Bachelor of Science in Computer Science
-                </div>
-                <div className="text-[14px] text-[#888] mb-[10px] ">
-                  University of XYZ, 2015-2019
+          <div className="text-[16px] w-[fit-content] font-medium text-white bg-gray-800 p-1">
+            UX Designer - job role
+          </div>
+          <div className="grid grid-cols-2 gap-2 my-10">
+            {/* 1 */}
+            <div>
+              <div className="text-[14px] text-white font-bold">Phone:</div>
+              <div className="text-[16px] text-white">+1290 7878 890</div>
+            </div>
+            {/* 2 */}
+            <div>
+              <div className="text-[14px] text-white font-bold">Email</div>
+              <div className="text-[16px] text-white">test@gmail.com</div>
+            </div>
+
+            {/* 3 */}
+            <div>
+              <div className="text-[14px] text-white font-bold">Gender:</div>
+              <div className="text-[16px] text-white">Male</div>
+            </div>
+
+            {/* new */}
+
+            {/* 1 */}
+            <div>
+              <div className="text-[14px] text-white font-bold">Loaction:</div>
+              <div className="text-[16px] text-white">Banglore</div>
+            </div>
+            {/* 2 */}
+            <div>
+              <div className="text-[14px] text-white font-bold">
+                Year of Experience
+              </div>
+              <div className="text-[16px] text-white">5 years</div>
+            </div>
+
+            {/* 3 */}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-start lg:mx-4 bg-[#EEEFEF]">
+        {/* education and skills */}
+
+        <div className="flex items-center py-10 pl-4 sm:w-[32%]">
+          <div>
+            <div className="text-[20px] font-bold mb-[10px]">Education</div>
+            <div className="my-3">
+              <div className="text-[15px]">2020</div>
+              <div className="text-[15px] font-bold">
+                BCA in Bachelor Degree
+              </div>
+              <div className="text-[15px]">Mumbai University</div>
+            </div>
+            <div className="my-3">
+              <div className="text-[15px]">2020</div>
+              <div className="text-[15px] font-bold">
+                BCA in Bachelor Degree
+              </div>
+              <div className="text-[15px]">Mumbai University</div>
+            </div>
+            <div className="my-3">
+              <div className="text-[15px]">2020</div>
+              <div className="text-[15px] font-bold">
+                BCA in Bachelor Degree
+              </div>
+              <div className="text-[15px]">Mumbai University</div>
+            </div>
+
+            {/* skills */}
+
+            <div className="text-[20px] font-bold mt-8">Skills</div>
+            <div className="my-3 flex items-center gap-2">
+              <div>
+                <img src="/Assets/pointer.svg" alt="points" className=""></img>
+              </div>
+              <div className="text-[15px] font-bold">Javascript</div>
+            </div>
+            <div className="my-3 flex items-center gap-2">
+              <div>
+                <img src="/Assets/pointer.svg" alt="points" className=""></img>
+              </div>
+              <div className="text-[15px] font-bold">Javascript</div>
+            </div>
+            <div className="my-3 flex items-center gap-2">
+              <div>
+                <img src="/Assets/pointer.svg" alt="points" className=""></img>
+              </div>
+              <div className="text-[15px] font-bold">Javascript</div>
+            </div>
+          </div>
+
+          {/* skills */}
+        </div>
+        {/* expe and projects */}
+
+        <div className="px-3 py-10 sm:w-[68%] bg-white">
+          <div>
+            <div className="text-[20px] font-bold mb-[10px]">Experience</div>
+
+            <div className="grid sm:grid-cols-5 gap-2 my-2">
+              {/* 1 */}
+              <div className="sm:col-span-2">
+                <div className="text-[15px]">2020 to 2021</div>
+                <div className="text-[15px] font-bold">Company Name</div>
+              </div>
+              {/* 2 */}
+              <div className="sm:col-span-3">
+                <div className="text-[15px] font-bold">Senior Developer</div>
+                <div className="text-[15px]">
+                  Description - In publishing and graphic design, Lorem ipsum is
+                  a placeholder text commonly used to demonstrate the visual
+                  form of a document or a typeface without relying on meaningful
+                  content.
                 </div>
               </div>
             </div>
-            <div className="mb-[20px]">
-              <h2>Experience</h2>
-              <div className="item">
-                <div className="text-[18px] font-bold ">Frontend Developer</div>
-                <div className="text-[14px] text-[#888] mb-[10px] ">
-                  ABC Company, 2019-Present
+            {/* 2 exp */}
+            <div className="grid sm:grid-cols-5 gap-2 my-2">
+              {/* 1 */}
+              <div className="sm:col-span-2">
+                <div className="text-[15px]">2020 to 2021</div>
+                <div className="text-[15px] font-bold">Company Name</div>
+              </div>
+              {/* 2 */}
+              <div className="sm:col-span-3">
+                <div className="text-[15px] font-bold">Senior Developer</div>
+                <div className="text-[15px]">
+                  Description - In publishing and graphic design, Lorem ipsum is
+                  a placeholder text commonly used to demonstrate the visual
+                  form of a document or a typeface without relying on meaningful
+                  content.
                 </div>
-                <ul className="pl-[20px] m-0 ">
-                  <li className="mb-[5px] ">
-                    Developed and maintained responsive web applications using
-                    React.js
-                  </li>
-                  <li className="mb-[5px] ">
-                    Collaborated with designers to implement user interface
-                    components
-                  </li>
-                  <li className="mb-[5px] ">
-                    Worked with backend developers to integrate APIs
-                  </li>
-                </ul>
               </div>
             </div>
-            <div className="mb-[20px] ">
-              <h2>Skills</h2>
-              <div className="item">
-                <ul className="pl-[20px] m-0 ">
-                  <li className="mb-[5px] ">React.js</li>
-                  <li className="mb-[5px] ">HTML</li>
-                  <li className="mb-[5px] ">CSS</li>
-                  <li className="mb-[5px] ">JavaScript</li>
-                  <li className="mb-[5px] ">Git</li>
-                </ul>
+
+            {/* end exp */}
+
+            {/* skills */}
+            <div>
+              <div className="text-[20px] font-bold mt-8">Certfication</div>
+
+              {/* 1 */}
+              <div>
+                <div className="text-[15px] font-bold">
+                  Data Science Certification Course by Caltech
+                </div>
+
+                <div>issued On: 20-02-2020</div>
+                <div>expiration Date: 20-02-2020</div>
+
+                <div>
+                  <a
+                    href="http://localhost:3000/resume"
+                    className="text-blue-400 underline italic "
+                  >
+                    view certificate
+                  </a>
+                </div>
               </div>
+              {/* 2 */}
+              <div>
+                <div className="text-[15px] font-bold">
+                  Big Data Certification Course by Caltech
+                </div>
+
+                <div>issued On: 20-02-2020</div>
+                <div>expiration Date: 20-02-2020</div>
+
+                <div>
+                  <a
+                    href="http://localhost:3000/resume"
+                    className="text-blue-400 underline italic "
+                  >
+                    view certificate
+                  </a>
+                </div>
+              </div>
+              {/* end */}
             </div>
           </div>
         </div>
@@ -73,73 +211,214 @@ const TemplateOne = () => {
 
 const TemplateTwo = () => {
   return (
-    <div className="m-[20px] p-[20px] border border-[#ccc] rounded-[5px] ">
-      <div className="flex justify-center mb-[30px]">
-        <div className="flex items-center">
+    <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0  max-w-[800px] max-h-[800px] overflow-y-scroll ">
+      {/* resume */}
+      {/* <div className='grid sm:grid-cols-5 bg-black lg:px-4'> */}
+      <div className="sm:flex items-center bg-[#ebcbbb] sm:bg-[#6c999a]">
+        {/* <div className='sm:col-span-2 flex items-center my-10'> */}
+        <div className="w-[32%] flex items-center my-4 bg-[#FAD02C] rounded-full">
           <img
-            src="/Assets/appleIcon.png"
-            alt="Profile"
-            className="profile-image"
-          />
-          <div className="flex flex-col">
-            <div className="text-[24px] font-bold mb-[10px] ">John Doe</div>
-            <div className="text-[18px] text-[#888] mb-[10px] ">
-              Web Developer
+            src="/Assets/image.svg"
+            alt="profile"
+            className="h-[93%] w-[100%]"
+          ></img>
+        </div>
+
+        {/* <div className='sm:col-span-3 mx-3 my-10'> */}
+        <div className="w-[68%] px-3 py-4 bg-[#ebcbbb]">
+          <div className="text-[24px] font-bold mb-[10px]">David Anderson</div>
+          <div className="text-[16px] w-[fit-content] font-medium">
+            UX Designer - job role
+          </div>
+          <div className="grid grid-cols-2 gap-2 my-10">
+            {/* 1 */}
+            <div>
+              <div className="text-[14px] font-bold">Phone:</div>
+              <div className="text-[16px]">+1290 7878 890</div>
             </div>
-            <div className="contact">
-              <span className="block mb-[5px] ">
-                Email: john.doe@example.com
-              </span>
-              <span className="block mb-[5px] ">Phone: (123) 456-7890</span>
-              <span className="block mb-[5px] ">Website: johndoe.com</span>
+            {/* 2 */}
+            <div>
+              <div className="text-[14px] font-bold">Email</div>
+              <div className="text-[16px]">test@gmail.com</div>
             </div>
+
+            {/* 3 */}
+            <div>
+              <div className="text-[14px] font-bold">Gender:</div>
+              <div className="text-[16px]">Male</div>
+            </div>
+
+            {/* new */}
+
+            {/* 1 */}
+            <div>
+              <div className="text-[14px] font-bold">Loaction:</div>
+              <div className="text-[16px]">Banglore</div>
+            </div>
+            {/* 2 */}
+            <div>
+              <div className="text-[14px] font-bold">Year of Experience</div>
+              <div className="text-[16px]">5 years</div>
+            </div>
+
+            {/* 3 */}
           </div>
         </div>
       </div>
-      <div className="content">
-        <div className="mb-[20px]">
-          <h2>Education</h2>
-          <div className="item">
-            <div className="text-[18px] font-bold mb-[10px] ">
-              Bachelor of Science in Computer Science
+
+      <div className="flex items-start bg-[#6c999a]">
+        {/* education and skills */}
+
+        <div className="flex items-center py-10 px-4 sm:w-[32%]">
+          <div>
+            <div className="text-[20px] font-bold mb-[10px] text-white">
+              Education
             </div>
-            <div className="text-[14px] text-[#888] mb-[10px] ">
-              University of XYZ, 2015-2019
+            <div className="my-3">
+              <div className="text-[15px] text-white">2020</div>
+              <div className="text-[15px] font-bold text-white">
+                BCA in Bachelor Degree
+              </div>
+              <div className="text-[15px] text-white">Mumbai University</div>
+            </div>
+            <div className="my-3">
+              <div className="text-[15px] text-white">2020</div>
+              <div className="text-[15px] text-white font-bold">
+                BCA in Bachelor Degree
+              </div>
+              <div className="text-[15px] text-white">Mumbai University</div>
+            </div>
+            <div className="my-3">
+              <div className="text-[15px] text-white">2020</div>
+              <div className="text-[15px] font-bold text-white">
+                BCA in Bachelor Degree
+              </div>
+              <div className="text-[15px] text-white">Mumbai University</div>
+            </div>
+
+            {/* skills */}
+
+            <div className="text-[20px] font-bold mt-8 text-white">Skills</div>
+            <div className="my-3 flex items-center gap-2">
+              <div>
+                <img
+                  src="/Assets/pointer-white.svg"
+                  alt="points"
+                  className=""
+                ></img>
+              </div>
+              <div className="text-[15px] font-bold text-white">Javascript</div>
+            </div>
+            <div className="my-3 flex items-center gap-2">
+              <div>
+                <img
+                  src="/Assets/pointer-white.svg"
+                  alt="points"
+                  className=""
+                ></img>
+              </div>
+              <div className="text-[15px] font-bold text-white">Javascript</div>
+            </div>
+            <div className="my-3 flex items-center gap-2">
+              <div>
+                <img
+                  src="/Assets/pointer-white.svg"
+                  alt="points"
+                  className=""
+                ></img>
+              </div>
+              <div className="text-[15px] font-bold text-white">Javascript</div>
             </div>
           </div>
+
+          {/* skills */}
         </div>
-        <div className="mb-[20px]">
-          <h2>Experience</h2>
-          <div className="item">
-            <div className="text-[18px] font-bold mb-[10px] ">
-              Frontend Developer
+        {/* expe and projects */}
+
+        <div className="px-3 py-10 sm:w-[68%] bg-white">
+          <div>
+            <div className="text-[20px] font-bold mb-[10px]">Experience</div>
+
+            <div className="grid sm:grid-cols-5 gap-2 my-2">
+              {/* 1 */}
+              <div className="sm:col-span-2">
+                <div className="text-[15px]">2020 to 2021</div>
+                <div className="text-[15px] font-bold">Company Name</div>
+              </div>
+              {/* 2 */}
+              <div className="sm:col-span-3">
+                <div className="text-[15px] font-bold">Senior Developer</div>
+                <div className="text-[15px]">
+                  Description - In publishing and graphic design, Lorem ipsum is
+                  a placeholder text commonly used to demonstrate the visual
+                  form of a document or a typeface without relying on meaningful
+                  content.
+                </div>
+              </div>
             </div>
-            <div className="text-[14px] text-[#888] mb-[10px] ">
-              ABC Company, 2019-Present
+            {/* 2 exp */}
+            <div className="grid sm:grid-cols-5 gap-2 my-2">
+              {/* 1 */}
+              <div className="sm:col-span-2">
+                <div className="text-[15px]">2020 to 2021</div>
+                <div className="text-[15px] font-bold">Company Name</div>
+              </div>
+              {/* 2 */}
+              <div className="sm:col-span-3">
+                <div className="text-[15px] font-bold">Senior Developer</div>
+                <div className="text-[15px]">
+                  Description - In publishing and graphic design, Lorem ipsum is
+                  a placeholder text commonly used to demonstrate the visual
+                  form of a document or a typeface without relying on meaningful
+                  content.
+                </div>
+              </div>
             </div>
-            <ul className="pl-[20px] m-0 ">
-              <li className="mb-[5px]">
-                Developed and maintained responsive web applications using
-                React.js
-              </li>
-              <li className="mb-[5px]">
-                Collaborated with designers to implement user interface
-                components
-              </li>
-              <li>Worked with backend developers to integrate APIs</li>
-            </ul>
-          </div>
-        </div>
-        <div className="mb-[20px]">
-          <h2>Skills</h2>
-          <div className="item">
-            <ul className="pl-[20px] m-0 ">
-              <li className="mb-[5px]">React.js</li>
-              <li className="mb-[5px]">HTML</li>
-              <li className="mb-[5px]">CSS</li>
-              <li className="mb-[5px]">JavaScript</li>
-              <li className="mb-[5px]">Git</li>
-            </ul>
+
+            {/* end exp */}
+
+            {/* skills */}
+            <div>
+              <div className="text-[20px] font-bold mt-8">Certfication</div>
+
+              {/* 1 */}
+              <div>
+                <div className="text-[15px] font-bold">
+                  Data Science Certification Course by Caltech
+                </div>
+
+                <div>issued On: 20-02-2020</div>
+                <div>expiration Date: 20-02-2020</div>
+
+                <div>
+                  <a
+                    href="http://localhost:3000/resume"
+                    className="text-blue-400 underline italic "
+                  >
+                    view certificate
+                  </a>
+                </div>
+              </div>
+              {/* 2 */}
+              <div>
+                <div className="text-[15px] font-bold">
+                  Big Data Certification Course by Caltech
+                </div>
+
+                <div>issued On: 20-02-2020</div>
+                <div>expiration Date: 20-02-2020</div>
+
+                <div>
+                  <a
+                    href="http://localhost:3000/resume"
+                    className="text-blue-400 underline italic "
+                  >
+                    view certificate
+                  </a>
+                </div>
+              </div>
+              {/* end */}
+            </div>
           </div>
         </div>
       </div>
@@ -179,8 +458,8 @@ const TemplateList = () => {
   };
 
   return (
-    <div className="bg-[#EEEFEF] px-14 py-4 pb-8 flex flex-col ">
-      <div className="flex flex-row justify-between">
+    <div className="bg-[] px-14 py-4 pb-8 flex flex-col ">
+      <div className="flex flex-row justify-between mb-8 mt-4">
         <h1 className="text-left font-sans font-bold tracking-[0.52px] text-[22px] xl:text-[26px] ">
           Resume
         </h1>
@@ -195,7 +474,7 @@ const TemplateList = () => {
           </button>
         </Link>
       </div>
-      <div className="flex flex-row justify-between ">
+      <div className="flex flex-row justify-between gap-8 ">
         <div className="flex flex-col bg-[#F9F6EE] px-4 ">
           <h3 className="text-[#2B373C] text-[20px] font-bold my-4 ">
             Select Resume Template
