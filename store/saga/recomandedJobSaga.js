@@ -32,9 +32,21 @@ function* fetchRecommendJobs(action) {
   try {
     const { payload } = action;
     const { data, token } = payload;
-    console.log(data, token);
+    const queryParams = {};
+
+    // Add jobTitle parameter
+    queryParams.jobTitle = data?.jobTitle;
+
+    // Add location parameter if it exists
+    if (data?.location) {
+      queryParams.location = data.location;
+    }
+
+    const queryString = new URLSearchParams(queryParams).toString();
+    const endpoint = `/recommend-jobs?${queryString}`;
+
     const response = yield call(makeApiRequest, {
-      endpoint: `/recommend-jobs?jobTitle=${data?.jobTitle}&location=${data?.location}`,
+      endpoint,
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -47,6 +59,26 @@ function* fetchRecommendJobs(action) {
     yield put(fetchRecommendFailure(error.message));
   }
 }
+
+// function* fetchRecommendJobs(action) {
+//   try {
+//     const { payload } = action;
+//     const { data, token } = payload;
+//     console.log(data, token);
+//     const response = yield call(makeApiRequest, {
+//       endpoint: `/recommend-jobs?jobTitle=${data?.jobTitle}&location=${data?.location}`,
+//       method: "GET",
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//         Token: `Bearer ${token}`,
+//       },
+//     });
+
+//     yield put(fetchRecommendSuccess(response));
+//   } catch (error) {
+//     yield put(fetchRecommendFailure(error.message));
+//   }
+// }
 
 export function* watchjobsSaga() {
   yield takeLatest(types.FETCH_JOBS_REQUEST, fetchJobs);
