@@ -3,12 +3,22 @@ import SearchJobInput from "Components/SearchJobComp/SearchJobInput";
 import React, { useState } from "react";
 import JobSlider from "./JobSlider";
 import RecentSearch from "Components/SearchJob/recentSearch";
+import SearchOver from "Components/PopOver/searchover";
 
 const JobSearchResultData = ({ handleBox1Click, showBox1 }) => {
-  const [showRecentSearch, setShowRecentSearch] = useState(showBox1);
+  const [showSearch, setshowSearch] = useState(true);
+  const [isInputFocused, setInputFocused] = useState(false);
 
-  const handleCloseRecentSearch = () => {
-    setShowRecentSearch(false);
+  const handleShowSearch = () => {
+    (false);
+  };
+
+  const handleInputFocus = () => {
+    setInputFocused(true);
+  };
+
+  const handleInputBlur = () => {
+    setInputFocused(false);
   };
 
   return (
@@ -34,7 +44,11 @@ const JobSearchResultData = ({ handleBox1Click, showBox1 }) => {
         >
           Search Job
         </Typography>
-        <SearchJobInput handleBox1Click={handleBox1Click} />
+        <SearchOver>
+          <SearchJobInput
+          />
+        </SearchOver>
+       
         <Paper
           elevation={0}
           sx={{
@@ -45,6 +59,7 @@ const JobSearchResultData = ({ handleBox1Click, showBox1 }) => {
             overflowY: "scroll",
             position: "relative",
             width: "100%",
+            backdropFilter: isInputFocused ? "blur(5px)" : "none",
           }}
         >
           <JobSlider heading={"Recommended jobs"} />
@@ -56,34 +71,6 @@ const JobSearchResultData = ({ handleBox1Click, showBox1 }) => {
           <JobSlider heading={"UX design"} location="bangalore" />
         </Paper>
       </Box>
-      {/* {showRecentSearch && (
-        <Box
-          sx={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            zIndex: 9999,
-          }}
-        >
-          <Box
-            sx={{
-              backgroundColor: "white",
-              padding: "2rem",
-              borderRadius: "8px",
-              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
-            }}
-          >
-            <RecentSearch />
-            <Button onClick={handleCloseRecentSearch}>Close</Button>
-          </Box>
-        </Box>
-      )} */}
     </>
   );
 };

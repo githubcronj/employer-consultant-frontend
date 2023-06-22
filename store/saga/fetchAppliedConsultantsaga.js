@@ -38,7 +38,7 @@ function* rejectAppliedConsultantSaga(action) {
       headers: {
         Authorization: `Bearer ${action.payload.accessToken}`,
       },
-      body: {
+      data : {
         jobId:action.payload.jobId,
         consultantId:action.payload.consultantId,
       },

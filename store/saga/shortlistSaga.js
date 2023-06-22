@@ -7,13 +7,18 @@ function* shortlistConsultantSaga(action) {
   try {
     const { payload } = action;
     console.log(action.payload, "action shortlist");
+    const body = {
+      jobId: action.payload.jobId,
+      consultantId: action.payload.consultantId,
+    }
+    console.log(body ,"consID")
     const response = yield call(makeApiRequest, {
-      endpoint: "/shortlist-candidate",
+      endpoint: "/shortlist-consultant",
       method: "POST",
       headers: {
-        Authorization: `Bearer ${action.payload.accessToken}`,
+        Authorization:`Bearer ${action.payload.accessToken}`,
       },
-      body: {
+      data: {
         jobId: action.payload.jobId,
         consultantId: action.payload.consultantId,
       },
