@@ -9,6 +9,7 @@ import RecentJob from "Components/SearchJob/recentJob";
 import SearchBlock from "Components/SearchJob/searchBlock";
 import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 import RecentSearch from "Components/SearchJob/recentSearch";
+import Searchover from "Components/PopOver/searchover";
 import SearchJobInput from "Components/SearchJobComp/SearchJobInput";
 
 const SearchJob = () => {
@@ -64,39 +65,11 @@ const SearchJob = () => {
           />
           <NotificationSideBar />
         </Box>
+      
       </Box>
-      {showBox1 && (
-
-        <Box
-          sx={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            zIndex: 9999,
-          }}
-        >
-          <Box
-            sx={{
-              width:"50%",
-              backgroundColor: "white",
-              padding: "2rem",
-              borderRadius: "8px",
-              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
-            }}
-          >
-              <SearchJobInput handleBox1Click={handleBox1Click} />
-            <RecentSearch />
-            <Button onClick={handleCloseSection}>Close</Button>
-          </Box>
-        </Box>
-      )}
+     
     </>
+    
   );
 };
 

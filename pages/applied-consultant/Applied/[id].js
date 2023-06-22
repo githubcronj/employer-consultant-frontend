@@ -20,6 +20,7 @@ import { addintoshortlistRequest } from "store/action/shortlistAction";
 const AppliedConsultant = () => {
   const router = useRouter();
   const id = router.query;
+  console.log(id,"roterid")
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
@@ -71,11 +72,12 @@ const AppliedConsultant = () => {
       state.fetchappliedConsultantReducer.fetchappliedconsultantData.payload
         ?.data?.appliedConsultant
   );
+
   console.log(appliedjobData, "applied consultant");
 
-  const consultantId = appliedjobData?.length > 0 && appliedjobData[0]?._id;
-  const JobId = appliedjobData?.length > 0 && appliedjobData[0]?.id;
 
+ 
+   const consultantId = appliedjobData?.length > 0 && appliedjobData[0]?._id;
   console.log(consultantId, "cosultantid");
   const handleCardClick = (id) => {
     setSelectedCard(id);
@@ -88,15 +90,19 @@ const AppliedConsultant = () => {
       const message = `Shortlisted.\n${currentDate}`;
       setShortlistMessage(message);
     }
-    const jobId = id;
-    console.log( jobId ,"jobid shortlist ")
+    // const jobId = id;
+    // console.log( jobId ,"jobid shortlist ")
     const shortlistPayload = {
-      jobId: id,
+      jobId: id.id,
       consultantId: consultantId,
       accessToken,
     };
-
-    dispatch(addintoshortlistRequest(shortlistPayload))
+    console.log(id.id,consultantId,"sweta")
+if(id.id && consultantId){
+  console.log(id.id,consultantId),
+  dispatch(addintoshortlistRequest(shortlistPayload))
+}
+   
   };
 
   const shortlistedCount = shortlistedCards.length;
@@ -107,10 +113,9 @@ const AppliedConsultant = () => {
     );
     setShortlistedCards(updatedShortlistedCards);
     setShortlistMessage(false);
-    const jobId = id;
-    console.log( jobId ,"jobid REMOVE ")
+    
     const rejectPayload = {
-      jobId: id,
+      jobId: id.id,
       consultantId: consultantId,
       accessToken,
     };

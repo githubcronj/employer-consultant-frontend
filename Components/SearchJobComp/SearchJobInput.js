@@ -7,7 +7,7 @@ import suitCase from "../../asset/icons/suitcase.svg";
 import Image from "next/image";
 import locationIcon from "../../asset/icons/location.svg";
 import styles from "../../styles/LoginPage.module.css";
-const SearchJobInput = ({ handleBox1Click }) => {
+const SearchJobInput = ({ handleBox1Click,isInputFocused }) => {
   return (
     <Paper
       component="form"
@@ -17,6 +17,7 @@ const SearchJobInput = ({ handleBox1Click }) => {
         alignItems: "center",
         width: "100%",
         flexDirection: { xs: "column", sm: "row" },
+        backdropFilter: isInputFocused ? "blur(5px)" : "none",
       }}
     >
       <InputBase
