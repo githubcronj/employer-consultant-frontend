@@ -787,7 +787,424 @@ const EditConsultantProfile = () => {
         </div>
         {/* section 2 */}
         <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll ">
-          <img src="/Assets/resumeTemplate.png" alt="cameraIcon" />
+          {/* <img src="/Assets/resumeTemplate.png" alt="cameraIcon" /> */}
+          <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll max-w-[700px] ">
+            {/* resume */}
+            {/* <div className='grid sm:grid-cols-5 bg-black lg:px-4'> */}
+            <div className="sm:flex items-center bg-black lg:px-4">
+              {/* <div className='sm:col-span-2 flex items-center my-10'> */}
+              <div className="w-[32%] flex items-center my-4 bg-[#FAD02C] rounded-full">
+                {selectedImage ? (
+                  <img
+                    src={selectedImage}
+                    style={{ width: "fit-content", height: "auto" }}
+                    alt="selectedImage"
+                    className="h-[93%] w-[100%]"
+                  />
+                ) : (
+                  <img
+                    src="/Assets/image.svg"
+                    alt="profile"
+                    className="h-[93%] w-[100%]"
+                  />
+                )}
+              </div>
+
+              {/* <div className='sm:col-span-3 mx-3 my-10'> */}
+              <div className="w-[68%] px-3 py-4 bg-black">
+                <div className="text-[24px] font-bold mb-[10px] text-white break-words">
+                  {resumeForm.personalDetails.fullName &&
+                    resumeForm.personalDetails.fullName}
+                  {resumeForm.personalDetails.fullName === ""
+                    ? "David Anderson"
+                    : null}
+                  {resumeForm.personalDetails.fullName === undefined
+                    ? "David Anderson"
+                    : null}
+                </div>
+                <div className="text-[16px] w-[fit-content] font-medium text-white bg-gray-800 p-1 break-words">
+                  {resumeForm.personalDetails.text &&
+                    resumeForm.personalDetails.text}
+                  {resumeForm.personalDetails.text === ""
+                    ? "UX Designer"
+                    : null}
+                  {resumeForm.personalDetails.text === undefined
+                    ? "UX Designer"
+                    : null}
+                  <span>- job role</span>
+                </div>
+                <div className="grid grid-cols-2 gap-2 my-10">
+                  {/* 1 */}
+                  <div>
+                    <div className="text-[14px] text-white font-bold break-words">
+                      Phone:
+                    </div>
+                    <div className="text-[16px] text-white break-words">
+                      {resumeForm.personalDetails.phoneNumber &&
+                        resumeForm.personalDetails.phoneNumber}
+                      {resumeForm.personalDetails.phoneNumber === ""
+                        ? "+0000 0000 000"
+                        : null}
+                      {resumeForm.personalDetails.phoneNumber === undefined
+                        ? "+0000 0000 000"
+                        : null}
+                    </div>
+                  </div>
+                  {/* 2 */}
+                  <div>
+                    <div className="text-[14px] text-white font-bold break-words">
+                      Email
+                    </div>
+                    <div className="text-[16px] text-white break-words">
+                      {resumeForm.personalDetails.email &&
+                        resumeForm.personalDetails.email}
+                      {resumeForm.personalDetails.email === ""
+                        ? "abc@email.com"
+                        : null}
+                      {resumeForm.personalDetails.email === undefined
+                        ? "abc@email.com"
+                        : null}
+                    </div>
+                  </div>
+
+                  {/* 3 */}
+                  <div>
+                    <div className="text-[14px] text-white font-bold break-words">
+                      Gender:
+                    </div>
+                    <div className="text-[16px] text-white break-words">
+                      {resumeForm.personalDetails.gender &&
+                        resumeForm.personalDetails.gender}
+                      {resumeForm.personalDetails.gender === "" ? "Male" : null}
+                      {resumeForm.personalDetails.gender === undefined
+                        ? "Male"
+                        : null}
+                    </div>
+                  </div>
+
+                  {/* new */}
+
+                  {/* 1 */}
+                  <div>
+                    <div className="text-[14px] text-white font-bold break-words">
+                      Loaction:
+                    </div>
+                    <div className="text-[16px] text-white break-words">
+                      {resumeForm.personalDetails.location &&
+                        resumeForm.personalDetails.location}
+                      {resumeForm.personalDetails.location === ""
+                        ? "Banglore"
+                        : null}
+                      {resumeForm.personalDetails.location === undefined
+                        ? "Banglore"
+                        : null}
+                    </div>
+                  </div>
+                  {/* 2 */}
+                  <div>
+                    <div className="text-[14px] text-white font-bold break-words">
+                      Year of Experience
+                    </div>
+                    <div className="text-[16px] text-white break-words">
+                      {resumeForm.personalDetails.totalExperience &&
+                        resumeForm.personalDetails.totalExperience}
+                      {resumeForm.personalDetails.totalExperience === ""
+                        ? "5"
+                        : null}
+                      {resumeForm.personalDetails.totalExperience === undefined
+                        ? "5"
+                        : null}
+                      <span>{` years`}</span>
+                    </div>
+                  </div>
+                  {/* 3 */}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-start lg:mx-4 bg-[#EEEFEF]">
+              {/* education and skills */}
+
+              <div className="flex items-center py-10 pl-4 sm:w-[32%]">
+                <div>
+                  <div className="text-[20px] font-bold mb-[10px] break-words">
+                    Education
+                  </div>
+                  {resumeForm.education.length == 0 ? (
+                    <div className="my-3">
+                      <div className="text-[15px] break-words">2020</div>
+                      <div className="text-[15px] font-bold break-words">
+                        BCA in Bachelor Degree
+                      </div>
+                      <div className="text-[15px] break-words">
+                        Mumbai University
+                      </div>
+                    </div>
+                  ) : null}
+                  {resumeForm.education.map((item, index) => {
+                    return (
+                      <div className="my-3" key={index}>
+                        <div className="text-[15px] break-words">
+                          {item.year}
+                          {/* 2020 */}
+                        </div>
+                        <div className="text-[15px] font-bold break-words">
+                          {item.level} in {item.degreeName}
+                          {/* BCA in Bachelor Degree */}
+                        </div>
+                        <div className="text-[15px] break-words">
+                          {item.institutionName}
+                          {/* Mumbai University */}
+                        </div>
+                      </div>
+                    );
+                  })}
+
+                  {/* skills */}
+
+                  <div className="text-[20px] font-bold mt-8 break-words">
+                    Skills
+                  </div>
+                  {resumeForm.skill.length == 0 ? (
+                    <div className="my-3 flex items-center gap-2">
+                      <div>
+                        <img
+                          src="/Assets/pointer.svg"
+                          alt="points"
+                          className=""
+                        />
+                      </div>
+                      <div className="text-[15px] font-bold break-words">
+                        Javascript
+                      </div>
+                    </div>
+                  ) : null}
+                  {resumeForm.skill.map((item, index) => {
+                    return (
+                      <div className="my-3 flex items-center gap-2" key={index}>
+                        <div>
+                          <img
+                            src="/Assets/pointer.svg"
+                            alt="points"
+                            className=""
+                          />
+                        </div>
+                        <div className="text-[15px] font-bold break-words">
+                          {item.skillName}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* skills */}
+              </div>
+              {/* expe and projects */}
+
+              <div className="px-3 py-10 sm:w-[68%] bg-white">
+                <div>
+                  {!fresherChecked ? (
+                    <div>
+                      <h2 className="text-[20px] font-bold mb-[10px] break-words">
+                        Experience
+                      </h2>
+                      {resumeForm.experience.length == 0 ? (
+                        <div className="grid sm:grid-cols-5 gap-2 my-2">
+                          {/* 1 */}
+                          <div className="sm:col-span-2">
+                            <div className="text-[15px] break-words">
+                              2020 to 2021
+                            </div>
+                            <div className="text-[15px] font-bold break-words">
+                              Company Name
+                            </div>
+                          </div>
+                          {/* 2 */}
+                          <div className="sm:col-span-3">
+                            <div className="text-[15px] font-bold break-words">
+                              Senior Developer
+                            </div>
+                            <div className="text-[15px] break-words">
+                              Description - In publishing and graphic design,
+                              Lorem ipsum is a placeholder text commonly used to
+                              demonstrate the visual form of a document or a
+                              typeface without relying on meaningful content.
+                            </div>
+                          </div>
+                        </div>
+                      ) : null}
+                      {resumeForm?.experience?.map((item, index) => {
+                        return (
+                          <div
+                            className="grid sm:grid-cols-5 gap-2 my-2"
+                            key={index}
+                          >
+                            {/* 1 */}
+                            <div className="sm:col-span-2">
+                              <div className="text-[15px] break-words">
+                                {item?.joinedDate?.split("-")[0]}{" "}
+                                <span> to </span>
+                                {presentDateCheck
+                                  ? "Present"
+                                  : item?.endDate?.split("-")[0]}
+                                {/* 2020 to 2021 */}
+                              </div>
+                              <div className="text-[15px] font-bold break-words">
+                                {item.companyName}
+                                {/* Company Name */}
+                              </div>
+                            </div>
+                            {/* 2 */}
+                            <div className="sm:col-span-3">
+                              <div className="text-[15px] font-bold break-words">
+                                {/* Senior Developer */}
+                                {item.jobPosition}
+                              </div>
+                              <div className="text-[15px] break-words">
+                                {item.description}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : null}
+
+                  {/* end exp */}
+
+                  {/* Projects */}
+
+                  <div>
+                    <h2 className="text-[20px] font-bold mb-[10px] break-words">
+                      Projects
+                    </h2>
+                    {resumeForm.project.length == 0 ? (
+                      <div className="grid sm:grid-cols-5 gap-2 my-2">
+                        {/* 1 */}
+                        <div className="sm:col-span-2">
+                          <div className="text-[15px] break-words">
+                            2020 to 2021
+                          </div>
+                          <div className="text-[15px] font-bold break-words">
+                            Project Name
+                          </div>
+                        </div>
+                        {/* 2 */}
+                        <div className="sm:col-span-3">
+                          <div className="text-[15px] font-bold break-words">
+                            Link
+                          </div>
+                          <div className="text-[15px] break-words">
+                            In publishing and graphic design, Lorem ipsum is a
+                            placeholder text commonly used to demonstrate the
+                            visual form of a document or a typeface without
+                            relying on meaningful content.
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
+                    {resumeForm?.project?.map((item, index) => {
+                      return (
+                        <div
+                          className="grid sm:grid-cols-5 gap-2 my-2"
+                          key={index}
+                        >
+                          {/* 1 */}
+                          <div className="sm:col-span-2">
+                            <div className="text-[15px] break-words">
+                              {item?.startDate?.split("-")[0]} <span> to </span>
+                              {item?.endDate?.split("-")[0]}
+                              {/* 2020 to 2021 */}
+                            </div>
+                            <div className="text-[15px] font-bold break-words">
+                              {item.projectName}
+                            </div>
+                          </div>
+                          {/* 2 */}
+                          <div className="sm:col-span-3">
+                            <div className="text-[15px] font-bold break-words">
+                              <a
+                                href={item.projectUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-400 underline italic break-words "
+                              >
+                                link
+                              </a>
+                            </div>
+                            <div className="text-[15px] w-full break-words ">
+                              {item.projectDescription}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* skills */}
+                  <div>
+                    {resumeForm.certification.length == 0 ? (
+                      <div>
+                        <div className="text-[20px] font-bold mt-8 break-words">
+                          Certfication
+                        </div>
+                        <div>
+                          <div className="text-[15px] font-bold break-words">
+                            Big Data Certification Course by Caltech
+                          </div>
+
+                          <div>issued On: 20-02-2020</div>
+                          <div>expiration Date: 20-02-2020</div>
+
+                          <div>
+                            <a
+                              href="http://localhost:3000/resume"
+                              className="text-blue-400 underline italic break-words "
+                            >
+                              view certificate
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {resumeForm.certification.length != 0 && (
+                      <div className="text-[20px] font-bold mt-8">
+                        Certfication
+                      </div>
+                    )}
+
+                    {resumeForm.certification.map((item, index) => {
+                      return (
+                        <div key={index}>
+                          <div className="text-[15px] font-bold break-words">
+                            {item.courseName} <span> by </span>
+                            {item.issuingOrganization}
+                          </div>
+
+                          <div>issued On: {item.issueDate}</div>
+                          <div>expiration Date: {item.expirationDate}</div>
+
+                          <div>
+                            <a
+                              href={item.credentialUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-400 underline italic break-words "
+                            >
+                              view certificate
+                            </a>
+                          </div>
+                        </div>
+                      );
+                    })}
+
+                    {/* end */}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
