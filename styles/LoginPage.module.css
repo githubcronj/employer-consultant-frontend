@@ -15,7 +15,11 @@
   background: linear-gradient(to left, #f9342e00, #f9342e33);
   padding-top: 20px;
 }
-
+.shortlistedCard2{
+  border-left: 4px solid red;
+  background:#ffffff;
+  padding-top: 20px;
+}
 .selectedShortlistedCard {
   border-left: 4px solid red;
   background: linear-gradient(to left, #f9342e00, #f9342e33);
@@ -42,6 +46,10 @@
 }
 .searchbtn {
   display: flex;
+}
+.cs-message__content{
+  background-color: #5e9af8;
+  color: #ffffff;
 }
 @media (min-width: 1536px) {
   .desk {
