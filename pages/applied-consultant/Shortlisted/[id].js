@@ -4,24 +4,30 @@ import { useRouter } from "next/router";
 import Popoverr from "Components/PopOver/popOver";
 import ConsultantCard, {
   cardData,
-} from "../../Components/Cards/ConsultantsCard";
+} from "../../../Components/Cards/ConsultantsCard";
 import Link from "next/link";
 import ConfirmationModal from "Components/Modals/ConfirmationModal";
 import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
-
+import { useDispatch, useSelector } from "react-redux";
+import {
+                    FETCH_SHORTLISTED_COSULTANT_REQUEST,
+  FETCH_SHORTLISTED_CONSULTANT_SUCCESS,
+  REMOVE_SHORTLISTED_CONSULTANT_REQUEST,
+} from "store/type/shortlistType";
 const ShortlistedConsultant = () => {
   const router = useRouter();
-
+  const dispatch = useDispatch();
+  const id = router.query;
+  console.log(id, "roterid");
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
 
-  const [shortlistMessage, setShortlistMessage] = useState(
-    `Shortlisted.`
-  );
+  const [shortlistMessage, setShortlistMessage] = useState(`Shortlisted.`);
   const [shcheduleMessage, setScheduleMessage] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [yesClicked, setYesClicked] = useState(false);
   const [errors, setErrors] = useState({});
+  const [search, setsearch] = useState("");
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -36,6 +42,43 @@ const ShortlistedConsultant = () => {
     setModalOpen(false);
   };
 
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+
+  const accessToken = getToken();
+
+  const onSearch = (e) => {
+    setsearch(e.target.value);
+
+    dispatch({
+      type: FETCH_SHORTLISTED_COSULTANT_REQUEST,
+      payload: id,
+      accessToken,
+      search: e.target.value,
+    });
+  };
+  useEffect(() => {
+    dispatch({
+      type:FETCH_SHORTLISTED_COSULTANT_REQUEST,
+      payload: id,
+      accessToken,
+      search,
+    });
+  }, [id]);
+
+  const shortlistedData = useSelector(
+    (state) =>
+      state.shortlistConsultantReducer.fetchshortlistedconsultant.payload?.data
+        ?.shortlistedConsultant
+  );
+
+  console.log(shortlistedData, "shortlisted  consultant");
   const handleCardClick = (id) => {
     setSelectedCard(id);
   };
@@ -52,7 +95,6 @@ const ShortlistedConsultant = () => {
 
   const shortlistedCount = shortlistedCards.length;
 
-
   const handleRemoveShortlisted = () => {
     const updatedShortlistedCards = shortlistedCards.filter(
       (cardId) => cardId !== selectedCard
@@ -61,7 +103,6 @@ const ShortlistedConsultant = () => {
     setScheduleMessage(false);
     setModalOpen(true);
   };
-  
 
   const isCardShortlisted = shortlistedCards.includes(selectedCard);
 
@@ -218,11 +259,9 @@ const ShortlistedConsultant = () => {
           </div>
           <div className=" flex flex-col  lg:justify-normal sm:justify-center py-6 px-3 lg:col-span-1 border-l lg:ml-12 sm:ml-0">
             <div className="flex items-center justify-center mt-2">
-              <div  className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] lg:ml-[-50px] sm:ml-[0px]">
-              <p className="font-bold">
-                {shortlistMessage}
-              </p>
-              <p>{new Date().toLocaleDateString("en-US")}</p>
+              <div className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] lg:ml-[-50px] sm:ml-[0px]">
+                <p className="font-bold">{shortlistMessage}</p>
+                <p>{new Date().toLocaleDateString("en-US")}</p>
               </div>
             </div>
             {shcheduleMessage ? (
@@ -309,6 +348,5 @@ const ShortlistedConsultant = () => {
     </div>
   );
 };
-
 
 export default withEmployerAuth(ShortlistedConsultant);
