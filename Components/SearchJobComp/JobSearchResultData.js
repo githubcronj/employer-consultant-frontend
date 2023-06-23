@@ -3,14 +3,20 @@ import SearchJobInput from "Components/SearchJobComp/SearchJobInput";
 import React, { useState } from "react";
 import JobSlider from "./JobSlider";
 import RecentSearch from "Components/SearchJob/recentSearch";
-import SearchOver from "Components/PopOver/searchover";
+import SearchOver from "Components/PopOver/SearchOver";
 
-const JobSearchResultData = ({ handleBox1Click, showBox1 }) => {
+const JobSearchResultData = ({
+  handleBox1Click,
+  showBox1,
+  searchOnChangeHandler,
+  searchSubmitHandler,
+  searchData,
+}) => {
   const [showSearch, setshowSearch] = useState(true);
   const [isInputFocused, setInputFocused] = useState(false);
 
   const handleShowSearch = () => {
-    (false);
+    false;
   };
 
   const handleInputFocus = () => {
@@ -44,11 +50,18 @@ const JobSearchResultData = ({ handleBox1Click, showBox1 }) => {
         >
           Search Job
         </Typography>
-        <SearchOver>
-          <SearchJobInput
-          />
-        </SearchOver>
-       
+        <div className="relative w-full">
+          <SearchOver>
+            <SearchJobInput
+              handleBox1Click={handleBox1Click}
+              showBox1={showBox1}
+              searchOnChangeHandler={searchOnChangeHandler}
+              searchSubmitHandler={searchSubmitHandler}
+              searchData={searchData}
+            />
+          </SearchOver>
+        </div>
+
         <Paper
           elevation={0}
           sx={{

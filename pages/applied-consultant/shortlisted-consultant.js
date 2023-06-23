@@ -1,7 +1,8 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Popoverr from "Components/PopOver/popOver";
+
+import Popoverr from "Components/PopOver/index";
 import ConsultantCard, {
   cardData,
 } from "../../Components/Cards/ConsultantsCard";
@@ -15,9 +16,7 @@ const ShortlistedConsultant = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
 
-  const [shortlistMessage, setShortlistMessage] = useState(
-    `Shortlisted.`
-  );
+  const [shortlistMessage, setShortlistMessage] = useState(`Shortlisted.`);
   const [shcheduleMessage, setScheduleMessage] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [yesClicked, setYesClicked] = useState(false);
@@ -52,7 +51,6 @@ const ShortlistedConsultant = () => {
 
   const shortlistedCount = shortlistedCards.length;
 
-
   const handleRemoveShortlisted = () => {
     const updatedShortlistedCards = shortlistedCards.filter(
       (cardId) => cardId !== selectedCard
@@ -61,7 +59,6 @@ const ShortlistedConsultant = () => {
     setScheduleMessage(false);
     setModalOpen(true);
   };
-  
 
   const isCardShortlisted = shortlistedCards.includes(selectedCard);
 
@@ -218,11 +215,9 @@ const ShortlistedConsultant = () => {
           </div>
           <div className=" flex flex-col  lg:justify-normal sm:justify-center py-6 px-3 lg:col-span-1 border-l lg:ml-12 sm:ml-0">
             <div className="flex items-center justify-center mt-2">
-              <div  className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] lg:ml-[-50px] sm:ml-[0px]">
-              <p className="font-bold">
-                {shortlistMessage}
-              </p>
-              <p>{new Date().toLocaleDateString("en-US")}</p>
+              <div className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] lg:ml-[-50px] sm:ml-[0px]">
+                <p className="font-bold">{shortlistMessage}</p>
+                <p>{new Date().toLocaleDateString("en-US")}</p>
               </div>
             </div>
             {shcheduleMessage ? (
@@ -309,6 +304,5 @@ const ShortlistedConsultant = () => {
     </div>
   );
 };
-
 
 export default withEmployerAuth(ShortlistedConsultant);
