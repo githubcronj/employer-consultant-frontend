@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import Popoverr from "Components/PopOver/popOver";
+import Popoverr from "Components/PopOver/index";
 import ConsultantCard, {
   cardData,
 } from "../../Components/Cards/ConsultantsCard";

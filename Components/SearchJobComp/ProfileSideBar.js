@@ -147,24 +147,15 @@ const ProfileSideBar = ({ data }) => {
           </Button>
         </Link>
       </Box>
-      <Box>
+      {/* <Box>
         <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll max-w-[700px] ">
           <div className="sm:flex items-center bg-black lg:px-4">
             <div className="w-[32%] flex items-center my-4 bg-[#FAD02C] rounded-full">
-              {/* {selectedImage ? (
-                  <img
-                    src={selectedImage}
-                    style={{ width: "fit-content", height: "auto" }}
-                    alt="selectedImage"
-                    className="h-[93%] w-[100%]"
-                  />
-                ) : ( */}
               <img
                 src="/Assets/image.svg"
                 alt="profile"
                 className="h-[93%] w-[100%]"
               />
-              {/* )} */}
             </div>
 
             <div className="w-[68%] px-3 py-4 bg-black">
@@ -492,7 +483,7 @@ const ProfileSideBar = ({ data }) => {
             </div>
           </div>
         </div>
-      </Box>
+      </Box> */}
     </Paper>
   );
 };

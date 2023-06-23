@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import Popoverr from "Components/PopOver/popOver";
+import Popoverr from "Components/PopOver/index";
 import { cardData } from "../../../Components/Cards/ConsultantsCard";
 import ConsultantCard from "Components/Cards/ConsultantsCard";
 import Link from "next/link";
@@ -20,7 +20,7 @@ import { addintoshortlistRequest } from "store/action/shortlistAction";
 const AppliedConsultant = () => {
   const router = useRouter();
   const id = router.query;
-  console.log(id,"roterid")
+  console.log(id, "roterid");
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
@@ -75,9 +75,7 @@ const AppliedConsultant = () => {
 
   console.log(appliedjobData, "applied consultant");
 
-
- 
-   const consultantId = appliedjobData?.length > 0 && appliedjobData[0]?._id;
+  const consultantId = appliedjobData?.length > 0 && appliedjobData[0]?._id;
   console.log(consultantId, "cosultantid");
   const handleCardClick = (id) => {
     setSelectedCard(id);
@@ -97,12 +95,11 @@ const AppliedConsultant = () => {
       consultantId: consultantId,
       accessToken,
     };
-    console.log(id.id,consultantId,"sweta")
-if(id.id && consultantId){
-  console.log(id.id,consultantId),
-  dispatch(addintoshortlistRequest(shortlistPayload))
-}
-   
+    console.log(id.id, consultantId, "sweta");
+    if (id.id && consultantId) {
+      console.log(id.id, consultantId),
+        dispatch(addintoshortlistRequest(shortlistPayload));
+    }
   };
 
   const shortlistedCount = shortlistedCards.length;
@@ -113,7 +110,7 @@ if(id.id && consultantId){
     );
     setShortlistedCards(updatedShortlistedCards);
     setShortlistMessage(false);
-    
+
     const rejectPayload = {
       jobId: id.id,
       consultantId: consultantId,
@@ -128,7 +125,6 @@ if(id.id && consultantId){
     );
     setShortlistedCards(updatedShortlistedCards);
     setShortlistMessage(false);
-   
   };
 
   const [errors, setErrors] = useState({});
@@ -381,7 +377,10 @@ if(id.id && consultantId){
                   </p>
                 </div>
                 <Popoverr text={"Reject the consultant"}>
-                  <button onClick={handleRemoveShortlisted2} className="flex justify-end px-3 py-3">
+                  <button
+                    onClick={handleRemoveShortlisted2}
+                    className="flex justify-end px-3 py-3"
+                  >
                     <img src="/Assets/removeShortlistedButton.svg" alt="tick" />
                   </button>
                 </Popoverr>
