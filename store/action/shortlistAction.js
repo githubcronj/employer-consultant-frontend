@@ -24,6 +24,7 @@ export function addintoshortlistFailure(payload) {
 }
 
 export function fetchshortlistconsultantRequest(payload){
+  
   return{
     type:types.FETCH_SHORTLISTED_COSULTANT_REQUEST,
     payload:payload,
@@ -44,7 +45,7 @@ export function fetchshortlistconsultantfailure(errors){
 
 export function rejectshortlistconsultantRequest(payload){
   return{
-    type:types.REJECT_SHORTLISTED_COSULTANT_REQUEST,
+    type:types.REJECT_SHORTLISTED_CONSULTANT_REQUEST,
     payload:payload,
   }
 }

@@ -22,6 +22,9 @@ const AppliedConsultant = () => {
   const id = router.query;
   console.log(id, "roterid");
 
+  // const getid = localStorage.setItem("id");
+
+
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
   const [shortlistMessage, setShortlistMessage] = useState("");
@@ -32,10 +35,7 @@ const AppliedConsultant = () => {
   const backClicked = () => {
     router.push("/");
   };
-  const nextclick = (id) => {
-    console.log(id.id, "iddd");
-    router.push(`/viewjobpost/${id.id}`);
-  };
+
 
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -88,8 +88,7 @@ const AppliedConsultant = () => {
       const message = `Shortlisted.\n${currentDate}`;
       setShortlistMessage(message);
     }
-    // const jobId = id;
-    // console.log( jobId ,"jobid shortlist ")
+   console.log(id.id ,"jobid for shortlisted ")
     const shortlistPayload = {
       jobId: id.id,
       consultantId: consultantId,
@@ -104,7 +103,7 @@ const AppliedConsultant = () => {
 
   const shortlistedCount = shortlistedCards.length;
 
-  const handleRemoveShortlisted = () => {
+  const handleRemoveappliedConsultent = () => {
     const updatedShortlistedCards = shortlistedCards.filter(
       (cardId) => cardId !== selectedCard
     );
@@ -119,7 +118,7 @@ const AppliedConsultant = () => {
 
     dispatch(removeAppliedConsultantRequest(rejectPayload));
   };
-  const handleRemoveShortlisted2 = () => {
+  const handleRemoveShortlisted = () => {
     const updatedShortlistedCards = shortlistedCards.filter(
       (cardId) => cardId !== selectedCard
     );
@@ -376,9 +375,9 @@ const AppliedConsultant = () => {
                     {shortlistMessage}
                   </p>
                 </div>
-                <Popoverr text={"Reject the consultant"}>
+                <Popoverr text={"Remove from Shortlist"}>
                   <button
-                    onClick={handleRemoveShortlisted2}
+                    onClick={handleRemoveShortlisted}
                     className="flex justify-end px-3 py-3"
                   >
                     <img src="/Assets/removeShortlistedButton.svg" alt="tick" />
@@ -397,7 +396,7 @@ const AppliedConsultant = () => {
                 </Popoverr>
                 <Popoverr text={"Reject the consultant"}>
                   <button
-                    onClick={handleRemoveShortlisted}
+                    onClick={handleRemoveappliedConsultent}
                     className="flex justify-end px-3 py-3"
                   >
                     <img src="/Assets/crossBtn.svg" alt="tick" />

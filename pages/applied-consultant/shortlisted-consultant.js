@@ -1,18 +1,24 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-
-import Popoverr from "Components/PopOver/index";
+import Popoverr from "../../Components/PopOver/index";
 import ConsultantCard, {
   cardData,
 } from "../../Components/Cards/ConsultantsCard";
 import Link from "next/link";
 import ConfirmationModal from "Components/Modals/ConfirmationModal";
 import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
-
+import { useDispatch, useSelector } from "react-redux";
+import {   FETCH_SHORTLISTED_COSULTANT_REQUEST,
+  FETCH_SHORTLISTED_CONSULTANT_SUCCESS,
+  REMOVE_SHORTLISTED_CONSULTANT_REQUEST,
+} from "store/type/shortlistType";
+import { Box } from "@mui/material";
 const ShortlistedConsultant = () => {
   const router = useRouter();
-
+  const dispatch = useDispatch();
+  const id = router.query;
+  console.log(id, "roterid");
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
 
@@ -21,7 +27,8 @@ const ShortlistedConsultant = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [yesClicked, setYesClicked] = useState(false);
   const [errors, setErrors] = useState({});
-
+  const [search, setsearch] = useState("");
+const [jobId, setJobId] = useState();
   const handleCloseModal = () => {
     setModalOpen(false);
   };
@@ -35,6 +42,65 @@ const ShortlistedConsultant = () => {
     setModalOpen(false);
   };
 
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+  const accessToken = getToken();
+  useEffect(() => {
+    const JobId = localStorage.getItem('jobId');
+    setJobId(JobId);
+    dispatch({
+      type:FETCH_SHORTLISTED_COSULTANT_REQUEST,
+      payload:JobId,
+      accessToken,
+      search
+     
+    });
+   
+  }, [jobId]);
+  
+
+
+  const onSearch = (e) => {
+    setsearch(e.target.value);
+
+    dispatch({
+      type: FETCH_SHORTLISTED_COSULTANT_REQUEST,
+      payload: JobId,
+      accessToken,
+      search: e.target.value,
+    });
+  };
+
+  // useEffect(() => {
+  //   console.log(jobId,"jobid fetch shortlist")
+  //   dispatch({
+  //     type:FETCH_SHORTLISTED_COSULTANT_REQUEST,
+  //     payload:id,
+  //     accessToken,
+  //     search,
+  //   });
+  // }, [jobId]);
+
+  // const shortlistedData = useSelector(
+  //   (state) =>
+  //     state.shortlistConsultantReducer.shortlistedConsultantData.payload?.data
+  //       ?.shortlistedConsultant
+  // );
+  const shortlistedData = useSelector((state) =>
+  state.shortlistConsultantReducer.fetchshortlistedconsultant.data?.shortlistedConsultant
+);
+
+  console.log(shortlistedData, "shortlisted  consultant");
+
+
+  const consultantId = shortlistedData?.length > 0 && shortlistedData[0]?._id;
+  console.log(consultantId, "cosultantid");
   const handleCardClick = (id) => {
     setSelectedCard(id);
   };
@@ -172,32 +238,37 @@ const ShortlistedConsultant = () => {
               className="h-[550px] overflow-auto"
               style={{ scrollbarWidth: "thin" }}
             >
-              {cardData.map((card) => (
-                <ConsultantCard
-                  key={card.id}
-                  id={card.id}
-                  name={card.name}
-                  jobTitle={card.jobTitle}
-                  experience={card.experience}
-                  imageSrc={card.imageSrc}
-                  selected={card.id === selectedCard}
-                  shortlisted={shortlistedCards.includes(card.id)}
-                  onClick={() => handleCardClick(card.id)}
-                  onRemove={() => handleRemoveClick(card.id)}
-                >
-                  {card.id === selectedCard && (
-                    <div className="flex flex-col gap-y-4">
-                      {renderShortlistButton()}
-                      <Link
-                        href="/consultant/[id]"
-                        as={`/consultant/${card.id}`}
-                      >
-                        <a>View Details</a>
-                      </Link>
-                    </div>
-                  )}
-                </ConsultantCard>
-              ))}
+               {shortlistedData?.length > 0 ? (
+                shortlistedData?.map((card, index) => (
+                  <Box key={index}>
+                    <ConsultantCard
+                      key={card._id}
+                      name={card.fullName}
+                      jobTitle={card.jobRole}
+                      experience={card.totalExperience}
+                      // imageSrc={card.imageSrc}
+                      selected={card._id === selectedCard}
+                      shortlisted={shortlistedCards.includes(card._id)}
+                      onClick={() => handleCardClick(card._id)}
+                      onRemove={() => handleRemoveClick(card._id)}
+                    >
+                      {card.id === selectedCard && (
+                        <div className="flex flex-col gap-y-4">
+                          {renderShortlistButton()}
+                          <Link
+                            href="/consultant/[id]"
+                            as={`/consultant/${card._id}`}
+                          >
+                            <a>View Details</a>
+                          </Link>
+                        </div>
+                      )}
+                    </ConsultantCard>
+                  </Box>
+                ))
+              ) : (
+                <p>No data available</p>
+              )}
             </div>
 
             <div></div>
