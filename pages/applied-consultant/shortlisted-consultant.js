@@ -29,6 +29,7 @@ const ShortlistedConsultant = () => {
   const [errors, setErrors] = useState({});
   const [search, setsearch] = useState("");
 const [jobId, setJobId] = useState();
+
   const handleCloseModal = () => {
     setModalOpen(false);
   };
@@ -51,6 +52,7 @@ const [jobId, setJobId] = useState();
     }
   };
   const accessToken = getToken();
+  
   useEffect(() => {
     const JobId = localStorage.getItem('jobId');
     setJobId(JobId);

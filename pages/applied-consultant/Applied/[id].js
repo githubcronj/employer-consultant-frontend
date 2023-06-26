@@ -15,7 +15,7 @@ import {
 } from "store/type/fetchAppliedConsultantType";
 import { Box } from "@mui/material";
 import { removeAppliedConsultantRequest } from "store/action/fetchAppliedConsultantAction";
-import { addintoshortlistRequest } from "store/action/shortlistAction";
+import { addintoshortlistRequest, rejectshortlistconsultantRequest } from "store/action/shortlistAction";
 
 const AppliedConsultant = () => {
   const router = useRouter();
@@ -124,6 +124,13 @@ const AppliedConsultant = () => {
     );
     setShortlistedCards(updatedShortlistedCards);
     setShortlistMessage(false);
+    const rejectPayload = {
+      jobId: id.id,
+      consultantId: consultantId,
+      accessToken,
+    };
+
+    dispatch(rejectshortlistconsultantRequest(rejectPayload));
   };
 
   const [errors, setErrors] = useState({});
@@ -322,22 +329,22 @@ const AppliedConsultant = () => {
                 appliedjobData?.map((card, index) => (
                   <Box key={index}>
                     <ConsultantCard
-                      key={card._id}
-                      name={card.fullName}
-                      jobTitle={card.jobRole}
-                      experience={card.totalExperience}
+                      key={card?._id}
+                      name={card?.fullName}
+                      jobTitle={card?.jobRole}
+                      experience={card?.totalExperience}
                       // imageSrc={card.imageSrc}
-                      selected={card._id === selectedCard}
-                      shortlisted={shortlistedCards.includes(card._id)}
-                      onClick={() => handleCardClick(card._id)}
-                      onRemove={() => handleRemoveClick(card._id)}
+                      selected={card?._id === selectedCard}
+                      shortlisted={shortlistedCards.includes(card?._id)}
+                      onClick={() => handleCardClick(card?._id)}
+                      onRemove={() => handleRemoveClick(card?._id)}
                     >
-                      {card.id === selectedCard && (
+                      {card?.id === selectedCard && (
                         <div className="flex flex-col gap-y-4">
                           {renderShortlistButton()}
                           <Link
                             href="/consultant/[id]"
-                            as={`/consultant/${card._id}`}
+                            as={`/consultant/${card?._id}`}
                           >
                             <a>View Details</a>
                           </Link>

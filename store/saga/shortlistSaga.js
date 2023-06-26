@@ -37,6 +37,7 @@ function* fetchShortlistedConsultantSaga(action){
     const { payload} = action;
     const {accessToken, search, id } =payload;
     const jobId = action.payload;
+    
     console.log(action,"seacech")
     console.log(jobId,"jobID")
     const response = yield call(makeApiRequest, {
@@ -55,7 +56,7 @@ function* fetchShortlistedConsultantSaga(action){
 function* rejectShortlistConsultantSaga(action) {
   try {
     const { payload } = action;
-    
+  
     const response = yield call(makeApiRequest, {
     endpoint:'/remove-shortlisted-candidate',
       method: 'DELETE',
@@ -83,5 +84,5 @@ export function* watchshortlistConsultantSaga() {
     shortlistConsultantSaga
   );
   yield takeLatest(FETCH_SHORTLISTED_COSULTANT_REQUEST,fetchShortlistedConsultantSaga);
- 
+//  yield takeLatest(REJECT_SHORTLISTED_COSULTANT_REQUEST,rejectShortlistConsultantSaga);
 }
