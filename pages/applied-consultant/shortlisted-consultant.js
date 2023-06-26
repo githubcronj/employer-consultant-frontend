@@ -14,11 +14,11 @@ import {   FETCH_SHORTLISTED_COSULTANT_REQUEST,
   REMOVE_SHORTLISTED_CONSULTANT_REQUEST,
 } from "store/type/shortlistType";
 import { Box } from "@mui/material";
+import { rejectshortlistconsultantRequest } from "store/action/shortlistAction";
 const ShortlistedConsultant = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const id = router.query;
-  console.log(id, "roterid");
+
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
 
@@ -37,6 +37,13 @@ const [jobId, setJobId] = useState();
   const handleYes = () => {
     setYesClicked(true);
     setModalOpen(false);
+    const rejectPayload = {
+      jobId: jobId,
+      consultantId: consultantId,
+      accessToken,
+    };
+
+    dispatch(rejectshortlistconsultantRequest(rejectPayload));
   };
 
   const handleNo = () => {
@@ -52,7 +59,7 @@ const [jobId, setJobId] = useState();
     }
   };
   const accessToken = getToken();
-  
+
   useEffect(() => {
     const JobId = localStorage.getItem('jobId');
     setJobId(JobId);
@@ -73,7 +80,7 @@ const [jobId, setJobId] = useState();
 
     dispatch({
       type: FETCH_SHORTLISTED_COSULTANT_REQUEST,
-      payload: JobId,
+      payload: jobId,
       accessToken,
       search: e.target.value,
     });
@@ -103,6 +110,7 @@ const [jobId, setJobId] = useState();
 
   const consultantId = shortlistedData?.length > 0 && shortlistedData[0]?._id;
   console.log(consultantId, "cosultantid");
+
   const handleCardClick = (id) => {
     setSelectedCard(id);
   };
@@ -126,6 +134,8 @@ const [jobId, setJobId] = useState();
     setShortlistedCards(updatedShortlistedCards);
     setScheduleMessage(false);
     setModalOpen(true);
+    console.log()
+    
   };
 
   const isCardShortlisted = shortlistedCards.includes(selectedCard);

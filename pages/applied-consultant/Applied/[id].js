@@ -22,7 +22,7 @@ const AppliedConsultant = () => {
   const id = router.query;
   console.log(id, "roterid");
 
-  // const getid = localStorage.setItem("id");
+
 
 
   const [selectedCard, setSelectedCard] = useState(null);
