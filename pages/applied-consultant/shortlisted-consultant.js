@@ -15,6 +15,7 @@ import {   FETCH_SHORTLISTED_COSULTANT_REQUEST,
 } from "store/type/shortlistType";
 import { Box } from "@mui/material";
 import { rejectshortlistconsultantRequest } from "store/action/shortlistAction";
+import { addintosheduleRequest, rejectsheduledconsultantRequest } from "store/action/sheduleConsultantAction";
 const ShortlistedConsultant = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -30,23 +31,30 @@ const ShortlistedConsultant = () => {
   const [errors, setErrors] = useState({});
   const [search, setsearch] = useState("");
 const [jobId, setJobId] = useState();
+
+const now = new Date(); // Get the current date and time
+const year = now.getFullYear(); // Get the current year
+const month = now.getMonth() + 1; // Get the current month (Note: January is 0)
+const day = now.getDate(); // Get the current day
+const hours = 10; // Specify the desired hour (in this case, 10 AM)
+const minutes = 0; // Specify the desired minute (in this case, 00)
+const seconds = 0; // Specify the desired second (in this case, 00)
+
+// Format the date components with leading zeros if needed
+const formattedMonth = month < 10 ? `0${month}` : month;
+const formattedDay = day < 10 ? `0${day}` : day;
+const formattedHours = hours < 10 ? `0${hours}` : hours;
+const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+
+// Create the scheduled date string in the desired format
+const scheduledDate = `${year}-${formattedMonth}-${formattedDay} ${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+console.log(scheduledDate,"scheduledDate")
   const handleCloseModal = () => {
     setModalOpen(false);
   };
 
-  const handleYes = () => {
-    setYesClicked(true);
-    setModalOpen(false);
-    const rejectPayload = {
-      jobId: jobId,
-      consultantId: consultantId,
-      accessToken,
-    };
-
-    dispatch(rejectshortlistconsultantRequest(rejectPayload));
-  
-  };
-
+ 
   const handleNo = () => {
     setModalOpen(false);
   };
@@ -108,18 +116,51 @@ const [jobId, setJobId] = useState();
 
 
   const consultantId = shortlistedData?.length > 0 && shortlistedData[0]?._id;
+
   console.log(consultantId, "cosultantid");
   const handleCardClick = (id) => {
     setSelectedCard(id);
   };
+  const handleYes = () => {
+    setYesClicked(true);
+    setModalOpen(false);
+    const rejectPayload = {
+      jobId: jobId,
+      consultantId: consultantId,
+      accessToken,
+    };
+
+    dispatch(rejectshortlistconsultantRequest(rejectPayload));
+  
+  };
+
+ const handleYes2 = () => {
+  setYesClicked(true);
+  setModalOpen(false);
+  console.log(jobId,"jobid for sheduled ")
+  console.log(consultantId,"consultantid for sheduled ")
+ 
+  const shedulePayload = {
+    jobId:jobId,
+    consultantId: consultantId,
+    scheduledDate:scheduledDate,
+    accessToken,
+  };
+
+  
+      dispatch(addintosheduleRequest(shedulePayload));
+  
+
+ };
 
   const handleScheduleClick = (id) => {
     if (!shortlistedCards.includes(id)) {
       setShortlistedCards([...shortlistedCards, id]);
       const currentDate = new Date().toLocaleDateString("en-US");
-      const message = `Add to schedule.\n${currentDate}`;
+      const message = `Add to schedule.\n${scheduledDate}`;
       setScheduleMessage(message);
       setModalOpen(true);
+     
     }
   };
 
@@ -133,7 +174,21 @@ const [jobId, setJobId] = useState();
     setScheduleMessage(false);
     setModalOpen(true);
   };
+  const handleRemoveSheduled = () => {
+    const updatedShortlistedCards = shortlistedCards.filter(
+      (cardId) => cardId !== selectedCard
+    );
+    setShortlistedCards(updatedShortlistedCards);
+    setScheduleMessage(false);
+    const rejectPayload = {
+      jobId: jobId,
+      consultantId: consultantId,
+      accessToken,
+    };
 
+    dispatch(rejectsheduledconsultantRequest(rejectPayload));
+    
+  };
   const isCardShortlisted = shortlistedCards.includes(selectedCard);
 
   const renderShortlistButton = () => {
@@ -309,7 +364,7 @@ const [jobId, setJobId] = useState();
                 {yesClicked ? (
                   <Popoverr text={"Remove from schedule list"}>
                     <button
-                      onClick={handleRemoveShortlisted}
+                      onClick={handleRemoveSheduled}
                       className="flex justify-end px-3 py-3"
                     >
                       <img
@@ -326,7 +381,7 @@ const [jobId, setJobId] = useState();
                   text={"Do you want to add Schedule list?"}
                   isOpen={modalOpen}
                   onClose={handleCloseModal}
-                  onYes={handleYes}
+                  onYes={handleYes2}
                   onNo={handleNo}
                 />
               </>

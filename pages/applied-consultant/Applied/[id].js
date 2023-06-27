@@ -76,7 +76,7 @@ const AppliedConsultant = () => {
   console.log(appliedjobData, "applied consultant");
 
   const consultantId = appliedjobData?.length > 0 && appliedjobData[0]?._id;
-  console.log(consultantId, "cosultantid");
+ 
   const handleCardClick = (id) => {
     setSelectedCard(id);
   };
@@ -94,7 +94,7 @@ const AppliedConsultant = () => {
       consultantId: consultantId,
       accessToken,
     };
-    console.log(id.id, consultantId, "sweta");
+  
     if (id.id && consultantId) {
       console.log(id.id, consultantId),
         dispatch(addintoshortlistRequest(shortlistPayload));

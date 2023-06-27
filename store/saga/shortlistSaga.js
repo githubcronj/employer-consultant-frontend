@@ -3,6 +3,8 @@ import { makeApiRequest } from "../../utils/api";
 import { call, put, takeLatest } from "redux-saga/effects";
 import { ADD_SHORTLIST_REQUEST, FETCH_SHORTLISTED_COSULTANT_REQUEST, REJECT_SHORTLISTED_COSULTANT_REQUEST } from "store/type/shortlistType";
 import { REMOVE_APPLIED_CONSULTANT_REQUEST } from "store/type/fetchAppliedConsultantType";
+import { rejectsheduledconsultantSuccess, rejectsheduledconsultantfailure } from "store/action/sheduleConsultantAction";
+import { REJECT_SCHEDULE_CONSULTANT_REQUEST } from "store/type/scheduleTypes";
 
 function* shortlistConsultantSaga(action) {
   try {
@@ -53,12 +55,12 @@ function* fetchShortlistedConsultantSaga(action){
   }
 
 }
-function* rejectShortlistConsultantSaga(action) {
+function* rejectSheduledConsultantSaga(action) {
   try {
     const { payload } = action;
     const {accessToken, search, id } =payload;
     const response = yield call(makeApiRequest, {
-    endpoint:'/remove-shortlisted-candidate',
+    endpoint:'/schedule-list',
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${action.payload.accessToken}`,
@@ -66,16 +68,17 @@ function* rejectShortlistConsultantSaga(action) {
       data : {
         jobId:action.payload.jobId,
         consultantId:action.payload.consultantId,
+      
       },
     });
 
    
-      yield put(rejectshortlistconsultantSuccess(response));
+      yield put(rejectsheduledconsultantSuccess(response));
    
       
     }
    catch (error) {
-    yield put(rejectshortlistconsultantfailure(error.message));
+    yield put(rejectsheduledconsultantfailure(error.message));
   }
 }
 export function* watchshortlistConsultantSaga() {
@@ -84,5 +87,7 @@ export function* watchshortlistConsultantSaga() {
     shortlistConsultantSaga
   );
   yield takeLatest(FETCH_SHORTLISTED_COSULTANT_REQUEST,fetchShortlistedConsultantSaga);
+  yield takeLatest(REJECT_SCHEDULE_CONSULTANT_REQUEST,rejectSheduledConsultantSaga)
+
  
 }
