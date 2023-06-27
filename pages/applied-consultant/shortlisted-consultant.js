@@ -1,18 +1,26 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-
-import Popoverr from "Components/PopOver/index";
+import Popoverr from "../../Components/PopOver/index";
 import ConsultantCard, {
   cardData,
 } from "../../Components/Cards/ConsultantsCard";
 import Link from "next/link";
 import ConfirmationModal from "Components/Modals/ConfirmationModal";
 import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
-
+import { useDispatch, useSelector } from "react-redux";
+import {   FETCH_SHORTLISTED_COSULTANT_REQUEST,
+  FETCH_SHORTLISTED_CONSULTANT_SUCCESS,
+  REMOVE_SHORTLISTED_CONSULTANT_REQUEST,
+} from "store/type/shortlistType";
+import { Box } from "@mui/material";
+import { rejectshortlistconsultantRequest } from "store/action/shortlistAction";
+import { addintosheduleRequest, rejectsheduledconsultantRequest } from "store/action/sheduleConsultantAction";
 const ShortlistedConsultant = () => {
   const router = useRouter();
-
+  const dispatch = useDispatch();
+  const id = router.query;
+  console.log(id, "roterid");
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
 
@@ -21,31 +29,138 @@ const ShortlistedConsultant = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [yesClicked, setYesClicked] = useState(false);
   const [errors, setErrors] = useState({});
+  const [search, setsearch] = useState("");
+const [jobId, setJobId] = useState();
 
+const now = new Date(); // Get the current date and time
+const year = now.getFullYear(); // Get the current year
+const month = now.getMonth() + 1; // Get the current month (Note: January is 0)
+const day = now.getDate(); // Get the current day
+const hours = 10; // Specify the desired hour (in this case, 10 AM)
+const minutes = 0; // Specify the desired minute (in this case, 00)
+const seconds = 0; // Specify the desired second (in this case, 00)
+
+// Format the date components with leading zeros if needed
+const formattedMonth = month < 10 ? `0${month}` : month;
+const formattedDay = day < 10 ? `0${day}` : day;
+const formattedHours = hours < 10 ? `0${hours}` : hours;
+const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+
+// Create the scheduled date string in the desired format
+const scheduledDate = `${year}-${formattedMonth}-${formattedDay} ${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+console.log(scheduledDate,"scheduledDate")
   const handleCloseModal = () => {
     setModalOpen(false);
   };
 
-  const handleYes = () => {
-    setYesClicked(true);
-    setModalOpen(false);
-  };
-
+ 
   const handleNo = () => {
     setModalOpen(false);
   };
 
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+  const accessToken = getToken();
+  useEffect(() => {
+    const JobId = localStorage.getItem('jobId');
+    setJobId(JobId);
+    dispatch({
+      type:FETCH_SHORTLISTED_COSULTANT_REQUEST,
+      payload:JobId,
+      accessToken,
+     
+    });
+   
+  }, [jobId]);
+  
+
+
+  const onSearch = (e) => {
+    setsearch(e.target.value);
+
+    dispatch({
+      type: FETCH_SHORTLISTED_COSULTANT_REQUEST,
+      payload: jobId,
+      accessToken,
+      search: e.target.value,
+    });
+  };
+
+  // useEffect(() => {
+  //   console.log(jobId,"jobid fetch shortlist")
+  //   dispatch({
+  //     type:FETCH_SHORTLISTED_COSULTANT_REQUEST,
+  //     payload:id,
+  //     accessToken,
+  //     search,
+  //   });
+  // }, [jobId]);
+
+  // const shortlistedData = useSelector(
+  //   (state) =>
+  //     state.shortlistConsultantReducer.shortlistedConsultantData.payload?.data
+  //       ?.shortlistedConsultant
+  // );
+  const shortlistedData = useSelector((state) =>
+  state.shortlistConsultantReducer.fetchshortlistedconsultant.data?.shortlistedConsultant
+);
+
+  console.log(shortlistedData, "shortlisted  consultant");
+
+
+  const consultantId = shortlistedData?.length > 0 && shortlistedData[0]?._id;
+
+  console.log(consultantId, "cosultantid");
   const handleCardClick = (id) => {
     setSelectedCard(id);
   };
+  const handleYes = () => {
+    setYesClicked(true);
+    setModalOpen(false);
+    const rejectPayload = {
+      jobId: jobId,
+      consultantId: consultantId,
+      accessToken,
+    };
+
+    dispatch(rejectshortlistconsultantRequest(rejectPayload));
+  
+  };
+
+ const handleYes2 = () => {
+  setYesClicked(true);
+  setModalOpen(false);
+  console.log(jobId,"jobid for sheduled ")
+  console.log(consultantId,"consultantid for sheduled ")
+ 
+  const shedulePayload = {
+    jobId:jobId,
+    consultantId: consultantId,
+    scheduledDate:scheduledDate,
+    accessToken,
+  };
+
+  
+      dispatch(addintosheduleRequest(shedulePayload));
+  
+
+ };
 
   const handleScheduleClick = (id) => {
     if (!shortlistedCards.includes(id)) {
       setShortlistedCards([...shortlistedCards, id]);
       const currentDate = new Date().toLocaleDateString("en-US");
-      const message = `Add to schedule.\n${currentDate}`;
+      const message = `Add to schedule.\n${scheduledDate}`;
       setScheduleMessage(message);
       setModalOpen(true);
+     
     }
   };
 
@@ -59,7 +174,21 @@ const ShortlistedConsultant = () => {
     setScheduleMessage(false);
     setModalOpen(true);
   };
+  const handleRemoveSheduled = () => {
+    const updatedShortlistedCards = shortlistedCards.filter(
+      (cardId) => cardId !== selectedCard
+    );
+    setShortlistedCards(updatedShortlistedCards);
+    setScheduleMessage(false);
+    const rejectPayload = {
+      jobId: jobId,
+      consultantId: consultantId,
+      accessToken,
+    };
 
+    dispatch(rejectsheduledconsultantRequest(rejectPayload));
+    
+  };
   const isCardShortlisted = shortlistedCards.includes(selectedCard);
 
   const renderShortlistButton = () => {
@@ -172,32 +301,37 @@ const ShortlistedConsultant = () => {
               className="h-[550px] overflow-auto"
               style={{ scrollbarWidth: "thin" }}
             >
-              {cardData.map((card) => (
-                <ConsultantCard
-                  key={card.id}
-                  id={card.id}
-                  name={card.name}
-                  jobTitle={card.jobTitle}
-                  experience={card.experience}
-                  imageSrc={card.imageSrc}
-                  selected={card.id === selectedCard}
-                  shortlisted={shortlistedCards.includes(card.id)}
-                  onClick={() => handleCardClick(card.id)}
-                  onRemove={() => handleRemoveClick(card.id)}
-                >
-                  {card.id === selectedCard && (
-                    <div className="flex flex-col gap-y-4">
-                      {renderShortlistButton()}
-                      <Link
-                        href="/consultant/[id]"
-                        as={`/consultant/${card.id}`}
-                      >
-                        <a>View Details</a>
-                      </Link>
-                    </div>
-                  )}
-                </ConsultantCard>
-              ))}
+               {shortlistedData?.length > 0 ? (
+                shortlistedData?.map((card, index) => (
+                  <Box key={index}>
+                    <ConsultantCard
+                      key={card._id}
+                      name={card.fullName}
+                      jobTitle={card.jobRole}
+                      experience={card.totalExperience}
+                      // imageSrc={card.imageSrc}
+                      selected={card._id === selectedCard}
+                      shortlisted={shortlistedCards.includes(card._id)}
+                      onClick={() => handleCardClick(card._id)}
+                      onRemove={() => handleRemoveClick(card._id)}
+                    >
+                      {card.id === selectedCard && (
+                        <div className="flex flex-col gap-y-4">
+                          {renderShortlistButton()}
+                          <Link
+                            href="/consultant/[id]"
+                            as={`/consultant/${card._id}`}
+                          >
+                            <a>View Details</a>
+                          </Link>
+                        </div>
+                      )}
+                    </ConsultantCard>
+                  </Box>
+                ))
+              ) : (
+                <p>No data available</p>
+              )}
             </div>
 
             <div></div>
@@ -230,7 +364,7 @@ const ShortlistedConsultant = () => {
                 {yesClicked ? (
                   <Popoverr text={"Remove from schedule list"}>
                     <button
-                      onClick={handleRemoveShortlisted}
+                      onClick={handleRemoveSheduled}
                       className="flex justify-end px-3 py-3"
                     >
                       <img
@@ -247,7 +381,7 @@ const ShortlistedConsultant = () => {
                   text={"Do you want to add Schedule list?"}
                   isOpen={modalOpen}
                   onClose={handleCloseModal}
-                  onYes={handleYes}
+                  onYes={handleYes2}
                   onNo={handleNo}
                 />
               </>

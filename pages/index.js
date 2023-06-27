@@ -51,8 +51,20 @@ const Home = () => {
 
   const nextclick = (id) => {
     console.log(id);
+    if (typeof window !== 'undefined'){
+      localStorage.setItem('jobId',id)
+    } 
     router.push(`/applied-consultant/Applied/${id}`);
   };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && localStorage.getItem('CurrentUser')) {
+      const storedData = localStorage.getItem('CurrentUser');
+
+      const tokenset = JSON.parse(storedData);
+      payload = tokenset.token.accessToken;
+    }
+  });
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPosts = response?.slice(indexOfFirstPost, indexOfLastPost);

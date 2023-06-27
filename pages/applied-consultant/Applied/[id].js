@@ -15,12 +15,15 @@ import {
 } from "store/type/fetchAppliedConsultantType";
 import { Box } from "@mui/material";
 import { removeAppliedConsultantRequest } from "store/action/fetchAppliedConsultantAction";
-import { addintoshortlistRequest } from "store/action/shortlistAction";
+import { addintoshortlistRequest, rejectshortlistconsultantRequest } from "store/action/shortlistAction";
 
 const AppliedConsultant = () => {
   const router = useRouter();
   const id = router.query;
   console.log(id, "roterid");
+
+
+
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
@@ -32,10 +35,7 @@ const AppliedConsultant = () => {
   const backClicked = () => {
     router.push("/");
   };
-  const nextclick = (id) => {
-    console.log(id.id, "iddd");
-    router.push(`/viewjobpost/${id.id}`);
-  };
+
 
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -76,7 +76,7 @@ const AppliedConsultant = () => {
   console.log(appliedjobData, "applied consultant");
 
   const consultantId = appliedjobData?.length > 0 && appliedjobData[0]?._id;
-  console.log(consultantId, "cosultantid");
+ 
   const handleCardClick = (id) => {
     setSelectedCard(id);
   };
@@ -88,14 +88,13 @@ const AppliedConsultant = () => {
       const message = `Shortlisted.\n${currentDate}`;
       setShortlistMessage(message);
     }
-    // const jobId = id;
-    // console.log( jobId ,"jobid shortlist ")
+   console.log(id.id ,"jobid for shortlisted ")
     const shortlistPayload = {
       jobId: id.id,
       consultantId: consultantId,
       accessToken,
     };
-    console.log(id.id, consultantId, "sweta");
+  
     if (id.id && consultantId) {
       console.log(id.id, consultantId),
         dispatch(addintoshortlistRequest(shortlistPayload));
@@ -104,7 +103,7 @@ const AppliedConsultant = () => {
 
   const shortlistedCount = shortlistedCards.length;
 
-  const handleRemoveShortlisted = () => {
+  const handleRemoveappliedConsultent = () => {
     const updatedShortlistedCards = shortlistedCards.filter(
       (cardId) => cardId !== selectedCard
     );
@@ -119,12 +118,19 @@ const AppliedConsultant = () => {
 
     dispatch(removeAppliedConsultantRequest(rejectPayload));
   };
-  const handleRemoveShortlisted2 = () => {
+  const handleRemoveShortlisted = () => {
     const updatedShortlistedCards = shortlistedCards.filter(
       (cardId) => cardId !== selectedCard
     );
     setShortlistedCards(updatedShortlistedCards);
     setShortlistMessage(false);
+    const rejectPayload = {
+      jobId: id.id,
+      consultantId: consultantId,
+      accessToken,
+    };
+
+    dispatch(rejectshortlistconsultantRequest(rejectPayload));
   };
 
   const [errors, setErrors] = useState({});
@@ -323,22 +329,22 @@ const AppliedConsultant = () => {
                 appliedjobData?.map((card, index) => (
                   <Box key={index}>
                     <ConsultantCard
-                      key={card._id}
-                      name={card.fullName}
-                      jobTitle={card.jobRole}
-                      experience={card.totalExperience}
+                      key={card?._id}
+                      name={card?.fullName}
+                      jobTitle={card?.jobRole}
+                      experience={card?.totalExperience}
                       // imageSrc={card.imageSrc}
-                      selected={card._id === selectedCard}
-                      shortlisted={shortlistedCards.includes(card._id)}
-                      onClick={() => handleCardClick(card._id)}
-                      onRemove={() => handleRemoveClick(card._id)}
+                      selected={card?._id === selectedCard}
+                      shortlisted={shortlistedCards.includes(card?._id)}
+                      onClick={() => handleCardClick(card?._id)}
+                      onRemove={() => handleRemoveClick(card?._id)}
                     >
-                      {card.id === selectedCard && (
+                      {card?.id === selectedCard && (
                         <div className="flex flex-col gap-y-4">
                           {renderShortlistButton()}
                           <Link
                             href="/consultant/[id]"
-                            as={`/consultant/${card._id}`}
+                            as={`/consultant/${card?._id}`}
                           >
                             <a>View Details</a>
                           </Link>
@@ -376,9 +382,9 @@ const AppliedConsultant = () => {
                     {shortlistMessage}
                   </p>
                 </div>
-                <Popoverr text={"Reject the consultant"}>
+                <Popoverr text={"Remove from Shortlist"}>
                   <button
-                    onClick={handleRemoveShortlisted2}
+                    onClick={handleRemoveShortlisted}
                     className="flex justify-end px-3 py-3"
                   >
                     <img src="/Assets/removeShortlistedButton.svg" alt="tick" />
@@ -397,7 +403,7 @@ const AppliedConsultant = () => {
                 </Popoverr>
                 <Popoverr text={"Reject the consultant"}>
                   <button
-                    onClick={handleRemoveShortlisted}
+                    onClick={handleRemoveappliedConsultent}
                     className="flex justify-end px-3 py-3"
                   >
                     <img src="/Assets/crossBtn.svg" alt="tick" />

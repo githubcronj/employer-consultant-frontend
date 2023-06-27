@@ -8,7 +8,6 @@ const INITIAL_STATE = {
   rejectshortlistedconsultant:[]
 };
 export function shortlistConsultantReducer(state = INITIAL_STATE, action) {
-  console.log(action.payload , "shortlist reducer")
   
   switch (action.type) {
   
@@ -44,7 +43,7 @@ export function shortlistConsultantReducer(state = INITIAL_STATE, action) {
         ...state,
         isfetchshortlistedconsultant:false,
       }
-      case types.REJECT_SHORTLISTED_COSULTANT_REQUEST:
+      case types.REJECT_SHORTLISTED_CONSULTANT_REQUEST:
         return{
           ...state,
           isrejectshortlistedconsultant:false,
