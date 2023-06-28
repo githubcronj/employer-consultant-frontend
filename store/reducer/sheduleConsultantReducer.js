@@ -4,6 +4,8 @@ const INITIAL_STATE = {
   sheduledConsultantData: [],
   isrejectsheduledconsultant:false,
   rejectsheduledconsultant:[],
+  isfetchscheduledconsultant:false,
+  fetchscheduledconsultant:[]
 };
 export function sheduledConsultantReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -23,6 +25,22 @@ export function sheduledConsultantReducer(state = INITIAL_STATE, action) {
         ...state,
         iscoultantsheduled: false,
       };
+      case types.FETCH_SCHEDULED_CONSULTANT_REQUEST:
+        return{
+          ...state,
+          isfetchscheduledconsultant:false,
+        };
+      case types.FETCH_SCHEDULED_CONSULTANT_SUCCESS:
+        return{
+          ...state,
+          fetchscheduledconsultant:action.payload,
+          isfetchscheduledconsultant:true,
+        };
+      case types.FETCH_SCHEDULED_CONSULTANT_FAILURE:
+        return{
+          ...state,
+          isfetchscheduledconsultant:false,
+        }
       case types.REJECT_SCHEDULE_CONSULTANT_REQUEST:
         return{
           ...state,

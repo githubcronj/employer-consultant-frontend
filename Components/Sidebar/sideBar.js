@@ -50,7 +50,7 @@ export const SideBar = () => {
       setTaskbg(false);
       setShortlistedbg(false);
       setScheduledbg(true);
-    
+      router.push(`/applied-consultant/scheduled-intrview`)
     } else if (id == 3) {
       setHomebg(false);
       setCommunicationbg(false);

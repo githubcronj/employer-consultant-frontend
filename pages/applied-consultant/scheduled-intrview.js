@@ -12,6 +12,9 @@ import Link from "next/link";
 import ConfirmationModal from "Components/Modals/ConfirmationModal";
 import withAuth from "Components/ProtectedRoute/WithAuth";
 import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
+import { FETCH_SCHEDULED_CONSULTANT_REQUEST } from "store/type/scheduleTypes";
+import { useDispatch, useSelector } from "react-redux";
+import { Box } from "@mui/material";
 
 const ScheduleInterview = () => {
   const router = useRouter();
@@ -24,6 +27,34 @@ const ScheduleInterview = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [yesClicked, setYesClicked] = useState(false);
   const [errors, setErrors] = useState({});
+  const [jobId, setJobId] = useState();
+
+  const dispatch = useDispatch();
+
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+  const accessToken = getToken();
+
+  useEffect(() => {
+    const JobId = localStorage.getItem('jobId');
+    setJobId(JobId);
+
+    console.log(JobId," scheduled jobid")
+    dispatch({
+      type:FETCH_SCHEDULED_CONSULTANT_REQUEST,
+      payload:JobId,
+      accessToken,
+     
+    });
+   
+  }, [jobId]);
+
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -53,6 +84,18 @@ const ScheduleInterview = () => {
       setinvitationClick(message);
     }
   };
+
+  const scheduledData = useSelector((state) =>
+  state. sheduledConsultantReducer.fetchscheduledconsultant.data?.scheduleList
+);
+
+  console.log(scheduledData, "scheduled consultant");
+
+
+  const consultantId =  scheduledData ?.length > 0 &&  scheduledData [0]?._id;
+
+
+  console.log(consultantId, "cosultantid");
 
   const handleRemovescheduled = () => {
     const updatedscheduledCard = scheduledCard.filter(
@@ -184,33 +227,40 @@ const ScheduleInterview = () => {
               className="h-[550px] overflow-auto"
               style={{ scrollbarWidth: "thin" }}
             >
-              {cardData.map((card) => (
-                <ConsultantCard
-                  key={card.id}
-                  id={card.id}
-                  name={card.name}
-                  jobTitle={card.jobTitle}
-                  experience={card.experience}
-                  imageSrc={card.imageSrc}
-                  selected={card.id === selectedCard}
-                  shortlisted={scheduledCard.includes(card.id)}
-                  onClick={() => handleCardClick(card.id)}
-                  onRemove={() => handleRemoveClick(card.id)}
-                  showCheckbox={true}
-                >
-                  {card.id === selectedCard && (
-                    <div className="flex flex-col gap-y-4">
-                      {renderShortlistButton()}
-                      <Link
-                        href="/consultant/[id]"
-                        as={`/consultant/${card.id}`}
-                      >
-                        <a>View Details</a>
-                      </Link>
-                    </div>
-                  )}
-                </ConsultantCard>
-              ))}
+                  { scheduledData?.length > 0 ? (
+                 scheduledData?.map((card, index) => (
+                  <Box key={index}>
+                    <ConsultantCard
+                      key={card?._id}
+                      name={card?.consultantId
+                        ?.fullName}
+                      jobTitle={card?.consultantId?.jobRole}
+                      experience={card?.consultantId?.totalExperience}
+                      // imageSrc={card.imageSrc}
+                      selected={card?._id === selectedCard}
+                      shortlisted={scheduledCard.includes(card?._id)}
+                      onClick={() => handleCardClick(card?._id)}
+                      onRemove={() => handleRemoveClick(card?._id)}
+                      showCheckbox={true}
+                    >
+                      {card.id === selectedCard && (
+                        <div className="flex flex-col gap-y-4">
+                          {renderShortlistButton()}
+                          <Link
+                            href="/consultant/[id]"
+                            as={`/consultant/${card?._id}`}
+                          >
+                            <a>View Details</a>
+                          </Link>
+                        </div>
+                      )}
+                    </ConsultantCard>
+                  </Box>
+                ))
+              ) : (
+                <p>No data available</p>
+              )}
+          
             </div>
 
             <div></div>
