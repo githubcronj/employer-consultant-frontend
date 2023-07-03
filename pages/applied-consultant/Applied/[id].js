@@ -15,15 +15,15 @@ import {
 } from "store/type/fetchAppliedConsultantType";
 import { Box } from "@mui/material";
 import { removeAppliedConsultantRequest } from "store/action/fetchAppliedConsultantAction";
-import { addintoshortlistRequest, rejectshortlistconsultantRequest } from "store/action/shortlistAction";
+import {
+  addintoshortlistRequest,
+  rejectshortlistconsultantRequest,
+} from "store/action/shortlistAction";
 
 const AppliedConsultant = () => {
   const router = useRouter();
   const id = router.query;
   console.log(id, "roterid");
-
-
-
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
@@ -35,7 +35,6 @@ const AppliedConsultant = () => {
   const backClicked = () => {
     router.push("/");
   };
-
 
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -76,9 +75,17 @@ const AppliedConsultant = () => {
   console.log(appliedjobData, "applied consultant");
 
   const consultantId = appliedjobData?.length > 0 && appliedjobData[0]?._id;
- 
+
   const handleCardClick = (id) => {
     setSelectedCard(id);
+  };
+
+  const nextclick = (id) => {
+    console.log(id);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("jobId", id);
+    }
+    router.push(`/viewjobpost/${id?.id}`);
   };
 
   const handleShortlistClick = () => {
@@ -88,13 +95,13 @@ const AppliedConsultant = () => {
       const message = `Shortlisted.\n${currentDate}`;
       setShortlistMessage(message);
     }
-   console.log(id.id ,"jobid for shortlisted ")
+    console.log(id.id, "jobid for shortlisted ");
     const shortlistPayload = {
       jobId: id.id,
       consultantId: consultantId,
       accessToken,
     };
-  
+
     if (id.id && consultantId) {
       console.log(id.id, consultantId),
         dispatch(addintoshortlistRequest(shortlistPayload));
