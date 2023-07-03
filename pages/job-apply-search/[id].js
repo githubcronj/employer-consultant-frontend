@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchJobsRequest } from "store/action/recommandedJobAction";
 import { appliedJobSuccess } from "store/action/applyJobAction";
 import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
+import { Stack, Typography } from "@mui/material";
+import Image from "next/image";
 
 const JobSearchDetails = () => {
   const router = useRouter();
@@ -36,8 +38,41 @@ const JobSearchDetails = () => {
   });
 
   return (
-    <div>
-      <div className="bg-[#2B373C1C]  pt-1 px-3 sm:px-10 h-fit flex gap-2 xl:flex-row lg:flex-row flex-col xl:items-baseline lg:items-baseline ">
+    <div className="bg-[#2B373C1C] flex flex-col justify-center items-center ">
+      <Stack
+        direction="row"
+        mb={3}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          marginBottom: "0px",
+          marginTop: "20px",
+          display: "flex",
+          width: "100%",
+          justifyContent: "center",
+        }}
+      >
+        <Image
+          src="/Assets/backbtn.svg"
+          alt="back button"
+          width={42}
+          height={42}
+          className="cursor-pointer -ml-[15rem]"
+          onClick={() => router.push("/search_job")}
+        />
+        <Typography
+          sx={{
+            color: "#2B373C",
+            fontSize: "26px",
+            fontWeight: "bold",
+            marginLeft: "10.5rem",
+          }}
+        >
+          Search Jobs
+        </Typography>
+      </Stack>
+      <div className="pt-1 px-3 sm:px-10 h-fit flex gap-2 xl:flex-row lg:flex-row flex-col xl:items-baseline lg:items-baseline ">
         <div className="xl:hidden lg:hidden ">
           <JobSearchHeader />
         </div>
