@@ -28,6 +28,7 @@ const ScheduleInterview = () => {
   const [yesClicked, setYesClicked] = useState(false);
   const [errors, setErrors] = useState({});
   const [jobId, setJobId] = useState();
+  const [currentJob , setCurrentJob] = useState()
 
   const dispatch = useDispatch();
 
@@ -96,7 +97,20 @@ const ScheduleInterview = () => {
 
 
   console.log(consultantId, "cosultantid");
+  const response = useSelector(
+    (state) => state?.getjobReducer?.selectedJob
+  );
+  console.log(response ,"sweta")
 
+  
+  useEffect(() => {
+    if(response){
+      if(Object?.keys(response).length>=0){
+        setCurrentJob(response)
+      }
+    }
+
+  },[response])
   const handleRemovescheduled = () => {
     const updatedscheduledCard = scheduledCard.filter(
       (cardId) => cardId !== selectedCard
@@ -201,10 +215,10 @@ const ScheduleInterview = () => {
           </div>
           <div className="lg:col-span-8">
             <div className="flex gap-4">
-              <p className="text-[16px] text-[#2B373C]">3-5 yrs experience.</p>
-              <p className="text-[16px] text-[#2B373C]">Full Time .</p>
+              <p className="text-[16px] text-[#2B373C]">{currentJob?.minExp}-{currentJob?.maxExp} yrs experience.</p>
+              <p className="text-[16px] text-[#2B373C]">{currentJob?.jobType}.</p>
               <p className="text-[16px] text-[#2B373C]">$10-15 /hr .</p>
-              <p className="text-[16px] text-[#2B373C]">12-09-2023</p>
+              <p className="text-[16px] text-[#2B373C]">{currentJob?.createdAt}</p>
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@ import * as types from "../type/getjobType";
 
 const INITIAL_STATE = {
   CurrentUser: null,
+  selectedJob:null,
 };
 
 export function getjobReducer(state = INITIAL_STATE, action) {
@@ -21,6 +22,12 @@ export function getjobReducer(state = INITIAL_STATE, action) {
         isLoggedIn: false,
         isLoggedOut: false,
       };
+     case types.SELECT_CURRENT_JOB:
+      return {
+        ...state,
+        selectedJob:action.payload,
+      };
+
 
     default:
       return state;

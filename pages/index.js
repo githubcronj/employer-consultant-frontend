@@ -4,7 +4,7 @@ import UploadCSVModal from './uploadCSVModal';
 import FilterModal from './filterModal';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import { GET_JOB_REQUEST } from 'store/type/getjobType';
+import { GET_JOB_REQUEST, SELECT_CURRENT_JOB } from 'store/type/getjobType';
 import { useSelector } from 'react-redux';
 import ProtectedRoute from 'Components/ProtectedRoute/ProtectedRoute';
 import withAuth from 'Components/ProtectedRoute/WithAuth';
@@ -48,13 +48,20 @@ const Home = () => {
   const totalResponse = useSelector(
     (state) => state?.getjobReducer?.CurrentUser?.total
   );
+  const response2 = useSelector(
+    (state) => state
+  );
+console.log(response2,"rtotesponse")
 
-  const nextclick = (id) => {
-    console.log(id);
+  const nextclick = (row) => {
+    dispatch({type:SELECT_CURRENT_JOB,payload:row})
+    console.log(row);
     if (typeof window !== 'undefined'){
-      localStorage.setItem('jobId',id)
+      localStorage.setItem('jobId',row?._id)
     } 
-    router.push(`/applied-consultant/Applied/${id}`);
+    router.push(`/applied-consultant/Applied/${row?._id}`);
+
+    
   };
 
   useEffect(() => {
@@ -134,7 +141,7 @@ const Home = () => {
               </thead>
               <tbody className=' text-black text-md'>
                 {currentPosts?.map((row, index) => (
-                  <tr onClick={() => nextclick(row._id)}
+                  <tr onClick={() => nextclick(row)}
                     key={index}
                     className={
                       index % 2 === 0
