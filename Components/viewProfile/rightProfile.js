@@ -68,7 +68,7 @@ const RightProfile = () => {
         <div>
           <div className="bg-white p-3">
             <p className="font-bold p-2">Skills</p>
-            {response?.skill?.skillName.map((item, index) => {
+            {response?.skill?.skillName?.map((item, index) => {
               return (
                 <div key={index}>
                   <p className="px-2">{item}</p>
@@ -77,7 +77,7 @@ const RightProfile = () => {
               );
             })}
           </div>
-          {response?.experience.map((item, index) => {
+          {response?.experience?.map((item, index) => {
             return (
               <div className="bg-[#F9F6EE] p-3" key={index}>
                 <p className="font-bold p-2 ">Experience</p>
@@ -107,7 +107,7 @@ const RightProfile = () => {
 
           <div className="bg-white p-3">
             <p className="font-bold p-2">Education</p>
-            {response?.education.map((item, index) => {
+            {response?.education?.map((item, index) => {
               return (
                 <div
                   className="flex justify-between "

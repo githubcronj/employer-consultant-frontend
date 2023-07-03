@@ -140,6 +140,7 @@ const Setupdetails = () => {
         },
       }));
       setSelectedImage(URL.createObjectURL(file));
+      // setSelectedImage("");
     } else {
       const [section, field] = name.split(".");
 

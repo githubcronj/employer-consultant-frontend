@@ -21,9 +21,13 @@ function* sendResumeData(action) {
   formData.append("location", action.payload.data.personalDetails.location);
   formData.append("jobRole", action.payload.data.personalDetails.text);
   const imageFile = action.payload.data.personalDetails.image;
-  formData.append("image", imageFile, imageFile.name);
-  formData.append("totalExperience", action.payload.data.personalDetails.totalExperience);
-  
+  // formData.append("image", imageFile, imageFile.name);
+  // formData.append("image", "image");
+  formData.append(
+    "totalExperience",
+    action.payload.data.personalDetails.totalExperience
+  );
+
   action.payload.data.education.forEach((education, index) => {
     Object.entries(education).forEach(([key, value]) => {
       formData.append(`education[${index}].${key}`, value);
@@ -56,8 +60,6 @@ function* sendResumeData(action) {
       }
     });
   });
-
-  
 
   action.payload.data.project.forEach((project, index) => {
     Object.entries(project).forEach(([key, value]) => {
