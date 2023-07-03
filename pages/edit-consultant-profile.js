@@ -380,6 +380,12 @@ const EditConsultantProfile = () => {
     }
   }, [response]);
   // console.log(response,"response edit")
+
+  useEffect(() => {
+    setResumeForm(resumeForm);
+  }, [resumeForm]);
+
+  console.log(resumeForm, "resumeForm");
   const route = useRouter();
   const handleSave = () => {
     // if (isFormValid()) {
