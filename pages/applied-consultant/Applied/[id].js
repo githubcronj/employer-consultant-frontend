@@ -36,14 +36,11 @@ const [currentJob , setCurrentJob] = useState()
     router.push("/");
   };
   
-  
-
   const response = useSelector(
     (state) => state?.getjobReducer?.selectedJob
   );
-  console.log(response ,"sweta")
 
-  
+
   useEffect(() => {
     if(response){
       if(Object?.keys(response).length>=0){
@@ -67,21 +64,31 @@ const [currentJob , setCurrentJob] = useState()
   const accessToken = getToken();
 
   const onSearch = (e) => {
-    setsearch(e.target.value);
+   
 
     dispatch({
       type: FETCH_APPLIED_CONSULTANT_REQUEST,
-      payload: id,
+      payload:{id:id?.id,search:search},
       accessToken,
-      search: e.target.value,
+      
     });
   };
+
+  function debounce(func, timeout = 300){
+  
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+  }
+  const handleChange  = debounce(onSearch,1000)
   useEffect(() => {
     dispatch({
       type: FETCH_APPLIED_CONSULTANT_REQUEST,
-      payload: id,
+      payload:id,
       accessToken,
-      search,
+      
     });
   }, [id]);
 
@@ -94,8 +101,7 @@ const [currentJob , setCurrentJob] = useState()
   console.log(appliedjobData, "applied consultant");
 
   const consultantId = appliedjobData?.length > 0 && appliedjobData[0]?._id;
- const totalResult = appliedjobData?.length > 0 && appliedjobData[0]?.length;
- console.log(totalResult , "total result")
+
   const handleCardClick = (id) => {
     setSelectedCard(id);
   };
@@ -229,7 +235,10 @@ const [currentJob , setCurrentJob] = useState()
           <div className="col-span-1 sm:col-span-2 lg:col-span-1">
             <div className="relative w-full">
               <input
-                onChange={onSearch}
+                onChange={(e) => {
+                  setsearch(e.target.value),
+                  handleChange()
+                } }
                 value={search}
                 type="text"
                 id="simple-search"
