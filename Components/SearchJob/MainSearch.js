@@ -18,10 +18,12 @@ import {
   SAVE_JOB_SUCCESS,
 } from "store/type/applyJobType";
 
+import unsaveJob from "../../asset/images/unsaveJob.svg"
+
 const MainSearch = ({ finaldata, appliedJobData }) => {
   const [flexing, setFlexing] = useState(false);
   const [showApply, setShowApply] = useState(true);
-
+const [savejob,setSavejob] = useState(true)
   const dispatch = useDispatch();
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -64,6 +66,7 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
   };
   
   const saveData = () => {
+    setSavejob(false)
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: SAVE_JOB_SUCCESS, payload });
   };
@@ -72,7 +75,8 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
     <div className="bg-white w-auto p-5" style={{ borderRadius: "5px" }}>
       <div className="mt-[19px] mx-3  sm:col-span-2">
         <div className="lg:col-span-6 sm:col-span-1 ">
-          <div className="flex justify-between">
+          <div className="grid xl:grid-cols-12 lg:grid-cols-12 md:col-span-12">
+            <div className="xl:col-span-8 lg:col-span-12 md:col-span-12">
             <div
               className={`flex items-center mb-[15px] ${
                 flexing ? "flex-col" : "flex-row"
@@ -84,7 +88,7 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
                 className="w-[63px] h-[63px] "
               />
               <div>
-                <p className="text-2xl font-extrabold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
+                <p className="lg:text-2xl font-extrabold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
                   {finaldata[0]?.jobTitle ? finaldata[0]?.jobTitle : "NA"}
                 </p>
 
@@ -96,7 +100,10 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
                 </div>
               </div>
             </div>
-            <div className="mt-[19px] mx-3 flex flex-col gap-5">
+            </div>
+            <div></div>
+         <div className="xl:col-span-3 lg:col-span-6 md:col-span-6">
+         <div className="mt-[19px] mx-3 flex flex-col gap-5">
               {showApply ? (
                 <button
                   className="bg-[#5E9AF8] py-3 text-18 font-bold px-9 text-white rounded-2xl"
@@ -113,6 +120,8 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
                 </button>
               )}
             </div>
+         </div>
+            
           </div>
 
           <div className="flex m-3 ">
@@ -153,7 +162,8 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
               </p>
             </div>
             <div>
-              <img src={bookmark.src} alt="bookmark" onClick={saveData} />
+            {savejob ? 
+              <img src={bookmark.src} alt="bookmark" onClick={saveData} /> :  <img src={unsaveJob.src} alt="bookmark" /> }
             </div>
           </div>
           <div className="flex justify-between">
@@ -201,7 +211,7 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
           </div>
           <hr className=" w-[100%] xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[25px]"></hr>
           <div className="flex m-3 ">
-            <p className="h-[19px] mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-4 text-xl">
+            <p className=" mb-[15px] mt-[13px] text-left font-normal text-[#666666] opacity-1 mr-2 ml-4 text-xl">
               {finaldata[0]?.description ? finaldata[0]?.description : "NA"}
             </p>
           </div>

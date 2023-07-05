@@ -29,12 +29,28 @@ const AppliedConsultant = () => {
   const [shortlistedCards, setShortlistedCards] = useState([]);
   const [shortlistMessage, setShortlistMessage] = useState("");
   const [search, setsearch] = useState("");
-
+const [currentJob , setCurrentJob] = useState()
   const dispatch = useDispatch();
 
   const backClicked = () => {
     router.push("/");
   };
+  
+  const response = useSelector(
+    (state) => state?.getjobReducer?.selectedJob
+  );
+
+
+  useEffect(() => {
+    if(response){
+      if(Object?.keys(response).length>=0){
+        setCurrentJob(response)
+      }
+    }
+
+  },[response])
+
+
 
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -48,21 +64,31 @@ const AppliedConsultant = () => {
   const accessToken = getToken();
 
   const onSearch = (e) => {
-    setsearch(e.target.value);
+   
 
     dispatch({
       type: FETCH_APPLIED_CONSULTANT_REQUEST,
-      payload: id,
+      payload:{id:id?.id,search:search},
       accessToken,
-      search: e.target.value,
+      
     });
   };
+
+  function debounce(func, timeout = 300){
+  
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+  }
+  const handleChange  = debounce(onSearch,1000)
   useEffect(() => {
     dispatch({
       type: FETCH_APPLIED_CONSULTANT_REQUEST,
-      payload: id,
+      payload:id,
       accessToken,
-      search,
+      
     });
   }, [id]);
 
@@ -182,15 +208,16 @@ const AppliedConsultant = () => {
             />
             <div>
               <p className="text-[26px] text-[#2B373C] sm:text-2xl font-bold">
-                UX Designer
+              {currentJob ? currentJob?.jobTitle : "NA"}
               </p>
-              <p className="text-[14px] text-[#2B373C]">3-5 years experience</p>
+              <p className="text-[14px] text-[#2B373C]">{currentJob ? currentJob?.minExp : "NA" }-{currentJob ? currentJob?.maxExp : "NA"} years experience</p>
             </div>
           </div>
           <div className="flex items-center gap-x-4 lg:col-span-1 sm:col-span-2">
-            <p className="text-[16px] text-[#2B373C]">Full Time .</p>
+            <p className="text-[16px] text-[#2B373C]">              { currentJob ? currentJob?.jobType : "NA"
+} .</p>
             <p className="text-[16px] text-[#2B373C]">$10-15 /hr .</p>
-            <p className="text-[16px] text-[#2B373C]">12-09-2023</p>
+            <p className="text-[16px] text-[#2B373C]">{currentJob ? currentJob?.createdAt : "NA"}</p>
           </div>
 
           <div
@@ -208,7 +235,10 @@ const AppliedConsultant = () => {
           <div className="col-span-1 sm:col-span-2 lg:col-span-1">
             <div className="relative w-full">
               <input
-                onChange={onSearch}
+                onChange={(e) => {
+                  setsearch(e.target.value),
+                  handleChange()
+                } }
                 value={search}
                 type="text"
                 id="simple-search"
@@ -322,7 +352,7 @@ const AppliedConsultant = () => {
           >
             <div className="flex px-3">
               <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
-                Consultant
+               { currentJob ? currentJob?.appliedConsultantCount : "NA"} Consultant
               </p>
               <div className="bg-[#5E9AF8] ml-2 px-2 py-1 border rounded text-[#ffffff]">
                 {shortlistedCount}
