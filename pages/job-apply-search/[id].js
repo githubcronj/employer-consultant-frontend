@@ -77,9 +77,9 @@ const JobSearchDetails = () => {
           <JobSearchHeader />
         </div>
         <div className="mt-[20px] justify-center hidden xl:block lg:block">
-          <JobSearchLeft />
+          <JobSearchLeft jobId={id} />
         </div>
-        <div className="flex flex-col xl:m-[20px] lg:m-[20px] ">
+        <div className="flex flex-col xl:m-[20px] lg:m-[20px] gap-8 ">
           <div className="hidden xl:block lg:block">
             <JobSearchHeader />
           </div>
