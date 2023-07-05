@@ -9,15 +9,14 @@ function* fetchAppliedConsultantSaga(action) {
     console.log(action,"action saga")
     const { payload} = action;
     const {accessToken, search, id } =payload
-    const queryParams = new URLSearchParams({ jobId: id, search });
+   
    
     const jobID = action.payload.id;
     console.log(action,"seacech")
     console.log(action.payload.id,"jobID")
-   
-    // const endpoint = `/fetch-applied-consultant?${queryParams.toString()}`;
+  
     const response = yield call(makeApiRequest, {
-      endpoint:`/fetch-applied-consultant?jobId=${action.payload.id}`,
+      endpoint:`/fetch-applied-consultant?jobId=${action.payload.id}${action.payload.search? `&search=${action.payload.search}` : ""}`,
       method: 'GET',
       headers: {
         Authorization: `Bearer ${action.accessToken}`,
