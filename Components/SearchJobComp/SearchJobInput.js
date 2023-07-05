@@ -41,6 +41,7 @@ const SearchJobInput = ({
           padding: ".7rem",
         }}
         placeholder="Job Title"
+        autoComplete="off"
         startAdornment={
           <InputAdornment sx={{ padding: ".8rem 1rem 1rem 1rem" }}>
             <Image src={suitCase} alt="suitcase" width="19px" height="18px" />
@@ -70,6 +71,7 @@ const SearchJobInput = ({
           padding: ".4rem",
         }}
         placeholder="Location"
+        autoComplete="off"
         startAdornment={
           <InputAdornment sx={{ padding: ".8rem 1rem 1rem 1rem" }}>
             <Image src={locationIcon} alt="suitcase" width="18" height="18" />

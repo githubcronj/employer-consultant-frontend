@@ -7,6 +7,7 @@ import { Button, InputAdornment, Stack, Typography } from "@mui/material";
 import suitCase from "../../asset/icons/suitcase.svg";
 import Image from "next/image";
 import locationIcon from "../../asset/icons/location.svg";
+import styles from "../../styles/LoginPage.module.css";
 const JobSearchHeader = ({ searchOnChangeHandler, searchSubmitHandler }) => {
   return (
     <div>
@@ -38,7 +39,15 @@ const JobSearchHeader = ({ searchOnChangeHandler, searchSubmitHandler }) => {
             </InputAdornment>
           }
         />
-        <Divider sx={{ height: "7vh" }} orientation="vertical" />
+        {/* <Divider sx={{ height: "7vh" }} orientation="vertical" /> */}
+        <Divider
+          className={styles.searchdevider}
+          orientation="vertical"
+          style={{
+            borderWidth: "1.5px",
+            height: "55px",
+          }}
+        />
 
         <InputBase
           name="location"

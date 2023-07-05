@@ -77,28 +77,30 @@ const JobSearchDetails = () => {
           <JobSearchHeader />
         </div>
         <div class="lg:grid lg:grid-cols-12 md:grid-cols-3  gap-4">
-  <div class="col-span-3 lg:col-span-3 md:col-span-12 ">
-    <div className="mt-[20px] sm:mt-[30px] justify-center  xl:block lg:block">
-      <JobSearchLeft />
-    </div>
-  </div>
-  <div class="col-span-6 lg:col-span-6 md:col-span-12  sm:mt-[30px]">
-    <div className="flex flex-col xl:m-[20px] lg:m-[20px]  sm:mt-[30px]">
-      <div className="hidden xl:block lg:block">
-        <JobSearchHeader />
-      </div>
-      <div>
-        <MainSearch finaldata={finaldata} appliedJobData={appliedJobData} />
-      </div>
-    </div>
-  </div>
-  <div class="col-span-3 lg:col-span-3 md:col-span-12">
-    <div className="xl:mr-[20px] lg:mr-[20px] my-[20px] bg-white max-h-[462px] h-auto">
-      <JobSearchRight />
-    </div>
-  </div>
-</div>
-
+          <div class="col-span-3 lg:col-span-3 md:col-span-12 ">
+            <div className="mt-[20px] sm:mt-[30px] justify-center  xl:block lg:block">
+              <JobSearchLeft jobId={id} />
+            </div>
+          </div>
+          <div class="col-span-6 lg:col-span-6 md:col-span-12 sm:mt-[30px] ">
+            <div className="flex flex-col lg:m-[20px] lg:mt-0 sm:mt-[30px] gap-8 ">
+              <div className="hidden xl:block lg:block">
+                <JobSearchHeader />
+              </div>
+              <div>
+                <MainSearch
+                  finaldata={finaldata}
+                  appliedJobData={appliedJobData}
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-span-3 lg:col-span-3 md:col-span-12">
+            <div className="xl:mr-[20px] lg:mr-[20px] my-[20px] bg-white max-h-[462px] h-auto">
+              <JobSearchRight />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
