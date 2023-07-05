@@ -31,7 +31,7 @@ const leftmapping = [
 const JobSearchLeft = () => {
   return (
     <div>
-      <div className='bg-white xl:max-w-[278px] lg:max-w-[278px] w-auto max-h-[732px] h-auto px-4 pb-4' style={{borderRadius:"6px"}}>
+      <div className='bg-white  max-h-[732px] h-auto px-4 pb-4 sm:mb-[20px]' style={{borderRadius:"6px"}}>
         <p className='font-semibold text-xl pt-[24px] pl-[22px]'>24 Jobs</p>
 
         {leftmapping?.map((item, index) => {
