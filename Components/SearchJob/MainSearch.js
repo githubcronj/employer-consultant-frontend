@@ -132,7 +132,6 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
                     {showApply ? (
                       <button
                         className="bg-[#5E9AF8] py-3 text-18 font-bold px-9 text-white rounded-2xl "
-                        disabled={showApply ? "true" : "false"}
                         onClick={handleApply}
                       >
                         Apply
