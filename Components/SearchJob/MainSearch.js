@@ -16,6 +16,8 @@ import {
   APPLY_JOB_SUCCESS,
   CANCEL_JOB_SUCCESS,
   SAVE_JOB_SUCCESS,
+  UNSAVE_JOB_REQUEST,
+  UNSAVE_JOB_SUCCESS,
 } from "store/type/applyJobType";
 
 import unsaveJob from "../../asset/images/unsaveJob.svg";
@@ -44,6 +46,14 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
     const isJobApplied = appliedJobData.some(
       (job) => job._id === finaldata[0]?._id
     );
+    const isJobSave = appliedJobData.some(
+      (job) => job._id === finaldata[0]?._id
+    );
+    if (isJobSave) {
+      setSavejob(false);
+    } else {
+      setSavejob(true);
+    }
 
     if (isJobApplied) {
       setShowApply(false);
@@ -67,9 +77,14 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
   };
 
   const saveData = () => {
-    setSavejob(false);
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: SAVE_JOB_SUCCESS, payload });
+    setSavejob(false);
+  };
+  const unsaveData = () => {
+    const payload = { jobId: finaldata[0]?._id, finaltoken };
+    dispatch({ type: UNSAVE_JOB_REQUEST, payload });
+    setSavejob(true);
   };
 
   return (
@@ -181,8 +196,13 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
                   {savejob ? (
                     <img src={bookmark.src} alt="bookmark" onClick={saveData} />
                   ) : (
-                    <img src={unsaveJob.src} alt="bookmark" />
+                    <img
+                      src={unsaveJob.src}
+                      alt="bookmark"
+                      onClick={unsaveData}
+                    />
                   )}
+                  {/* <img src={unsaveJob.src} alt="bookmark" onClick={unsaveData} /> */}
                 </div>
               </div>
               <div className="flex justify-between">
