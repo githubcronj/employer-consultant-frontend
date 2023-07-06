@@ -1,13 +1,14 @@
 import React from "react";
-import clear from "../../public/Assets/clear.svg";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import List from "@mui/material/List";
-
 import Collapse from "@mui/material/Collapse";
-
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import clear from "../../public/Assets/clear.svg";
+import { fetchJobsRequest } from "store/action/recommandedJobAction";
+import styles from "../../styles/LoginPage.module.css";
 const JobSearchRight = () => {
   const [open, setOpen] = useState(false);
   const [expopen, setExpOpen] = useState(false);
@@ -19,6 +20,42 @@ const JobSearchRight = () => {
   const [salary, setSalary] = useState("");
   const [onsite, setOnsite] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
+  const [expData, setExpData] = useState({
+    minExp: "",
+    maxExp: "",
+  });
+  const [salaryData, setSalaryData] = useState({
+    minSalary: "",
+    maxSalary: "",
+  });
+
+  const expOnChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setExpData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const salaryOnChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setSalaryData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+
+  const finaltoken = getToken();
+  const dispatch = useDispatch();
+  const jobData = useSelector((state) => state.jobsReducer.GetjobData);
 
   const toggleDropdown = (dropdownState, setDropdownState) => {
     setOpen(false);
@@ -31,22 +68,40 @@ const JobSearchRight = () => {
 
   const handleClickOption = (option) => {
     setSelectedOption(option);
+    dispatch(fetchJobsRequest(option, finaltoken));
   };
   const handleClickExp = (option) => {
-    setExp(option);
+    // setExp(option);
+    setJobType("");
+    setOnsite("");
+    setSelectedOption("");
+    dispatch(fetchJobsRequest(expData, finaltoken));
+    console.log(expData, "expData");
   };
   const handleClickJobType = (option) => {
     setJobType(option);
+    setOnsite("");
+    setSelectedOption("");
+    dispatch(fetchJobsRequest(option, finaltoken));
   };
   const handleClickonsite = (option) => {
     setOnsite(option);
   };
 
-  const clearClicked = () => {
-    setExp("");
+  const handleClickSalary = (option) => {
     setJobType("");
     setOnsite("");
     setSelectedOption("");
+    dispatch(fetchJobsRequest(salaryData, finaltoken));
+  };
+
+  const clearClicked = () => {
+    setExpData("");
+    setJobType("");
+    setOnsite("");
+    setSelectedOption("");
+    setSalaryData("");
+    dispatch(fetchJobsRequest(jobData, finaltoken));
   };
   return (
     <List
@@ -55,7 +110,7 @@ const JobSearchRight = () => {
         bgcolor: "background.paper",
         padding: "20px",
       }}
-      component='nav'
+      component="nav"
     >
       <Box
         sx={{
@@ -67,7 +122,7 @@ const JobSearchRight = () => {
         <h1 style={{ fontSize: "25px", fontWeight: "600" }}>Filter</h1>
         <img
           src={clear.src}
-          alt='clear'
+          alt="clear"
           style={{ cursor: "pointer" }}
           onClick={clearClicked}
         />
@@ -78,36 +133,45 @@ const JobSearchRight = () => {
           justifyContent: "space-between",
           paddingRight: "10px",
           paddingTop: "10px",
-          cursor: "pointer" ,
+          cursor: "pointer",
           alignItems: "center",
         }}
       >
         <h2
-          style={{ fontSize: "20px", fontWeight: "600", paddingTop: "10px",
-          cursor: "pointer"   }}
+          style={{
+            fontSize: "20px",
+            fontWeight: "600",
+            paddingTop: "10px",
+            cursor: "pointer",
+          }}
           onClick={() => toggleDropdown(open, setOpen)}
         >
           Date Posted
         </h2>
         {open ? (
-          <ExpandLess onClick={() => toggleDropdown(open, setOpen)} style={{cursor: "pointer" }}/>
+          <ExpandLess
+            onClick={() => toggleDropdown(open, setOpen)}
+            style={{ cursor: "pointer" }}
+          />
         ) : (
-          <ExpandMore onClick={() => toggleDropdown(open, setOpen)} style={{cursor: "pointer" }}/>
+          <ExpandMore
+            onClick={() => toggleDropdown(open, setOpen)}
+            style={{ cursor: "pointer" }}
+          />
         )}
       </Box>
 
-      <Collapse in={open} timeout='auto' unmountOnExit>
+      <Collapse in={open} timeout="auto" unmountOnExit>
         <List disablePadding>
           <p
             style={{
               fontSize: "17px",
               fontWeight: "400",
-              color: selectedOption === "Any Time" ? "blue" : "black",
+              color: selectedOption === "" ? "blue" : "black",
               paddingTop: "10px",
-              cursor: "pointer" 
-               
+              cursor: "pointer",
             }}
-            onClick={() => handleClickOption("Any Time")}
+            onClick={() => handleClickOption("")}
           >
             Any Time
           </p>
@@ -115,12 +179,11 @@ const JobSearchRight = () => {
             style={{
               fontSize: "17px",
               fontWeight: "400",
-              color: selectedOption === "Past 24 hrs" ? "blue" : "black",
+              color: selectedOption === "1" ? "blue" : "black",
               paddingTop: "10px",
-              cursor: "pointer" 
-              
+              cursor: "pointer",
             }}
-            onClick={() => handleClickOption("Past 24 hrs")}
+            onClick={() => handleClickOption("1")}
           >
             Past 24 hrs
           </p>
@@ -128,11 +191,11 @@ const JobSearchRight = () => {
             style={{
               fontSize: "17px",
               fontWeight: "400",
-              color: selectedOption === "Past Week" ? "blue" : "black",
+              color: selectedOption === "2" ? "blue" : "black",
               paddingTop: "10px",
-              cursor: "pointer" 
+              cursor: "pointer",
             }}
-            onClick={() => handleClickOption("Past Week")}
+            onClick={() => handleClickOption("2")}
           >
             Past Week
           </p>
@@ -140,12 +203,12 @@ const JobSearchRight = () => {
             style={{
               fontSize: "17px",
               fontWeight: "400",
-              color: selectedOption === "Past Month" ? "blue" : "black",
+              color: selectedOption === "3" ? "blue" : "black",
               paddingTop: "10px",
-              
-              cursor: "pointer" 
+
+              cursor: "pointer",
             }}
-            onClick={() => handleClickOption("Past Month")}
+            onClick={() => handleClickOption("3")}
           >
             Past Month
           </p>
@@ -163,13 +226,18 @@ const JobSearchRight = () => {
           justifyContent: "space-between",
           paddingRight: "10px",
           paddingTop: "10px",
-          cursor: "pointer" ,
+          cursor: "pointer",
           alignItems: "center",
-          cursor: "pointer" 
+          cursor: "pointer",
         }}
       >
         <h2
-          style={{ fontSize: "20px", fontWeight: "600", paddingTop: "10px",cursor: "pointer"  }}
+          style={{
+            fontSize: "20px",
+            fontWeight: "600",
+            paddingTop: "10px",
+            cursor: "pointer",
+          }}
           onClick={() => toggleDropdown(expopen, setExpOpen)}
         >
           Experience
@@ -180,15 +248,15 @@ const JobSearchRight = () => {
           <ExpandMore onClick={() => toggleDropdown(expopen, setExpOpen)} />
         )}
       </Box>
-      <Collapse in={expopen} timeout='auto' unmountOnExit>
+      <Collapse in={expopen} timeout="auto" unmountOnExit>
         <List disablePadding>
-          <p
+          {/* <p
             style={{
               fontSize: "17px",
               fontWeight: "400",
               color: exp === "1 year" ? "blue" : "black",
               paddingTop: "10px",
-              cursor: "pointer" 
+              cursor: "pointer",
             }}
             onClick={() => handleClickExp("1 year")}
           >
@@ -199,7 +267,8 @@ const JobSearchRight = () => {
               fontSize: "17px",
               fontWeight: "400",
               color: exp === "2 years" ? "blue" : "black",
-              paddingTop: "10px",cursor: "pointer" 
+              paddingTop: "10px",
+              cursor: "pointer",
             }}
             onClick={() => handleClickExp("2 years")}
           >
@@ -210,12 +279,65 @@ const JobSearchRight = () => {
               fontSize: "17px",
               fontWeight: "400",
               color: exp === "3 years" ? "blue" : "black",
-              paddingTop: "10px",cursor: "pointer" 
+              paddingTop: "10px",
+              cursor: "pointer",
             }}
             onClick={() => handleClickExp("3 years")}
           >
             3 years
-          </p>
+          </p> */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ position: "relative" }}>
+              <input
+                type="number"
+                name="minExp"
+                id="minExp"
+                placeholder="Minimum Experience"
+                required
+                style={{
+                  display: "block",
+                  padding: "3px",
+                  border: "1px solid #D8D8DD",
+                  borderRadius: "10px",
+                  margin: "2px",
+                }}
+                value={expData.minExp}
+                onChange={(e) => expOnChangeHandler(e)}
+              />
+            </div>
+
+            <div className="relative">
+              <input
+                type="number"
+                name="maxExp"
+                id="maxExp"
+                placeholder="Maximum Experience"
+                required
+                style={{
+                  display: "block",
+                  padding: "3px",
+                  border: "1px solid #D8D8DD",
+                  borderRadius: "10px",
+                  margin: "2px",
+                }}
+                value={expData.maxExp}
+                onChange={(e) => expOnChangeHandler(e)}
+              />
+            </div>
+            <div>
+              <Button
+                onClick={handleClickExp}
+                style={{
+                  background: "red",
+                  padding: ".55rem 1rem",
+                  color: "white",
+                  borderRadius: "10px",
+                }}
+              >
+                Search
+              </Button>
+            </div>
+          </div>
         </List>
       </Collapse>
 
@@ -232,11 +354,15 @@ const JobSearchRight = () => {
           paddingRight: "10px",
           paddingTop: "10px",
           alignItems: "center",
-
         }}
       >
         <h2
-          style={{ fontSize: "20px", fontWeight: "600", paddingTop: "10px" ,cursor: "pointer" }}
+          style={{
+            fontSize: "20px",
+            fontWeight: "600",
+            paddingTop: "10px",
+            cursor: "pointer",
+          }}
           onClick={() => toggleDropdown(jobtypeopen, setJobtypeOpen)}
         >
           JobType
@@ -244,26 +370,26 @@ const JobSearchRight = () => {
         {jobtypeopen ? (
           <ExpandLess
             onClick={() => toggleDropdown(jobtypeopen, setJobtypeOpen)}
-            style={{cursor: "pointer" }}
+            style={{ cursor: "pointer" }}
           />
         ) : (
           <ExpandMore
             onClick={() => toggleDropdown(jobtypeopen, setJobtypeOpen)}
-            style={{cursor: "pointer" }}
+            style={{ cursor: "pointer" }}
           />
         )}
       </Box>
-      <Collapse in={jobtypeopen} timeout='auto' unmountOnExit>
+      <Collapse in={jobtypeopen} timeout="auto" unmountOnExit>
         <List disablePadding>
           <p
             style={{
               fontSize: "17px",
               fontWeight: "400",
-              color: jobType === "Full-Time" ? "blue" : "black",
+              color: jobType === "full-time" ? "blue" : "black",
               paddingTop: "10px",
-              cursor: "pointer" 
+              cursor: "pointer",
             }}
-            onClick={() => handleClickJobType("Full-Time")}
+            onClick={() => handleClickJobType("full-time")}
           >
             Full-Time
           </p>
@@ -271,11 +397,11 @@ const JobSearchRight = () => {
             style={{
               fontSize: "17px",
               fontWeight: "400",
-              color: jobType === "Part-Time" ? "blue" : "black",
+              color: jobType === "part-time" ? "blue" : "black",
               paddingTop: "10px",
-              cursor: "pointer" 
+              cursor: "pointer",
             }}
-            onClick={() => handleClickJobType("Part-Time")}
+            onClick={() => handleClickJobType("part-time")}
           >
             Part-Time
           </p>
@@ -283,29 +409,65 @@ const JobSearchRight = () => {
             style={{
               fontSize: "17px",
               fontWeight: "400",
-              color: jobType === "Contract" ? "blue" : "black",
+              color: jobType === "contract" ? "blue" : "black",
               paddingTop: "10px",
-              cursor: "pointer" 
+              cursor: "pointer",
             }}
-            onClick={() => handleClickJobType("Contract")}
+            onClick={() => handleClickJobType("contract")}
           >
             Contract
           </p>
+          <p
+            style={{
+              fontSize: "17px",
+              fontWeight: "400",
+              color: jobType === "freelance" ? "blue" : "black",
+              paddingTop: "10px",
+              cursor: "pointer",
+            }}
+            onClick={() => handleClickJobType("freelance")}
+          >
+            Freelance
+          </p>
+          <p
+            style={{
+              fontSize: "17px",
+              fontWeight: "400",
+              color: jobType === "temporary" ? "blue" : "black",
+              paddingTop: "10px",
+              cursor: "pointer",
+            }}
+            onClick={() => handleClickJobType("temporary")}
+          >
+            Temporary
+          </p>
+          <p
+            style={{
+              fontSize: "17px",
+              fontWeight: "400",
+              color: jobType === "internship" ? "blue" : "black",
+              paddingTop: "10px",
+              cursor: "pointer",
+            }}
+            onClick={() => handleClickJobType("internship")}
+          >
+            Internship
+          </p>
         </List>
       </Collapse>
-      <hr
+      {/* <hr
         style={{
           border: "1px solid #0F0F113D",
           marginTop: "10px",
         }}
-      ></hr>
-      <Box
+      ></hr> */}
+      {/* <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
           paddingRight: "10px",
           paddingTop: "10px",
-          cursor: "pointer" ,
+          cursor: "pointer",
           alignItems: "center",
         }}
       >
@@ -324,8 +486,8 @@ const JobSearchRight = () => {
             onClick={() => toggleDropdown(onsiteopen, setOnsiteOpen)}
           />
         )}
-      </Box>
-      <Collapse in={onsiteopen} timeout='auto' unmountOnExit>
+      </Box> */}
+      {/* <Collapse in={onsiteopen} timeout="auto" unmountOnExit>
         <List disablePadding>
           <p
             style={{
@@ -333,7 +495,7 @@ const JobSearchRight = () => {
               fontWeight: "400",
               color: onsite === "On-Site" ? "blue" : "black",
               paddingTop: "10px",
-              cursor: "pointer" 
+              cursor: "pointer",
             }}
             onClick={() => handleClickonsite("On-Site")}
           >
@@ -345,14 +507,14 @@ const JobSearchRight = () => {
               fontWeight: "400",
               color: onsite === "Remote" ? "blue" : "black",
               paddingTop: "10px",
-              cursor: "pointer" 
+              cursor: "pointer",
             }}
             onClick={() => handleClickonsite("Remote")}
           >
             Remote
           </p>
         </List>
-      </Collapse>
+      </Collapse> */}
       <hr
         style={{
           border: "1px solid #0F0F113D",
@@ -365,7 +527,7 @@ const JobSearchRight = () => {
           justifyContent: "space-between",
           paddingRight: "10px",
           paddingTop: "10px",
-          cursor: "pointer" ,
+          cursor: "pointer",
           alignItems: "center",
         }}
       >
@@ -385,14 +547,15 @@ const JobSearchRight = () => {
           />
         )}
       </Box>
-      <Collapse in={salaryopen} timeout='auto' unmountOnExit>
+      <Collapse in={salaryopen} timeout="auto" unmountOnExit>
         <List disablePadding>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ position: "relative" }}>
               <input
-                type='text'
-                id='minSalary'
-                placeholder='Minimum Salary '
+                type="number"
+                name="minSalary"
+                id="minSalary"
+                placeholder="Minimum Salary "
                 required
                 style={{
                   display: "bloack",
@@ -401,14 +564,17 @@ const JobSearchRight = () => {
                   borderRadius: "10px",
                   margin: "2px",
                 }}
+                value={salaryData.minSalary}
+                onChange={(e) => salaryOnChangeHandler(e)}
               />
             </div>
 
-            <div className='relative'>
+            <div className="relative">
               <input
-                type='text'
-                id='maxSalary'
-                placeholder='Maximum Salary '
+                type="number"
+                name="maxSalary"
+                id="maxSalary"
+                placeholder="Maximum Salary "
                 required
                 style={{
                   display: "bloack",
@@ -417,7 +583,22 @@ const JobSearchRight = () => {
                   borderRadius: "10px",
                   margin: "2px",
                 }}
+                value={salaryData.maxSalary}
+                onChange={(e) => salaryOnChangeHandler(e)}
               />
+            </div>
+            <div>
+              <Button
+                onClick={handleClickSalary}
+                style={{
+                  background: "red",
+                  padding: ".55rem 1rem",
+                  color: "white",
+                  borderRadius: "10px",
+                }}
+              >
+                Search
+              </Button>
             </div>
           </div>
         </List>

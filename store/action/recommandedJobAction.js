@@ -77,6 +77,30 @@ export function fetchRecommendFailure(payload) {
   };
 }
 
+export function fetchDateFilterJobs(payload, accessToken) {
+  return {
+    type: types.FETCH_FILTER_JOBS,
+    payload: {
+      data: payload,
+      token: accessToken,
+    },
+  };
+}
+
+export function fetchDateFilterSuccess(payload) {
+  return {
+    type: types.FETCH_FILTER_JOBS_SUCCESS,
+    payload: payload,
+  };
+}
+
+export function fetchDateFilterFailure(payload) {
+  return {
+    type: types.FETCH_FILTER_JOBS_FAILURE,
+    payload: payload,
+  };
+}
+
 // export const navigateToJobApplySearch = (id) => {
 //   return {
 //     type: 'NAVIGATE_TO_JOB_APPLY_SEARCH',
