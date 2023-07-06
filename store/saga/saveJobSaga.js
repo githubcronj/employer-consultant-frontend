@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { makeApiRequest } from "../../utils/api";
-import {  SAVE_FAILURE, SAVE_JOB_SUCCESS, SAVE_SUCCESS } from "store/type/applyJobType";
+import {  SAVE_FAILURE, SAVE_JOB_SUCCESS, SAVE_SUCCESS, UNSAVE_JOB_FAILURE, UNSAVE_JOB_SUCCESS } from "store/type/applyJobType";
 import { toast } from "react-toastify";
 
 function* saveJobData(action) {
@@ -29,7 +29,34 @@ function* saveJobData(action) {
   }
 }
 
+function* unsaveJobData(action) {
+  const jobId = action.payload.jobId;
+  console.log(action.payload.jobId," unsave jobID")
+  try {
+   
+
+    const response = yield call(makeApiRequest, {
+      endpoint: `/remove-save-job?jobId=${action.payload.jobId}`,
+      method: "DELETE",
+      
+      headers: {
+        Authorization: `Bearer ${action.payload.finaltoken}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    yield put({ type: UNSAVE_JOB_SUCCESS, payload: response.data });
+    toast.success("Job remove successful");
+    console.log("test in saga", response.data);
+  } catch (error) {
+    console.log("API call error:", error);
+    yield put({ type:UNSAVE_JOB_FAILURE, payload: error });
+    toast.error(error.message);
+  }
+}
+
 export default function* watchSaveJob() {
   yield takeLatest(SAVE_JOB_SUCCESS, saveJobData);
+  yield takeLatest(UNSAVE_JOB_SUCCESS,unsaveJobData);
 }
 

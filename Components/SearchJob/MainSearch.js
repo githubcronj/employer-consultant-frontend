@@ -16,6 +16,7 @@ import {
   APPLY_JOB_SUCCESS,
   CANCEL_JOB_SUCCESS,
   SAVE_JOB_SUCCESS,
+  UNSAVE_JOB_SUCCESS,
 } from "store/type/applyJobType";
 
 import unsaveJob from "../../asset/images/unsaveJob.svg"
@@ -69,6 +70,11 @@ const [savejob,setSavejob] = useState(true)
     setSavejob(false)
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: SAVE_JOB_SUCCESS, payload });
+  };
+  const unsaveData = () => {
+    setSavejob(true)
+    const payload = { jobId: finaldata[0]?._id, finaltoken };
+    dispatch({ type: UNSAVE_JOB_SUCCESS, payload });
   };
 
   return (
@@ -163,7 +169,7 @@ const [savejob,setSavejob] = useState(true)
             </div>
             <div>
             {savejob ? 
-              <img src={bookmark.src} alt="bookmark" onClick={saveData} /> :  <img src={unsaveJob.src} alt="bookmark" /> }
+              <img src={bookmark.src} alt="bookmark" onClick={saveData} /> :  <img src={unsaveJob.src} alt="bookmark" onClick={unsaveData}/> }
             </div>
           </div>
           <div className="flex justify-between">
