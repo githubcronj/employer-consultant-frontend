@@ -16,14 +16,16 @@ import {
   APPLY_JOB_SUCCESS,
   CANCEL_JOB_SUCCESS,
   SAVE_JOB_SUCCESS,
+  UNSAVE_JOB_REQUEST,
+  UNSAVE_JOB_SUCCESS,
 } from "store/type/applyJobType";
 
-import unsaveJob from "../../asset/images/unsaveJob.svg"
+import unsaveJob from "../../asset/images/unsaveJob.svg";
 
 const MainSearch = ({ finaldata, appliedJobData }) => {
   const [flexing, setFlexing] = useState(false);
   const [showApply, setShowApply] = useState(true);
-const [savejob,setSavejob] = useState(true)
+  const [savejob, setSavejob] = useState(true);
   const dispatch = useDispatch();
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -41,13 +43,22 @@ const [savejob,setSavejob] = useState(true)
   };
 
   useEffect(() => {
-    const isJobApplied = appliedJobData.some((job) => job._id === finaldata[0]?._id);
-    
-    if(isJobApplied){
-      setShowApply(false)
-    }else
-    {
-      setShowApply(true)
+    const isJobApplied = appliedJobData.some(
+      (job) => job._id === finaldata[0]?._id
+    );
+    const isJobSave = appliedJobData.some(
+      (job) => job._id === finaldata[0]?._id
+    );
+    if (isJobSave) {
+      setSavejob(false);
+    } else {
+      setSavejob(true);
+    }
+
+    if (isJobApplied) {
+      setShowApply(false);
+    } else {
+      setShowApply(true);
     }
   }, [appliedJobData, finaldata]);
 
@@ -57,71 +68,78 @@ const [savejob,setSavejob] = useState(true)
   //   setShowApply(isJobApplied => !isJobApplied);
 
   // };
-  
+
   const handleCancel = () => {
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: CANCEL_JOB_SUCCESS, payload });
-  
+
     setShowApply(true);
   };
-  
+
   const saveData = () => {
-    setSavejob(false)
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: SAVE_JOB_SUCCESS, payload });
+    setSavejob(false);
+  };
+  const unsaveData = () => {
+    const payload = { jobId: finaldata[0]?._id, finaltoken };
+    dispatch({ type: UNSAVE_JOB_REQUEST, payload });
+    setSavejob(true);
   };
 
   return (
-    <div className="bg-white w-auto p-5" style={{ borderRadius: "5px" }}>
+    <div
+      className="bg-white w-auto p-5"
+      style={{ borderRadius: "5px"}}
+    >
       <div className="mt-[19px] mx-3  sm:col-span-2">
         <div className="lg:col-span-6 sm:col-span-1 ">
           <div className="grid xl:grid-cols-12 lg:grid-cols-12 md:col-span-12">
             <div className="xl:col-span-8 lg:col-span-12 md:col-span-12">
-            <div
-              className={`flex items-center mb-[15px] ${
-                flexing ? "flex-col" : "flex-row"
-              }`}
-            >
-              <img
-                src={google.src}
-                alt="googleIcon"
-                className="w-[63px] h-[63px] "
-              />
-              <div>
-                <p className="lg:text-2xl font-extrabold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
-                  {finaldata[0]?.jobTitle ? finaldata[0]?.jobTitle : "NA"}
-                </p>
-
-                <div className="flex items-center justify-between align-baseline">
-                  <p className="w-[54px] mr-6 xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px] font-bold h-[19px] mb-[10px] mt-[10px] text-[#000000] text-left font-sans">
-                    Google
+              <div
+                className={`flex items-center mb-[15px] ${
+                  flexing ? "flex-col" : "flex-row"
+                }`}
+              >
+                <img
+                  src={google.src}
+                  alt="googleIcon"
+                  className="w-[63px] h-[63px] "
+                />
+                <div>
+                  <p className="lg:text-2xl font-extrabold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
+                    {finaldata[0]?.jobTitle ? finaldata[0]?.jobTitle : "NA"}
                   </p>
-                  <p className="pt-1">company Id</p>
+
+                  <div className="flex items-center justify-between align-baseline">
+                    <p className="w-[54px] mr-6 xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px] font-bold h-[19px] mb-[10px] mt-[10px] text-[#000000] text-left font-sans">
+                      Google
+                    </p>
+                    <p className="pt-1">company Id</p>
+                  </div>
                 </div>
               </div>
             </div>
-            </div>
             <div></div>
-         <div className="xl:col-span-3 lg:col-span-6 md:col-span-6">
-         <div className="mt-[19px] mx-3 flex flex-col gap-5">
-              {showApply ? (
-                <button
-                  className="bg-[#5E9AF8] py-3 text-18 font-bold px-9 text-white rounded-2xl"
-                  onClick={handleApply}
-                >
-                  Apply
-                </button>
-              ) : (
-                <button
-                  className="bg-[#F3F5F8] py-3 text-18 font-bold px-9 text-[#5E9AF8] rounded-2xl"
-                  onClick={handleCancel}
-                >
-                  Cancel
-                </button>
-              )}
+            <div className="xl:col-span-3 lg:col-span-6 md:col-span-6">
+              <div className="mt-[19px] mx-3 flex flex-col gap-5">
+                {showApply ? (
+                  <button
+                    className="bg-[#5E9AF8] py-3 text-18 font-bold px-9 text-white rounded-2xl"
+                    onClick={handleApply}
+                  >
+                    Apply
+                  </button>
+                ) : (
+                  <button
+                    className="bg-[#F3F5F8] py-3 text-18 font-bold px-9 text-[#5E9AF8] rounded-2xl"
+                    onClick={handleCancel}
+                  >
+                    Cancel
+                  </button>
+                )}
+              </div>
             </div>
-         </div>
-            
           </div>
 
           <div className="flex m-3 ">
@@ -162,8 +180,12 @@ const [savejob,setSavejob] = useState(true)
               </p>
             </div>
             <div>
-            {savejob ? 
-              <img src={bookmark.src} alt="bookmark" onClick={saveData} /> :  <img src={unsaveJob.src} alt="bookmark" /> }
+              {savejob ? (
+                <img src={bookmark.src} alt="bookmark" onClick={saveData} />
+              ) : (
+                <img src={unsaveJob.src} alt="bookmark" onClick={unsaveData} />
+              )}
+               {/* <img src={unsaveJob.src} alt="bookmark" onClick={unsaveData} /> */}
             </div>
           </div>
           <div className="flex justify-between">

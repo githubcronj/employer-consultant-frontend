@@ -41,7 +41,27 @@ export function saveJobError(error) {
     payload: error,
   };
 }
+export function unsaveJobRequest(payload) {
+  return {
+    type: types.UNSAVE_JOB_REQUEST,
+    payload: payload,
+  };
+}
 
+
+export function unsaveJobSuccess(payload) {
+  return {
+    type: types.UNSAVE_JOB_SUCCESS,
+    payload: payload,
+  };
+}
+
+export function unsaveJobError(error) {
+  return {
+    type: types.UNSAVE_JOB_FAILURE,
+    payload: error,
+  };
+}
 export function appliedJobRequest(payload) {
   return {
     type: types.APPLIED_JOB_REQUEST,
