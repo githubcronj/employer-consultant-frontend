@@ -27,6 +27,7 @@ const JobSearchDetails = () => {
   const finaltoken = getToken();
   const jobData = useSelector((state) => state.jobsReducer.GetjobData);
   const appliedJobData = useSelector((state) => state.appliedJobReducer.data);
+  console.log("data", jobData);
 
   useEffect(() => {
     dispatch(fetchJobsRequest(jobData, finaltoken));
@@ -72,7 +73,7 @@ const JobSearchDetails = () => {
           Search Jobs
         </Typography>
       </Stack>
-      <div className="pt-1 px-3 sm:px-10 h-fit ">
+      <div className="pt-1 px-3 sm:px-10 h-fit lg:max-w-[1400px] ">
         <div className="xl:hidden lg:hidden ">
           <JobSearchHeader />
         </div>

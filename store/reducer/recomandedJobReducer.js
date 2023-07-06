@@ -38,6 +38,9 @@ const INITIAL_STATE = {
 
   getrecommandjob: [],
   isgetdata: false,
+
+  getFilterJob: [],
+  isgetFilterJob: false,
 };
 
 export function jobsReducer(state = INITIAL_STATE, action) {
@@ -60,6 +63,7 @@ export function jobsReducer(state = INITIAL_STATE, action) {
         ...state,
         isjobData: false,
       };
+
     // recommand data reducer
     case types.FETCH_RECOMMAND_JOBS:
       return {
