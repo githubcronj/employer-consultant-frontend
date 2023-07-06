@@ -41,6 +41,13 @@ export function saveJobError(error) {
     payload: error,
   };
 }
+export function unsaveJobRequest(payload) {
+  return {
+    type: types.UNSAVE_JOB_REQUEST,
+    payload: payload,
+  };
+}
+
 
 export function unsaveJobSuccess(payload) {
   return {

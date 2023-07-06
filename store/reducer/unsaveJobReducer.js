@@ -5,9 +5,13 @@ const initialState = {
 };
 const unsavedJobReducer = (state = initialState, action) => {
   switch (action.type) {
-    
+    case types.UNSAVE_JOB_REQUEST:
+      return {
+        ...state,
+        data:null,
+        error:null
+      }
     case types.UNSAVE_JOB_SUCCESS:
-       
       return {
         ...state,
         data: action.payload,
