@@ -21,13 +21,14 @@ import watchResumeDetails from "./setupDetailsSaga";
 import { watchjobsSaga } from "./recomandedJobSaga";
 import watchApplyJob from "./applyJobSaga";
 import watchcancelJob from "./cancelJobSaga";
-import watchSavelJob from "./saveJobSaga";
+import watchSaveJob from "./saveJobSaga";
 import watchAppliedJob from "./appliedJobSaga";
 import watchSavedJob from "./savedJobSaga";
-import {watchAppliedConsultantSaga} from "./fetchAppliedConsultantsaga"
+import { watchAppliedConsultantSaga } from "./fetchAppliedConsultantsaga";
 import watchEditResumeProfile from "./editConsultantProfileSaga";
 import { watchshortlistConsultantSaga } from "./shortlistSaga";
 import { watchsheduledConsultantSaga } from "./sheduledConsultantSaga";
+import watchVisitJob from "./visitJobSaga";
 export default function* rootSaga() {
   yield all([
     watchLogin(),
@@ -52,12 +53,13 @@ export default function* rootSaga() {
     watchjobsSaga(),
     watchApplyJob(),
     watchcancelJob(),
-    watchSavelJob(),
+    watchSaveJob(),
     watchAppliedJob(),
-    watchSavedJob(),,
+    watchSavedJob(),
     watchAppliedConsultantSaga(),
     watchEditResumeProfile(),
     watchshortlistConsultantSaga(),
-    watchsheduledConsultantSaga()
+    watchsheduledConsultantSaga(),
+    watchVisitJob(),
   ]);
 }

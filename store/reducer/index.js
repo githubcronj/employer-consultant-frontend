@@ -1,34 +1,35 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import registerReducer from './registerReducer';
-import { LoginReducer } from './loginReducer';
-import otpReducer from './otpReducer';
-import reOtpReducer from './reOtpReducer';
-import { forgotPasswordReducer } from './forgotpasReducer';
-import setupReducer from './setupReducer';
-import { changePasswordReducer } from './changePasReducer';
-import { facebookReducer } from './fbReducer';
-import editProfileReducer from './editProfileReducer';
-import { getProfileReducer } from './getProfileReducer';
-import formReducer from 'store/slices/formSlice';
+import { combineReducers } from "@reduxjs/toolkit";
+import registerReducer from "./registerReducer";
+import { LoginReducer } from "./loginReducer";
+import otpReducer from "./otpReducer";
+import reOtpReducer from "./reOtpReducer";
+import { forgotPasswordReducer } from "./forgotpasReducer";
+import setupReducer from "./setupReducer";
+import { changePasswordReducer } from "./changePasReducer";
+import { facebookReducer } from "./fbReducer";
+import editProfileReducer from "./editProfileReducer";
+import { getProfileReducer } from "./getProfileReducer";
+import formReducer from "store/slices/formSlice";
 import { getjobReducer } from "./getjobReducer";
 import { deletejobReducer } from "./deletejobReducer";
 import editJobReducer from "./editJobPostReducer";
-import { viewProfileReducer } from './viewProfileReducer';
+import { viewProfileReducer } from "./viewProfileReducer";
 import resumeDataFillingReducer from "./resumeDataFillingReducer";
-import csvUploadReducer from './csvMultipleJobUploadReducer';
-import generateResponseReducer from './generateResponseReducer';
-import generateSkillsReducer from './generateSkillsReducer';
-import {setDetailsReducer} from './setupDetailsReducer'
-import {jobsReducer} from "./recomandedJobReducer";
-import applyJobReducer from './applyJobReducer';
-import cancelJobReducer from './cancelJobReducer';
-import appliedJobReducer from './appliedJobReducer';
-import savedJobReducer from './savedJobReducer';
-import fetchappliedConsultantReducer from "./fetchAppliedconsultantReducer"
-import {editProfileResume} from './editConsultantProfileReducer'
-import shortlistConsultantReducer from "./shortlistconsultantReducer"
-import sheduledConsultantReducer from "./sheduleConsultantReducer"
-import unsavedJobReducer from "./unsaveJobReducer"
+import csvUploadReducer from "./csvMultipleJobUploadReducer";
+import generateResponseReducer from "./generateResponseReducer";
+import generateSkillsReducer from "./generateSkillsReducer";
+import { setDetailsReducer } from "./setupDetailsReducer";
+import { jobsReducer } from "./recomandedJobReducer";
+import applyJobReducer from "./applyJobReducer";
+import cancelJobReducer from "./cancelJobReducer";
+import appliedJobReducer from "./appliedJobReducer";
+import savedJobReducer from "./savedJobReducer";
+import fetchappliedConsultantReducer from "./fetchAppliedconsultantReducer";
+import { editProfileResume } from "./editConsultantProfileReducer";
+import shortlistConsultantReducer from "./shortlistconsultantReducer";
+import sheduledConsultantReducer from "./sheduleConsultantReducer";
+import unsavedJobReducer from "./unsaveJobReducer";
+import visitJobReducer from "./visitJobReducer";
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
@@ -60,6 +61,7 @@ const rootReducer = combineReducers({
   shortlistConsultantReducer,
   sheduledConsultantReducer,
   unsavedJobReducer,
+  visitJobReducer,
 });
 
 export default rootReducer;
