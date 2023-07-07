@@ -1,13 +1,13 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { appliedJobSuccess } from "store/action/applyJobAction";
 import { CANCEL_JOB_SUCCESS, SAVE_JOB_SUCCESS } from "store/type/applyJobType";
 
 const JobDetails = ({ detail, setRemove }) => {
- 
+  const [savejob, setSavejob] = useState(true);
   const dispatch = useDispatch();
   const router = useRouter();
   const getToken = () => {
@@ -31,6 +31,12 @@ const JobDetails = ({ detail, setRemove }) => {
   const saveData = () => {
     const payload = { jobId: jobData?._id, finaltoken };
     dispatch({ type: SAVE_JOB_SUCCESS, payload });
+    setSavejob(false)
+  };
+  const unsaveData = () => {
+    // const payload = { jobId: finaldata[0]?._id, finaltoken };
+    // dispatch({ type: UNSAVE_JOB_REQUEST, payload });
+    setSavejob(true);
   };
 
   const finalData = jobData?.filter((index, item) => index?._id == detail);
@@ -259,14 +265,24 @@ const JobDetails = ({ detail, setRemove }) => {
               flexDirection: "column",
             }}
           >
-            <Image
+            {
+              savejob ? (<Image
               onClick={saveData}
               src='/Assets/savebtn.svg'
               alt='profile'
               height={54}
               width={54}
               style={{ paddingBottom: "1rem" }}
-            />
+            /> ):( <Image
+            onClick={unsaveData}
+            src='/Assets/unsavejob.svg'
+            alt='profile'
+            height={54}
+            width={54}
+            style={{ paddingBottom: "1rem" }}
+          />)
+            }
+            
             <Image
               src='/Assets/chatbtn.svg'
               alt='profile'

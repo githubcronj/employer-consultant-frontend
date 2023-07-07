@@ -3,7 +3,10 @@ import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import unsaveJob from "../../asset/images/unsaveJob.svg";
+import bookmark from "../../public/Assets/bookmark.svg";
 export const data1 = [
   {
     tagImg: "/Assets/exp1.svg",
@@ -40,7 +43,32 @@ export const data2 = [
     title: "496 013 5893",
   },
 ];
-const InterviewDetails = () => {
+const InterviewDetails = ({finaldata}) => {
+
+  const [savejob, setSavejob] = useState(true);
+  const dispatch = useDispatch();
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+  const finaltoken = getToken();
+
+  const saveData = () => {
+    setSavejob(false);
+    // const payload = { jobId: finaldata[0]?._id, finaltoken };
+    // dispatch({ type: SAVE_JOB_SUCCESS, payload });
+   
+  };
+  const unsaveData = () => {
+    setSavejob(true);
+    // const payload = { jobId: finaldata[0]?._id, finaltoken };
+    // dispatch({ type: UNSAVE_JOB_REQUEST, payload });
+   
+  };
+
   const HtmlTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
   ))(({ theme }) => ({
@@ -188,13 +216,27 @@ const InterviewDetails = () => {
             }}
           >
             <LightTooltip title="Save Job" placement="left">
-              <Image
+              
+               {savejob ? (
+                <Image
                 src="/Assets/savebtn.svg"
                 alt="profile"
                 height={54}
                 width={54}
                 style={{ marginBottom: "1rem" }}
+                onClick={saveData} 
               />
+              ) : (
+                <Image
+                src="/Assets/unsaveJob.svg"
+                alt="profile"
+                height={54}
+                width={54}
+                style={{ marginBottom: "1rem" }}
+                onClick={unsaveData} 
+              />
+              
+              )}
             </LightTooltip>
 
             <LightTooltip title="Chat with company" placement="left">
