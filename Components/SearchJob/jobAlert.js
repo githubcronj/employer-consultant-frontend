@@ -3,6 +3,7 @@ import React from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
+import JobAlertModal from "Components/JobAlertModal/JobAlertModal";
 const JobAlert = () => {
   return (
     <Box
@@ -28,7 +29,8 @@ const JobAlert = () => {
         >
           Job Alert
         </Typography>
-        <AddCircleOutlineIcon sx={{ color: "#F9342E" }} fontSize="large" />
+        {/* <AddCircleOutlineIcon sx={{ color: "#F9342E" }} fontSize="large" /> */}
+        <JobAlertModal/>
       </Stack>
       <Grid container mb={2} px={2}>
         <Grid item xs={9}>
