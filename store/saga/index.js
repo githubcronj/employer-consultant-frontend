@@ -28,6 +28,10 @@ import {watchAppliedConsultantSaga} from "./fetchAppliedConsultantsaga"
 import watchEditResumeProfile from "./editConsultantProfileSaga";
 import { watchshortlistConsultantSaga } from "./shortlistSaga";
 import { watchsheduledConsultantSaga } from "./sheduledConsultantSaga";
+import watchJobAlert from "./getJobAlertSaga";
+import watchPostJobAlert from "./postJobAlertSaga";
+import watchdeleteJobAlert from "./deleteJobAlertSaga";
+import watcheditJobAlert from "./editJobAlertSaga";
 export default function* rootSaga() {
   yield all([
     watchLogin(),
@@ -58,6 +62,10 @@ export default function* rootSaga() {
     watchAppliedConsultantSaga(),
     watchEditResumeProfile(),
     watchshortlistConsultantSaga(),
-    watchsheduledConsultantSaga()
+    watchsheduledConsultantSaga(),
+    watchJobAlert(),
+    watchPostJobAlert(),
+    watchdeleteJobAlert(),
+    watcheditJobAlert()
   ]);
 }
