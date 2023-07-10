@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import spotify from "../../public/Assets/spotify.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Box, CircularProgress } from "@mui/material";
+import { VISIT_JOB_PROFILE } from "store/type/visitJobType";
+import {
+  visitJobProfile,
+  visitJobProfileSuccess,
+} from "store/action/visitJobAction";
 const leftmapping = [
   {
     title: "UX Designer",
@@ -34,15 +39,35 @@ const leftmapping = [
 const JobSearchLeft = ({ jobId }) => {
   const job = useSelector((state) => state?.jobsReducer?.GetjobData);
   const router = useRouter();
+  const dispatch = useDispatch();
   const { id } = router.query;
   const [jobData, setJobData] = useState(null);
   useEffect(() => {
     setJobData(job);
   }, [job]);
 
+  const getToken = () => {
+    if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
+      const storedData = localStorage.getItem("CurrentUser");
+
+      const tokenset = JSON.parse(storedData);
+      return tokenset?.token?.accessToken;
+    }
+  };
+
+  const finaltoken = getToken();
+
   const nextclick = (id) => {
     router.push(`/job-apply-search/${id}`);
   };
+  useEffect(() => {
+    const payload = {
+      jobId: id,
+      finaltoken: finaltoken,
+    };
+    // dispatch({ type: VISIT_JOB_PROFILE, payload });
+    dispatch(visitJobProfile(payload));
+  }, [id]);
 
   return (
     <div>

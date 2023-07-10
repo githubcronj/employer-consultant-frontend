@@ -11,6 +11,7 @@ import {
 
 const SaveJobDetails = ({ detail, remove }) => {
   const [showApply, setShowApply] = useState(true);
+  const [savejob, setSavejob] = useState(true);
   const dispatch = useDispatch();
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -35,6 +36,13 @@ const SaveJobDetails = ({ detail, remove }) => {
   const saveData = () => {
     const payload = { jobId: jobData?._id, finaltoken };
     dispatch({ type: SAVE_JOB_SUCCESS, payload });
+    setSavejob(false);
+  };
+
+  const unsaveData = () => {
+    // const payload = { jobId: finaldata[0]?._id, finaltoken };
+    // dispatch({ type: UNSAVE_JOB_REQUEST, payload });
+    setSavejob(true);
   };
 
   const savedFinalData = saveJobData?.filter(
@@ -260,15 +268,26 @@ const SaveJobDetails = ({ detail, remove }) => {
                 justifyContent: "flex-end",
                 flexDirection: "column",
               }}
-            >
-              <Image
+            > {
+              savejob ? ( <Image
                 onClick={saveData}
                 src='/Assets/savebtn.svg'
                 alt='profile'
                 height={54}
                 width={54}
                 style={{ paddingBottom: "1rem" }}
+              />) : (
+                <Image
+                onClick={unsaveData}
+                src='/Assets/unsavejob.svg'
+                alt='profile'
+                height={54}
+                width={54}
+                style={{ paddingBottom: "1rem" }}
               />
+              )
+            }
+             
               <Image
                 src='/Assets/chatbtn.svg'
                 alt='profile'

@@ -46,10 +46,9 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
     const isJobApplied = appliedJobData.some(
       (job) => job._id === finaldata[0]?._id
     );
-    const isJobSave = appliedJobData.some(
-      (job) => job._id === finaldata[0]?._id
-    );
-    if (isJobSave) {
+    const savedJobId = localStorage.getItem("savedJobId");
+  
+    if (savedJobId === finaldata[0]?._id) {
       setSavejob(false);
     } else {
       setSavejob(true);
@@ -80,11 +79,15 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: SAVE_JOB_SUCCESS, payload });
     setSavejob(false);
+    localStorage.setItem("savedJobId", finaldata[0]?._id);
   };
   const unsaveData = () => {
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: UNSAVE_JOB_REQUEST, payload });
     setSavejob(true);
+  
+    // Remove the saved job ID from local storage
+    localStorage.removeItem("savedJobId");
   };
 
   return (

@@ -21,13 +21,15 @@ import watchResumeDetails from "./setupDetailsSaga";
 import { watchjobsSaga } from "./recomandedJobSaga";
 import watchApplyJob from "./applyJobSaga";
 import watchcancelJob from "./cancelJobSaga";
-import watchSavelJob from "./saveJobSaga";
+import watchSaveJob from "./saveJobSaga";
 import watchAppliedJob from "./appliedJobSaga";
 import watchSavedJob from "./savedJobSaga";
-import {watchAppliedConsultantSaga} from "./fetchAppliedConsultantsaga"
+import { watchAppliedConsultantSaga } from "./fetchAppliedConsultantsaga";
 import watchEditResumeProfile from "./editConsultantProfileSaga";
 import { watchshortlistConsultantSaga } from "./shortlistSaga";
 import { watchsheduledConsultantSaga } from "./sheduledConsultantSaga";
+import watchVisitJob from "./visitJobSaga";
+import { watchRecentJobsSaga } from "store/saga/recentJobSaga";
 import watchJobAlert from "./getJobAlertSaga";
 import watchPostJobAlert from "./postJobAlertSaga";
 import watchdeleteJobAlert from "./deleteJobAlertSaga";
@@ -56,13 +58,15 @@ export default function* rootSaga() {
     watchjobsSaga(),
     watchApplyJob(),
     watchcancelJob(),
-    watchSavelJob(),
+    watchSaveJob(),
     watchAppliedJob(),
-    watchSavedJob(),,
+    watchSavedJob(),
     watchAppliedConsultantSaga(),
     watchEditResumeProfile(),
     watchshortlistConsultantSaga(),
     watchsheduledConsultantSaga(),
+    watchVisitJob(),
+    watchRecentJobsSaga(),,
     watchJobAlert(),
     watchPostJobAlert(),
     watchdeleteJobAlert(),
