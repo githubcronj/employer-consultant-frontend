@@ -4,6 +4,9 @@
 .loginimgbg2 {
   background: url("/Assets/consultantimg.png") no-repeat center center/cover;
 }
+.chatbg{
+  background-color: #F9F6EE;
+}
 .selectedCard {
   border-left: 4px solid #5e9af8;
   background: linear-gradient(to left, #5e9af800, #5e9af833);

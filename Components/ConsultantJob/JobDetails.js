@@ -5,11 +5,18 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { appliedJobSuccess } from "store/action/applyJobAction";
 import { CANCEL_JOB_SUCCESS, SAVE_JOB_SUCCESS } from "store/type/applyJobType";
+import ChatComponent from "../../Components/ChatComponent/AppliedChat"
 
 const JobDetails = ({ detail, setRemove }) => {
   const [savejob, setSavejob] = useState(true);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const [showChatComponent, setShowChatComponent] = useState(false);
+
+  const handleClick = () => {
+    setShowChatComponent(true);
+  };
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
@@ -32,11 +39,13 @@ const JobDetails = ({ detail, setRemove }) => {
     const payload = { jobId: jobData?._id, finaltoken };
     dispatch({ type: SAVE_JOB_SUCCESS, payload });
     setSavejob(false)
+    // localStorage.setItem("savedJobId", finaldata[0]?._id);
   };
   const unsaveData = () => {
     // const payload = { jobId: finaldata[0]?._id, finaltoken };
     // dispatch({ type: UNSAVE_JOB_REQUEST, payload });
     setSavejob(true);
+    // localStorage.removeItem("savedJobId");
   };
 
   const finalData = jobData?.filter((index, item) => index?._id == detail);
@@ -50,8 +59,9 @@ const JobDetails = ({ detail, setRemove }) => {
     router.push('/search_job');
   
   };
+  
 
-  return (
+  return (<>
     <Grid container>
       <Grid
         sx={{
@@ -284,11 +294,20 @@ const JobDetails = ({ detail, setRemove }) => {
             }
             
             <Image
+           onClick={handleClick}
               src='/Assets/chatbtn.svg'
               alt='profile'
               height={54}
               width={54}
             />
+            
+            {showChatComponent && (
+    <div style={{ position: "absolute", right: "0", top: "0" }}>
+      <div style={{ width: "500px" }}>
+        <ChatComponent />
+      </div>
+    </div>
+  )}
           </Box>
         </Box>
         <Box sx={{ borderTop: "1px solid #D0D0D6" }}>
@@ -395,6 +414,7 @@ const JobDetails = ({ detail, setRemove }) => {
         </Box>
       </Grid>
     </Grid>
+ </>
   );
 };
 

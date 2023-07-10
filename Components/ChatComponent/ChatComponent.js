@@ -4,7 +4,7 @@ import { ChatBubble, BubbleGroup, Message } from "react-chat-ui";
 const users = {
   0: "You",
   Mark: "Mark",
-  2: "Evan"
+  2: "Evan",
 };
 
 class Chat extends React.Component {
@@ -16,11 +16,11 @@ class Chat extends React.Component {
         new Message({
           id: 2,
           message: "Hey! Evan here. react-chat-ui is pretty dooope.",
-          senderName: "Evan"
-        })
+          senderName: "Evan",
+        }),
       ],
       useCustomBubble: false,
-      curr_user: 0
+      curr_user: 0,
     };
   }
 
@@ -44,7 +44,7 @@ class Chat extends React.Component {
     const newMessage = new Message({
       id: recipient,
       message,
-      senderName: users[recipient]
+      senderName: users[recipient],
     });
     prevState.messages.push(newMessage);
     this.setState(this.state);
@@ -53,13 +53,18 @@ class Chat extends React.Component {
   render() {
     return (
       <div className="container px-5">
-                       <BubbleGroup 
+        <BubbleGroup
           messages={[
-            new Message({ id: 0, message: "This could mean the end of the bana daquiri as we know it...also life." }),
             new Message({
               id: 0,
-              message: "This could mean the end of the bana daquiri as we know it...also life."
-            })
+              message:
+                "This could mean the end of the bana daquiri as we know it...also life.",
+            }),
+            new Message({
+              id: 0,
+              message:
+                "This could mean the end of the bana daquiri as we know it...also life.",
+            }),
           ]}
           id={1}
           showSenderName={true}
@@ -67,28 +72,28 @@ class Chat extends React.Component {
         />
         <BubbleGroup
           messages={[
-            
             new Message({
               id: 1,
               message:
-                "Oh my God! It's out of ice! Like some outer space Motel"
-            })
+                "Oh my God! It's out of ice! Like some outer space Motel",
+            }),
           ]}
           id={1}
           showSenderName={true}
           senderName={"Elon Musk"}
         />
         <BubbleGroup
-         messages={[
-                    new Message({ id: 0, message: "This could mean the end of the bana daquiri as we know it...also life." }),
-                   
-                  ]}
-                  id={1}
-                  showSenderName={true}
-                  senderName={"Elon Musk"}
+          messages={[
+            new Message({
+              id: 0,
+              message:
+                "This could mean the end of the bana daquiri as we know it...also life.",
+            }),
+          ]}
+          id={1}
+          showSenderName={true}
+          senderName={"Elon Musk"}
         />
-      
-     
       </div>
     );
   }
