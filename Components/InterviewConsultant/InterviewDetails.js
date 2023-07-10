@@ -60,12 +60,13 @@ const InterviewDetails = ({finaldata}) => {
     setSavejob(false);
     // const payload = { jobId: finaldata[0]?._id, finaltoken };
     // dispatch({ type: SAVE_JOB_SUCCESS, payload });
-   
+    // localStorage.setItem("savedJobId", finaldata[0]?._id);
   };
   const unsaveData = () => {
     setSavejob(true);
     // const payload = { jobId: finaldata[0]?._id, finaltoken };
     // dispatch({ type: UNSAVE_JOB_REQUEST, payload });
+    // localStorage.removeItem("savedJobId");
    
   };
 
