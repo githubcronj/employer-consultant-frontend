@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Box, Paper } from "@mui/material";
+import { Typography, Box, Paper, CircularProgress } from "@mui/material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -33,7 +33,6 @@ const JobSlider = ({ heading, subTitle, location, flag }) => {
   const router = useRouter();
 
   const nextclick = (id) => {
-    console.log(id,'route id');
     router.push(`/job-apply-search/${id}`);
   };
 
@@ -110,30 +109,29 @@ const JobSlider = ({ heading, subTitle, location, flag }) => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 3,
-   
+
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-         
-        }
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2
-        }
+          slidesToScroll: 2,
+        },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
+          slidesToScroll: 1,
+        },
+      },
       // You can unslick at a given breakpoint now by adding:
       // settings: "unslick"
       // instead of a settings object
@@ -154,16 +152,19 @@ const JobSlider = ({ heading, subTitle, location, flag }) => {
         style={{ cursor: "pointer" }}
       />
     ),
-    
   };
   return (
     <Box
-      sx={{ display: "flex", flexDirection: "column", gap: "1rem",".slick-track": {
-      marginLeft: 0
-    }}}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        ".slick-track": {
+          marginLeft: 0,
+        },
+      }}
       position="relative"
       maxWidth="800px"
-      
     >
       <Box sx={{ paddingLeft: "1rem" }}>
         <Typography sx={{ fontSize: "20px", fontWeight: "bold" }}>
@@ -184,39 +185,50 @@ const JobSlider = ({ heading, subTitle, location, flag }) => {
         </Typography>
       </Box>
       <Box
-        position={{sm:"absolute"}}
+        position={{ sm: "absolute" }}
         top="0"
         right="0"
         display="flex"
         justifyContent="space-between"
         gap=".4rem"
         p={0}
-        zIndex={1} 
+        zIndex={1}
       >
         {settings?.prevArrow}
         {settings?.nextArrow}
       </Box>
       {heading == "Recommended jobs" ? (
-        <Slider arrows={false} ref={sliderRef} {...settings} >
-          {jobData.map((job, index) => {
-            // const {logo, duration, title, experience, location} = job;
-            {/* console.log(job._id,'slider') */}
-            return (
-              <Box key={index}>
-                <JobSearchCard
-                  flag={flag}
-                  logo={companyLogo}
-                  duration={job.duration}
-                  title={job.jobTitle}
-                  experience={job.experience}
-                  location={job.location}
-                  navigate={nextclick}
-                  id={job._id}
-                />
-              </Box>
-            );
-          })}
-        </Slider>
+        jobData.length == 0 ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              // mt: "50%",
+            }}
+          >
+            <CircularProgress sx={{ color: "#EF4444" }} />
+          </Box>
+        ) : (
+          <Slider arrows={false} ref={sliderRef} {...settings}>
+            {jobData.map((job, index) => {
+              return (
+                <Box key={index}>
+                  <JobSearchCard
+                    flag={flag}
+                    logo={companyLogo}
+                    duration={job.duration}
+                    title={job.jobTitle}
+                    experience={job.experience}
+                    location={job.location}
+                    navigate={nextclick}
+                    id={job._id}
+                  />
+                </Box>
+              );
+            })}
+          </Slider>
+        )
       ) : (
         <Slider arrows={false} ref={sliderRef} {...settings}>
           {jobs.map((job, index) => {

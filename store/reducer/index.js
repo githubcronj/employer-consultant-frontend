@@ -30,6 +30,7 @@ import shortlistConsultantReducer from "./shortlistconsultantReducer";
 import sheduledConsultantReducer from "./sheduleConsultantReducer";
 import unsavedJobReducer from "./unsaveJobReducer";
 import visitJobReducer from "./visitJobReducer";
+import recentJobReducer from "./recentJobReducer";
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
@@ -62,6 +63,7 @@ const rootReducer = combineReducers({
   sheduledConsultantReducer,
   unsavedJobReducer,
   visitJobReducer,
+  recentJobReducer,
 });
 
 export default rootReducer;

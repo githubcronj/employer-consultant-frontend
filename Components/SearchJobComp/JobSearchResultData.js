@@ -51,7 +51,7 @@ const JobSearchResultData = ({
           Search Job
         </Typography>
         <div className="relative w-full">
-          <SearchOver>
+          <SearchOver id="1">
             <SearchJobInput
               handleBox1Click={handleBox1Click}
               showBox1={showBox1}
