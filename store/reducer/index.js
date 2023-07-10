@@ -31,6 +31,9 @@ import sheduledConsultantReducer from "./sheduleConsultantReducer";
 import unsavedJobReducer from "./unsaveJobReducer";
 import visitJobReducer from "./visitJobReducer";
 import recentJobReducer from "./recentJobReducer";
+import JobAlertReducer from './jobAlertReducer';
+import PostJobAlertReducer from './postJobAlertReducer'
+import editJobAlertReducer from './editJobAlertReducer'
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
@@ -64,6 +67,9 @@ const rootReducer = combineReducers({
   unsavedJobReducer,
   visitJobReducer,
   recentJobReducer,
+  JobAlertReducer,
+  PostJobAlertReducer,
+  editJobAlertReducer
 });
 
 export default rootReducer;

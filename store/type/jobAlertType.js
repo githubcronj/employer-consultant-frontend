@@ -1,0 +1,4 @@
+export const JOB_ALERT_REQUEST = "JOB_ALERT_REQUEST";
+// for reducer
+export const JOB_ALERT_SUCCESS = "JOB_ALERT_SUCCESS";
+export const JOB_ALERT_FAILURE = "JOB_ALERT_FAILURE";
