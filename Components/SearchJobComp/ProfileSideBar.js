@@ -47,6 +47,7 @@ const ProfileSideBar = ({ data }) => {
         justifyContent: "flex-start",
         alignItems: "center",
         width: { xs: "100%", lg: "28%" },
+        height: "975px",
       }}
     >
       <Box

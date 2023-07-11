@@ -7,35 +7,27 @@ import { useSelector } from "react-redux";
 const SearchOver = ({ children, onClick, id }) => {
   const [recommandJobsvalue, setRecommandJobsdata] = useState([]);
   const [isdataloaded, setisdataloaded] = useState(false);
-  const dropdownRef = useRef(null);
+  const dropdownRef2 = useRef(null);
   const recommandJobsData = useSelector(
     (state) => state?.jobsReducer?.getrecommandjob
   );
   const isgetdata = useSelector((state) => state.jobsReducer.isgetdata);
   useEffect(() => {
     setRecommandJobsdata(recommandJobsData);
-    // const id = recommandJobsData[0]?._id;
-    // router.push(`/job-apply-search/${id}`);
   }, [recommandJobsData]);
-
-  // useEffect(() => {
-  //   if (isgetdata) {
-  //     setisdataloaded(true);
-  //     handleClick();
-  //   }
-  // }, [isgetdata]);
 
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(true);
   };
 
   const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    if (dropdownRef2.current && !dropdownRef2.current.contains(event.target)) {
       setIsOpen(false);
     }
   };
+
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
     return () => {
@@ -55,6 +47,7 @@ const SearchOver = ({ children, onClick, id }) => {
             ? `${id == 1 ? "w-[850px]" : "w-[600px]"} mx-auto mt-[11rem] `
             : ""
         }`}
+        ref={dropdownRef2}
       >
         <div onClick={handleClick}>{children}</div>
         {isOpen && (

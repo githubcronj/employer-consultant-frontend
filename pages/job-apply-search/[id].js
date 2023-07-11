@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import JobSearchLeft from "Components/SearchJob/JobSearchLeft";
 import MainSearch from "Components/SearchJob/MainSearch";
 import JobSearchHeader from "Components/SearchJob/JobSearchHeader";
@@ -79,15 +79,27 @@ const JobSearchDetails = () => {
     }));
   };
 
+  let searchId = useRef(null);
+
   const searchSubmitHandler = () => {
+    if (
+      recommandJobsvalue[0]?._id === null ||
+      recommandJobsvalue[0]?._id === undefined
+    ) {
+      searchId.current = "no-data-available";
+    } else {
+      searchId.current = recommandJobsvalue[0]?._id;
+    }
+
     if (finaltoken) {
       dispatch(fetchRecommendJobs(searchData, finaltoken));
       console.log(isgetdata, "isGetData");
       if (isgetJobData) {
-        const id = recommandJobsvalue[0]?._id;
-        router.push(`/job-apply-search/${id}`);
+        const id = searchId.current;
+        router.push(`/job-apply-search/${searchId.current}`);
       }
     } else {
+      router.push(`/job-apply-search/no-data-available`);
       return;
     }
   };
@@ -113,8 +125,35 @@ const JobSearchDetails = () => {
     // setShowBox1(!showBox1);
   };
 
+  const [screenSize, setScreenSize] = useState(getCurrentDimension());
+
+  function getCurrentDimension() {
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+  }
+
+  useEffect(() => {
+    const updateDimension = () => {
+      setScreenSize(getCurrentDimension());
+    };
+    window.addEventListener("resize", updateDimension);
+
+    return () => {
+      window.removeEventListener("resize", updateDimension);
+    };
+  }, [screenSize]);
+
   return (
-    <div className="bg-[#2B373C1C] flex flex-col items-center " style={{height:"100vh"}}>
+    <div
+      className="bg-[#2B373C1C] flex flex-col items-center "
+      style={{
+        height: `${
+          screenSize.height < 900 ? "900px" : `${screenSize.height}px`
+        }`,
+      }}
+    >
       <Stack
         direction="row"
         mb={3}
