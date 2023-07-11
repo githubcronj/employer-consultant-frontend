@@ -125,8 +125,35 @@ const JobSearchDetails = () => {
     // setShowBox1(!showBox1);
   };
 
+  const [screenSize, setScreenSize] = useState(getCurrentDimension());
+
+  function getCurrentDimension() {
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+  }
+
+  useEffect(() => {
+    const updateDimension = () => {
+      setScreenSize(getCurrentDimension());
+    };
+    window.addEventListener("resize", updateDimension);
+
+    return () => {
+      window.removeEventListener("resize", updateDimension);
+    };
+  }, [screenSize]);
+
   return (
-    <div className="bg-[#2B373C1C] flex flex-col items-center " style={{height:"100vh"}}>
+    <div
+      className="bg-[#2B373C1C] flex flex-col items-center "
+      style={{
+        height: `${
+          screenSize.height < 900 ? "900px" : `${screenSize.height}px`
+        }`,
+      }}
+    >
       <Stack
         direction="row"
         mb={3}

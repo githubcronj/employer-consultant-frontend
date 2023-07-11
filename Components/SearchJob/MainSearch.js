@@ -47,7 +47,7 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
       (job) => job._id === finaldata[0]?._id
     );
     const savedJobId = localStorage.getItem("savedJobId");
-  
+
     if (savedJobId === finaldata[0]?._id) {
       setSavejob(false);
     } else {
@@ -85,7 +85,7 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: UNSAVE_JOB_REQUEST, payload });
     setSavejob(true);
-  
+
     // Remove the saved job ID from local storage
     localStorage.removeItem("savedJobId");
   };
@@ -97,8 +97,10 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
           className="bg-white w-auto p-5 h-[607px] pb-4 overflow-y-scroll"
           style={{ borderRadius: "5px" }}
         >
-        <h1 className="lg:text-2xl font-bold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
-        No Data Available        </h1></div>
+          <h1 className="lg:text-2xl font-bold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
+            No Data Available
+          </h1>
+        </div>
       ) : (
         <div
           className="bg-white w-auto p-5 max-h-[622px] h-auto pb-4 overflow-y-scroll"

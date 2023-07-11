@@ -1,7 +1,7 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 import SaveJobDetails from "Components/ConsultantSavedJob/SaveJobDetails";
@@ -11,14 +11,36 @@ const SavedJobs = () => {
   const router = useRouter();
   const [detail, setDetail] = useState();
   const [remove, setRemove] = useState(false);
-  console.log(detail,'dddd');
-  console.log(remove,'remove');
+
+  const [screenSize, setScreenSize] = useState(getCurrentDimension());
+
+  function getCurrentDimension() {
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+  }
+
+  useEffect(() => {
+    const updateDimension = () => {
+      setScreenSize(getCurrentDimension());
+    };
+    window.addEventListener("resize", updateDimension);
+
+    return () => {
+      window.removeEventListener("resize", updateDimension);
+    };
+  }, [screenSize]);
+
   return (
     <Box
       py={2}
       sx={{
         background: "#F3F5F8",
         px: { xs: ".8rem", sm: "2rem", lg: "5rem" },
+        height: `${
+          screenSize.height < 900 ? "900px" : `${screenSize.height}px`
+        }`,
       }}
     >
       <Stack
@@ -36,7 +58,7 @@ const SavedJobs = () => {
           width={42}
           height={42}
           className="cursor-pointer"
-          onClick={()=> router.push("/search_job")}
+          onClick={() => router.push("/search_job")}
         />
         <Typography
           sx={{
@@ -49,15 +71,21 @@ const SavedJobs = () => {
           Saved Jobs
         </Typography>
       </Stack>
-      <Box sx={{ background: "#FFFFFF", borderRadius: "15px", display: "flex",
-        flexDirection: { xs: "column", sm: "column", md: "row" },
-        justifyContent: "space-between",
-        justifyContent: "center", }}>
+      <Box
+        sx={{
+          background: "#FFFFFF",
+          borderRadius: "15px",
+          display: "flex",
+          flexDirection: { xs: "column", sm: "column", md: "row" },
+          justifyContent: "space-between",
+          justifyContent: "center",
+        }}
+      >
         <Grid container spacing={1}>
           <Grid item xs={12} md={3}>
-            <SaveJobList setDetail={setDetail} remove={remove}/>
+            <SaveJobList setDetail={setDetail} remove={remove} />
           </Grid>
-          <Grid  item xs={12} md={9}>
+          <Grid item xs={12} md={9}>
             <SaveJobDetails detail={detail} setRemove={setRemove} />
           </Grid>
         </Grid>
