@@ -46,8 +46,8 @@ const LeftProfile = () => {
       className=" w-auto max-w-[400px] h-[100vh] flex flex-1"
       style={{ overflow: "hidden" }}
     >
-      <div>
-        <div className="">
+      <div className="w-full">
+        <div className="w-full">
           <div className="bg-white flex">
             <img src={clientimg.src} alt="client Image" className="p-[24px]" />
             <div className="flex flex-col pt-[24px]">
@@ -63,7 +63,7 @@ const LeftProfile = () => {
               </div>
             </div>
           </div>
-          <div className="bg-[#F3F2F4] pl-[24px] py-1">
+          <div className="bg-[#F3F2F4] pl-[24px] py-1 w-full">
             <div className="flex gap-4 py-2">
               <img src={email.src} alt="email" />
               <p>{response?.email}</p>
@@ -78,23 +78,14 @@ const LeftProfile = () => {
             </div>
           </div>
           {/* <img src={resume.src} style={{ maxHeight: "85vh" }} /> */}
-          <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll max-w-[700px] ">
+          {/* <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll max-w-[700px] ">
             <div className="sm:flex items-center bg-black lg:px-4">
               <div className="w-[32%] flex items-center my-4 bg-[#FAD02C] rounded-full">
-                {/* {selectedImage ? (
-                  <img
-                    src={selectedImage}
-                    style={{ width: "fit-content", height: "auto" }}
-                    alt="selectedImage"
-                    className="h-[93%] w-[100%]"
-                  />
-                ) : ( */}
                 <img
                   src="/Assets/image.svg"
                   alt="profile"
                   className="h-[93%] w-[100%]"
                 />
-                {/* )} */}
               </div>
 
               <div className="w-[68%] px-3 py-4 bg-black">
@@ -424,7 +415,7 @@ const LeftProfile = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const EditEducation = ({
   educationDetails,
@@ -17,6 +18,7 @@ const EditEducation = ({
     const isValid = validateForm();
     if (isValid) {
       handleEducationAdd();
+      toast.success("Data added!!");
     }
   };
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const EditSKills = ({
   skillsDetails,
@@ -16,6 +17,7 @@ const EditSKills = ({
     const isValid = validateForm();
     if (isValid) {
       handleSkillsAdd(section);
+      toast.success("Data added!!");
     }
   };
 
@@ -91,7 +93,7 @@ const EditSKills = ({
         })}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default EditSKills
+export default EditSKills;
