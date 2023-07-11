@@ -61,7 +61,7 @@ const JobDetails = ({ detail, setRemove }) => {
   return (<>
     <Grid container>
     {finalData.length === 0 ?<Box sx={{ height: { xs: "auto", md: "720px" },}}><h1 className="lg:text-2xl font-bold  xl:pl-[17px] lg:pl-[16px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
-          No Data Availabale
+          No Data Available
         </h1></Box>:<>
     <Grid
         sx={{
