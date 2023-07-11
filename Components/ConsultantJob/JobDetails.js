@@ -6,17 +6,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { appliedJobSuccess } from "store/action/applyJobAction";
 import { CANCEL_JOB_SUCCESS, SAVE_JOB_SUCCESS } from "store/type/applyJobType";
 import ChatComponent from "../../Components/ChatComponent/AppliedChat"
+import Popover from "Components/PopOver/chatOver";
 
 const JobDetails = ({ detail, setRemove }) => {
   const [savejob, setSavejob] = useState(true);
   const dispatch = useDispatch();
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const [showChatComponent, setShowChatComponent] = useState(false);
-
-  const handleClick = () => {
-    setShowChatComponent(true);
+  const handleClick2 = () => {
+    setIsOpen(!isOpen);
+   
   };
+  const handleChatClose = () => {
+    // Handle the chat closing logic here
+    console.log('Chat closed!');
+    setIsOpen(false)
+  };
+
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
@@ -267,48 +274,57 @@ const JobDetails = ({ detail, setRemove }) => {
             {/* ); */}
             {/* })} */}
           </Box>
-          <Box
-            py={2}
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-              flexDirection: "column",
-            }}
-          >
-            {
-              savejob ? (<Image
+          <div className="relative inline-block">
+      {!isOpen && (
+        <Box
+          py={2}
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            flexDirection: "column",
+            marginTop:"100px"
+          }}
+        >
+          {savejob ? (
+            <Image
               onClick={saveData}
               src='/Assets/savebtn.svg'
               alt='profile'
               height={54}
               width={54}
               style={{ paddingBottom: "1rem" }}
-            /> ):( <Image
-            onClick={unsaveData}
-            src='/Assets/unsavejob.svg'
-            alt='profile'
-            height={54}
-            width={54}
-            style={{ paddingBottom: "1rem" }}
-          />)
-            }
-            
+            />
+          ) : (
             <Image
-           onClick={handleClick}
+              onClick={unsaveData}
+              src='/Assets/unsavejob.svg'
+              alt='profile'
+              height={54}
+              width={54}
+              style={{ paddingBottom: "1rem" }}
+            />
+          )}
+
+          <Popover>
+            <Image
               src='/Assets/chatbtn.svg'
               alt='profile'
               height={54}
               width={54}
+              onClick={handleClick2}
             />
-            
-            {showChatComponent && (
-    <div style={{ position: "absolute", right: "0", top: "0" }}>
-      <div style={{ width: "500px" }}>
-        <ChatComponent />
-      </div>
+          </Popover>
+        </Box>
+      )}
+
+      {isOpen && (
+        <div className="popover">
+          <div>
+            <ChatComponent onClose={handleChatClose}/>
+          </div>
+        </div>
+      )}
     </div>
-  )}
-          </Box>
         </Box>
         <Box sx={{ borderTop: "1px solid #D0D0D6" }}>
           <Box py={3}>

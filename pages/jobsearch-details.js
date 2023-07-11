@@ -8,7 +8,7 @@ import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 const JobSearchDetails = () => {
   return (
     <div>
-      <div className="bg-[#2B373C1C] pt-1 px-3 sm:px-10 h-fit flex gap-2 xl:flex-row lg:flex-row flex-col xl:items-baseline lg:items-baseline ">
+      <div className="bg-[#2B373C1C] pt-1 px-3 sm:px-10  flex gap-2 xl:flex-row lg:flex-row flex-col xl:items-baseline lg:items-baseline ">
         <div className="xl:hidden lg:hidden ">
           <JobSearchHeader />
         </div>

@@ -3,6 +3,7 @@ import { ChatBubble, BubbleGroup, Message } from "react-chat-ui";
 import styles from "../../styles/LoginPage.module.css";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+
 const users = {
   0: "You",
   Mark: "Mark",
@@ -54,98 +55,141 @@ class Chat extends React.Component {
   }
   handleCloseChat() {
     this.setState({ isChatOpen: false });
+    if (this.props.onClose) {
+      this.props.onClose(); // Call the onClose prop if provided
+    }
   }
 
   render() {
     const { isChatOpen } = this.state;
     return (
-      <div className="container px-5" >
-                      {isChatOpen && ( 
-                                         <Box sx={{ backgroundColor: "#F9F6EE", padding: "20px 30px" }} >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "5px 10px",
-              borderBottom: "1px solid #000000",
-            }}
-          >
+      <div className="">
+        {isChatOpen && (
+          <Box sx={{ backgroundColor: "#F9F6EE" }}>
             <Box
               sx={{
                 display: "flex",
-                justifyContent: "space-center",
-                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "20px 30px 2px 20px",
               }}
             >
-              <Image
-                src="/Assets/googleIcon2.svg"
-                alt="profile"
-                height={30}
-                width={30}
-                style={{ paddingBottom: "1rem" }}
-              />
-              <Typography sx={{ marginLeft: "25px", marginTop: "-15px" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-center",
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  src="/Assets/googleIcon2.svg"
+                  alt="profile"
+                  height={30}
+                  width={30}
+                  style={{ paddingBottom: "1rem" }}
+                />
+                <Typography sx={{ marginLeft: "25px", marginTop: "-15px" }}>
+                  {" "}
+                  Google
+                </Typography>
+              </Box>
+              <Box>
                 {" "}
-                Google
-              </Typography>
+                <Image
+                  src="/Assets/closebtn.svg"
+                  alt="profile"
+                  height={70}
+                  width={70}
+                  style={{ paddingBottom: "1rem", cursor: "pointer" }}
+                  onClick={this.handleCloseChat.bind(this)}
+                />
+              </Box>
             </Box>
-            <Box>
-              {" "}
-              <Image
-                src="/Assets/closebtn.svg"
-                alt="profile"
-                height={54}
-                width={54}
-                style={{ paddingBottom: "1rem", cursor: "pointer" }} onClick={this.handleCloseChat.bind(this)} 
-
+            <hr></hr>
+            <Box sx={{ padding: "20px  30px" }}>
+              <BubbleGroup
+                className={styles.chatmsgbg}
+                messages={[
+                  new Message({
+                    id: 0,
+                    message:
+                      "This could mean the end of the bana daquiri as we know it...also life.",
+                  }),
+                  new Message({
+                    id: 0,
+                    message:
+                      "This could mean the end of the bana daquiri as we know it...also life.",
+                  }),
+                ]}
+                id={1}
+                showSenderName={true}
+                senderName={"Elon Musk"}
               />
+              <BubbleGroup
+                messages={[
+                  new Message({
+                    id: 1,
+                    message:
+                      "Oh my God! It's out of ice! Like some outer space Motel",
+                  }),
+                ]}
+                id={1}
+                showSenderName={true}
+                senderName={"Elon Musk"}
+              />
+              <BubbleGroup
+                messages={[
+                  new Message({
+                    id: 0,
+                    message:
+                      "This could mean the end of the bana daquiri as we know it...also life.",
+                  }),
+                ]}
+                id={1}
+                showSenderName={true}
+                senderName={"Elon Musk"}
+              />
+            </Box>
+            <Box
+              sx={{
+                backgroundColor: "#ffffff",
+                padding: "20px 10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                boxShadow:"0px 0px 10px 1px #dddddd"
+              }}
+            >
+              <Box
+                className={styles.inputbox}
+                sx={{
+                  display: "flex",
+                  backgroundColor: "#E7E9E9",
+                  padding: "10px 5px",
+                  borderRadius:"5px"
+               
+                }}
+              >
+                <input type="text" placeholder="type something" />
+                <Box sx={{ marginLeft: "110px" }}>
+                  <Image
+                    src="/Assets/folder.svg"
+                    alt="profile"
+                    height={30}
+                    width={30}
+                  />
+                </Box>
+              </Box>
+              <Box sx={{ marginTop: "10px" }}>
+                <Image
+                  src="/Assets/send.svg"
+                  alt="profile"
+                  height={30}
+                  width={30}
+                />
+              </Box>
             </Box>
           </Box>
-
-          <BubbleGroup
-            messages={[
-              new Message({
-                id: 0,
-                message:
-                  "This could mean the end of the bana daquiri as we know it...also life.",
-              }),
-              new Message({
-                id: 0,
-                message:
-                  "This could mean the end of the bana daquiri as we know it...also life.",
-              }),
-            ]}
-            id={1}
-            showSenderName={true}
-            senderName={"Elon Musk"}
-            style={{ backgroundColor: "#1E0F3B !important" }}
-          />
-          <BubbleGroup
-            messages={[
-              new Message({
-                id: 1,
-                message:
-                  "Oh my God! It's out of ice! Like some outer space Motel",
-              }),
-            ]}
-            id={1}
-            showSenderName={true}
-            senderName={"Elon Musk"}
-          />
-          <BubbleGroup
-            messages={[
-              new Message({
-                id: 0,
-                message:
-                  "This could mean the end of the bana daquiri as we know it...also life.",
-              }),
-            ]}
-            id={1}
-            showSenderName={true}
-            senderName={"Elon Musk"}
-          />
-        </Box>) }
-      
+        )}
       </div>
     );
   }
