@@ -137,7 +137,7 @@ const EditEducation = ({
           </div>
           <div>
             <input
-              type="text"
+              type="number"
               id="year"
               placeholder="Year of Passing"
               required

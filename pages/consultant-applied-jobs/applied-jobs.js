@@ -11,14 +11,13 @@ const AppliedJobs = () => {
   const router = useRouter();
   const [detail, setDetail] = useState();
   const [remove, setRemove] = useState(false);
-  console.log(detail,'dddd');
-  console.log(remove,'remove');
   return (
     <Box
       py={2}
       sx={{
         background: "#F3F5F8",
         px: { xs: ".8rem", sm: "2rem", lg: "5rem" },
+        height:"100vh"
       }}
     >
       <Stack
@@ -49,10 +48,14 @@ const AppliedJobs = () => {
           Applied Jobs
         </Typography>
       </Stack>
-      <Box sx={{ background: "#FFFFFF", borderRadius: "15px", display: "flex",
-        flexDirection: { xs: "column", sm: "column", md: "row" },
-        justifyContent: "space-between",
-        justifyContent: "center", }}>
+      <Box  sx={{
+    background: "#FFFFFF",
+    borderRadius: "15px",
+    display: "flex",
+    flexDirection: { xs: "column", sm: "column", md: "row" },
+    justifyContent: "space-between",
+    justifyContent: "center",
+  }}>
         <Grid container spacing={1}>
           <Grid item xs={12} md={3}>
             <JobList setDetail={setDetail} remove={remove}/>
