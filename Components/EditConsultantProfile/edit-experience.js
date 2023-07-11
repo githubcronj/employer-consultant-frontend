@@ -1,7 +1,8 @@
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, TextField } from "@mui/material";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import React, { useState } from 'react'
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const EditExperience = ({
   experienceDetails,
@@ -15,7 +16,7 @@ const EditExperience = ({
   setpresentDateCheck,
   handleautodata,
   setempautodata,
-  expautodata
+  expautodata,
 }) => {
   const [errors, setErrors] = useState({});
   const [isFocused, setIsFocused] = useState(false);
@@ -53,8 +54,9 @@ const EditExperience = ({
   const addData = (section) => {
     const isValid = validateForm();
     if (isValid) {
-    handleExpAdd(section);
-    setempautodata([]);
+      handleExpAdd(section);
+      setempautodata([]);
+      toast.success("Data added!!");
     }
   };
   const removeData = (indexdata) => {
@@ -127,7 +129,7 @@ const EditExperience = ({
     setErrors(newErrors);
     return isValid;
   };
-  
+
   const handledata = (e, value) => {
     handleautodata(value);
   };
@@ -395,7 +397,7 @@ const EditExperience = ({
         </div>
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default EditExperience
+export default EditExperience;

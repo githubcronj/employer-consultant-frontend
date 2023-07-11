@@ -30,7 +30,6 @@ const JobDetails = ({ detail, setRemove }) => {
 
   const jobData = useSelector((state) => state?.appliedJobReducer?.data);
 
-  console.log("jobbbxx", jobData);
   useEffect(() => {
     dispatch(appliedJobSuccess(finaltoken));
   }, []);
@@ -50,20 +49,21 @@ const JobDetails = ({ detail, setRemove }) => {
 
   const finalData = jobData?.filter((index, item) => index?._id == detail);
 
-  console.log("final", finalData);
+  // console.log("detail", finalData);
 
   const handleCancel = () => {
     const payload = { jobId: finalData[0]?._id, finaltoken };
     dispatch({ type: CANCEL_JOB_SUCCESS, payload });
     // setRemove(true);
-    router.push('/search_job');
-  
+    // router.push('/search_job');
+    dispatch(appliedJobSuccess(finaltoken));
   };
-  
-
   return (<>
     <Grid container>
-      <Grid
+    {finalData.length === 0 ?<Box sx={{ height: { xs: "auto", md: "720px" },}}><h1 className="lg:text-2xl font-bold  xl:pl-[17px] lg:pl-[16px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
+          No Data Available
+        </h1></Box>:<>
+    <Grid
         sx={{
           height: { xs: "auto", md: "720px" },
           overflowY: "scroll",
@@ -413,6 +413,8 @@ const JobDetails = ({ detail, setRemove }) => {
           </Box>
         </Box>
       </Grid>
+    </>}
+      
     </Grid>
  </>
   );

@@ -1,13 +1,17 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { makeApiRequest } from "../../utils/api";
-import { EDIT_CONSULTANT_FAILURE_REDUCER,  EDIT_CONSULTANT_SUCCESS_REDUCER } from "store/type/EditConsultanProfileType";
+import {
+  EDIT_CONSULTANT_FAILURE_REDUCER,
+  EDIT_CONSULTANT_SUCCESS_REDUCER,
+} from "store/type/EditConsultanProfileType";
 import { EDIT_CONSULTANT_SUCCESS } from "store/action/editConsultantProfileAction";
+import { toast } from "react-toastify";
 
 function* editResumeProfile(action) {
   const formData = new FormData();
   console.log(action, "in edit saga");
 
-  formData.append("fullName", action.payload.data.personalDetails.fullName);
+  formData.append("fullName", action.payload.data?.personalDetails.fullName);
   formData.append("email", action.payload.data.personalDetails.email);
   formData.append(
     "phoneNumber",
@@ -18,9 +22,12 @@ function* editResumeProfile(action) {
   formData.append("location", action.payload.data.personalDetails.location);
   formData.append("jobRole", action.payload.data.personalDetails.text);
   const imageFile = action.payload.data.personalDetails.image;
-//   formData.append("image", imageFile, imageFile.name);
-  formData.append("totalExperience", action.payload.data.personalDetails.totalExperience);
-  
+  //   formData.append("image", imageFile, imageFile.name);
+  formData.append(
+    "totalExperience",
+    action.payload.data?.personalDetails?.totalExperience
+  );
+
   action.payload.data.education.forEach((education, index) => {
     Object.entries(education).forEach(([key, value]) => {
       formData.append(`education[${index}].${key}`, value);
@@ -54,8 +61,6 @@ function* editResumeProfile(action) {
     });
   });
 
-  
-
   action.payload.data.project.forEach((project, index) => {
     Object.entries(project).forEach(([key, value]) => {
       formData.append(`project[${index}].${key}`, value);
@@ -71,7 +76,7 @@ function* editResumeProfile(action) {
   action.payload.data.skill.forEach((skill, index) => {
     formData.append(`skills.skillName[${index}]`, skill.skillName);
   });
- 
+
   try {
     const response = yield call(makeApiRequest, {
       endpoint: `/edit-resume/${action.payload.id}`,
@@ -82,10 +87,14 @@ function* editResumeProfile(action) {
         "Content-Type": "multipart/form-data", // Set the content-type header
       },
     });
-    yield put({ type: EDIT_CONSULTANT_SUCCESS_REDUCER, payload: response.data });
-    console.log("test in saga", response.data);
+    yield put({
+      type: EDIT_CONSULTANT_SUCCESS_REDUCER,
+      payload: response.data,
+    });
+    toast.success("Profile Updated Successfully");
   } catch (error) {
     console.log("API call error:", error);
+    toast.error("API call error:", error);
     yield put({ type: EDIT_CONSULTANT_FAILURE_REDUCER, payload: error });
   }
 }

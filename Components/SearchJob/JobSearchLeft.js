@@ -73,7 +73,7 @@ const JobSearchLeft = ({ jobId }) => {
     <div>
       {job ? (
         <div
-          className="bg-white max-h-[850px] h-auto pb-4 overflow-y-scroll "
+          className={`bg-white ${jobData?.length === 0 ? 'h-[620px]' : 'h-[730px]'} h-auto pb-4 overflow-y-scroll `}
           style={{ borderRadius: "6px" }}
         >
           <p className="font-semibold text-xl pt-[24px] pl-[22px]">

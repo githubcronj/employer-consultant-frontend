@@ -8,7 +8,7 @@ import {
   appliedJobSuccess,
 } from "store/action/applyJobAction";
 
-const JobList = ({ setDetail}) => {
+const JobList = ({ setDetail }) => {
   // added
   const dispatch = useDispatch();
   const getToken = () => {
@@ -23,7 +23,7 @@ const JobList = ({ setDetail}) => {
   const finaltoken = getToken();
 
   const jobData = useSelector((state) => state?.appliedJobReducer?.data);
- 
+
   useEffect(() => {
     setDetail(jobData[0]?._id);
   }, [jobData]);
@@ -46,19 +46,28 @@ const JobList = ({ setDetail}) => {
     setSelectedItemId(itemId);
     setDetail(itemId);
   };
-  
+
   return (
-    <Box py={{ xs: 1, lg: 2 }}>
+    <Box
+      py={{ xs: 1, lg: 2 }}
+      sx={{
+        height: { xs: "auto", md: "720px" },
+        overflowY: "scroll",
+        scrollbarWidth: "none",
+        "-ms-overflow-style": "none",
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+      }}
+    >
       <Typography
         px={{ xs: 1, md: 2, lg: 3 }}
         mb={2}
         sx={{ fontSize: "18px", fontWeight: "bold", color: "#1E0F3B" }}
       >
         {`${jobData?.length} Jobs`}
-       
       </Typography>
       <Box>
-
         {jobData?.map((item, index) => {
           const isSelected = item?._id === selectedItemId;
           // const isRemoved = item?.id === ;
@@ -80,11 +89,11 @@ const JobList = ({ setDetail}) => {
               }}
             >
               <Image
-                src='/Assets/spotify.svg'
-                alt='back button'
+                src="/Assets/spotify.svg"
+                alt="back button"
                 width={46}
                 height={46}
-                className='cursor-pointer w-10 h-10 rounded-full mr-4'
+                className="cursor-pointer w-10 h-10 rounded-full mr-4"
               />
               <Box>
                 <Typography sx={{ fontWeight: "bold" }}>
