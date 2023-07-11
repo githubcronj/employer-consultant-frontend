@@ -98,8 +98,7 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
           style={{ borderRadius: "5px" }}
         >
         <h1 className="lg:text-2xl font-bold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
-          No Data Availabale
-        </h1></div>
+        No Data Available        </h1></div>
       ) : (
         <div
           className="bg-white w-auto p-5 max-h-[622px] h-auto pb-4 overflow-y-scroll"

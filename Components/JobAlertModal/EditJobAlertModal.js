@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { postJobAlert } from "store/action/postJobAlertAction";
 import CreateIcon from "@mui/icons-material/Create";
 import { editJobAlertSuccess } from "store/action/editJobAlertAction";
+import { jobAlertRequest } from "store/action/getJobAlertAction";
 
 const EditJobAlertModal = ({ data }) => {
   const style = {
@@ -100,7 +101,9 @@ const EditJobAlertModal = ({ data }) => {
     token: finaltoken,
     data: formData,
   };
-
+  const payload1 = {
+    token: finaltoken,
+  };
   const handleSave = () => {
     const errors = {};
     if (!formData.jobName) {
@@ -141,7 +144,8 @@ const EditJobAlertModal = ({ data }) => {
     //   setFetchData(true);
       setValidationErrors({});
       setOpen(false);
-      console.log(formData);
+      dispatch(jobAlertRequest(payload1));
+            
       setFormData({
         jobName: "",
         location: "",
