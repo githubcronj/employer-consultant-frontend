@@ -39,7 +39,7 @@ const JobSearchDetails = () => {
   });
 
   return (
-    <div className="bg-[#2B373C1C] flex flex-col justify-center items-center ">
+    <div className="bg-[#2B373C1C] flex flex-col items-center h-[100vh] ">
       <Stack
         direction="row"
         mb={3}

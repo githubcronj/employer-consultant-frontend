@@ -7,12 +7,17 @@
 .chatbg{
   background-color: #F9F6EE;
 }
+.chatmsgbg{
+background-color: #18212f !important;
+}
 .selectedCard {
   border-left: 4px solid #5e9af8;
   background: linear-gradient(to left, #5e9af800, #5e9af833);
   padding-top: 20px;
 }
-
+.inputbox input{
+  background-color:#E7E9E9;
+}
 .shortlistedCard {
   border-left: 4px solid red;
   background: linear-gradient(to left, #f9342e00, #f9342e33);
