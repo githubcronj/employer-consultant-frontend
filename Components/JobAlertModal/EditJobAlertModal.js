@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -10,8 +10,11 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useDispatch } from "react-redux";
 import { postJobAlert } from "store/action/postJobAlertAction";
+import CreateIcon from "@mui/icons-material/Create";
+import { editJobAlertSuccess } from "store/action/editJobAlertAction";
 import { jobAlertRequest } from "store/action/getJobAlertAction";
-const JobAlertModal = ({setFetchData}) => {
+
+const EditJobAlertModal = ({ data }) => {
   const style = {
     position: "absolute",
     top: "50%",
@@ -39,19 +42,10 @@ const JobAlertModal = ({setFetchData}) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setFormData({
-      jobName: "",
-      location: "",
-      jobType: "",
-      experience: "",
-      salary: "",
-      minSalary: "",
-      maxSalary: "",
-      alertFrequency: "",
-      notificationSettings: "",
-    });
+    setFormData(data);
     setValidationErrors({});
   };
+
   const [selectedButton, setSelectedButton] = useState(null);
   const [formData, setFormData] = useState({
     jobName: "",
@@ -69,13 +63,30 @@ const JobAlertModal = ({setFetchData}) => {
   const handleButtonClick = (button, event) => {
     event.preventDefault();
     setSelectedButton(button);
-    setFormData({ ...formData, salary: button });
+    setFormData((prevFormData) => ({ ...prevFormData, salary: button }));
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
+
+  useEffect(() => {
+    if (data) {
+      setFormData(data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (data) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        salary: data.salary,
+      }));
+      setSelectedButton(data.salary);
+    }
+  }, [data]);
+  
   const dispatch = useDispatch();
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -129,12 +140,12 @@ const JobAlertModal = ({setFetchData}) => {
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
     } else {
-      dispatch(postJobAlert(payload));
-      dispatch(jobAlertRequest(payload1));
-
-      setFetchData(true)
+        dispatch(editJobAlertSuccess(payload));
+    //   setFetchData(true);
       setValidationErrors({});
       setOpen(false);
+      dispatch(jobAlertRequest(payload1));
+            
       setFormData({
         jobName: "",
         location: "",
@@ -148,16 +159,9 @@ const JobAlertModal = ({setFetchData}) => {
       });
     }
   };
-
-
-
   return (
     <div>
-      <AddCircleOutlineIcon
-        onClick={handleOpen}
-        sx={{ color: "#F9342E" }}
-        fontSize="large"
-      />
+      <CreateIcon onClick={handleOpen} />
       <Modal
         open={open}
         // onClose={handleClose}
@@ -196,7 +200,7 @@ const JobAlertModal = ({setFetchData}) => {
                   },
                 }}
               >
-                Add Job Alert
+                Edit Job Alert
               </p>
             </Box>
             <button
@@ -547,4 +551,4 @@ const JobAlertModal = ({setFetchData}) => {
   );
 };
 
-export default JobAlertModal;
+export default EditJobAlertModal;

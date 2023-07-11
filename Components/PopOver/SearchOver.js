@@ -4,7 +4,7 @@ import SearchJobInput from "Components/SearchJobComp/SearchJobInput";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
-const SearchOver = ({ children, onClick }) => {
+const SearchOver = ({ children, onClick, id }) => {
   const [recommandJobsvalue, setRecommandJobsdata] = useState([]);
   const [isdataloaded, setisdataloaded] = useState(false);
   const dropdownRef = useRef(null);
@@ -49,7 +49,13 @@ const SearchOver = ({ children, onClick }) => {
         isOpen ? "fixed inset-0 z-50 bg-black bg-opacity-50 " : ""
       }  `}
     >
-      <div className={`${isOpen ? "w-[50%] mx-auto mt-[11rem] " : ""}`}>
+      <div
+        className={`${
+          isOpen
+            ? `${id == 1 ? "w-[850px]" : "w-[600px]"} mx-auto mt-[11rem] `
+            : ""
+        }`}
+      >
         <div onClick={handleClick}>{children}</div>
         {isOpen && (
           <div className={`${isOpen ? " " : ""}`}>

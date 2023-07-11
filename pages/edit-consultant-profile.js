@@ -42,6 +42,8 @@ const EditConsultantProfile = () => {
   const [tempSkills, setempSkills] = useState({});
   const [tempProject, SetempProject] = useState({});
   const [tempCertificate, SetempCertificate] = useState({});
+  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch({ type: GET_PROFILE_REQUEST, payload });
   }, []);
@@ -322,8 +324,6 @@ const EditConsultantProfile = () => {
 
   // redux saga
 
-  const dispatch = useDispatch();
-
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
@@ -397,6 +397,7 @@ const EditConsultantProfile = () => {
 
     console.log("dispatchhh", response);
     dispatch(EditConsultantSuccess(payload));
+    dispatch({ type: GET_PROFILE_REQUEST, payload });
     setTimeout(() => {
       route.push("/viewjobpost/cviewprofile");
     }, 3000);

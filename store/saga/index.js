@@ -29,6 +29,11 @@ import watchEditResumeProfile from "./editConsultantProfileSaga";
 import { watchshortlistConsultantSaga } from "./shortlistSaga";
 import { watchsheduledConsultantSaga } from "./sheduledConsultantSaga";
 import watchVisitJob from "./visitJobSaga";
+import { watchRecentJobsSaga } from "store/saga/recentJobSaga";
+import watchJobAlert from "./getJobAlertSaga";
+import watchPostJobAlert from "./postJobAlertSaga";
+import watchdeleteJobAlert from "./deleteJobAlertSaga";
+import watcheditJobAlert from "./editJobAlertSaga";
 export default function* rootSaga() {
   yield all([
     watchLogin(),
@@ -61,5 +66,10 @@ export default function* rootSaga() {
     watchshortlistConsultantSaga(),
     watchsheduledConsultantSaga(),
     watchVisitJob(),
+    watchRecentJobsSaga(),,
+    watchJobAlert(),
+    watchPostJobAlert(),
+    watchdeleteJobAlert(),
+    watcheditJobAlert()
   ]);
 }
