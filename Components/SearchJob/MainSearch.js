@@ -21,11 +21,14 @@ import {
 } from "store/type/applyJobType";
 
 import unsaveJob from "../../asset/images/unsaveJob.svg";
+import AboutCompanyModal from "Components/JobAlertModal/AboutCompanyModal";
 
 const MainSearch = ({ finaldata, appliedJobData }) => {
   const [flexing, setFlexing] = useState(false);
   const [showApply, setShowApply] = useState(true);
   const [savejob, setSavejob] = useState(true);
+  const [open, setOpen] = React.useState(false);
+
   const dispatch = useDispatch();
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -89,7 +92,6 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
     // Remove the saved job ID from local storage
     localStorage.removeItem("savedJobId");
   };
-
   return (
     <>
       {finaldata?.length === 0 ? (
@@ -119,7 +121,9 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
                       src={google.src}
                       alt="googleIcon"
                       className="w-[63px] h-[63px] "
+                      onClick={()=>setOpen(true)}
                     />
+                    <AboutCompanyModal open={open} setOpen={setOpen} data={finaldata[0]?.employerData[0]}/>
                     <div>
                       <p className="lg:text-2xl font-extrabold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
                         {finaldata[0]?.jobTitle ? finaldata[0]?.jobTitle : "NA"}
@@ -127,7 +131,7 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
 
                       <div className="flex items-center justify-between align-baseline">
                         <p className="w-[54px] mr-6 xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px] font-bold h-[19px] mb-[10px] mt-[10px] text-[#000000] text-left font-sans">
-                          Google
+                          {finaldata[0].employerData[0].companyName}
                         </p>
                         <p className="pt-1">company Id</p>
                       </div>
