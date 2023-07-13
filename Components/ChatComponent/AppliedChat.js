@@ -19,7 +19,7 @@ class Chat extends React.Component {
         new Message({
           id: 2,
           message: "Hey! Evan here. react-chat-ui is pretty dooope.",
-          senderName: "Evan",
+          senderName: "Evan"
         }),
       ],
       useCustomBubble: false,
@@ -65,7 +65,7 @@ class Chat extends React.Component {
     return (
       <div className="">
         {isChatOpen && (
-          <Box sx={{ backgroundColor: "#F9F6EE" }}>
+          <Box className={styles.appliedChat} sx={{ backgroundColor: "#F9F6EE" }}>
             <Box
               sx={{
                 display: "flex",
