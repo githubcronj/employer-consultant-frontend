@@ -59,6 +59,12 @@ background-color: #18212f !important;
   background-color: #5e9af8;
   color: #ffffff;
 }
+.appliedChat{
+  position: absolute;
+  right: 100%;
+  width: 400px;
+  margin-right: -45px;
+}
 @media (min-width: 1536px) {
   .desk {
     height: 100vh;
