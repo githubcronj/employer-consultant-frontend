@@ -17,7 +17,7 @@ const EditSKills = ({
     const isValid = validateForm();
     if (isValid) {
       handleSkillsAdd(section);
-      toast.success("Data added!!");
+      toast.success("Skill added!!");
     }
   };
 

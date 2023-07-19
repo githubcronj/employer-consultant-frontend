@@ -56,7 +56,7 @@ const EditExperience = ({
     if (isValid) {
       handleExpAdd(section);
       setempautodata([]);
-      toast.success("Data added!!");
+      toast.success("Experience added!!");
     }
   };
   const removeData = (indexdata) => {

@@ -1,10 +1,5 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as types from "../type/viewProfileType";
-import {
-  GET_PROFILE_FAILURE,
-  GET_PROFILE_SUCCESS,
-  GET_PROFILE_REQUEST,
-} from "../type/viewProfileType";
 
 import { makeApiRequest } from "../../utils/api";
 import { useEffect, useState } from "react";
@@ -21,10 +16,10 @@ function* viewProfile(action) {
         Token: `Bearer ${action.payload.token}`,
       },
     });
-    yield put({ type: GET_PROFILE_SUCCESS, payload: response });
+    yield put({ type: types.GET_PROFILE_SUCCESS, payload: response });
   } catch (error) {
     console.log("API call error:", error);
-    yield put({ type: GET_PROFILE_FAILURE, payload: error });
+    yield put({ type: types.GET_PROFILE_FAILURE, payload: error });
   }
 }
 
