@@ -17,6 +17,7 @@ const ViewProfile = () => {
   useEffect(() => {
     window.addEventListener("resize", handleResize);
   }, [handleResize]);
+
   return (
     <div className="bg-[#2B373C1C] pt-1 px-3 sm:px-10 h-fit max-w-[1536px] mx-auto ">
       <div>

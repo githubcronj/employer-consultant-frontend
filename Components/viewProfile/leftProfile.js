@@ -8,8 +8,12 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { GET_PROFILE_REQUEST } from "store/type/viewProfileType";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 const LeftProfile = () => {
   const dispatch = useDispatch();
+  const route = useRouter();
+  const routerPath = route?.pathname;
+
   const [flexing, setFlexing] = useState(false);
   const handleResize = () => {
     if (window.innerWidth < 700) {
@@ -37,10 +41,9 @@ const LeftProfile = () => {
     (state) => state.viewProfileReducer?.CurrentUser
   );
 
-  console.log("in left", response);
   useEffect(() => {
     dispatch({ type: GET_PROFILE_REQUEST, payload });
-  }, []);
+  }, [routerPath]);
   return (
     <div
       className=" w-auto max-w-[400px] h-[100vh] flex flex-1"

@@ -17,7 +17,7 @@ const AppliedJobs = () => {
       sx={{
         background: "#F3F5F8",
         px: { xs: ".8rem", sm: "2rem", lg: "5rem" },
-        height:"100vh"
+        height: "100vh",
       }}
     >
       <Stack
@@ -35,7 +35,7 @@ const AppliedJobs = () => {
           width={42}
           height={42}
           className="cursor-pointer"
-          onClick={()=> router.push("/search_job")}
+          onClick={() => router.push("/search_job")}
         />
         <Typography
           sx={{
@@ -48,19 +48,21 @@ const AppliedJobs = () => {
           Applied Jobs
         </Typography>
       </Stack>
-      <Box  sx={{
-    background: "#FFFFFF",
-    borderRadius: "15px",
-    display: "flex",
-    flexDirection: { xs: "column", sm: "column", md: "row" },
-    justifyContent: "space-between",
-    justifyContent: "center",
-  }}>
+      <Box
+        sx={{
+          background: "#FFFFFF",
+          borderRadius: "15px",
+          display: "flex",
+          flexDirection: { xs: "column", sm: "column", md: "row" },
+          justifyContent: "space-between",
+          justifyContent: "center",
+        }}
+      >
         <Grid container spacing={1}>
           <Grid item xs={12} md={3}>
-            <JobList setDetail={setDetail} remove={remove}/>
+            <JobList setDetail={setDetail} remove={remove} />
           </Grid>
-          <Grid  item xs={12} md={9}>
+          <Grid item xs={12} md={9}>
             <JobDetails detail={detail} setRemove={setRemove} />
           </Grid>
         </Grid>

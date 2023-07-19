@@ -18,7 +18,7 @@ const EditEducation = ({
     const isValid = validateForm();
     if (isValid) {
       handleEducationAdd();
-      toast.success("Data added!!");
+      toast.success("Education added!!");
     }
   };
 
