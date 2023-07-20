@@ -43,8 +43,7 @@ export const data2 = [
     title: "496 013 5893",
   },
 ];
-const InterviewDetails = ({finaldata}) => {
-
+const InterviewDetails = ({ finaldata }) => {
   const [savejob, setSavejob] = useState(true);
   const dispatch = useDispatch();
   const getToken = () => {
@@ -67,7 +66,6 @@ const InterviewDetails = ({finaldata}) => {
     // const payload = { jobId: finaldata[0]?._id, finaltoken };
     // dispatch({ type: UNSAVE_JOB_REQUEST, payload });
     // localStorage.removeItem("savedJobId");
-   
   };
 
   const HtmlTooltip = styled(({ className, ...props }) => (
@@ -90,7 +88,6 @@ const InterviewDetails = ({finaldata}) => {
       color: "#5E5E5E",
       fontSize: 11,
       padding: 12,
-
     },
   }));
 
@@ -217,36 +214,36 @@ const InterviewDetails = ({finaldata}) => {
             }}
           >
             <LightTooltip title="Save Job" placement="left">
-              
-               {savejob ? (
+              {savejob ? (
                 <Image
-                src="/Assets/savebtn.svg"
-                alt="profile"
-                height={54}
-                width={54}
-                style={{ marginBottom: "1rem" }}
-                onClick={saveData} 
-              />
+                  src="/Assets/savebtn.svg"
+                  alt="profile"
+                  height={54}
+                  width={54}
+                  style={{ marginBottom: "1rem", cursor: "pointer" }}
+                  onClick={saveData}
+                />
               ) : (
                 <Image
-                src="/Assets/unsaveJob.svg"
-                alt="profile"
-                height={54}
-                width={54}
-                style={{ marginBottom: "1rem" }}
-                onClick={unsaveData} 
-              />
-              
+                  src="/Assets/unsaveJob.svg"
+                  alt="profile"
+                  height={54}
+                  width={54}
+                  style={{ marginBottom: "1rem", cursor: "pointer" }}
+                  onClick={unsaveData}
+                />
               )}
             </LightTooltip>
 
             <LightTooltip title="Chat with company" placement="left">
-            <Image
-              src="/Assets/chatbtn.svg"
-              alt="profile"
-              height={54}
-              width={54}
-            /></LightTooltip>
+              <Image
+                src="/Assets/chatbtn.svg"
+                alt="profile"
+                height={54}
+                width={54}
+                className="cursor-pointer"
+              />
+            </LightTooltip>
           </Box>
         </Box>
         <Box sx={{ borderTop: "1px solid #D0D0D6" }}>
@@ -332,7 +329,11 @@ const InterviewDetails = ({finaldata}) => {
             <Typography sx={{ color: "#1E0F3B" }}>
               Interview Schedule
             </Typography>
-            <Typography sx={{ color: "#817891",fontSize: "11px", fontWeight: "bold" }}>18-09-2023</Typography>
+            <Typography
+              sx={{ color: "#817891", fontSize: "11px", fontWeight: "bold" }}
+            >
+              18-09-2023
+            </Typography>
           </Box>
         </Box>
       </Grid>

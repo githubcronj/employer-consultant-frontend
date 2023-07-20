@@ -79,10 +79,10 @@ const ConsultantCard = ({
   selected,
   onClick,
   shortlisted,
-  showCheckbox
+  showCheckbox,
 }) => {
   let cardClassName = `${styles.card} ${styles.border}`;
-  
+
   if (selected && shortlisted) {
     cardClassName += ` ${styles.selectedShortlistedCard}`;
   } else if (selected) {
@@ -92,10 +92,9 @@ const ConsultantCard = ({
   }
   return (
     <>
-      <div  onClick={onClick}>
+      <div onClick={onClick}>
         <div
-          className={`flex items-center border-b py-5 px-2 ${cardClassName}`}
-         
+          className={`flex items-center border-b py-5 px-2 cursor-pointer ${cardClassName}`}
         >
           <Image
             src={imageSrc}
@@ -112,14 +111,17 @@ const ConsultantCard = ({
               {jobTitle} . {experience} yr Exp
             </p>
           </div>
-          <div> {showCheckbox && (
-            <input
-              type="checkbox"
-              checked={selected}
-              onChange={onClick}
-              className="cursor-pointer lg:ml-[75px] sm:ml-[200px]"
-            />
-          )}</div>
+          <div>
+            {" "}
+            {showCheckbox && (
+              <input
+                type="checkbox"
+                checked={selected}
+                onChange={onClick}
+                className="cursor-pointer lg:ml-[75px] sm:ml-[200px]"
+              />
+            )}
+          </div>
         </div>
       </div>
     </>

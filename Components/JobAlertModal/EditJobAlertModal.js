@@ -86,7 +86,7 @@ const EditJobAlertModal = ({ data }) => {
       setSelectedButton(data.salary);
     }
   }, [data]);
-  
+
   const dispatch = useDispatch();
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -140,12 +140,12 @@ const EditJobAlertModal = ({ data }) => {
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
     } else {
-        dispatch(editJobAlertSuccess(payload));
-    //   setFetchData(true);
+      dispatch(editJobAlertSuccess(payload));
+      //   setFetchData(true);
       setValidationErrors({});
       setOpen(false);
       dispatch(jobAlertRequest(payload1));
-            
+
       setFormData({
         jobName: "",
         location: "",
@@ -188,7 +188,7 @@ const EditJobAlertModal = ({ data }) => {
                 onClick={handleClose}
                 height={42}
                 width={42}
-                style={{ paddingRight: "10px" }}
+                style={{ paddingRight: "10px", cursor: "pointer" }}
               />
               <p
                 style={{
@@ -275,6 +275,7 @@ const EditJobAlertModal = ({ data }) => {
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "95% center",
                     paddingRight: "20px",
+                    cursor: "pointer",
                   }}
                   name="jobType"
                   value={formData.jobType}

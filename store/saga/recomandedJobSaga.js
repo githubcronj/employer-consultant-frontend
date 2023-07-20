@@ -7,6 +7,7 @@ import {
   fetchRecommendSuccess,
   fetchRecommendFailure,
 } from "../action/recommandedJobAction";
+import { toast } from "react-toastify";
 
 function* fetchJobs(action) {
   try {
@@ -90,9 +91,10 @@ function* fetchRecommendJobs(action) {
         Token: `Bearer ${token}`,
       },
     });
-
+    // toast.success("")
     yield put(fetchRecommendSuccess(response));
   } catch (error) {
+    toast.error("Job title is required", error.message);
     yield put(fetchRecommendFailure(error.message));
   }
 }

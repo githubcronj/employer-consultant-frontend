@@ -1,9 +1,9 @@
-import * as types from "../type/getProfileActionType";
+import * as types from "store/type/getProfileType";
 
-export const profileRequest = (profileData) => {
+export const profileRequest = (payload) => {
   return {
     type: types.PROFILE_REQUEST,
-    payload: profileData,
+    payload,
   };
 };
 

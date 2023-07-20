@@ -34,19 +34,19 @@ const style = {
   },
 };
 
-const AboutCompanyModal = ({data,open,setOpen}) => {
-//   const [open, setOpen] = React.useState(false);
-//   const handleOpen = () => setOpen(true);
+const AboutCompanyModal = ({ data, open, setOpen }) => {
+  //   const [open, setOpen] = React.useState(false);
+  //   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const router = useRouter();
   const dateString = data?.companyFoundedDate;
-const dateObject = new Date(dateString);
+  const dateObject = new Date(dateString);
 
-const year = dateObject.getFullYear();
-const month = String(dateObject.getMonth() + 1).padStart(2, "0"); // Add padding if needed
-const date = String(dateObject.getDate()).padStart(2, "0"); // Add padding if needed
+  const year = dateObject.getFullYear();
+  const month = String(dateObject.getMonth() + 1).padStart(2, "0"); // Add padding if needed
+  const date = String(dateObject.getDate()).padStart(2, "0"); // Add padding if needed
 
-const formattedDate = `${date}-${month}-${year}`;
+  const formattedDate = `${date}-${month}-${year}`;
   return (
     <div>
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
@@ -118,7 +118,10 @@ const formattedDate = `${date}-${month}-${year}`;
               item
               xs={12}
               md={6}
-              sx={{ borderRight: "1px #15223214 solid" }}
+              sx={{
+                borderRight: { md: "1px #15223214 solid" },
+                height: { md: "513px" },
+              }}
             >
               <Box
                 sx={{
@@ -127,7 +130,7 @@ const formattedDate = `${date}-${month}-${year}`;
                   justifyContent: "space-between",
                   borderBottom: "1px #15223214 solid",
                   py: 1,
-                  px:2
+                  px: 2,
                 }}
               >
                 <Typography
@@ -139,7 +142,9 @@ const formattedDate = `${date}-${month}-${year}`;
                 >
                   Company ID
                 </Typography>
-                <Typography sx={{ color: "#666666" }}>{data?.companyId}</Typography>
+                <Typography sx={{ color: "#666666" }}>
+                  {data?.companyId}
+                </Typography>
               </Box>
               <Box
                 sx={{
@@ -148,7 +153,7 @@ const formattedDate = `${date}-${month}-${year}`;
                   justifyContent: "space-between",
                   borderBottom: "1px #15223214 solid",
                   py: 1,
-                  px:2
+                  px: 2,
                 }}
               >
                 <Typography
@@ -171,7 +176,7 @@ const formattedDate = `${date}-${month}-${year}`;
                   justifyContent: "space-between",
                   borderBottom: "1px #15223214 solid",
                   py: 1,
-                  px:2
+                  px: 2,
                 }}
               >
                 <Typography
@@ -183,9 +188,7 @@ const formattedDate = `${date}-${month}-${year}`;
                 >
                   Email
                 </Typography>
-                <Typography sx={{ color: "#666666" }}>
-                  {data?.email}
-                </Typography>
+                <Typography sx={{ color: "#666666" }}>{data?.email}</Typography>
               </Box>
               <Box
                 sx={{
@@ -194,7 +197,7 @@ const formattedDate = `${date}-${month}-${year}`;
                   justifyContent: "space-between",
                   borderBottom: "1px #15223214 solid",
                   py: 1,
-                  px:2
+                  px: 2,
                 }}
               >
                 <Typography
@@ -207,7 +210,7 @@ const formattedDate = `${date}-${month}-${year}`;
                   Website URL
                 </Typography>
                 <Typography sx={{ color: "#666666" }}>
-                 {data?.companyWebsiteUrl}
+                  {data?.companyWebsiteUrl}
                 </Typography>
               </Box>
               <Box
@@ -217,7 +220,7 @@ const formattedDate = `${date}-${month}-${year}`;
                   justifyContent: "space-between",
                   borderBottom: "1px #15223214 solid",
                   py: 1,
-                  px:2
+                  px: 2,
                 }}
               >
                 <Typography
@@ -240,7 +243,7 @@ const formattedDate = `${date}-${month}-${year}`;
                   justifyContent: "space-between",
                   borderBottom: "1px #15223214 solid",
                   py: 1,
-                  px:2
+                  px: 2,
                 }}
               >
                 <Typography
@@ -263,7 +266,7 @@ const formattedDate = `${date}-${month}-${year}`;
                   justifyContent: "space-between",
                   borderBottom: "1px #15223214 solid",
                   py: 1,
-                  px:2
+                  px: 2,
                 }}
               >
                 <Typography
@@ -280,13 +283,19 @@ const formattedDate = `${date}-${month}-${year}`;
                 </Typography>
               </Box>
             </Grid>
+            {/* <Divider
+              // className={styles.searchdevider}
+              orientation="vertical"
+              style={{
+                borderWidth: "1.5px",
+                height: "600px",
+              }}
+            /> */}
             <Grid item xs={12} md={6} p={3}>
               <Typography sx={{ fontSize: "20px", fontWeight: "bold" }} pb={2}>
                 About Company
               </Typography>
-              <Typography>
-                {data?.aboutCompany}
-              </Typography>
+              <Typography>{data?.aboutCompany}</Typography>
             </Grid>
           </Grid>
         </Box>

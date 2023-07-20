@@ -28,10 +28,7 @@ const HeaderProfile = () => {
   };
   return (
     <div
-      className={`justify-between xl:mt-[10px] lg:mt-[10px] md:mt-[10px] sm:mt-[10px]
-           pt-[11px] -mt-[4px] xl:pt-[10px] mb-6
-           lg:pt-[10px] md:pt-[10px] sm:pt-[10px] items-center mx-4 sm:mr-9 sm:ml-[10px] flex
-           `}
+      className={`justify-between xl:mt-[10px] lg:mt-[10px] md:mt-[10px] sm:mt-[10px] pt-[11px] -mt-[4px] xl:pt-[10px] mb-6 lg:pt-[10px] md:pt-[10px] sm:pt-[10px] items-center mx-4 lg:mx-0 sm:ml-[10px] lg:ml-[15px] flex `}
       style={{ flexDirection: flexing ? "column" : "row" }}
     >
       <div className="flex items-center gap-x-4 ">
@@ -48,7 +45,7 @@ const HeaderProfile = () => {
         </p>
       </div>
       <button
-        className="uppercase text-[16px] font-bold text-[#FFFFFF] w-[125px] h-[51px] bg-[#F9342E] rounded-[20px] ml-3 m-6 mb-0 cursor-pointer flex items-center justify-center "
+        className="uppercase text-[16px] font-bold text-[#FFFFFF] w-[125px] h-[51px] bg-[#F9342E] rounded-[20px] ml-3 m-6 mb-0 cursor-pointer flex items-center justify-center mr-0 mt-0 lg:ml-0 "
         onClick={editClick}
       >
         <img src={editIcon.src} alt="edit icon" className="ml-3 " />

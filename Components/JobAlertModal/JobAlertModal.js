@@ -11,7 +11,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { useDispatch } from "react-redux";
 import { postJobAlert } from "store/action/postJobAlertAction";
 import { jobAlertRequest } from "store/action/getJobAlertAction";
-const JobAlertModal = ({setFetchData}) => {
+const JobAlertModal = ({ setFetchData }) => {
   const style = {
     position: "absolute",
     top: "50%",
@@ -132,7 +132,7 @@ const JobAlertModal = ({setFetchData}) => {
       dispatch(postJobAlert(payload));
       dispatch(jobAlertRequest(payload1));
 
-      setFetchData(true)
+      setFetchData(true);
       setValidationErrors({});
       setOpen(false);
       setFormData({
@@ -149,13 +149,11 @@ const JobAlertModal = ({setFetchData}) => {
     }
   };
 
-
-
   return (
     <div>
       <AddCircleOutlineIcon
         onClick={handleOpen}
-        sx={{ color: "#F9342E" }}
+        sx={{ color: "#F9342E", cursor: "pointer" }}
         fontSize="large"
       />
       <Modal
@@ -184,7 +182,7 @@ const JobAlertModal = ({setFetchData}) => {
                 onClick={handleClose}
                 height={42}
                 width={42}
-                style={{ paddingRight: "10px" }}
+                style={{ paddingRight: "10px", cursor: "pointer" }}
               />
               <p
                 style={{
@@ -271,6 +269,7 @@ const JobAlertModal = ({setFetchData}) => {
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "95% center",
                     paddingRight: "20px",
+                    cursor: "pointer",
                   }}
                   name="jobType"
                   value={formData.jobType}

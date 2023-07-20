@@ -12,13 +12,13 @@ const JobSearchCard = ({
   location,
   flag,
   navigate,
-  id
+  id,
 }) => {
   return (
     <>
       {!flag ? (
         <Box
-        onClick={()=>navigate(id)}
+          onClick={() => navigate(id)}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -28,7 +28,8 @@ const JobSearchCard = ({
             margin: "0 1rem",
             position: "relative",
             padding: "1rem",
-            height:"180px",
+            height: "180px",
+            cursor: "pointer",
           }}
         >
           <Box>
@@ -86,8 +87,8 @@ const JobSearchCard = ({
             padding: "1rem",
             justifyContent: "center",
             alignItems: "center",
-            height:"180px",
-
+            height: "180px",
+            cursor: "pointer",
           }}
         >
           <Box>

@@ -1,4 +1,4 @@
-import * as types from '../type/editProfileType';
+import * as types from "../type/editProfileType";
 
 export const initialState = {
   formData: {
@@ -12,35 +12,35 @@ export const initialState = {
     founded: "",
     companyLocation: "",
   },
-  data: []
+  data: [],
 };
 
- const editProfileReducer = (state = initialState, action) => {
-
+const editProfileReducer = (state = initialState, action) => {
   switch (action.type) {
-    
+    case types.SUBMIT_FORM_DATA: {
+      return {
+        ...state,
+        payload: action.payload,
+      };
+    }
     case types.SET_FORM_DATA:
-      
       return {
         ...state,
         formData: action.payload,
       };
     case types.SET_FORM_SUCCESS:
-    
-      return{
+      return {
         ...state,
         data: action.payload,
-      }
-      case types.PROFILE_EDIT_SUCCESS:
-    
-      return{
+      };
+    case types.PROFILE_EDIT_SUCCESS:
+      return {
         ...state,
         data: action.payload,
-      }
+      };
     default:
       return state;
   }
 };
-
 
 export default editProfileReducer;

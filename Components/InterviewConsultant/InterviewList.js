@@ -56,7 +56,7 @@ const InterviewList = () => {
       <Typography
         px={{ xs: 2, md: 2, lg: 3 }}
         mb={2}
-        mt={{xs:2,md:1}}
+        mt={{ xs: 2, md: 1 }}
         sx={{ fontSize: "18px", fontWeight: "bold", color: "#1E0F3B" }}
       >
         7 Interview Schedule
@@ -79,6 +79,7 @@ const InterviewList = () => {
                   ? "linear-gradient(to left, #5e9af800, #5e9af833)"
                   : "transparent",
                 // backgroundColor: isSelected ? "blue" : "transparent",
+                cursor: "pointer",
               }}
             >
               <Image

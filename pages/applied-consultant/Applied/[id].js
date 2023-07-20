@@ -29,28 +29,22 @@ const AppliedConsultant = () => {
   const [shortlistedCards, setShortlistedCards] = useState([]);
   const [shortlistMessage, setShortlistMessage] = useState("");
   const [search, setsearch] = useState("");
-const [currentJob , setCurrentJob] = useState()
+  const [currentJob, setCurrentJob] = useState();
   const dispatch = useDispatch();
 
   const backClicked = () => {
     router.push("/");
   };
-  
-  const response = useSelector(
-    (state) => state?.getjobReducer?.selectedJob
-  );
 
+  const response = useSelector((state) => state?.getjobReducer?.selectedJob);
 
   useEffect(() => {
-    if(response){
-      if(Object?.keys(response).length>=0){
-        setCurrentJob(response)
+    if (response) {
+      if (Object?.keys(response).length >= 0) {
+        setCurrentJob(response);
       }
     }
-
-  },[response])
-
-
+  }, [response]);
 
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -64,31 +58,28 @@ const [currentJob , setCurrentJob] = useState()
   const accessToken = getToken();
 
   const onSearch = (e) => {
-   
-
     dispatch({
       type: FETCH_APPLIED_CONSULTANT_REQUEST,
-      payload:{id:id?.id,search:search},
+      payload: { id: id?.id, search: search },
       accessToken,
-      
     });
   };
 
-  function debounce(func, timeout = 300){
-  
+  function debounce(func, timeout = 300) {
     let timer;
     return (...args) => {
       clearTimeout(timer);
-      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+      timer = setTimeout(() => {
+        func.apply(this, args);
+      }, timeout);
     };
   }
-  const handleChange  = debounce(onSearch,1000)
+  const handleChange = debounce(onSearch, 1000);
   useEffect(() => {
     dispatch({
       type: FETCH_APPLIED_CONSULTANT_REQUEST,
-      payload:id,
+      payload: id,
       accessToken,
-      
     });
   }, [id]);
 
@@ -208,26 +199,37 @@ const [currentJob , setCurrentJob] = useState()
             />
             <div>
               <p className="text-[26px] text-[#2B373C] sm:text-2xl font-bold">
-              {currentJob ? currentJob?.jobTitle : "NA"}
+                {currentJob ? currentJob?.jobTitle : "NA"}
               </p>
-              <p className="text-[14px] text-[#2B373C]">{currentJob ? currentJob?.minExp : "NA" }-{currentJob ? currentJob?.maxExp : "NA"} years experience</p>
+              <p className="text-[14px] text-[#2B373C]">
+                {currentJob ? currentJob?.minExp : "NA"}-
+                {currentJob ? currentJob?.maxExp : "NA"} years experience
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-x-4 lg:col-span-1 sm:col-span-2">
-            <p className="text-[16px] text-[#2B373C]">              { currentJob ? currentJob?.jobType : "NA"
-} .</p>
+            <p className="text-[16px] text-[#2B373C]">
+              {" "}
+              {currentJob ? currentJob?.jobType : "NA"} .
+            </p>
             <p className="text-[16px] text-[#2B373C]">$10-15 /hr .</p>
-            <p className="text-[16px] text-[#2B373C]">{currentJob ? currentJob?.createdAt : "NA"}</p>
+            <p className="text-[16px] text-[#2B373C]">
+              {currentJob ? currentJob?.createdAt : "NA"}
+            </p>
           </div>
 
           <div
             onClick={() => nextclick(id)}
             className="flex items-center  lg:justify-end gap-x-4 lg:col-span-1 sm:col-span-2"
           >
-            <p className="text-[16px] text-[#5E9AF8] font-bold">
+            <p className="text-[16px] text-[#5E9AF8] font-bold cursor-pointer">
               View Job Post
             </p>
-            <img src="/Assets/forwardArr.svg" alt="frw-ar" />
+            <img
+              src="/Assets/forwardArr.svg"
+              alt="frw-ar"
+              className="cursor-pointer"
+            />
           </div>
         </div>
 
@@ -236,13 +238,12 @@ const [currentJob , setCurrentJob] = useState()
             <div className="relative w-full">
               <input
                 onChange={(e) => {
-                  setsearch(e.target.value),
-                  handleChange()
-                } }
+                  setsearch(e.target.value), handleChange();
+                }}
                 value={search}
                 type="text"
                 id="simple-search"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-4 py-2.5 "
                 placeholder="Search"
                 required
               />
@@ -272,6 +273,7 @@ const [currentJob , setCurrentJob] = useState()
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "95% center",
                     paddingRight: "20px",
+                    cursor: "pointer",
                     ...(errors.experience ? { borderColor: "red" } : {}),
                   }}
                 >
@@ -295,6 +297,7 @@ const [currentJob , setCurrentJob] = useState()
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "95% center",
                     paddingRight: "20px",
+                    cursor: "pointer",
                     ...(errors.experience ? { borderColor: "red" } : {}),
                   }}
                 >
@@ -318,6 +321,7 @@ const [currentJob , setCurrentJob] = useState()
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "95% center",
                     paddingRight: "20px",
+                    cursor: "pointer",
                     ...(errors.experience ? { borderColor: "red" } : {}),
                   }}
                 >
@@ -352,7 +356,8 @@ const [currentJob , setCurrentJob] = useState()
           >
             <div className="flex px-3">
               <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
-               { currentJob ? currentJob?.appliedConsultantCount : "NA"} Consultant
+                {currentJob ? currentJob?.appliedConsultantCount : "NA"}{" "}
+                Consultant
               </p>
               <div className="bg-[#5E9AF8] ml-2 px-2 py-1 border rounded text-[#ffffff]">
                 {shortlistedCount}

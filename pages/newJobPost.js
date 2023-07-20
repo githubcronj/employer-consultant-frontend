@@ -494,7 +494,7 @@ const NewJobPost = () => {
                 placeholder=" "
                 style={errors.minExp ? { borderColor: "red" } : {}}
                 required
-                className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
                 value={jobPostData.minExp}
                 onChange={handleChange}
@@ -502,7 +502,7 @@ const NewJobPost = () => {
 
               <label
                 for="minExp"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Minimum Experience
               </label>
@@ -516,7 +516,7 @@ const NewJobPost = () => {
                 placeholder=" "
                 required
                 style={errors.maxExp ? { borderColor: "red" } : {}}
-                className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
                         `}
                 value={jobPostData.maxExp}
                 onChange={handleChange}
@@ -524,7 +524,7 @@ const NewJobPost = () => {
 
               <label
                 for="maxExp"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Maximum Experience
               </label>
@@ -542,7 +542,7 @@ const NewJobPost = () => {
                 id="deadline"
                 placeholderText="Application Deadline"
                 required
-                className={`block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                className={`block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
                   errors.deadline ? "border-red-500" : ""
                 }`}
                 selected={
@@ -556,7 +556,7 @@ const NewJobPost = () => {
               />
               <label
                 for="deadline"
-                className="absolute hidden my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute hidden my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Founded In{" "}
               </label>
@@ -585,6 +585,7 @@ const NewJobPost = () => {
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "95% center",
                 paddingRight: "20px",
+                cursor: "pointer",
                 ...(errors.jobType ? { borderColor: "red" } : {}),
               }}
               value={jobPostData.jobType}
@@ -675,7 +676,7 @@ const NewJobPost = () => {
                     placeholder=" "
                     style={errors.minSalary ? { borderColor: "red" } : {}}
                     required
-                    className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                    className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
                     value={jobPostData.minSalary}
                     onChange={handleChange}
@@ -683,7 +684,7 @@ const NewJobPost = () => {
 
                   <label
                     for="minSalary"
-                    className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                    className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
                   >
                     Min
                   </label>
@@ -697,7 +698,7 @@ const NewJobPost = () => {
                     placeholder=" "
                     required
                     style={errors.maxSalary ? { borderColor: "red" } : {}}
-                    className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                    className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
                         `}
                     value={jobPostData.maxSalary}
                     onChange={handleChange}
@@ -705,7 +706,7 @@ const NewJobPost = () => {
 
                   <label
                     for="maxSalary"
-                    className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                    className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
                   >
                     Max
                   </label>
@@ -740,7 +741,7 @@ const NewJobPost = () => {
                 ...(errors.description ? { borderColor: "red" } : {}),
               }}
               // style={{errors.description ? { borderColor: "red" } : {},minHeight: '150px'}}
-              className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               value={description && jobPostData.description}
               onChange={handleChangeDesc}
               defaultValue={response && defaultDescriptionValue}
@@ -755,7 +756,7 @@ const NewJobPost = () => {
 
             <label
               for="description"
-              className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
             >
               Job Description
             </label>
@@ -783,14 +784,14 @@ const NewJobPost = () => {
                 required
                 style={errors.skills ? { borderColor: "red" } : {}}
                 // className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                className="block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={skill}
                 onChange={(e) => setSkill(e.target.value)}
                 disabled={skillsLoading}
               />
               <label
                 for="skills"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Skills
               </label>
@@ -875,7 +876,7 @@ const NewJobPost = () => {
               //   minlength="10"
               //   maxlength="12"
               style={errors.industryType ? { borderColor: "red" } : {}}
-              className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+              className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
               value={jobPostData.industryType}
               onChange={handleChange}
@@ -883,7 +884,7 @@ const NewJobPost = () => {
 
             <label
               for="indusryType"
-              className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
             >
               Industry Type
             </label>
@@ -898,7 +899,7 @@ const NewJobPost = () => {
               placeholder=" "
               required
               style={errors.email ? { borderColor: "red" } : {}}
-              className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+              className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
               ${isFieldChanged && errors.email ? "border-red-500" : ""} `}
               value={jobPostData.email}
               onChange={handleChange}
@@ -906,7 +907,7 @@ const NewJobPost = () => {
 
             <label
               htmlFor="email"
-              className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
             >
               Email
             </label>
@@ -923,7 +924,7 @@ const NewJobPost = () => {
               //   minlength="10"
               //   maxlength="12"
               style={errors.phoneNumber ? { borderColor: "red" } : {}}
-              className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+              className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
               value={jobPostData.phoneNumber}
               onChange={handleChange}
@@ -931,7 +932,7 @@ const NewJobPost = () => {
 
             <label
               for="phoneNumber"
-              className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
             >
               Phone Number
             </label>
