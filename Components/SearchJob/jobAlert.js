@@ -7,7 +7,7 @@ import { jobAlertRequest } from "store/action/getJobAlertAction";
 import { deleteJobAlertSuccess } from "store/action/deleteJobAlertAction";
 import EditJobAlertModal from "Components/JobAlertModal/EditJobAlertModal";
 const JobAlert = () => {
-  const [fetchData,setFetchData] = useState(false);
+  const [fetchData, setFetchData] = useState(false);
   const dispatch = useDispatch();
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
@@ -24,28 +24,27 @@ const JobAlert = () => {
   useEffect(() => {
     dispatch(jobAlertRequest(payload));
   }, []);
-  
+
   useMemo(() => {
-    if(fetchData === true){
+    if (fetchData === true) {
       dispatch(jobAlertRequest(payload));
     }
-  }, [fetchData,dispatch]);
+  }, [fetchData, dispatch]);
 
-  const [jobAlertdata,setJobAlertData] = useState([])
+  const [jobAlertdata, setJobAlertData] = useState([]);
   const data = useSelector((state) => state.JobAlertReducer?.data);
   useEffect(() => {
-    setJobAlertData(data)
-  }, [data])
-  
- 
-  const hadleEdit = (id)=>{
+    setJobAlertData(data);
+  }, [data]);
+
+  const hadleEdit = (id) => {
     // alert(id,'edit');
-  }
-const hadleDelete = (id) =>{
-  const payloadData={UserId:id,token:finaltoken}
-  dispatch(deleteJobAlertSuccess(payloadData))
-  setFetchData(true)
-}
+  };
+  const hadleDelete = (id) => {
+    const payloadData = { UserId: id, token: finaltoken };
+    dispatch(deleteJobAlertSuccess(payloadData));
+    setFetchData(true);
+  };
   return (
     <Box
       sx={{
@@ -76,14 +75,23 @@ const hadleDelete = (id) =>{
 
       {jobAlertdata?.map((item, index) => {
         return (
-          <Grid container mb={1} px={2} py={2} key={index} sx={{borderBottom:"1px solid #0000005E"}}>
+          <Grid
+            container
+            mb={1}
+            px={2}
+            py={2}
+            key={index}
+            sx={{ borderBottom: "1px solid #0000005E" }}
+          >
             <Grid item xs={9}>
-              <Typography sx={{ fontWeight: "bold" }}>{item.jobName}</Typography>
+              <Typography sx={{ fontWeight: "bold" }}>
+                {item.jobName}
+              </Typography>
               <Typography sx={{ opacity: "0.7" }} py={1}>
-               {item.location} &#8729; {item.alertFrequency}
+                {item.location} &#8729; {item.alertFrequency}
               </Typography>
               <Typography sx={{ opacity: "0.7" }}>
-              {item.notificationSettings}
+                {item.notificationSettings}
               </Typography>
             </Grid>
             <Grid
@@ -94,15 +102,17 @@ const hadleDelete = (id) =>{
               justifyContent="space-between"
               alignItems="end"
             >
-              <Box onClick={()=>hadleEdit(item._id)}>
-                <EditJobAlertModal  data={item}/>
+              <Box
+                onClick={() => hadleEdit(item._id)}
+                sx={{ cursor: "pointer" }}
+              >
+                <EditJobAlertModal data={item} />
               </Box>
-              <Box>
-                <DeleteIcon onClick={()=>hadleDelete(item._id)} />
+              <Box sx={{ cursor: "pointer" }}>
+                <DeleteIcon onClick={() => hadleDelete(item._id)} />
               </Box>
             </Grid>
           </Grid>
-          
         );
       })}
     </Box>

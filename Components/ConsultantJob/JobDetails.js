@@ -312,7 +312,7 @@ const JobDetails = ({ detail, setRemove }) => {
                           alt="profile"
                           height={54}
                           width={54}
-                          style={{ paddingBottom: "1rem" }}
+                          style={{ paddingBottom: "1rem", cursor: "pointer" }}
                         />
                       ) : (
                         <Image
@@ -321,7 +321,7 @@ const JobDetails = ({ detail, setRemove }) => {
                           alt="profile"
                           height={54}
                           width={54}
-                          style={{ paddingBottom: "1rem" }}
+                          style={{ paddingBottom: "1rem", cursor: "pointer" }}
                         />
                       )}
 
@@ -332,6 +332,7 @@ const JobDetails = ({ detail, setRemove }) => {
                           height={54}
                           width={54}
                           onClick={handleClick2}
+                          className="cursor-pointer"
                         />
                       </Popover>
                     </Box>

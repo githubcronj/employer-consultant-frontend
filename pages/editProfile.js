@@ -159,9 +159,11 @@ const EditProfile = () => {
         accessToken: "",
       };
 
-      setFormValues(initialFormValues);
+      // setFormValues(initialFormValues);
       setSelectedImage(null);
-      router.push("/");
+      setTimeout(() => {
+        router.push("/");
+      }, 3000);
     } else {
       return;
     }
@@ -209,7 +211,7 @@ const EditProfile = () => {
 
   return (
     <div className="bg-[#2B373C1C] py-10 px-2 sm:px-10">
-      <div className="sm:flex justify-between items-center mx-5 sm:mx-9">
+      <div className="sm:flex justify-between items-center mx-5 sm:mx-9 ">
         <div className="my-3 m">
           <p className="text-lg sm:text-2xl font-bold">Edit Employer Profile</p>
         </div>
@@ -281,14 +283,14 @@ const EditProfile = () => {
                 placeholder=" "
                 required
                 style={errors.industry ? { borderColor: "red" } : {}}
-                className="block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-5 px-4 w-full text-sm text-gray-900 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.industryType}
                 onChange={handleChange}
               />
               {renderErrorMessage("industry")}
               <label
                 for="industryType"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Industry Type
               </label>
@@ -302,14 +304,14 @@ const EditProfile = () => {
                 placeholder=" "
                 required
                 style={errors.companyId ? { borderColor: "red" } : {}}
-                className="block py-5 px-4  w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-5 px-4  w-full text-sm text-gray-900 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companyId}
                 onChange={handleChange}
               />
               {renderErrorMessage("companyId")}
               <label
                 for="companyId"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Company ID number
               </label>
@@ -324,13 +326,13 @@ const EditProfile = () => {
                   required
                   style={errors.companyWebsiteUrl ? { borderColor: "red" } : {}}
                   // className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full"
-                  className="block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  className="block py-5 px-4 w-full text-sm text-gray-900 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   value={formValues.companyWebsiteUrl}
                   onChange={handleChange}
                 />
                 <label
                   for="companyUrl"
-                  className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                  className="absolute my-1 text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
                 >
                   Company website URL
                 </label>
@@ -351,7 +353,7 @@ const EditProfile = () => {
                 placeholder=" "
                 required
                 style={errors.email ? { borderColor: "red" } : {}}
-                className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
                   isFieldChanged && errors.email ? "border-red-500" : ""
                 }`}
                 value={formValues.email}
@@ -360,7 +362,7 @@ const EditProfile = () => {
               {renderErrorMessage("email")}
               <label
                 for="email"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Email
               </label>
@@ -373,13 +375,13 @@ const EditProfile = () => {
                 placeholder=" "
                 required
                 style={errors.aboutCompany ? { borderColor: "red" } : {}}
-                className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.aboutCompany}
                 onChange={handleChange}
               />
               <label
                 for="aboutCompany"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Write about company...
               </label>
@@ -392,14 +394,14 @@ const EditProfile = () => {
                 placeholder=" "
                 required
                 style={errors.companySize ? { borderColor: "red" } : {}}
-                className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companySize}
                 onChange={handleChange}
               />
               {renderErrorMessage("companySize")}
               <label
                 for="companySize"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Company Size
               </label>
@@ -411,7 +413,7 @@ const EditProfile = () => {
                   id="founded"
                   placeholderText=" "
                   required
-                  className={`block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${errors?.founded ? "border-red-600" : ""}`}
+                  className={`block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer ${errors?.founded ? "border-red-600" : ""}`}
                   selected={formValues.founded}
                   onChange={(date) =>
                     handleChange({ target: { id: "founded", value: date } })
@@ -421,7 +423,7 @@ const EditProfile = () => {
                   id="companyFoundedDate"
                   placeholderText=" "
                   required
-                  className={`block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                  className={`block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
                     errors?.companyFoundedDate ? "border-red-600" : ""
                   }`}
                   // selected={formValues.companyFoundedDate}
@@ -438,7 +440,7 @@ const EditProfile = () => {
                 />
                 <label
                   for="companyFoundedDate"
-                  className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                  className="absolute my-1 text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
                 >
                   Founded In{" "}
                 </label>
@@ -462,14 +464,14 @@ const EditProfile = () => {
                 placeholder=" "
                 required
                 style={errors.companyLocation ? { borderColor: "red" } : {}}
-                className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 value={formValues.companyLocation}
                 onChange={handleChange}
               />
               {renderErrorMessage("companyLocation")}
               <label
                 for="companyLocation"
-                className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Company Location
               </label>

@@ -9,13 +9,17 @@ import Link from "next/link";
 import ConfirmationModal from "Components/Modals/ConfirmationModal";
 import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
 import { useDispatch, useSelector } from "react-redux";
-import {   FETCH_SHORTLISTED_COSULTANT_REQUEST,
+import {
+  FETCH_SHORTLISTED_COSULTANT_REQUEST,
   FETCH_SHORTLISTED_CONSULTANT_SUCCESS,
   REMOVE_SHORTLISTED_CONSULTANT_REQUEST,
 } from "store/type/shortlistType";
 import { Box } from "@mui/material";
 import { rejectshortlistconsultantRequest } from "store/action/shortlistAction";
-import { addintosheduleRequest, rejectsheduledconsultantRequest } from "store/action/sheduleConsultantAction";
+import {
+  addintosheduleRequest,
+  rejectsheduledconsultantRequest,
+} from "store/action/sheduleConsultantAction";
 const ShortlistedConsultant = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -30,32 +34,31 @@ const ShortlistedConsultant = () => {
   const [yesClicked, setYesClicked] = useState(false);
   const [errors, setErrors] = useState({});
   const [search, setsearch] = useState("");
-const [jobId, setJobId] = useState();
-const [currentJob , setCurrentJob] = useState()
+  const [jobId, setJobId] = useState();
+  const [currentJob, setCurrentJob] = useState();
 
-const now = new Date(); // Get the current date and time
-const year = now.getFullYear(); // Get the current year
-const month = now.getMonth() + 1; // Get the current month (Note: January is 0)
-const day = now.getDate(); // Get the current day
-const hours = 10; // Specify the desired hour (in this case, 10 AM)
-const minutes = 0; // Specify the desired minute (in this case, 00)
-const seconds = 0; // Specify the desired second (in this case, 00)
+  const now = new Date(); // Get the current date and time
+  const year = now.getFullYear(); // Get the current year
+  const month = now.getMonth() + 1; // Get the current month (Note: January is 0)
+  const day = now.getDate(); // Get the current day
+  const hours = 10; // Specify the desired hour (in this case, 10 AM)
+  const minutes = 0; // Specify the desired minute (in this case, 00)
+  const seconds = 0; // Specify the desired second (in this case, 00)
 
-// Format the date components with leading zeros if needed
-const formattedMonth = month < 10 ? `0${month}` : month;
-const formattedDay = day < 10 ? `0${day}` : day;
-const formattedHours = hours < 10 ? `0${hours}` : hours;
-const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+  // Format the date components with leading zeros if needed
+  const formattedMonth = month < 10 ? `0${month}` : month;
+  const formattedDay = day < 10 ? `0${day}` : day;
+  const formattedHours = hours < 10 ? `0${hours}` : hours;
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
-// Create the scheduled date string in the desired format
-const scheduledDate = `${year}-${formattedMonth}-${formattedDay} ${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-console.log(scheduledDate,"scheduledDate")
+  // Create the scheduled date string in the desired format
+  const scheduledDate = `${year}-${formattedMonth}-${formattedDay} ${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+  console.log(scheduledDate, "scheduledDate");
   const handleCloseModal = () => {
     setModalOpen(false);
   };
 
- 
   const handleNo = () => {
     setModalOpen(false);
   };
@@ -70,18 +73,14 @@ console.log(scheduledDate,"scheduledDate")
   };
   const accessToken = getToken();
   useEffect(() => {
-    const JobId = localStorage.getItem('jobId');
+    const JobId = localStorage.getItem("jobId");
     setJobId(JobId);
     dispatch({
-      type:FETCH_SHORTLISTED_COSULTANT_REQUEST,
-      payload:JobId,
+      type: FETCH_SHORTLISTED_COSULTANT_REQUEST,
+      payload: JobId,
       accessToken,
-     
     });
-   
   }, [jobId]);
-  
-
 
   const onSearch = (e) => {
     setsearch(e.target.value);
@@ -93,20 +92,16 @@ console.log(scheduledDate,"scheduledDate")
       search: e.target.value,
     });
   };
-  const response = useSelector(
-    (state) => state?.getjobReducer?.selectedJob
-  );
-  console.log(response ,"sweta")
+  const response = useSelector((state) => state?.getjobReducer?.selectedJob);
+  console.log(response, "sweta");
 
-  
   useEffect(() => {
-    if(response){
-      if(Object?.keys(response).length>=0){
-        setCurrentJob(response)
+    if (response) {
+      if (Object?.keys(response).length >= 0) {
+        setCurrentJob(response);
       }
     }
-
-  },[response])
+  }, [response]);
   // useEffect(() => {
   //   console.log(jobId,"jobid fetch shortlist")
   //   dispatch({
@@ -122,12 +117,13 @@ console.log(scheduledDate,"scheduledDate")
   //     state.shortlistConsultantReducer.shortlistedConsultantData.payload?.data
   //       ?.shortlistedConsultant
   // );
-  const shortlistedData = useSelector((state) =>
-  state.shortlistConsultantReducer.fetchshortlistedconsultant.data?.shortlistedConsultant
-);
+  const shortlistedData = useSelector(
+    (state) =>
+      state.shortlistConsultantReducer.fetchshortlistedconsultant.data
+        ?.shortlistedConsultant
+  );
 
   console.log(shortlistedData, "shortlisted  consultant");
-
 
   const consultantId = shortlistedData?.length > 0 && shortlistedData[0]?._id;
 
@@ -145,27 +141,23 @@ console.log(scheduledDate,"scheduledDate")
     };
 
     dispatch(rejectshortlistconsultantRequest(rejectPayload));
-  
   };
 
- const handleYes2 = () => {
-  setYesClicked(true);
-  setModalOpen(false);
-  console.log(jobId,"jobid for sheduled ")
-  console.log(consultantId,"consultantid for sheduled ")
- 
-  const shedulePayload = {
-    jobId:jobId,
-    consultantId: consultantId,
-    scheduledDate:scheduledDate,
-    accessToken,
+  const handleYes2 = () => {
+    setYesClicked(true);
+    setModalOpen(false);
+    console.log(jobId, "jobid for sheduled ");
+    console.log(consultantId, "consultantid for sheduled ");
+
+    const shedulePayload = {
+      jobId: jobId,
+      consultantId: consultantId,
+      scheduledDate: scheduledDate,
+      accessToken,
+    };
+
+    dispatch(addintosheduleRequest(shedulePayload));
   };
-
-  
-      dispatch(addintosheduleRequest(shedulePayload));
-  
-
- };
 
   const handleScheduleClick = (id) => {
     if (!shortlistedCards.includes(id)) {
@@ -174,7 +166,6 @@ console.log(scheduledDate,"scheduledDate")
       const message = `Add to schedule.\n${scheduledDate}`;
       setScheduleMessage(message);
       setModalOpen(true);
-     
     }
   };
 
@@ -201,7 +192,6 @@ console.log(scheduledDate,"scheduledDate")
     };
 
     dispatch(rejectsheduledconsultantRequest(rejectPayload));
-    
   };
   const isCardShortlisted = shortlistedCards.includes(selectedCard);
 
@@ -273,7 +263,7 @@ console.log(scheduledDate,"scheduledDate")
               <input
                 type="text"
                 id="simple-search"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-4 py-2.5 "
                 placeholder="Search"
                 required
               />
@@ -289,13 +279,19 @@ console.log(scheduledDate,"scheduledDate")
           </div>
           <div className="lg:col-span-8">
             <div className="flex gap-4">
-              <p className="text-[16px] text-[#2B373C]">   {currentJob?.minExp
-} - {currentJob?.maxExp}yrs experience.</p>
-              <p className="text-[16px] text-[#2B373C]">   {currentJob?.jobType
-}  .</p>
+              <p className="text-[16px] text-[#2B373C]">
+                {" "}
+                {currentJob?.minExp} - {currentJob?.maxExp}yrs experience.
+              </p>
+              <p className="text-[16px] text-[#2B373C]">
+                {" "}
+                {currentJob?.jobType} .
+              </p>
               <p className="text-[16px] text-[#2B373C]">$10-15 /hr .</p>
-              <p className="text-[16px] text-[#2B373C]">   {currentJob?.createdAt
-} </p>
+              <p className="text-[16px] text-[#2B373C]">
+                {" "}
+                {currentJob?.createdAt}{" "}
+              </p>
             </div>
           </div>
         </div>
@@ -318,7 +314,7 @@ console.log(scheduledDate,"scheduledDate")
               className="h-[550px] overflow-auto"
               style={{ scrollbarWidth: "thin" }}
             >
-               {shortlistedData?.length > 0 ? (
+              {shortlistedData?.length > 0 ? (
                 shortlistedData?.map((card, index) => (
                   <Box key={index}>
                     <ConsultantCard

@@ -447,7 +447,7 @@ const EditConsultantProfile = () => {
   console.log(response, "response in edit");
   return (
     <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
-      <div className="flex justify-between items-center mx-5 sm:mx-9">
+      <div className="flex justify-between items-center mx-5 sm:mx-9 sm:mr-6 ">
         <div className="flex items-center gap-x-4 ">
           <Link href="/viewjobpost/cviewprofile">
             <Image

@@ -37,8 +37,8 @@ const SearchJobInput = ({
           flex: 1,
           alignItems: "center",
           background: "#E7E9E9",
-
           padding: ".7rem",
+          cursor: "pointer",
         }}
         placeholder="Job Title"
         autoComplete="off"
@@ -69,6 +69,7 @@ const SearchJobInput = ({
           display: "flex",
           background: "#E7E9E9",
           padding: ".4rem",
+          cursor: "pointer",
         }}
         placeholder="Location"
         autoComplete="off"

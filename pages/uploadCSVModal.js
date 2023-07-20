@@ -153,6 +153,7 @@ const UploadCSVModal = () => {
                       src="/Assets/cancel.svg"
                       alt="cancel"
                       onClick={() => setShowModal(false)}
+                      className="cursor-pointer"
                     />
                     <p className="text-lg sm:text-2xl font-bold text-[#1E0F3B]">
                       Upload as CSV

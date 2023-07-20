@@ -120,10 +120,14 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
                     <img
                       src={google.src}
                       alt="googleIcon"
-                      className="w-[63px] h-[63px] "
-                      onClick={()=>setOpen(true)}
+                      className="w-[63px] h-[63px] cursor-pointer "
+                      onClick={() => setOpen(true)}
                     />
-                    <AboutCompanyModal open={open} setOpen={setOpen} data={finaldata[0]?.employerData[0]}/>
+                    <AboutCompanyModal
+                      open={open}
+                      setOpen={setOpen}
+                      data={finaldata[0]?.employerData[0]}
+                    />
                     <div>
                       <p className="lg:text-2xl font-extrabold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
                         {finaldata[0]?.jobTitle ? finaldata[0]?.jobTitle : "NA"}
@@ -203,7 +207,7 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
                     {finaldata[0]?.jobType ? finaldata[0]?.jobType : "NA"}
                   </p>
                 </div>
-                <div>
+                <div className="cursor-pointer">
                   {savejob ? (
                     <img src={bookmark.src} alt="bookmark" onClick={saveData} />
                   ) : (
@@ -213,7 +217,6 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
                       onClick={unsaveData}
                     />
                   )}
-                  {/* <img src={unsaveJob.src} alt="bookmark" onClick={unsaveData} /> */}
                 </div>
               </div>
               <div className="flex justify-between">
@@ -227,7 +230,7 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
                     {finaldata[0]?.location ? finaldata[0].location : "NA"}
                   </p>
                 </div>
-                <div>
+                <div className="cursor-pointer">
                   <img
                     src={chaticon.src}
                     alt="chat"

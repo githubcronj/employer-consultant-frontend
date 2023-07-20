@@ -37,7 +37,7 @@ function Layout(props) {
     "/viewjobpost/cviewprofile",
     "/reset-password",
     "/consultant-interview",
-    "/edit-consultant-profile"
+    "/edit-consultant-profile",
   ].includes(pathname);
   const onlyNav = ["/viewProfileCon"];
 
@@ -61,7 +61,7 @@ function Layout(props) {
     "/setup-details",
     "/resume-templates",
     "/resume-created",
-     "/profile",
+    "/profile",
   ];
 
   const shouldRenderNavbar = !navbarRoutes.includes(pathname);
@@ -73,9 +73,9 @@ function Layout(props) {
         <>
           {/* <Navbar /> */}
           {shouldRenderSidebar ? (
-            <div className="flex flex-col xl:flex-row lg:flex-row md:flex-row sm:flex-row min-w-[100%]">
+            <div className="flex flex-col xl:flex-row lg:flex-row md:flex-row sm:flex-row min-w-[100%] h-[100vh] bg-white">
               <SideBar />
-              <div className="relative xl:left-[220px] lg:left-[220px] md:left-[220px] sm:left-[220px] xl:w-[calc(100%_-_14rem)] lg::w-[calc(100%_-_14rem) sm:w-[calc(100%_-_14rem) md:w-[calc(100%_-_14rem)">
+              <div className="relative xl:left-[245px] lg:left-[245px] md:left-[245px] sm:left-[245px] xl:w-[calc(100%_-_16rem)] lg:w-[calc(100%_-_14rem) sm:w-[calc(100%_-_14rem) md:w-[calc(100%_-_14rem)">
                 {children}
               </div>
             </div>

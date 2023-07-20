@@ -28,7 +28,7 @@ const ScheduleInterview = () => {
   const [yesClicked, setYesClicked] = useState(false);
   const [errors, setErrors] = useState({});
   const [jobId, setJobId] = useState();
-  const [currentJob , setCurrentJob] = useState()
+  const [currentJob, setCurrentJob] = useState();
 
   const dispatch = useDispatch();
 
@@ -43,19 +43,16 @@ const ScheduleInterview = () => {
   const accessToken = getToken();
 
   useEffect(() => {
-    const JobId = localStorage.getItem('jobId');
+    const JobId = localStorage.getItem("jobId");
     setJobId(JobId);
 
-    console.log(JobId," scheduled jobid")
+    console.log(JobId, " scheduled jobid");
     dispatch({
-      type:FETCH_SCHEDULED_CONSULTANT_REQUEST,
-      payload:JobId,
+      type: FETCH_SCHEDULED_CONSULTANT_REQUEST,
+      payload: JobId,
       accessToken,
-     
     });
-   
   }, [jobId]);
-
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -86,31 +83,27 @@ const ScheduleInterview = () => {
     }
   };
 
-  const scheduledData = useSelector((state) =>
-  state. sheduledConsultantReducer.fetchscheduledconsultant.data?.scheduleList
-);
+  const scheduledData = useSelector(
+    (state) =>
+      state.sheduledConsultantReducer.fetchscheduledconsultant.data
+        ?.scheduleList
+  );
 
   console.log(scheduledData, "scheduled consultant");
 
-
-  const consultantId =  scheduledData ?.length > 0 &&  scheduledData [0]?._id;
-
+  const consultantId = scheduledData?.length > 0 && scheduledData[0]?._id;
 
   console.log(consultantId, "cosultantid");
-  const response = useSelector(
-    (state) => state?.getjobReducer?.selectedJob
-  );
-  console.log(response ,"sweta")
+  const response = useSelector((state) => state?.getjobReducer?.selectedJob);
+  console.log(response, "sweta");
 
-  
   useEffect(() => {
-    if(response){
-      if(Object?.keys(response).length>=0){
-        setCurrentJob(response)
+    if (response) {
+      if (Object?.keys(response).length >= 0) {
+        setCurrentJob(response);
       }
     }
-
-  },[response])
+  }, [response]);
   const handleRemovescheduled = () => {
     const updatedscheduledCard = scheduledCard.filter(
       (cardId) => cardId !== selectedCard
@@ -199,7 +192,7 @@ const ScheduleInterview = () => {
               <input
                 type="text"
                 id="simple-search"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-4 py-2.5 "
                 placeholder="Search"
                 required
               />
@@ -215,10 +208,16 @@ const ScheduleInterview = () => {
           </div>
           <div className="lg:col-span-8">
             <div className="flex gap-4">
-              <p className="text-[16px] text-[#2B373C]">{currentJob?.minExp}-{currentJob?.maxExp} yrs experience.</p>
-              <p className="text-[16px] text-[#2B373C]">{currentJob?.jobType}.</p>
+              <p className="text-[16px] text-[#2B373C]">
+                {currentJob?.minExp}-{currentJob?.maxExp} yrs experience.
+              </p>
+              <p className="text-[16px] text-[#2B373C]">
+                {currentJob?.jobType}.
+              </p>
               <p className="text-[16px] text-[#2B373C]">$10-15 /hr .</p>
-              <p className="text-[16px] text-[#2B373C]">{currentJob?.createdAt}</p>
+              <p className="text-[16px] text-[#2B373C]">
+                {currentJob?.createdAt}
+              </p>
             </div>
           </div>
         </div>
@@ -241,13 +240,12 @@ const ScheduleInterview = () => {
               className="h-[550px] overflow-auto"
               style={{ scrollbarWidth: "thin" }}
             >
-                  { scheduledData?.length > 0 ? (
-                 scheduledData?.map((card, index) => (
+              {scheduledData?.length > 0 ? (
+                scheduledData?.map((card, index) => (
                   <Box key={index}>
                     <ConsultantCard
                       key={card?._id}
-                      name={card?.consultantId
-                        ?.fullName}
+                      name={card?.consultantId?.fullName}
                       jobTitle={card?.consultantId?.jobRole}
                       experience={card?.consultantId?.totalExperience}
                       // imageSrc={card.imageSrc}
@@ -274,7 +272,6 @@ const ScheduleInterview = () => {
               ) : (
                 <p>No data available</p>
               )}
-          
             </div>
 
             <div></div>

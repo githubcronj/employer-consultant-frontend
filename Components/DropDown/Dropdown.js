@@ -19,6 +19,8 @@ const Dropdown = () => {
   const dropdownRef = useRef(null);
   const dispatch = useDispatch();
   const router = useRouter();
+  // const route = useRouter();
+  const routerPath = router?.pathname;
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -92,7 +94,7 @@ const Dropdown = () => {
     if (role === "consultant") {
       dispatch({ type: GET_PROFILE_REQUEST, payload });
     }
-  }, [role]);
+  }, [role, routerPath]);
   const response = useSelector(
     (state) => state?.viewProfileReducer?.CurrentUser
   );

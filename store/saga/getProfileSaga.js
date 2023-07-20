@@ -1,10 +1,5 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as types from "../type/getProfileType";
-import {
-  PROFILE_FAILURE,
-  PROFILE_SUCCESS,
-  PROFILE_REQUEST,
-} from "../type/getProfileType";
 
 import { makeApiRequest } from "../../utils/api";
 import { useEffect, useState } from "react";
@@ -20,10 +15,10 @@ function* getProfile(action) {
         Token: `Bearer ${action.payload.token}`,
       },
     });
-    yield put({ type: PROFILE_SUCCESS, payload: response });
+    yield put({ type: types.PROFILE_SUCCESS, payload: response });
   } catch (error) {
     console.log("API call error:", error);
-    yield put({ type: PROFILE_FAILURE, payload: error });
+    yield put({ type: types.PROFILE_FAILURE, payload: error });
   }
 }
 

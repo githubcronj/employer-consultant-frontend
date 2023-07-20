@@ -290,47 +290,47 @@ const EditJobPost = () => {
           </div> */}
           {/* old experience ends here */}
 
-           {/* min max */}
-           <div className='flex gap-3 justify-evenly md:justify-normal'>
+          {/* min max */}
+          <div className="flex gap-3 justify-evenly md:justify-normal">
             {/* min */}
-            <div className='relative'>
+            <div className="relative">
               <input
-                type='text'
-                id='minExp'
-                placeholder=' '
+                type="text"
+                id="minExp"
+                placeholder=" "
                 style={errors.minExp ? { borderColor: "red" } : {}}
                 required
-                className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
                 value={jobPostData.minExp}
                 onChange={handleChange}
               />
 
               <label
-                for='minExp'
-                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                for="minExp"
+                className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Minimum Experience
               </label>
               {renderErrorMessage("minExp")}
             </div>
             {/* max */}
-            <div className='relative'>
+            <div className="relative">
               <input
-                type='text'
-                id='maxExp'
-                placeholder=' '
+                type="text"
+                id="maxExp"
+                placeholder=" "
                 required
                 style={errors.maxExp ? { borderColor: "red" } : {}}
-                className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
                         `}
                 value={jobPostData.maxExp}
                 onChange={handleChange}
               />
 
               <label
-                for='maxExp'
-                className='absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
+                for="maxExp"
+                className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Maximum Experience
               </label>
@@ -338,14 +338,14 @@ const EditJobPost = () => {
             </div>
           </div>
           {/* min max ends here */}
-          
+
           <div>
             <div className="relative flex items-center">
               <DatePicker
                 id="deadline"
                 placeholderText="Application Deadline"
                 required
-                className={`block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                className={`block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
                   errors.deadline ? "border-red-500" : ""
                 }`}
                 selected={
@@ -357,7 +357,7 @@ const EditJobPost = () => {
               />
               <label
                 for="deadline"
-                className="absolute hidden my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute hidden my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
                 Founded In{" "}
               </label>
@@ -476,7 +476,7 @@ const EditJobPost = () => {
                     placeholder=" "
                     style={errors.minSalary ? { borderColor: "red" } : {}}
                     required
-                    className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                    className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
                     value={editJobPostData.minSalary}
                     onChange={handleChange}
@@ -484,7 +484,7 @@ const EditJobPost = () => {
 
                   <label
                     for="minSalary"
-                    className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                    className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
                   >
                     Min
                   </label>
@@ -498,7 +498,7 @@ const EditJobPost = () => {
                     placeholder=" "
                     required
                     style={errors.maxSalary ? { borderColor: "red" } : {}}
-                    className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                    className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
                         `}
                     value={editJobPostData.maxSalary}
                     onChange={handleChange}
@@ -506,7 +506,7 @@ const EditJobPost = () => {
 
                   <label
                     for="maxSalary"
-                    className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                    className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
                   >
                     Max
                   </label>
@@ -526,13 +526,13 @@ const EditJobPost = () => {
               placeholder=" "
               required
               style={errors.description ? { borderColor: "red" } : {}}
-              className="block py-5 px-4 w-full text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              className="block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               value={editJobPostData.description}
               onChange={handleChange}
             />
             <label
               for="description"
-              className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
             >
               Job Description
             </label>
@@ -547,7 +547,7 @@ const EditJobPost = () => {
               placeholder=" "
               required
               style={errors.email ? { borderColor: "red" } : {}}
-              className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+              className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
               ${isFieldChanged && errors.email ? "border-red-500" : ""} `}
               value={editJobPostData.email}
               onChange={handleChange}
@@ -555,7 +555,7 @@ const EditJobPost = () => {
 
             <label
               htmlFor="email"
-              className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
             >
               Email
             </label>
@@ -572,7 +572,7 @@ const EditJobPost = () => {
               //   minlength="10"
               //   maxlength="12"
               style={errors.phoneNumber ? { borderColor: "red" } : {}}
-              className={`block py-5 px-4 w-full text-sm text-gray-900 dark:bg-gray-700 border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer
+              className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
               value={editJobPostData.phoneNumber}
               onChange={handleChange}
@@ -580,7 +580,7 @@ const EditJobPost = () => {
 
             <label
               for="phoneNumber"
-              className="absolute my-1 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+              className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
             >
               Phone Number
             </label>
