@@ -36,7 +36,7 @@ const ProfileSideBar = ({ data }) => {
     (state) => state?.viewProfileReducer?.CurrentUser
   );
   const jobData = useSelector((state) => state?.appliedJobReducer?.data);
-  console.log("new response", response);
+  // console.log("new response", response);
   return (
     <Paper
       elevation={0}

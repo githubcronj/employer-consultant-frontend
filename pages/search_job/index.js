@@ -14,6 +14,7 @@ import RecentSearch from "Components/SearchJob/recentSearch";
 import Searchover from "Components/PopOver/SearchOver";
 import SearchJobInput from "Components/SearchJobComp/SearchJobInput";
 import { fetchRecommendJobs } from "../../store/action/recommandedJobAction";
+import { userNotification } from "store/action/userNotificationAction";
 
 const SearchJob = () => {
   const { data: session } = useSession();
@@ -29,7 +30,7 @@ const SearchJob = () => {
   const [showBox1, setShowBox1] = useState(false);
   const [recommandvalue, setRecommanddata] = useState(false);
 
-  console.log(recommandJobsData, "recommandJobsData", isgetdata);
+  // console.log(recommandJobsData, "recommandJobsData", isgetdata);
 
   useEffect(() => {
     setRecommandJobsdata(recommandJobsData);
@@ -70,7 +71,7 @@ const SearchJob = () => {
   const searchSubmitHandler = () => {
     if (finaltoken) {
       dispatch(fetchRecommendJobs(searchData, finaltoken));
-      console.log(isgetdata, "isGetData");
+      // console.log(isgetdata, "isGetData");
       if (isgetJobData) {
         const id = recommandJobsvalue[0]?._id;
         router.push(`/job-apply-search/${id}`);
@@ -125,6 +126,9 @@ const SearchJob = () => {
     };
   }, [screenSize]);
 
+  useEffect(() => {
+    dispatch(userNotification(finaltoken));
+  }, [finaltoken]);
   return (
     <>
       <Box sx={{ background: "#F3F5F8" }}>

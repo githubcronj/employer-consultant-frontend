@@ -19,37 +19,37 @@ a {
 }
 
 @font-face {
-  font-family: 'Conthrax';
+  font-family: "Conthrax";
   font-style: normal;
   font-weight: 400;
-  src: local(''),
-    url('/asset//Conthrax/Conthrax-Regular.otf') format('opentype');
+  src: local(""),
+    url("/asset//Conthrax/Conthrax-Regular.otf") format("opentype");
 }
 @font-face {
-  font-family: 'Conthrax';
+  font-family: "Conthrax";
   font-style: normal;
   font-weight: 600;
-  src: local(''),
-    url('/asset//Conthrax/Conthrax-SemiBold.otf') format('opentype');
+  src: local(""),
+    url("/asset//Conthrax/Conthrax-SemiBold.otf") format("opentype");
 }
 @font-face {
-  font-family: 'Conthrax';
+  font-family: "Conthrax";
   font-style: normal;
   font-weight: 700;
-  src: local(''), url('/asset//Conthrax/Conthrax-Bold.otf') format('opentype');
+  src: local(""), url("/asset//Conthrax/Conthrax-Bold.otf") format("opentype");
 }
 @font-face {
-  font-family: 'Product Sans';
+  font-family: "Product Sans";
   font-style: normal;
   font-weight: 400;
-  src: local(''),
-    url('/asset/ProductSans/ProductSans-Regular.ttf') format('ttf');
+  src: local(""),
+    url("/asset/ProductSans/ProductSans-Regular.ttf") format("ttf");
 }
 @font-face {
-  font-family: 'Product Sans';
+  font-family: "Product Sans";
   font-style: normal;
   font-weight: 700;
-  src: local(''), url('/asset/ProductSans/ProductSans-Bold.ttf') format('ttf');
+  src: local(""), url("/asset/ProductSans/ProductSans-Bold.ttf") format("ttf");
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -223,4 +223,59 @@ ul {
 
 li {
   margin-bottom: 5px;
+}
+
+.dot {
+  height: 6px;
+  width: 6px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* .fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+} */
+
+.fab-container {
+  position: relative;
+}
+
+.fab {
+  position: absolute;
+  bottom: 20px;
+  right: 3px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.rdrDateRangePickerWrapper {
+  position: absolute;
+  /* background: red !important; */
+  border: 1px solid red;
+  display: inline-flex;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  margin-top: 1rem;
 }

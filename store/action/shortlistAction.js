@@ -23,41 +23,41 @@ export function addintoshortlistFailure(payload) {
   };
 }
 
-export function fetchshortlistconsultantRequest(payload){
-  
-  return{
-    type:types.FETCH_SHORTLISTED_COSULTANT_REQUEST,
-    payload:payload,
-  }
+export function fetchshortlistconsultantRequest(payload) {
+  console.log("paylod action", payload);
+  return {
+    type: types.FETCH_SHORTLISTED_COSULTANT_REQUEST,
+    payload: payload,
+  };
 }
-export function fetchshortlistconsultantSuccess(payload){
-  return{
-    type:types.FETCH_SHORTLISTED_CONSULTANT_SUCCESS,
-    payload:payload,
-  }
+export function fetchshortlistconsultantSuccess(payload) {
+  return {
+    type: types.FETCH_SHORTLISTED_CONSULTANT_SUCCESS,
+    payload: payload,
+  };
 }
-export function fetchshortlistconsultantfailure(errors){
-  return{
-    type:types.FETCH_SHORTLISTED_COSULTANT_FAILURE,
-    errors:errors,
-  }
+export function fetchshortlistconsultantfailure(errors) {
+  return {
+    type: types.FETCH_SHORTLISTED_COSULTANT_FAILURE,
+    errors: errors,
+  };
 }
 
-export function rejectshortlistconsultantRequest(payload){
-  return{
-    type:types.REJECT_SHORTLISTED_CONSULTANT_REQUEST,
-    payload:payload,
-  }
+export function rejectshortlistconsultantRequest(payload) {
+  return {
+    type: types.REJECT_SHORTLISTED_CONSULTANT_REQUEST,
+    payload: payload,
+  };
 }
-export function rejectshortlistconsultantSuccess(payload){
-  return{
-    type:types.REJECT_SHORTLISTED_CONSULTANT_SUCCESS,
-    payload:payload,
-  }
+export function rejectshortlistconsultantSuccess(payload) {
+  return {
+    type: types.REJECT_SHORTLISTED_CONSULTANT_SUCCESS,
+    payload: payload,
+  };
 }
-export function rejectshortlistconsultantfailure(errors){
-  return{
-    type:types.REJECT_SHORTLISTED_COSULTANT_FAILURE,
-    errors:errors,
-  }
+export function rejectshortlistconsultantfailure(errors) {
+  return {
+    type: types.REJECT_SHORTLISTED_COSULTANT_FAILURE,
+    errors: errors,
+  };
 }

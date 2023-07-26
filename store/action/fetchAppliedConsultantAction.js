@@ -1,14 +1,15 @@
 // actions.js
 import * as types from "../type/fetchAppliedConsultantType";
 
-export function fetchAppliedConsultantRequest(payload) {
-  console.log(payload,"action")
+export function fetchAppliedConsultantRequest(payload, accessToken) {
+  console.log(payload, "in action");
   return {
     type: types.FETCH_APPLIED_CONSULTANT_REQUEST,
-   
-    payload:payload
+    payload: {
+      data: payload,
+      token: accessToken,
+    },
   };
- 
 }
 
 export function fetchAppliedConsultantSuccess(payload) {
@@ -16,9 +17,7 @@ export function fetchAppliedConsultantSuccess(payload) {
     type: types.FETCH_APPLIED_CONSULTANT_SUCCESS,
     payload: {
       payload: payload,
-     
     },
-    
   };
 }
 
@@ -29,12 +28,11 @@ export function fetchAppliedConsultantFailure(payload) {
   };
 }
 
-
 export function removeAppliedConsultantRequest(payload) {
-  console.log(payload , "action for f=reject")
+  console.log(payload, "action for f=reject");
   return {
     type: types.REMOVE_APPLIED_CONSULTANT_REQUEST,
-  payload:payload
+    payload: payload,
   };
 }
 
