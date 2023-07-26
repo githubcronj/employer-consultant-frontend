@@ -1,18 +1,15 @@
-
 import * as types from "../type/fetchAppliedConsultantType";
 const INITIAL_STATE = {
   isfetchappliedconsultantData: false,
-  isremoveappliedconsultantData:false,
+  isremoveappliedconsultantData: false,
 
   fetchappliedconsultantData: [],
-  removeappliedconsultantData:[],
-
+  removeappliedconsultantData: [],
 };
 
 export function fetchappliedConsultantReducer(state = INITIAL_STATE, action) {
   // console.log(action.payload , "reducer")
   switch (action.type) {
-  
     case types.FETCH_APPLIED_CONSULTANT_REQUEST:
       return {
         ...state,
@@ -32,9 +29,9 @@ export function fetchappliedConsultantReducer(state = INITIAL_STATE, action) {
         isfetchappliedconsultantData: false,
       };
     case types.REMOVE_APPLIED_CONSULTANT_REQUEST:
-      return{
+      return {
         ...state,
-        isremoveappliedconsultantData:false,
+        isremoveappliedconsultantData: false,
       };
     case types.REMOVE_APPLIED_CONSULTANT_SUCCESS:
       return {
@@ -43,18 +40,14 @@ export function fetchappliedConsultantReducer(state = INITIAL_STATE, action) {
         isremoveappliedconsultantData: true,
       };
     case types.REMOVE_APPLIED_CONSULTANT_FAILURE:
-      return{
+      return {
         ...state,
-        isremoveappliedconsultantData:false,
-      }
-  
+        isremoveappliedconsultantData: false,
+      };
+
     default:
       return state;
   }
 }
-
-
-
-
 
 export default fetchappliedConsultantReducer;
