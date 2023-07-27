@@ -38,6 +38,7 @@ function Layout(props) {
     "/reset-password",
     "/consultant-interview",
     "/edit-consultant-profile",
+    "/chat-page",
   ].includes(pathname);
   const onlyNav = ["/viewProfileCon"];
 

@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "../../styles/LoginPage.module.css";
+import rightTick from "public/Assets/rightchattick.svg";
 
 const ChatCard = ({
   id,
@@ -27,9 +28,9 @@ const ChatCard = ({
     <>
       <div onClick={onClick}>
         <div
-          className={`flex items-center border-b py-5 px-2 ${cardClassName}`}
+          className={`flex items-center justify-between border-b py-5 px-2 ${cardClassName}`}
         >
-          <p className="px-2">12 Jan 2022</p>
+          {/* <p className="px-2">12 Jan 2022</p> */}
           <Image
             src={imageSrc}
             alt="back button"
@@ -41,20 +42,22 @@ const ChatCard = ({
             <p className="text-gray-900 leading-none font-bold text-[16px]">
               {name}
             </p>
-            <p className="text-gray-600 mt-2">
-              {jobTitle} . {experience} yr Exp
-            </p>
+            <p className="text-gray-600 mt-2">{jobTitle}</p>
+          </div>
+
+          <div>
+            <p className="px-2 text-[13px] ">12 Jan 2022</p>
           </div>
           <div>
-            {" "}
-            {showCheckbox && (
-              <input
-                type="checkbox"
-                checked={selected}
-                onChange={onClick}
-                className="cursor-pointer lg:ml-[75px] sm:ml-[200px]"
-              />
-            )}
+            <img src={rightTick.src} alt="image" />
+            {/* {showCheckbox && ( */}
+            {/* <input
+              type="checkbox"
+              checked={selected}
+              onChange={onClick}
+              className="cursor-pointer lg:ml-[75px] sm:ml-[200px]"
+            /> */}
+            {/* )} */}
           </div>
         </div>
       </div>
