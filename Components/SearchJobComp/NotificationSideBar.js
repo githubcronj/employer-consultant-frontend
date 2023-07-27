@@ -196,7 +196,7 @@ const NotificationSideBar = () => {
                           position: "absolute",
                           bottom: 0,
                           right: 0,
-                          fontSize: "10px",
+                          fontSize: "13px",
                           color: "#5E5E5E",
                         }}
                       >

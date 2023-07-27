@@ -41,13 +41,14 @@ const cardDaat2 = [
   },
 ];
 const ChatPage = () => {
+  const router = useRouter();
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
   const [shortlistMessage, setShortlistMessage] = useState("");
 
   const isCardShortlisted = shortlistedCards.includes(selectedCard);
   const backClicked = () => {
-    router.push("/");
+    router.push("/search_job");
   };
   const handleCardClick = (id) => {
     setSelectedCard(id);
@@ -97,8 +98,8 @@ const ChatPage = () => {
   return (
     <>
       <div>
-        <div className=" grid lg:grid-cols-12 sm:grid-col-span-2 bg-[#2B373C1C] py-5 px-2 sm:px-2">
-          <div className="lg:col-start-1 lg:col-end-12  sm:col-span-3">
+        <div className=" grid lg:flex sm:grid-col-span-2 bg-[#2B373C1C] py-5 px-2 sm:px-2 justify-center h-[100vh] ">
+          <div className="lg:col-start-1 lg:col-end-12  sm:col-span-3 max-w-[1400px]">
             <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-4 mx-2 sm:mx-6 bg-white border px-4 py-4">
               <div className="flex items-center gap-x-4 lg:col-span-1 sm:col-span-2">
                 <Image
@@ -117,7 +118,7 @@ const ChatPage = () => {
               </div>
             </div>
 
-            <div className=" bg-white mx-2 sm:mx-6 lg-mx-12 border rounded-xl grid lg:grid-cols-6">
+            <div className="mx-2 sm:mx-6 lg-mx-12 border rounded-xl grid lg:grid-cols-6">
               {/* first section */}
               <div className="flex flex-col lg:col-span-3">
                 <div
@@ -133,7 +134,7 @@ const ChatPage = () => {
                         placeholder="Search"
                         required
                       />
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                         <Image
                           src="/Assets/searchIcon.svg"
                           alt="Search Icon"
@@ -178,7 +179,7 @@ const ChatPage = () => {
               </div>
 
               <div className="lg:col-span-3">
-                <div className="grid ">
+                <div className="grid bg-white">
                   <div
                     className={`flex items-center border-b py-5 px-2 ${cardClassName}`}
                   >
@@ -202,9 +203,8 @@ const ChatPage = () => {
                     </div>
                   </div>
                   <ChatComponent />
-                  <div className="bg-[#F1F0F3] flex justify-center px-3 py-3 align-center mt-[100px]">
-                    {" "}
-                    <form>
+                  <div className="bg-[#F1F0F3] flex justify-center px-3 py-3 align-center mt-[78px]">
+                    <form className="flex justify-center">
                       <input
                         type="text"
                         style={{
@@ -220,13 +220,12 @@ const ChatPage = () => {
                         placeholder="Type Something......"
                       />
                       <button>
-                        {" "}
                         <Image
                           src="/Assets/sendIcon.svg"
                           alt="back button"
                           width={30}
                           height={0}
-                          className="cursor-pointer"
+                          className="cursor-pointer ml-3"
                         />
                       </button>
                     </form>
