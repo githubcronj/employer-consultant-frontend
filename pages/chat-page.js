@@ -1,7 +1,7 @@
-import ChatComponent from "Components/ChatComponent/ChatComponent";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
 import Popoverr from "Components/PopOver/index";
 import { cardData } from "../Components/Cards/ConsultantsCard";
@@ -10,6 +10,14 @@ import Link from "next/link";
 import { Box } from "@mui/material";
 import styles from "../styles/LoginPage.module.css";
 import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
+// import ChatComponent from "Components/ChatComponent/ChatComponent";
+
+const ChatComponent = dynamic(
+  () => import("Components/ChatComponent/ChatComponent.js"),
+  {
+    ssr: false,
+  }
+);
 
 const cardDaat2 = [
   {
@@ -95,6 +103,57 @@ const ChatPage = () => {
     }
   };
   let cardClassName = `${styles.card} ${styles.border}`;
+
+  const [messages, setMessages] = useState([
+    {
+      message:
+        "This could mean the end of the bana daquiri as we know it...also life.",
+      user: true,
+    },
+    {
+      message: "Oh my God! Its out of ice! Like some outer space Motel",
+      user: false,
+    },
+    {
+      message:
+        "This could mean the end of the bana daquiri as we know it...also life.",
+      user: true,
+    },
+    {
+      message: "Oh my God! Its out of ice! Like some outer space Motel",
+      user: false,
+    },
+    {
+      message:
+        "This could mean the end of the bana daquiri as we know it...also life.",
+      user: true,
+    },
+    {
+      message: "Oh my God! Its out of ice! Like some outer space Motel",
+      user: false,
+    },
+    {
+      message:
+        "This could mean the end of the bana daquiri as we know it...also life.",
+      user: true,
+    },
+  ]);
+
+  const [inputValue, setInputValue] = useState("");
+
+  const send = (event) => {
+    event.preventDefault();
+    const trimmedValue = inputValue.trim();
+    if (trimmedValue !== "") {
+      const newItem = {
+        ...messages[0], // Preserve the 'user' value from the existing item
+        message: trimmedValue, // Update the 'message' property with the new value
+      };
+      setMessages((prevArray) => [...prevArray, newItem]);
+      setInputValue("");
+    }
+  };
+
   return (
     <>
       <div>
@@ -178,7 +237,7 @@ const ChatPage = () => {
                 <div></div>
               </div>
 
-              <div className="lg:col-span-3">
+              <div className="lg:col-span-3 h-[550px]">
                 <div className="grid bg-white">
                   <div
                     className={`flex items-center border-b py-5 px-2 ${cardClassName}`}
@@ -202,8 +261,11 @@ const ChatPage = () => {
                       </p>
                     </div>
                   </div>
-                  <ChatComponent />
-                  <div className="bg-[#F1F0F3] flex justify-center px-3 py-3 align-center mt-[78px]">
+                  <ChatComponent
+                    messages={messages}
+                    setMessages={setMessages}
+                  />
+                  <div className="bg-[#F1F0F3] flex justify-center px-3 py-3 align-center ">
                     <form className="flex justify-center">
                       <input
                         type="text"
@@ -217,9 +279,14 @@ const ChatPage = () => {
                         }}
                         //           value={this.state.inputText}
                         //           onChange={(e) => this.onInputChange(e)}
+                        onKeyPress={(event) =>
+                          event.key === "Enter" ? send(event) : null
+                        }
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
                         placeholder="Type Something......"
                       />
-                      <button>
+                      <button onClick={send}>
                         <Image
                           src="/Assets/sendIcon.svg"
                           alt="back button"

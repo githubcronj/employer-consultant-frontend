@@ -35,6 +35,7 @@ import watchPostJobAlert from "./postJobAlertSaga";
 import watchdeleteJobAlert from "./deleteJobAlertSaga";
 import watcheditJobAlert from "./editJobAlertSaga";
 import watchUserNotification from "./userNotificationSaga";
+import watchEmailInviteSaga from "./emailInviteSaga";
 export default function* rootSaga() {
   yield all([
     watchLogin(),
@@ -73,5 +74,6 @@ export default function* rootSaga() {
     watchdeleteJobAlert(),
     watcheditJobAlert(),
     watchUserNotification(),
+    watchEmailInviteSaga(),
   ]);
 }
