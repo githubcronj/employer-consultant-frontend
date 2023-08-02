@@ -15,6 +15,7 @@ import { Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import SearchOver from "Components/PopOver/SearchOver";
 import SearchJobInput from "Components/SearchJobComp/SearchJobInput";
+import { GET_PROFILE_REQUEST } from "store/type/viewProfileType";
 
 const JobSearchDetails = () => {
   const router = useRouter();
@@ -32,7 +33,7 @@ const JobSearchDetails = () => {
   const finaltoken = getToken();
   const jobData = useSelector((state) => state.jobsReducer.GetjobData);
   const appliedJobData = useSelector((state) => state.appliedJobReducer.data);
-  console.log("data", jobData);
+  // console.log("data", jobData);
 
   useEffect(() => {
     dispatch(fetchJobsRequest(jobData, finaltoken));
@@ -93,7 +94,7 @@ const JobSearchDetails = () => {
 
     if (finaltoken) {
       dispatch(fetchRecommendJobs(searchData, finaltoken));
-      console.log(isgetdata, "isGetData");
+      // console.log(isgetdata, "isGetData");
       if (isgetJobData) {
         const id = searchId.current;
         router.push(`/job-apply-search/${searchId.current}`);
@@ -144,6 +145,31 @@ const JobSearchDetails = () => {
       window.removeEventListener("resize", updateDimension);
     };
   }, [screenSize]);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick2 = () => {
+    setIsOpen(!isOpen);
+  };
+  const handleChatClose = () => {
+    // Handle the chat closing logic here
+    // console.log("Chat closed!");
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    const payload = {
+      token: finaltoken,
+    };
+    dispatch({ type: GET_PROFILE_REQUEST, payload });
+  }, []);
+
+  const userData = useSelector(
+    (state) => state?.viewProfileReducer?.CurrentUser
+  );
+  const employerUserId = finaldata[0]?.userId;
+  const consultantUserId = userData?.userId;
+  console.log({ employerUserId, consultantUserId });
 
   return (
     <div
@@ -217,13 +243,24 @@ const JobSearchDetails = () => {
                 <MainSearch
                   finaldata={finaldata}
                   appliedJobData={appliedJobData}
+                  handleClick2={handleClick2}
+                  handleChatClose={handleChatClose}
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
                 />
               </div>
             </div>
           </div>
           <div class="col-span-3 lg:col-span-3 md:col-span-12">
             <div className="xl:mr-[20px] lg:mr-[20px] my-[30px] bg-white max-h-[462px] h-auto">
-              <JobSearchRight />
+              <JobSearchRight
+                userData={userData}
+                finaldata={finaldata}
+                handleClick2={handleClick2}
+                handleChatClose={handleChatClose}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+              />
             </div>
           </div>
         </div>

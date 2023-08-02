@@ -25,6 +25,7 @@ import {
 } from "store/action/sheduleConsultantAction";
 import moment from "moment";
 import styles from "styles/LoginPage.module.css";
+import { emailInviteAction } from "store/action/emailInviteAction";
 
 const ShortlistedConsultant = () => {
   const router = useRouter();
@@ -281,6 +282,18 @@ const ShortlistedConsultant = () => {
         </Popoverr>
       );
     }
+  };
+  console.log(singleConsulantData?.consultantId?.email);
+
+  const sendEmailInvite = () => {
+    const payload = {
+      // to: "pankaj@cronj.com",
+      to: singleConsulantData?.consultantId?.email,
+      subject: "denis Invite",
+      content: "Invite sent for Schedulling call for interview",
+    };
+
+    dispatch(emailInviteAction(payload));
   };
 
   return (
@@ -637,7 +650,7 @@ const ShortlistedConsultant = () => {
                         <h2 className="text-[20px] font-bold mb-[10px] break-words">
                           Experience
                         </h2>
-                        {singleConsulantData?.experience.length &&
+                        {singleConsulantData?.experience?.length &&
                           singleConsulantData?.experience?.map(
                             (item, index) => {
                               return (
@@ -842,7 +855,10 @@ const ShortlistedConsultant = () => {
               <hr />
               <addConsultant />
               <Popoverr text={"Send mail invite for interview"}>
-                <button className="flex justify-end px-3 py-3">
+                <button
+                  className="flex justify-end px-3 py-3"
+                  onClick={sendEmailInvite}
+                >
                   <img src="/Assets/mailBtn.svg" alt="tick" />
                 </button>
               </Popoverr>

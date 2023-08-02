@@ -251,36 +251,38 @@ const NotificationSideBar = () => {
             />
           </Button>
         </Link>
-        <Button
-          style={{
-            background: "white",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            borderRadius: "13px",
-            textTransform: "none",
-            fontSize: "16px",
-            padding: "0.5rem 1rem",
-          }}
-        >
-          <span
+        <Link href="/chat-page">
+          <Button
             style={{
+              background: "white",
               display: "flex",
-              justifyContent: "flex-start",
               alignItems: "center",
-              gap: ".3rem",
-              color: "red",
+              justifyContent: "space-between",
+              borderRadius: "13px",
+              textTransform: "none",
+              fontSize: "16px",
+              padding: "0.5rem 1rem",
+              width: "100%",
             }}
           >
-            <ForumIcon />
-            Chat{" "}
-          </span>
-          <ArrowForwardIosIcon
-            fontSize="small"
-            style={{ marginLeft: "0.5rem", color: "gray" }}
-          />
-        </Button>
-
+            <span
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                gap: ".3rem",
+                color: "red",
+              }}
+            >
+              <ForumIcon />
+              Chat{" "}
+            </span>
+            <ArrowForwardIosIcon
+              fontSize="small"
+              style={{ marginLeft: "0.5rem", color: "gray" }}
+            />
+          </Button>
+        </Link>
         <Button
           style={{
             background: "#5E9AF7",

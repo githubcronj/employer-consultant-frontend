@@ -9,7 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import clear from "../../public/Assets/clear.svg";
 import { fetchJobsRequest } from "store/action/recommandedJobAction";
 import styles from "../../styles/LoginPage.module.css";
-const JobSearchRight = () => {
+import UserChat from "Components/ChatComponent/UserChat";
+const JobSearchRight = ({
+  finaldata,
+  handleClick2,
+  handleChatClose,
+  isOpen,
+  setIsOpen,
+}) => {
   const [open, setOpen] = useState(false);
   const [expopen, setExpOpen] = useState(false);
   const [jobtypeopen, setJobtypeOpen] = useState(false);
@@ -109,9 +116,15 @@ const JobSearchRight = () => {
         width: "auto",
         bgcolor: "background.paper",
         padding: "20px",
+        position: "relative",
       }}
       component="nav"
     >
+      {isOpen && (
+        <div className="absolute right-[2.8rem] top-[15.4rem] ">
+          <UserChat handleChatClose={handleChatClose} finaldata={finaldata} />
+        </div>
+      )}
       <Box
         sx={{
           flexDirection: "row",

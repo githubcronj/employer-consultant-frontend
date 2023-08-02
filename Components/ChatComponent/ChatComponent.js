@@ -101,12 +101,32 @@
 
 // export default Chat;
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import ScrollToBottom from "react-scroll-to-bottom";
+import { css } from "@emotion/react";
+import Message from "./Message";
 
-function ChatComponent() {
+function ChatComponent({ messages, setMessages }) {
+  const ROOT_CSS = css({
+    height: 600,
+    width: 400,
+  });
+
+  const messageListRef = useRef(null);
+
+  useEffect(() => {
+    // Scroll to the bottom of the message list after it's updated
+    if (messageListRef.current) {
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
-    <div className="container px-5">
-      <div
+    <div
+      className="container px-5 h-[400px] overflow-y-auto "
+      ref={messageListRef}
+    >
+      {/* <div
         style={{
           marginTop: "10px",
           marginBottom: "10px",
@@ -114,18 +134,6 @@ function ChatComponent() {
           position: "relative",
         }}
       >
-        <h5
-          style={{
-            margin: "0px",
-            fontSize: "14px",
-            fontWeight: 400,
-            color: "rgb(153, 153, 153)",
-            // float: "right",
-            textAlign: "right",
-          }}
-        >
-          John
-        </h5>
         <div style={{ overflow: "auto" }}>
           <div
             style={{
@@ -186,16 +194,6 @@ function ChatComponent() {
           position: "relative",
         }}
       >
-        <h5
-          style={{
-            margin: "0px",
-            fontSize: "14px",
-            fontWeight: 400,
-            color: "rgb(153, 153, 153)",
-          }}
-        >
-          Elon Musk
-        </h5>
         <div style={{ overflow: "auto" }}>
           <div
             style={{
@@ -255,7 +253,13 @@ function ChatComponent() {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
+
+      {/* <ScrollToBottom> */}
+      {messages.map((item, i) => (
+        <Message key={i} user={item.user} message={item.message} />
+      ))}
+      {/* </ScrollToBottom> */}
     </div>
   );
 }

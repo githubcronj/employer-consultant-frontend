@@ -23,7 +23,14 @@ import {
 import unsaveJob from "../../asset/images/unsaveJob.svg";
 import AboutCompanyModal from "Components/JobAlertModal/AboutCompanyModal";
 
-const MainSearch = ({ finaldata, appliedJobData }) => {
+const MainSearch = ({
+  finaldata,
+  appliedJobData,
+  handleClick2,
+  handleChatClose,
+  isOpen,
+  setIsOpen,
+}) => {
   const [flexing, setFlexing] = useState(false);
   const [showApply, setShowApply] = useState(true);
   const [savejob, setSavejob] = useState(true);
@@ -92,6 +99,7 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
     // Remove the saved job ID from local storage
     localStorage.removeItem("savedJobId");
   };
+
   return (
     <>
       {finaldata?.length === 0 ? (
@@ -235,6 +243,7 @@ const MainSearch = ({ finaldata, appliedJobData }) => {
                     src={chaticon.src}
                     alt="chat"
                     // className='w-[54px] h-[54px]'
+                    onClick={handleClick2}
                   />
                 </div>
               </div>

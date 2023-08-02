@@ -40,6 +40,13 @@ import { DateRangePicker } from "react-date-range";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import UserChat from "Components/ChatComponent/UserChat";
+import socketIo from "socket.io-client";
+import { emailInviteAction } from "store/action/emailInviteAction";
+import UserChatEmployer from "Components/ChatComponent/UserChatEmpoyer";
+
+let socket;
+const ENDPOINT = "ws://localhost:3001";
 
 const AppliedConsultant = () => {
   const router = useRouter();
@@ -310,6 +317,54 @@ const AppliedConsultant = () => {
     }
   };
 
+  const sendEmailInvite = () => {
+    const payload = {
+      to: "navneet@cronj.com",
+      // to: singleConsulantData?.consultantId?.email,
+      subject: "denis Invite",
+      content: `<!DOCTYPE html>
+        <html>
+        <head>
+        <title>Shortlisted for Interview</title>
+        </head>
+        <body>
+         <h1>Congratulations! You have been shortlisted for an interview!</h1>
+         <p>Dear ${singleConsulantData?.consultantId?.email},</p>
+         <p>Congratulations! We are pleased to inform you that you have been shortlisted for an interview for the position of [Job Title] at our company.</p>
+         <p>The interview details are as follows:</p>
+         <ul>
+          <li>Date: [Interview Date]</li>
+          <li>Time: [Interview Time]</li>
+          <li>Location: [Interview Location]</li>
+         </ul>
+         <p>Please arrive at the interview location on time and bring a copy of your resume and any other relevant documents.</p>
+         <p>We are looking forward to meeting you and discussing your qualifications and experience further.</p>
+         <p>If you have any questions or need further information, please feel free to contact us at [Contact Email] or [Contact Phone Number].</p>
+         <p>Best regards,</p>
+         <p>Navneet</p>
+        </body>
+        </html>`,
+    };
+
+    dispatch(emailInviteAction(payload));
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick2 = () => {
+    setIsOpen(!isOpen);
+  };
+  const handleChatClose = () => {
+    // Handle the chat closing logic here
+    console.log("Chat closed!");
+    setIsOpen(false);
+  };
+  const employerUserProfileData = useSelector(
+    (state) => state.getProfileReducer?.CurrentUser
+  );
+  const consultantUserId = singleConsulantData?.consultantId?.userId;
+  const employerUserId = employerUserProfileData?.userId;
+
   return (
     <div className=" grid lg:grid-cols-12 sm:grid-col-span-2 bg-[#2B373C1C] py-5 px-2 sm:px-2">
       {popup && <DeletePopUP id={id} setPopup={setPopup} />}
@@ -509,23 +564,25 @@ const AppliedConsultant = () => {
                 >
                   Applied Date
                 </div>
-                {dateFlag ? (
-                  <DateRangePicker
-                    onChange={(item) =>
-                      setDatePicker({ ...datePicker, ...item })
-                    }
-                    months={1}
-                    minDate={addDays(new Date(), -300)}
-                    maxDate={addDays(new Date(), 900)}
-                    // direction="vertical"
-                    // scroll={{ enabled: true }}
-                    ranges={[datePicker.selection, datePicker.compare]}
-                    // editableDateInputs={true}
-                    // onChange={(item) => setDatePicker([item.selection])}
-                    // moveRangeOnFirstSelection={false}
-                    // ranges={datePicker}
-                  />
-                ) : null}
+                <div style={{ zIndex: "20", position: "relative" }}>
+                  {dateFlag ? (
+                    <DateRangePicker
+                      onChange={(item) =>
+                        setDatePicker({ ...datePicker, ...item })
+                      }
+                      months={1}
+                      minDate={addDays(new Date(), -300)}
+                      maxDate={addDays(new Date(), 900)}
+                      // direction="vertical"
+                      // scroll={{ enabled: true }}
+                      ranges={[datePicker.selection, datePicker.compare]}
+                      // editableDateInputs={true}
+                      // onChange={(item) => setDatePicker([item.selection])}
+                      // moveRangeOnFirstSelection={false}
+                      // ranges={datePicker}
+                    />
+                  ) : null}
+                </div>
               </div>
               <div className="lg:col-span-1 sm:col-span-3">
                 <select
@@ -720,7 +777,7 @@ const AppliedConsultant = () => {
                       <div className="text-[20px] font-bold mb-[10px] break-words">
                         Education
                       </div>
-                      {singleConsulantData?.education.length > 0 &&
+                      {singleConsulantData?.education?.length > 0 &&
                         singleConsulantData?.education.map((item, index) => {
                           return (
                             <div className="my-3" key={index}>
@@ -779,7 +836,7 @@ const AppliedConsultant = () => {
                         <h2 className="text-[20px] font-bold mb-[10px] break-words">
                           Experience
                         </h2>
-                        {singleConsulantData?.experience.length &&
+                        {singleConsulantData?.experience?.length &&
                           singleConsulantData?.experience?.map(
                             (item, index) => {
                               return (
@@ -829,7 +886,7 @@ const AppliedConsultant = () => {
                         <h2 className="text-[20px] font-bold mb-[10px] break-words">
                           Projects
                         </h2>
-                        {singleConsulantData?.project.length &&
+                        {singleConsulantData?.project?.length &&
                           singleConsulantData?.project?.map((item, index) => {
                             return (
                               <div
@@ -875,7 +932,7 @@ const AppliedConsultant = () => {
 
                       {/* skills */}
                       <div>
-                        {singleConsulantData?.certification.length != 0 && (
+                        {singleConsulantData?.certification?.length != 0 && (
                           <div className="text-[20px] font-bold mt-8">
                             Certfication
                           </div>
@@ -936,9 +993,18 @@ const AppliedConsultant = () => {
             <h1></h1>
           ) : (
             <div
-              className="flex lg:flex-col lg:items-center sm:flex-row  py-6 px-3 lg:col-span-1 lg:ml-0 sm:ml-0"
+              className="flex lg:flex-col lg:items-center sm:flex-row  py-6 px-3 lg:col-span-1 lg:ml-0 sm:ml-0 relative"
               style={{ width: "auto" }}
             >
+              {isOpen && (
+                <div className="absolute right-[2.8rem] top-[8.5rem] z-40 ">
+                  <UserChatEmployer
+                    handleChatClose={handleChatClose}
+                    consultantUserId={consultantUserId}
+                    employerUserId={employerUserId}
+                  />
+                </div>
+              )}
               {shortlistMessage ? (
                 <>
                   <div className="flex items-center justify-center mt-2">
@@ -981,13 +1047,20 @@ const AppliedConsultant = () => {
 
               <hr />
               <Popoverr text={"Send mail invite for interview"}>
-                <button className="flex justify-end px-3 py-3">
+                <button
+                  className="flex justify-end px-3 py-3"
+                  onClick={sendEmailInvite}
+                >
                   <img src="/Assets/mailBtn.svg" alt="tick" />
                 </button>
               </Popoverr>
               <Popoverr text={"Chat with consultant"}>
                 <button className="flex justify-end px-3 py-3">
-                  <img src="/Assets/chat.svg" alt="tick" />
+                  <img
+                    src="/Assets/chat.svg"
+                    alt="tick"
+                    onClick={handleClick2}
+                  />
                 </button>
               </Popoverr>
               <Popoverr text={"Send E-mail"}>

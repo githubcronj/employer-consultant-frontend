@@ -7,6 +7,7 @@ import { appliedJobSuccess } from "store/action/applyJobAction";
 import { CANCEL_JOB_SUCCESS, SAVE_JOB_SUCCESS } from "store/type/applyJobType";
 import ChatComponent from "../../Components/ChatComponent/AppliedChat";
 import Popover from "Components/PopOver/chatOver";
+import UserChat from "Components/ChatComponent/UserChat";
 
 const JobDetails = ({ detail, setRemove }) => {
   const [savejob, setSavejob] = useState(true);
@@ -84,7 +85,7 @@ const JobDetails = ({ detail, setRemove }) => {
             </h1>
           </Box>
         ) : (
-          <>
+          <div className="flex">
             <Grid
               sx={{
                 height: { xs: "auto", md: "720px" },
@@ -295,56 +296,48 @@ const JobDetails = ({ detail, setRemove }) => {
                   {/* })} */}
                 </Box>
                 <div className="relative inline-block">
-                  {!isOpen && (
-                    <Box
-                      py={2}
-                      sx={{
-                        display: "flex",
-                        justifyContent: "flex-end",
-                        flexDirection: "column",
-                        marginTop: "100px",
-                      }}
-                    >
-                      {savejob ? (
-                        <Image
-                          onClick={saveData}
-                          src="/Assets/savebtn.svg"
-                          alt="profile"
-                          height={54}
-                          width={54}
-                          style={{ paddingBottom: "1rem", cursor: "pointer" }}
-                        />
-                      ) : (
-                        <Image
-                          onClick={unsaveData}
-                          src="/Assets/unsavejob.svg"
-                          alt="profile"
-                          height={54}
-                          width={54}
-                          style={{ paddingBottom: "1rem", cursor: "pointer" }}
-                        />
-                      )}
+                  {/* {!isOpen && ( */}
+                  <Box
+                    py={2}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      flexDirection: "column",
+                      marginTop: "100px",
+                    }}
+                  >
+                    {savejob ? (
+                      <Image
+                        onClick={saveData}
+                        src="/Assets/savebtn.svg"
+                        alt="profile"
+                        height={54}
+                        width={54}
+                        style={{ paddingBottom: "1rem", cursor: "pointer" }}
+                      />
+                    ) : (
+                      <Image
+                        onClick={unsaveData}
+                        src="/Assets/unsavejob.svg"
+                        alt="profile"
+                        height={54}
+                        width={54}
+                        style={{ paddingBottom: "1rem", cursor: "pointer" }}
+                      />
+                    )}
 
-                      <Popover>
-                        <Image
-                          src="/Assets/chatbtn.svg"
-                          alt="profile"
-                          height={54}
-                          width={54}
-                          onClick={handleClick2}
-                          className="cursor-pointer"
-                        />
-                      </Popover>
-                    </Box>
-                  )}
-
-                  {isOpen && (
-                    <div className="popover">
-                      <div>
-                        <ChatComponent onClose={handleChatClose} />
-                      </div>
-                    </div>
-                  )}
+                    <Popover>
+                      <Image
+                        src="/Assets/chatbtn.svg"
+                        alt="profile"
+                        height={54}
+                        width={54}
+                        onClick={handleClick2}
+                        className="cursor-pointer"
+                      />
+                    </Popover>
+                  </Box>
+                  {/* )} */}
                 </div>
               </Box>
               <Box sx={{ borderTop: "1px solid #D0D0D6" }}>
@@ -436,7 +429,12 @@ const JobDetails = ({ detail, setRemove }) => {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={3} className="relative">
+              {isOpen && (
+                <div className="absolute right-[4rem] top-[13rem] ">
+                  <UserChat handleChatClose={handleChatClose} />
+                </div>
+              )}
               <Box
                 sx={{
                   background: "#E6E4E9",
@@ -464,7 +462,7 @@ const JobDetails = ({ detail, setRemove }) => {
                 </Box>
               </Box>
             </Grid>
-          </>
+          </div>
         )}
       </Grid>
     </>
