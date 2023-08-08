@@ -95,21 +95,22 @@ const InterviewDetails = ({ finaldata }) => {
     <Grid container>
       <Grid
         sx={{
-          height: { xs: "auto", md: "720px" },
+          height: { xs: "550px", md: "720px" },
           overflowY: "scroll",
           scrollbarWidth: "none",
           "-ms-overflow-style": "none",
           "&::-webkit-scrollbar": {
             display: "none",
           },
-          borderLeft: "1px solid #D0D0D6",
-          borderRight: "1px solid #D0D0D6",
-          px: { xs: "1rem", sm: "2rem", lg: "3.5rem" },
+          borderLeft: {md:"1px solid #D0D0D6"},
+          borderRight: {md:"1px solid #D0D0D6"},
+          px: { xs: "1.5rem", sm: "2rem", lg: "3.5rem" },
+          borderTop:{xs:"1px solid #D0D0D6",md:"none"}
         }}
         item
         py={1}
         xs={12}
-        sm={9}
+        md={9}
       >
         <Box
           sx={{
@@ -246,7 +247,7 @@ const InterviewDetails = ({ finaldata }) => {
             </LightTooltip>
           </Box>
         </Box>
-        <Box sx={{ borderTop: "1px solid #D0D0D6" }}>
+        <Box sx={{ borderTop: {md:"1px solid #D0D0D6"} }}>
           <Box py={3}>
             {data2.map((item, ind) => {
               return (
@@ -309,7 +310,7 @@ const InterviewDetails = ({ finaldata }) => {
           </Box>
         </Box>
       </Grid>
-      <Grid item xs={12} sm={3}>
+      <Grid item xs={12} md={3}>
         <Box
           sx={{
             background: "#E6E4E9",

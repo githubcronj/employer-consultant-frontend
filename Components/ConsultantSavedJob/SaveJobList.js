@@ -55,7 +55,18 @@ const SaveJobList = ({ setDetail, setRemove }) => {
   return (
     <>
       {saveJobData ? (
-        <Box py={{ xs: 1, lg: 2 }}>
+        <Box
+          py={{ xs: 1, lg: 2 }}
+          sx={{
+            maxHeight: { xs: "400px", md: "700px" },
+            overflow: "hidden",
+            overflowY: "scroll",
+            scrollbarWidth: "none",
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+          }}
+        >
           <Typography
             px={{ xs: 1, md: 2, lg: 3 }}
             mb={2}
@@ -84,6 +95,13 @@ const SaveJobList = ({ setDetail, setRemove }) => {
                       : "transparent",
                     cursor: "pointer",
                     // backgroundColor: isSelected ? "blue" : "transparent",
+                    maxHeight: { xs: "300px", md: "600px" },
+                    overflow: "hidden",
+                    overflowY: "scroll",
+                    scrollbarWidth: "none",
+                    "&::-webkit-scrollbar": {
+                      display: "none",
+                    },
                   }}
                 >
                   <Box sx={{ display: "flex", alignItems: "center" }}>

@@ -26,16 +26,22 @@ function* loginSaga(action) {
       console.log(response);
 
       yield put({ type: LOGIN_SUCCESS, payload: response });
-      toast.success("Login successful");
+      toast.success("Login successful",{
+        autoClose: 3000, 
+      });
     } else {
       yield put({ type: LOGIN_ERROR, payload: "Login failed" });
-      toast.error(response.message);
+      toast.error(response.message,{
+        autoClose: 3000, 
+      });
     }
   } catch (error) {
     console.log(error);
 
     yield put({ type: LOGIN_ERROR, payload: error.message });
-    toast.error(error.message);
+    toast.error(error.message,{
+      autoClose: 3000, 
+    });
   }
 }
 
@@ -51,13 +57,17 @@ function* googleloginSaga(action) {
       yield put({ type: "GOOGLE_LOGIN_SUCCESS", payload: response.data });
     } else {
       yield put({ type: GOOGLE_LOGIN_ERROR, payload: " google Login failed" });
-      toast.error(" google Login failed");
+      toast.error(" google Login failed",{
+        autoClose: 3000, 
+      });
     }
   } catch (error) {
     console.log(error);
 
     yield put({ type: GOOGLE_LOGIN_ERROR, payload: error.message });
-    toast.error(error.message);
+    toast.error(error.message,{
+      autoClose: 3000, 
+    });
   }
 }
 

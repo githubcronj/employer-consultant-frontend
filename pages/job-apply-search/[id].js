@@ -174,11 +174,11 @@ const JobSearchDetails = () => {
   return (
     <div
       className="bg-[#2B373C1C] flex flex-col items-center "
-      style={{
-        height: `${
-          screenSize.height < 900 ? "900px" : `${screenSize.height}px`
-        }`,
-      }}
+      // style={{
+      //   height: `${
+      //     screenSize.height < 900 ? "900px" : `${screenSize.height}px`
+      //   }`,
+      // }}
     >
       <Stack
         direction="row"
@@ -239,7 +239,7 @@ const JobSearchDetails = () => {
                   </SearchOver>
                 </div>
               </div>
-              <div>
+              <div className="mt-5 sm:mt-0">
                 <MainSearch
                   finaldata={finaldata}
                   appliedJobData={appliedJobData}

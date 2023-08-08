@@ -44,6 +44,20 @@ export const listData = [
     experience2: " 2 yr Exp",
     imageSrc: "/Assets/spotify.svg",
   },
+  {
+    id: 7,
+    jobTitle: "UX Designer",
+    experience1: "Spotify",
+    experience2: " 2 yr Exp",
+    imageSrc: "/Assets/spotify.svg",
+  },
+  {
+    id: 8,
+    jobTitle: "UX Designer",
+    experience1: "Spotify",
+    experience2: " 2 yr Exp",
+    imageSrc: "/Assets/spotify.svg",
+  },
 ];
 const InterviewList = () => {
   const [selectedItemId, setSelectedItemId] = useState(null);
@@ -52,7 +66,15 @@ const InterviewList = () => {
     setSelectedItemId(itemId);
   };
   return (
-    <Box py={{ xs: 1, lg: 2 }}>
+    <Box py={{ xs: 1, lg: 2 }} sx={{
+      maxHeight: {xs:"400px",md:'680px'},
+      overflow: 'hidden',
+      overflowY: 'scroll',
+      scrollbarWidth: 'none',  
+      '&::-webkit-scrollbar': {
+        display: 'none',  
+      },
+    }}>
       <Typography
         px={{ xs: 2, md: 2, lg: 3 }}
         mb={2}
@@ -62,7 +84,7 @@ const InterviewList = () => {
         7 Interview Schedule
       </Typography>
       <Box>
-        {listData.map((item) => {
+        {listData.map((item,index) => {
           const isSelected = item.id === selectedItemId;
           return (
             <Box
