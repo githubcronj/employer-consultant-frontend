@@ -137,11 +137,15 @@ const MainSearch = ({
                       data={finaldata[0]?.employerData[0]}
                     />
                     <div>
-                      <p className="lg:text-2xl font-extrabold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
-                        {finaldata[0]?.jobTitle ? finaldata[0]?.jobTitle : "NA"}
-                      </p>
+                      <div className="container">
+                        <p className="lg:text-2xl xl:text-3xl font-extrabold xl:pl-3 lg:pl-3 pl-1 md:pl-1 h-auto mt-3 text-[#000000] text-left font-sans">
+                          {finaldata[0]?.jobTitle
+                            ? finaldata[0]?.jobTitle
+                            : "NA"}
+                        </p>
+                      </div>
 
-                      <div className="flex items-center justify-between align-baseline">
+                      <div className="flex items-center justify-between">
                         <p className="w-[54px] mr-6 xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px] font-bold h-[19px] mb-[10px] mt-[10px] text-[#000000] text-left font-sans">
                           {finaldata[0].employerData[0].companyName}
                         </p>

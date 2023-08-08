@@ -42,7 +42,10 @@ const SavedJobs = () => {
           screenSize.height < 900 ? "900px" : `${screenSize.height}px`
         }`,
       }}
+      
     >
+          <Box sx={{ maxWidth: "1536px", px: { xs: ".8rem", sm: "2rem", lg: "5rem" },mx:"auto" }}>
+
       <Stack
         direction="row"
         mb={3}
@@ -89,7 +92,7 @@ const SavedJobs = () => {
             <SaveJobDetails detail={detail} setRemove={setRemove} />
           </Grid>
         </Grid>
-      </Box>
+      </Box></Box>
     </Box>
   );
 };

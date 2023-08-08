@@ -51,7 +51,7 @@ const SaveJobDetails = ({ detail, remove }) => {
     <Grid container>
       <Grid
         sx={{
-          height: { xs: "auto", md: "720px" },
+          height: { xs: "450px", md: "720px" },
           overflowY: "scroll",
           scrollbarWidth: "none",
           "-ms-overflow-style": "none",
@@ -61,11 +61,12 @@ const SaveJobDetails = ({ detail, remove }) => {
           borderLeft: "1px solid #D0D0D6",
           borderRight: "1px solid #D0D0D6",
           px: { xs: "1rem", sm: "2rem", lg: "3.5rem" },
+          borderTop:{xs:"1px solid #D0D0D6",md:"none"}
         }}
         item
         py={1}
         xs={12}
-        sm={9}
+        lg={9}
       >
         {/* {savedFinalData?.map((item, index) => {
           return ( */}
