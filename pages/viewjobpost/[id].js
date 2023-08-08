@@ -79,15 +79,13 @@ const ViewProfile = () => {
   };
 
   return (
-    <div className={` ${styles.viewJobPostBg}`}>
+    <div className={` ${styles.viewJobPostBg} bg-[#2B373C1C] `}>
       {popup && <DeletePopUP id={id} setPopup={setPopup} />}
 
       <div
-        className={`bg-[#2B373C1C]
-       xl:py-2 lg:py-2 md:py-2 sm:py-2 py-2 xl:px-4 md:px-4 sm:px-4 lg:px-4 ${
-         flexing ? " ml-1" : ""
-       }
-       `}
+        className={`sm:py-2 xl:px-4 md:px-4 sm:px-4 lg:px-4 px-2 py-4 sm:pb-4 pb-2 ${
+          flexing ? " ml-1" : ""
+        }`}
       >
         <div
           className="bg-white "
@@ -99,12 +97,9 @@ const ViewProfile = () => {
           }}
         >
           <div
-            className={`grid lg:grid-cols-12 sm:grid-cols-12 xl:mt-[10px] lg:mt-[10px] md:mt-[10px] sm:mt-[10px]
-           pt-[10px] -mt-[10px] xl:pt-[10px] mb-4
-           lg:pt-[10px] md:pt-[10px] sm:pt-[10px] items-center mx-4 sm:mr-9 sm:ml-[10px]
-           `}
+            className={`flex flex-col sm:grid lg:grid-cols-12 sm:grid-cols-12 xl:mt-[10px] lg:mt-[10px] md:mt-[10px] sm:mt-[10px] pt-[10px] -mt-[10px] xl:pt-[10px] mb-4 lg:pt-[10px] md:pt-[10px] sm:pt-[10px] sm:items-center mx-4 sm:ml-[10px] sm:mr-0 `}
           >
-            <div className="lg:col-span-8 md:col-span-7 sm:col-span-12">
+            <div className="sm:col-span-8">
               <div className="flex items-center gap-x-4 sm:pb-3">
                 <img
                   src={backbtn.src}
@@ -114,13 +109,13 @@ const ViewProfile = () => {
                   className="cursor-pointer"
                   onClick={backClicked}
                 />
-                <p className=" lg:text-[26px] sm:text-[12px] text-[#2B373C] font-bold">
+                <p className="lg:text-[26px] sm:text-[20px] text-[25px] text-[#2B373C] font-bold">
                   View Job Post
                 </p>
               </div>
             </div>
-            <div className="lg:col-span-4 md:col-span-5 sm:col-span-12">
-              <div className={`flex ${styles.jobpostbtnbox}`}>
+            <div className=" mt-4 sm:mt-0 sm:col-span-4">
+              <div className={`flex ${styles.jobpostbtnbox} sm:justify-end`}>
                 <div>
                   <button
                     onClick={editClick}
@@ -156,11 +151,11 @@ const ViewProfile = () => {
             return (
               <div
                 key={index}
-                className="mt-[19px] mx-3 grid lg:grid-cols-12 sm:col-span-2"
+                className="mx-3 grid lg:grid-cols-12 sm:col-span-2"
               >
-                <div className="lg:col-span-6 sm:col-span-1 border-r-2">
+                <div className="lg:col-span-6 sm:col-span-1 pt-6 lg:border-r-2">
                   <div
-                    className={`flex items-center mb-[15px] ${
+                    className={`flex mb-[15px] ${
                       flexing ? "flex-col" : "flex-row"
                     }`}
                   >
@@ -169,13 +164,13 @@ const ViewProfile = () => {
                       alt="googleIcon"
                       className="w-[60px] h-[60px]"
                     />
-                    <div>
-                      <p className="text-2xl font-extrabold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
+                    <div className="flex flex-col pl-[10px] gap-2">
+                      <p className="text-2xl font-extrabold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] text-[#000000] text-left font-sans">
                         {item.jobTitle}
                       </p>
 
                       <div className="flex items-center justify-between align-baseline">
-                        <p className="w-[54px] mr-6 xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px] font-bold h-[19px] mb-[10px] mt-[10px] text-[#000000] text-left font-sans">
+                        <p className="w-[54px] mr-6 xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] font-bold text-[#000000] text-left font-sans">
                           Google
                         </p>
                         <p className="pt-1">company Id</p>
@@ -270,7 +265,7 @@ const ViewProfile = () => {
                   <hr className="xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[25px]"></hr>
                 </div>
 
-                <div className=" pl-[30px] lg:col-span-6 sm:col-span-1 ">
+                <div className="pl-[30px] pt-4 lg:col-span-6 sm:col-span-1 ">
                   <div className="py-5">
                     <h1 className="text-[#1E0F3B] mb-[20px] w-[152px] h-[24px] font-bold tracking-[0.2px]">
                       About the job

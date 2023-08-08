@@ -7,16 +7,23 @@ import React from "react";
 import withConsultantAuth from "Components/ProtectedRoute/withConsultantAuth";
 
 const ScheduleInterview = () => {
-    const router = useRouter()
+  const router = useRouter();
   return (
     <Box
       py={2}
       sx={{
         background: "#F3F5F8",
-        fontFamily:''
+        fontFamily: "",
+        width: "100%",
       }}
     >
-      <Box sx={{ maxWidth: "1536px", px: { xs: ".8rem", sm: "2rem", lg: "5rem" },mx:"auto" }}>
+      <Box
+        sx={{
+          maxWidth: "1536px",
+          px: { xs: ".8rem", sm: "2rem", lg: "5rem" },
+          mx: "auto",
+        }}
+      >
         <Stack
           direction="row"
           mb={3}

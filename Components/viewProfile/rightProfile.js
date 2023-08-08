@@ -1,14 +1,16 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { GET_PROFILE_REQUEST } from "store/type/viewProfileType";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import moment from "moment";
+
 const RightProfile = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [flexing, setFlexing] = useState(false);
+
   const handleResize = () => {
     if (window.innerWidth < 700) {
       setFlexing(true);
@@ -16,32 +18,40 @@ const RightProfile = () => {
       setFlexing(false);
     }
   };
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
-  }, [handleResize]);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
-
       const tokenset = JSON.parse(storedData);
       return tokenset?.token?.accessToken;
     }
   };
+
   const finaltoken = getToken();
   const payload = {
     token: finaltoken,
   };
+
   const response = useSelector(
     (state) => state.viewProfileReducer?.CurrentUser
   );
 
   console.log("in right", response);
+
   useEffect(() => {
     dispatch({ type: GET_PROFILE_REQUEST, payload });
   }, []);
+
   return (
     <div
-      className=" w-[100%] max-w-[500px] xl:max-w-[600px] 2xl:max-w-[620px] h-[100vh]"
+      className={`w-[100%] lg:max-w-[500px] xl:max-w-[600px] 2xl:max-w-[620px] h-auto`}
       style={{ overflow: "auto", scrollbarWidth: "none" }}
     >
       <div>
@@ -142,12 +152,13 @@ const RightProfile = () => {
                   }}
                   key={index}
                 >
-                  <div className="px-2">
+                  <div className="px-2 max-w-[400px] lg:max-w-[200px] ">
                     <p className="font-semibold py-1">{item?.projectName}</p>
                     <p>{item?.projectDescription}</p>
                   </div>
                   <div>
-                    {item?.startDate} to {item?.endDate}
+                    {moment(item?.startDate).utc().format("YYYY-MM-DD")} to{" "}
+                    {moment(item?.endDate).utc().format("YYYY-MM-DD")}
                   </div>
                 </div>
               );
@@ -189,4 +200,5 @@ const RightProfile = () => {
     </div>
   );
 };
+
 export default RightProfile;

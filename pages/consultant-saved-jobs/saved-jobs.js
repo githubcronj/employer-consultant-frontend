@@ -41,6 +41,7 @@ const SavedJobs = () => {
         height: `${
           screenSize.height < 900 ? "900px" : `${screenSize.height}px`
         }`,
+        width: "100%",
       }}
       
     >

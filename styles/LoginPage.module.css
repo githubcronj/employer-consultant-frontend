@@ -4,28 +4,28 @@
 .loginimgbg2 {
   background: url("/Assets/consultantimg.png") no-repeat center center/cover;
 }
-.chatbg{
-  background-color: #F9F6EE;
+.chatbg {
+  background-color: #f9f6ee;
 }
-.chatmsgbg{
-background-color: #18212f !important;
+.chatmsgbg {
+  background-color: #18212f !important;
 }
 .selectedCard {
   border-left: 4px solid #5e9af8;
   background: linear-gradient(to left, #5e9af800, #5e9af833);
   padding-top: 20px;
 }
-.inputbox input{
-  background-color:#E7E9E9;
+.inputbox input {
+  background-color: #e7e9e9;
 }
 .shortlistedCard {
   border-left: 4px solid red;
   background: linear-gradient(to left, #f9342e00, #f9342e33);
   padding-top: 20px;
 }
-.shortlistedCard2{
+.shortlistedCard2 {
   border-left: 4px solid red;
-  background:#ffffff;
+  background: #ffffff;
   padding-top: 20px;
 }
 .selectedShortlistedCard {
@@ -55,11 +55,14 @@ background-color: #18212f !important;
 .searchbtn {
   display: flex;
 }
-.cs-message__content{
+.searchbtn3 {
+  display: flex;
+}
+.cs-message__content {
   background-color: #5e9af8;
   color: #ffffff;
 }
-.appliedChat{
+.appliedChat {
   position: absolute;
   right: 100%;
   width: 400px;
@@ -75,7 +78,7 @@ background-color: #18212f !important;
     height: 55px;
   }
   .viewJobPostBg {
-    width: 700px;
+    width: 100%;
   }
 }
 @media (max-width: 768px) {
@@ -92,12 +95,14 @@ background-color: #18212f !important;
     display: none !important;
   }
   .searchbox1 {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
+    /* border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px; */
+    border-radius: 5px;
   }
   .searchbox2 {
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+    /* border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px; */
+    border-radius: 5px;
     margin-top: 20px;
   }
   .searchdevider {

@@ -329,7 +329,7 @@ const NewJobPost = () => {
   const handleSave = (e) => {
     e.preventDefault();
     const jobData = {
-      jobTitle: jobPostData.jobTitle,
+      jobTitle: jobPostData.jobTitle.toLocaleLowerCase(),
       // experience: jobPostData.experience,
       minExp: jobPostData.minExp,
       maxExp: jobPostData.maxExp,
@@ -404,7 +404,7 @@ const NewJobPost = () => {
             {/* </Link> */}
             <p className="text-lg sm:text-2xl font-bold">Create New Job Post</p>
           </div>
-          <div className="sm:flex gap-2 sm:gap-5">
+          <div className="flex gap-2 sm:gap-5">
             <div>
               <button
                 onClick={handleSave}
@@ -426,7 +426,7 @@ const NewJobPost = () => {
           </div>
         </div>
         {/* form section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mx-3 lg:mx-20 lg:px-10 xl:px-20 py-8 my-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mx-3 lg:mx-auto 2xl:mx-20 lg:px-10 2xl:px-20 py-8 my-3">
           <div className="relative">
             <label
               className="absolute top-[-8px] left-0 ml-2 mt-px  bg-white px-1 text-[#1E0F3B] text-xs font-bold"
@@ -487,36 +487,35 @@ const NewJobPost = () => {
           {/* min max */}
           <div className="flex gap-3 justify-evenly md:justify-normal">
             {/* min */}
-            <div className="relative">
+            <div className="relative flex-1">
               <input
                 type="text"
                 id="minExp"
                 placeholder=" "
                 style={errors.minExp ? { borderColor: "red" } : {}}
                 required
-                className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
-                `}
+                className={`block py-5 px-4 text-sm w-full text-gray-900  border rounded-[10px] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                 value={jobPostData.minExp}
                 onChange={handleChange}
               />
 
               <label
                 for="minExp"
-                className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+                className="absolute my-1 text-gray-500 w-full duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
-                Minimum Experience
+                Min Exp
               </label>
               {renderErrorMessage("minExp")}
             </div>
             {/* max */}
-            <div className="relative">
+            <div className="relative flex-1">
               <input
                 type="text"
                 id="maxExp"
                 placeholder=" "
                 required
                 style={errors.maxExp ? { borderColor: "red" } : {}}
-                className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
                         `}
                 value={jobPostData.maxExp}
                 onChange={handleChange}
@@ -526,7 +525,7 @@ const NewJobPost = () => {
                 for="maxExp"
                 className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
-                Maximum Experience
+                Max Exp
               </label>
               {renderErrorMessage("maxExp")}
             </div>
@@ -542,7 +541,7 @@ const NewJobPost = () => {
                 id="deadline"
                 placeholderText="Application Deadline"
                 required
-                className={`block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                className={`block py-5 px-4 w-full text-gray-900  border rounded-[10px] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
                   errors.deadline ? "border-red-500" : ""
                 }`}
                 selected={
@@ -611,8 +610,8 @@ const NewJobPost = () => {
               Salary
             </div>
             <div className="py-5 px-4 border rounded-[10px] border-[#D8D8DD] w-full grid grid-cols-1 md:grid-cols-2">
-              <div className="my-3 md:my-0">
-                <ul className="justify-center md:justify-normal flex gap-3 sm:gap-8 md:gap-3 items-center">
+              <div className="my-3 md:my-0 lg:col-span-2 xl:col-span-1 ">
+                <ul className="justify-center md:justify-normal flex gap-3 sm:gap-8 md:gap-3 items-center pl-0">
                   <li>
                     <div className="flex">
                       <input
@@ -667,7 +666,7 @@ const NewJobPost = () => {
                 </ul>
               </div>
               {/* min max */}
-              <div className="flex gap-3 justify-evenly md:justify-normal">
+              <div className="flex gap-3 justify-evenly md:justify-normal lg:col-span-2 xl:col-span-1 ">
                 {/* min */}
                 <div className="relative">
                   <input
@@ -676,8 +675,7 @@ const NewJobPost = () => {
                     placeholder=" "
                     style={errors.minSalary ? { borderColor: "red" } : {}}
                     required
-                    className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
-                `}
+                    className={`block py-5 px-4 w-full text-sm text-gray-900 border rounded-[10px] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                     value={jobPostData.minSalary}
                     onChange={handleChange}
                   />
@@ -698,8 +696,7 @@ const NewJobPost = () => {
                     placeholder=" "
                     required
                     style={errors.maxSalary ? { borderColor: "red" } : {}}
-                    className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
-                        `}
+                    className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
                     value={jobPostData.maxSalary}
                     onChange={handleChange}
                   />

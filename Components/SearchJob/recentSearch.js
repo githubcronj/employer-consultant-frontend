@@ -100,7 +100,7 @@ const RecentSearch = () => {
             return (
               <div key={index}>
                 <Grid container p={2}>
-                  <Grid item xs={7} sm={9}>
+                  <Grid item xs={12} sm={9}>
                     <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
                       {/* UX Designer */}
                       {job?.jobTitle}
@@ -111,7 +111,7 @@ const RecentSearch = () => {
                   </Grid>
                   <Grid
                     item
-                    xs={5}
+                    xs={12}
                     sm={3}
                     container
                     direction="row"
@@ -145,142 +145,6 @@ const RecentSearch = () => {
           })
         )}
       </div>
-      {/* <Grid container p={2}>
-        <Grid item xs={7} sm={9}>
-          <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
-            UX Designer
-          </Typography>
-          <Typography sx={{ opacity: "0.7" }}>California</Typography>
-        </Grid>
-        <Grid
-          item
-          xs={5}
-          sm={3}
-          container
-          direction="row"
-          justifyContent="end"
-          alignItems="center"
-        >
-          <Typography
-            pr={1}
-            sx={{
-              color: "#F9342E",
-              fontWeight: "bold",
-              fontSize: { xs: "12px", sm: "16px" },
-            }}
-          >
-            23 New Job
-          </Typography>
-          <Box>
-            <ArrowForwardIosIcon
-              sx={{ color: "#857D95", fontSize: { xs: "12px", sm: "16px" } }}
-            />
-          </Box>
-        </Grid>
-      </Grid>
-
-      <Divider />
-      <Grid container p={2}>
-        <Grid item xs={7} sm={9}>
-          <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
-            UX Designer
-          </Typography>
-          <Typography sx={{ opacity: "0.7" }}>California</Typography>
-        </Grid>
-        <Grid
-          item
-          xs={5}
-          sm={3}
-          container
-          direction="row"
-          justifyContent="end"
-          alignItems="center"
-        >
-          <Typography
-            pr={1}
-            sx={{
-              color: "#F9342E",
-              fontWeight: "bold",
-              fontSize: { xs: "12px", sm: "16px" },
-            }}
-          >
-            23 New Job
-          </Typography>
-          <Box>
-            <ArrowForwardIosIcon
-              sx={{ color: "#857D95", fontSize: { xs: "12px", sm: "16px" } }}
-            />
-          </Box>
-        </Grid>
-      </Grid>
-      <Divider />
-      <Grid container p={2}>
-        <Grid item xs={7} sm={9}>
-          <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
-            UX Designer
-          </Typography>
-          <Typography sx={{ opacity: "0.7" }}>California</Typography>
-        </Grid>
-        <Grid
-          item
-          xs={5}
-          sm={3}
-          container
-          direction="row"
-          justifyContent="end"
-          alignItems="center"
-        >
-          <Typography
-            pr={1}
-            sx={{
-              color: "#F9342E",
-              fontWeight: "bold",
-              fontSize: { xs: "12px", sm: "16px" },
-            }}
-          >
-            23 New Job
-          </Typography>
-          <Box>
-            <ArrowForwardIosIcon
-              sx={{ color: "#857D95", fontSize: { xs: "12px", sm: "16px" } }}
-            />
-          </Box>
-        </Grid>
-      </Grid>
-      <Divider />
-      <Grid container p={2}>
-        <Grid item xs={7} sm={9}>
-          <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
-            UX Designer
-          </Typography>
-          <Typography sx={{ opacity: "0.7" }}>California</Typography>
-        </Grid>
-        <Grid
-          item
-          xs={5}
-          sm={3}
-          container
-          direction="row"
-          justifyContent="end"
-          alignItems="center"
-        >
-          <Typography
-            pr={1}
-            sx={{
-              color: "#F9342E",
-              fontWeight: "bold",
-              fontSize: { xs: "12px", sm: "16px" },
-            }}
-          >
-            23 New Job
-          </Typography>
-          <Box>
-            <ArrowForwardIosIcon
-              sx={{ color: "#857D95", fontSize: { xs: "12px", sm: "16px" } }}
-            />
-          </Box>
-        </Grid>
-      </Grid> */}
     </Box>
   );
 };

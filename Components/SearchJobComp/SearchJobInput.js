@@ -39,6 +39,7 @@ const SearchJobInput = ({
           background: "#E7E9E9",
           padding: ".7rem",
           cursor: "pointer",
+          width: "100%",
         }}
         placeholder="Job Title"
         autoComplete="off"
@@ -61,15 +62,16 @@ const SearchJobInput = ({
         name="location"
         // onClick={handleBox1Click}
         onChange={searchOnChangeHandler}
-        className={`${styles.searchbox2}`}
+        className={`${styles.searchbox2} p-[0.7rem] sm:p-[0.4rem] `}
         value={searchData?.location}
         sx={{
           flex: 1,
           alignItems: "center",
           display: "flex",
           background: "#E7E9E9",
-          padding: ".4rem",
+          // padding: { xs: "0.7rem", lg: "0.4rem" },
           cursor: "pointer",
+          width: "100%",
         }}
         placeholder="Location"
         autoComplete="off"

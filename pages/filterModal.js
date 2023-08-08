@@ -80,7 +80,11 @@ const FilterModal = () => {
 
   return (
     <>
-      <button className="m-3" type="button" onClick={() => setShowModal(true)}>
+      <button
+        className="m-3 ml-0 sm:ml-3"
+        type="button"
+        onClick={() => setShowModal(true)}
+      >
         <img src="/Assets/filter.svg" alt="filter" />
       </button>
       {showModal ? (

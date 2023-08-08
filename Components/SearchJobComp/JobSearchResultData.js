@@ -34,11 +34,12 @@ const JobSearchResultData = ({
           display: "flex",
           flexDirection: "column",
           gap: "1rem",
-          padding: ".2rem 1rem",
+          // padding: ".2rem 1rem",
           alignItems: "center",
           width: { xs: "100%", lg: "60%", xl: "100%" },
           mb: { lg: "auto", xs: "2rem" },
         }}
+        className="lg:px-[1rem] py-[0.2rem] "
       >
         <Typography
           sx={{
@@ -46,6 +47,7 @@ const JobSearchResultData = ({
             fontSize: "20px",
             fontWeight: "bold",
             color: "black",
+            marginTop: "1rem",
           }}
         >
           Search Job

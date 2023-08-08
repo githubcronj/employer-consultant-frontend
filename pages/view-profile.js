@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { PROFILE_REQUEST } from "store/type/getProfileType";
 import { useSelector } from "react-redux";
 import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
+import moment from "moment";
 const ViewProfile = () => {
   const [flexing, setFlexing] = useState(false);
   const route = useRouter();
@@ -36,7 +37,7 @@ const ViewProfile = () => {
   const data = useSelector((state) => state.getProfileReducer?.CurrentUser);
 
   useEffect(() => {
-    if (window.innerWidth < 394) {
+    if (window.innerWidth < 420) {
       setFlexing(true);
     } else {
       setFlexing(false);
@@ -44,15 +45,11 @@ const ViewProfile = () => {
   }, []);
   console.log(data, "in view profile");
   return (
-    <div
-      className={`w-[100%] xl:w-auto lg:w-[1000px] sm:w-[720px] md:w-[900px]`}
-    >
+    <div className={`w-[100%] xl:w-auto lg:w-auto `}>
       <div
-        className={`bg-[#2B373C1C]
-       xl:py-2 lg:py-2 md:py-2 sm:py-2 py-2 xl:px-4 md:px-4 sm:px-4 lg:px-4 ${
-         flexing ? " ml-1" : ""
-       }
-       `}
+        className={`bg-[#2B373C1C] sm:py-2 pt-6 pb-4 sm:pb-4 xl:px-4 px-4 ${
+          flexing ? "" : ""
+        }`}
       >
         <div
           className="bg-white"
@@ -64,12 +61,9 @@ const ViewProfile = () => {
           }}
         >
           <div
-            className={`justify-between xl:mt-[10px] lg:mt-[10px] md:mt-[10px] sm:mt-[10px]
-           pt-[10px] -mt-[10px] xl:pt-[10px] mb-4
-           lg:pt-[10px] md:pt-[10px] sm:pt-[10px] items-center mx-4 sm:mr-9 sm:ml-[10px] flex ${
-             flexing ? "flex-col" : "flex-row"
-           }
-           `}
+            className={`justify-between xl:mt-[10px] lg:mt-[10px] md:mt-[10px] sm:mt-[10px] pt-[10px] -mt-[10px] xl:pt-[10px] mb-4 lg:pt-[10px] md:pt-[10px] sm:pt-[10px] mx-4 sm:mr-9 sm:ml-[10px] flex gap-4 sm:gap-0 ${
+              flexing ? "flex-col items-start " : "flex-row items-center"
+            }`}
           >
             <div className="flex items-center gap-x-4 ">
               <img
@@ -88,9 +82,12 @@ const ViewProfile = () => {
               <img src={edit.src} alt="edit" className="w-[125px] h-[51px]" />
             </button>
           </div>
-          <hr className="mt-[25px]xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]"></hr>
-          <div className="mt-[19px] mx-3 flex flex-col lg:flex-row justify-between">
-            <div style={{ width: "100%" }}>
+          <hr className="mt-[25px] xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[5px]"></hr>
+          <div className="mx-3 flex flex-col lg:flex-row justify-between">
+            <div
+              style={{ width: "100%" }}
+              className="lg:border-r-2 pt-6 lg:pr-2 "
+            >
               <div className="flex items-center mb-[15px]">
                 <img
                   src={google.src}
@@ -162,13 +159,14 @@ const ViewProfile = () => {
                   Founded In
                 </h4>
                 <p className="h-[19px] mb-[15px] mt-[15px] text-left font-normal text-[#666666] opacity-1">
-                  {data?.companyFoundedDate}
+                  {moment(data?.companyFoundedDate).utc().format("YYYY-MM-DD")}
+                  {/* {data?.companyFoundedDate} */}
                 </p>
               </div>
               <hr className="xl:my-0 lg:my-0 md:my-[2px] sm:my-[2px] my-[25px]"></hr>
             </div>
-            <div className="border w-[1px] lg:h-[90vh] -mt-[19px] ml-[5px]"></div>
-            <div className="w-[100%] lg:pl-[30px] mb-10 lg:mb-0">
+            {/* <div className="border w-[1px] lg:h-[90vh] -mt-[19px] ml-[5px]"></div> */}
+            <div className="w-[100%] lg:pl-[30px] mb-10 lg:mb-0 lg:pt-6">
               <h1 className="text-[#1E0F3B] mt-[20px] lg:mt-0 mb-[20px] w-[152px] h-[24px] font-bold tracking-[0.2px]">
                 About Company
               </h1>

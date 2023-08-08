@@ -446,7 +446,7 @@ const EditConsultantProfile = () => {
   console.log(resumeForm, "in Edit");
   console.log(response, "response in edit");
   return (
-    <div className="bg-[#2B373C1C] py-5 px-2 sm:px-10">
+    <div className="py-5 px-2 sm:px-10 max-w-[1536px] mx-auto ">
       <div className="flex justify-between items-center mx-5 sm:mx-9 sm:mr-6 ">
         <div className="flex items-center gap-x-4 ">
           <Link href="/viewjobpost/cviewprofile">
@@ -458,13 +458,13 @@ const EditConsultantProfile = () => {
               className="cursor-pointer"
             />
           </Link>
-          <p className="text-[26px] text-[#2B373C] sm:text-2xl font-bold">
+          <p className="text-[15px] text-[#2B373C] sm:text-2xl font-bold">
             Edit Profile
           </p>
         </div>
         <button
           onClick={handleSave}
-          className="px-8 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3"
+          className="px-4 md:px-8 py-3 bg-red-500 text-white text-[10px] md:text-[16px] rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3"
         >
           <img src="/Assets/check.svg" alt="save" />
           Save
@@ -481,17 +481,19 @@ const EditConsultantProfile = () => {
               borderRight: "2px solid #D8D8DD",
               //   marginTop: "1.5rem",
             }}
-            className="lg:col-span-3 lg:max-h-[719px] lg:overflow-y-scroll"
+            className="lg:col-span-3 lg:max-h-[719px] lg:overflow-y-scroll no-scrollbar"
           >
             <CircularProgress sx={{ color: "#EF4444" }} />
           </Box>
         ) : (
           <div
-            className="flex flex-col lg:col-span-3 lg:max-h-[719px] lg:overflow-y-scroll"
-            style={{
-              borderRight: "2px solid #D8D8DD",
-              marginTop: "1.5rem",
-            }}
+            className="flex flex-col lg:col-span-3 lg:max-h-[719px] lg:overflow-y-scroll no-scrollbar border-hidden lg:border-solid	 lg:border-r-[2px] border-[#D8D8DD] pt-[1.5rem] "
+            style={
+              {
+                // borderRight: "2px solid #D8D8DD",
+                // marginTop: "1.5rem",
+              }
+            }
           >
             <div
               className="bg-[#2B373C1C] flex justify-center items-center mb-7 mx-auto px-4 lg:py-4"
@@ -837,7 +839,7 @@ const EditConsultantProfile = () => {
           </div>
         )}
         {/* section 2 */}
-        <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll ">
+        <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll no-scrollbar ">
           {responseData ? (
             <Box
               sx={{
@@ -845,15 +847,15 @@ const EditConsultantProfile = () => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              className="lg:col-span-3 lg:h-[719px] lg:overflow-y-scroll"
+              className="lg:col-span-3 lg:h-[719px] lg:overflow-y-scroll no-scrollbar"
             >
               <CircularProgress sx={{ color: "#EF4444" }} />
             </Box>
           ) : (
-            <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll max-w-[700px] ">
+            <div className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll max-w-[700px] no-scrollbar ">
               {/* resume */}
               {/* <div className='grid sm:grid-cols-5 bg-black lg:px-4'> */}
-              <div className="sm:flex items-center bg-black lg:px-4">
+              <div className="sm:flex items-center bg-gray-500 lg:px-4">
                 {/* <div className='sm:col-span-2 flex items-center my-10'> */}
                 <div className="w-[32%] flex items-center my-4 bg-[#FAD02C] rounded-full">
                   {selectedImage ? (
@@ -873,7 +875,7 @@ const EditConsultantProfile = () => {
                 </div>
 
                 {/* <div className='sm:col-span-3 mx-3 my-10'> */}
-                <div className="w-[68%] px-3 py-4 bg-black">
+                <div className="w-[68%] px-3 py-4 bg-gray-500">
                   <div className="text-[24px] font-bold mb-[10px] text-white break-words">
                     {resumeForm.personalDetails.fullName &&
                       resumeForm.personalDetails.fullName}
@@ -987,7 +989,7 @@ const EditConsultantProfile = () => {
                 </div>
               </div>
 
-              <div className="flex items-start lg:mx-4 bg-[#EEEFEF]">
+              <div className="flex items-start lg:mx-0 bg-[#EEEFEF]">
                 {/* education and skills */}
 
                 <div className="flex items-center py-10 pl-4 sm:w-[32%]">
