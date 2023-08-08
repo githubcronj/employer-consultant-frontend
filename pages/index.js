@@ -72,6 +72,7 @@ const Home = () => {
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPosts = response?.slice(indexOfFirstPost, indexOfLastPost);
+  console.log({ currentPosts });
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -79,8 +80,8 @@ const Home = () => {
     <div>
       <div className="bg-[#2B373C1C] py-4 px-2 sm:px-4">
         <div className="bg-white pt-3">
-          <div className="flex justify-between items-center mx-5 sm:mx-9 ">
-            <div className="my-3 flex gap-4">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mx-5 sm:mx-9 ">
+            <div className="my-3 flex flex-col sm:flex-row gap-4">
               <p className="text-lg sm:text-2xl font-bold mr-4">Home</p>
               <div className="relative w-full">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -107,7 +108,7 @@ const Home = () => {
                 />
               </div>
             </div>
-            <div className="flex">
+            <div className="flex flex-row ">
               <div>
                 <FilterModal />
               </div>
@@ -128,7 +129,11 @@ const Home = () => {
               <thead className="text-sm text-white  bg-[#1E0F3B] ">
                 <tr>
                   {tableHeading.map((heading, index) => (
-                    <th key={index} scope="col" className="px-6 py-5">
+                    <th
+                      key={index}
+                      scope="col"
+                      className="px-6 py-5 whitespace-nowrap"
+                    >
                       {heading}
                     </th>
                   ))}
@@ -142,13 +147,16 @@ const Home = () => {
                     key={index}
                     className={
                       index % 2 === 0
-                        ? "border-slate-200 border rounded-lg cursor-pointer hover:bg-[#4C4E6438] "
-                        : "border-slate-200 border rounded-lg bg-[#EEEFEF] cursor-pointer hover:bg-[#4C4E6438]"
+                        ? "border-slate-200 border rounded-lg cursor-pointer hover:bg-[#4C4E6438] whitespace-nowrap "
+                        : "border-slate-200 border rounded-lg bg-[#EEEFEF] cursor-pointer hover:bg-[#4C4E6438] whitespace-nowrap "
                     }
                   >
                     <td className="px-6 py-7">{row?.appliedConsultantCount}</td>
                     <td className="px-6 py-7">{row?.jobTitle}</td>
-                    <td className="px-6 py-7">{row?.experience}</td>
+                    <td className="px-6 py-7">
+                      {row?.minExp} <span> - </span> {row?.maxExp}
+                      <span> years</span>
+                    </td>
                     <td className="px-6 py-7">{row?.jobType}</td>
                     <td className="px-6 py-7">{row?.salary}</td>
                     <td className="px-6 py-7">{row?.createdAt}</td>

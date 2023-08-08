@@ -156,7 +156,7 @@ const ChatPage = () => {
 
   return (
     <>
-      <div>
+      <div className="w-full">
         <div className=" grid lg:flex sm:grid-col-span-2 bg-[#2B373C1C] py-5 px-2 sm:px-2 justify-center h-[100vh] ">
           <div className="lg:col-start-1 lg:col-end-12  sm:col-span-3 max-w-[1400px]">
             <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-4 mx-2 sm:mx-6 bg-white border px-4 py-4">

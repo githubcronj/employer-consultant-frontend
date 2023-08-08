@@ -44,7 +44,11 @@ const SearchOver = ({ children, onClick, id }) => {
       <div
         className={`${
           isOpen
-            ? `${id == 1 ? "w-[850px]" : "w-[600px]"} mx-auto mt-[11rem] `
+            ? `${
+                id == 1
+                  ? "mx-[1rem] md:mx-auto md:w-[700px] lg:w-[684px] xl:w-[850px]"
+                  : "w-[600px]"
+              } mx-auto mt-[32rem] md:mt-[28rem] lg:mt-[11rem] `
             : ""
         }`}
         ref={dropdownRef2}

@@ -231,12 +231,12 @@ const AppliedConsultant = () => {
     if (typeof window !== "undefined") {
       localStorage.setItem("jobId", id);
     }
-    router.push(`/viewjobpost/${id?.id}`);
+    router.push(`/viewjobpost/${id}`);
   };
 
   console.log(singleConsulantData, "singleConsulantData");
 
-  const handleShortlistClick = (singleConsulantData) => {
+  const handleShortlistClick = () => {
     if (!shortlistedCards.includes(id)) {
       setShortlistedCards([...shortlistedCards, id]);
       const currentDate = new Date().toLocaleDateString("en-US");
@@ -245,11 +245,14 @@ const AppliedConsultant = () => {
     }
     const shortlistPayload = {
       jobId: employerJobId.id,
-      consultantId: singleConsulantData._id,
+      consultantId: singleConsulantData?.consultantId?.userId,
       accessToken,
     };
 
-    if (singleConsulantData._id && singleConsulantData.userId) {
+    if (
+      singleConsulantData?.consultantId?._id &&
+      singleConsulantData?.consultantId?.userId
+    ) {
       // dispatch({ type: ADD_SHORTLIST_REQUEST, shortlistPayload });
       dispatch(addintoshortlistRequest(shortlistPayload));
 
@@ -368,7 +371,7 @@ const AppliedConsultant = () => {
   return (
     <div className=" grid lg:grid-cols-12 sm:grid-col-span-2 bg-[#2B373C1C] py-5 px-2 sm:px-2">
       {popup && <DeletePopUP id={id} setPopup={setPopup} />}
-      <div className="lg:col-start-1 lg:col-end-12  sm:col-span-3">
+      <div className="sm:col-start-1 sm:col-end-12  sm:col-span-3">
         <div className="grid lg:flex lg:flex-row lg:justify-between sm:grid-cols-2 gap-4 mx-2 sm:mx-6 bg-white border px-4 py-4">
           <div className="flex items-center gap-x-4 lg:col-span-1 sm:col-span-2">
             <Image
@@ -380,33 +383,33 @@ const AppliedConsultant = () => {
               className="cursor-pointer"
             />
             <div>
-              <p className="text-[26px] text-[#2B373C] sm:text-2xl font-bold">
+              <p className="text-[16px] text-[#2B373C] sm:text-[25px] lg:text-[20px] xl:text-2xl font-bold">
                 {appliedjobData?.data?.jobTitle !== ""
                   ? appliedjobData?.data?.jobTitle
                   : "NA"}
               </p>
-              <p className="text-[14px] text-[#2B373C]">
+              <p className="text-[10px] sm:text-[18px] lg:text-[12px] xl:text-[14px] text-[#2B373C]">
                 {appliedjobData?.data?.minExp
                   ? appliedjobData?.data?.minExp
                   : "NA"}
                 -
                 {appliedjobData?.data?.maxExp
                   ? appliedjobData?.data?.maxExp
-                  : "NA"}
+                  : "NA "}
                 years experience
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-x-4 lg:col-span-1 sm:col-span-2">
-            <p className="text-[16px] text-[#2B373C] ">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-x-4 lg:col-span-1 sm:col-span-2">
+            <p className="text-[15px] sm:text-[20px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] text-[#2B373C] ">
               {" "}
               {appliedjobData?.data?.jobType
                 ? appliedjobData?.data?.jobType
                 : "NA"}{" "}
               {/* . */}
             </p>
-            <span className="dot"></span>
-            <p className="text-[16px] text-[#2B373C]">
+            <span className="dot hidden sm:inline-block "></span>
+            <p className="text-[15px] sm:text-[20px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] text-[#2B373C]">
               {appliedjobData?.data?.minSalary
                 ? appliedjobData?.data?.minSalary
                 : "NA"}
@@ -416,8 +419,8 @@ const AppliedConsultant = () => {
                 : "NA"}{" "}
               /hr
             </p>
-            <span className="dot"></span>
-            <p className="text-[16px] text-[#2B373C]">
+            <span className="dot hidden sm:inline-block "></span>
+            <p className="text-[15px] sm:text-[20px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] text-[#2B373C]">
               {appliedjobData?.data?.deadline
                 ? moment(appliedjobData?.data?.deadline)
                     .utc()
@@ -430,7 +433,7 @@ const AppliedConsultant = () => {
             onClick={() => nextclick(id)}
             className="flex items-center  lg:justify-end gap-x-4 lg:col-span-1 sm:col-span-2"
           >
-            <p className="text-[16px] text-[#5E9AF8] font-bold cursor-pointer">
+            <p className="text-[15px] sm:text-[20px] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] text-[#5E9AF8] font-bold cursor-pointer">
               View Job Post
             </p>
             <img
@@ -499,7 +502,7 @@ const AppliedConsultant = () => {
               }
               endAdornment={
                 <Button
-                  className={`${styles.searchbtn}`}
+                  className={`${styles.searchbtn3}`}
                   onClick={() => {
                     handleChange();
                   }}
@@ -515,32 +518,8 @@ const AppliedConsultant = () => {
               }
             />
           </div>
-          <div className="col-span-1 sm:col-span-1 lg:col-span-2">
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {/* <div className="lg:col-span-1 sm:col-span-3">
-                <select
-                  id="experience1"
-                  required
-                  className="py-2 px-4 border rounded-[10px] border-[#D8D8DD] w-full custom-select"
-                  style={{
-                    WebkitAppearance: "none",
-                    MozAppearance: "none",
-                    appearance: "none",
-                    backgroundImage: "none",
-                    backgroundImage: "url(/Assets/down-arrow.svg)",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "95% center",
-                    paddingRight: "20px",
-                    cursor: "pointer",
-                    ...(errors.experience ? { borderColor: "red" } : {}),
-                  }}
-                >
-                  <option value="">Education Level</option>
-                  <option value="one">1 year</option>
-                  <option value="two">2 years</option>
-                  <option value="three">3 years</option>
-                </select>
-              </div> */}
+          <div className="col-span-1 sm:col-span-2 lg:col-span-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div className="lg:col-span-1 sm:col-span-3">
                 <div
                   id="experience2"
@@ -633,10 +612,10 @@ const AppliedConsultant = () => {
         <div className=" bg-white mx-2 sm:mx-6 lg-mx-0 border rounded-xl rounded-t-none grid lg:grid-cols-8">
           {/* first section */}
           <div
-            className="flex flex-col lg:col-span-3 py-6"
+            className="flex flex-col lg:col-span-3 pt-6 pb-4 lg:py-6 max-h-[640px] overflow-y-scroll lg:max-h-none"
             // style={{ borderRight: "2px solid #D8D8DD" }}
           >
-            <div className="flex px-3">
+            <div className="flex px-3 mb-4 lg:mb-0">
               <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
                 {appliedjobData?.total ? appliedjobData?.total : "NA"}
                 <span className="ml-[3px]">Consultant</span>
@@ -646,7 +625,7 @@ const AppliedConsultant = () => {
               </div>
             </div>
             <div
-              className="h-[550px] overflow-auto"
+              className="lg:h-[550px] lg:overflow-auto"
               style={{ scrollbarWidth: "thin" }}
             >
               {appliedjobData?.data?.appliedConsultant.length > 0 ? (
@@ -684,19 +663,17 @@ const AppliedConsultant = () => {
                 <p>No data available</p>
               )}
             </div>
-
-            <div></div>
           </div>
           {/* section 2 */}
           <div
-            className={`lg:col-span-4 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll ${
+            className={`lg:col-span-4 mx-auto lg:mx-0 lg:mt-0 max-h-[719px] w-full sm:w-auto overflow-y-scroll ${
               singleConsulantData === null
-                ? "border-l-2 border-gray-800"
+                ? "lg:border-l-2 border-gray-800"
                 : "border-gray-800 border-[2px]"
             } `}
           >
             {singleConsulantData === null ? (
-              <h1 className="lg:text-2xl font-bold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
+              <h1 className="lg:text-2xl font-bold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px] h-[19px] my-8 lg:mb-[15px] lg:mt-[15px] text-[#000000] text-left font-sans">
                 Please Select Any Consultant
               </h1>
             ) : (
@@ -993,7 +970,7 @@ const AppliedConsultant = () => {
             <h1></h1>
           ) : (
             <div
-              className="flex lg:flex-col lg:items-center sm:flex-row  py-6 px-3 lg:col-span-1 lg:ml-0 sm:ml-0 relative"
+              className="flex lg:flex-col lg:items-center sm:flex-row  py-6 px-3 lg:col-span-1 lg:ml-0 relative mx-auto"
               style={{ width: "auto" }}
             >
               {isOpen && (
@@ -1007,15 +984,15 @@ const AppliedConsultant = () => {
               )}
               {shortlistMessage ? (
                 <>
-                  <div className="flex items-center justify-center mt-2">
-                    <p className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] ml-[-50px]">
+                  <div className="flex items-center justify-center sm:mt-2 relative ">
+                    <p className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] ml-[-50px] absolute left-[3rem] bottom-[4rem] sm:left-auto sm:bottom-auto sm:relative ">
                       {shortlistMessage}
                     </p>
                   </div>
                   <Popoverr text={"Remove from Shortlist"}>
                     <button
                       onClick={handleRemoveShortlisted}
-                      className="flex justify-end px-3 py-3"
+                      className="flex justify-end sm:px-3 sm:py-3 mr-2 sm:mr-0"
                     >
                       <img
                         src="/Assets/removeShortlistedButton.svg"
@@ -1029,7 +1006,7 @@ const AppliedConsultant = () => {
                   <Popoverr text={"Select and add into shortlist"}>
                     <button
                       onClick={() => handleShortlistClick(singleConsulantData)}
-                      className="flex justify-end px-3 py-3"
+                      className="flex justify-end sm:px-3 sm:py-3 mr-2 sm:mr-0"
                     >
                       <img src="/Assets/tick.svg" alt="tick" />
                     </button>
@@ -1037,7 +1014,7 @@ const AppliedConsultant = () => {
                   <Popoverr text={"Reject the consultant"}>
                     <button
                       onClick={handleRemoveappliedConsultent}
-                      className="flex justify-end px-3 py-3"
+                      className="flex justify-end sm:px-3 sm:py-3 mr-2 sm:mr-0"
                     >
                       <img src="/Assets/crossBtn.svg" alt="tick" />
                     </button>
@@ -1048,14 +1025,14 @@ const AppliedConsultant = () => {
               <hr />
               <Popoverr text={"Send mail invite for interview"}>
                 <button
-                  className="flex justify-end px-3 py-3"
+                  className="flex justify-end sm:px-3 sm:py-3 mr-2 sm:mr-0"
                   onClick={sendEmailInvite}
                 >
                   <img src="/Assets/mailBtn.svg" alt="tick" />
                 </button>
               </Popoverr>
               <Popoverr text={"Chat with consultant"}>
-                <button className="flex justify-end px-3 py-3">
+                <button className="flex justify-end sm:px-3 sm:py-3 mr-2 sm:mr-0">
                   <img
                     src="/Assets/chat.svg"
                     alt="tick"
@@ -1064,13 +1041,13 @@ const AppliedConsultant = () => {
                 </button>
               </Popoverr>
               <Popoverr text={"Send E-mail"}>
-                <button className="flex justify-end px-3 py-3">
+                <button className="flex justify-end sm:px-3 sm:py-3 mr-2 sm:mr-0">
                   <img src="/Assets/mail2.svg" alt="tick" />
                 </button>
               </Popoverr>
               <Popoverr text={"Download resume"}>
                 <button
-                  className="flex justify-end px-3 py-3"
+                  className="flex justify-end sm:px-3 sm:py-3"
                   // onClick={convertToPDF}
                 >
                   <img src={downloadIcon.src} alt="download" />
@@ -1081,7 +1058,7 @@ const AppliedConsultant = () => {
         </div>
       </div>
 
-      <div className=" lg:col-start-12 lg:col-end-12 sm:col-start-1 sm:col-end-12">
+      <div className=" lg:col-start-12 lg:col-end-12 sm:col-start-12 sm:col-end-12">
         <div className="">
           <div className="flex items-center justify-center">
             <button

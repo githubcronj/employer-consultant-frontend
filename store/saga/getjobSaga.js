@@ -13,6 +13,7 @@ function* getJob(action) {
     const token = JSON.parse(accessToken);
     const filterParams = action.payload; // Filter parameters
     let url;
+    console.log(filterParams.length, "filterParams");
     if (filterParams.length > 0) {
       const response = yield call(makeApiRequest, {
         endpoint: "/job",
@@ -28,7 +29,7 @@ function* getJob(action) {
       url = `/job?${new URLSearchParams(filterParams)}`;
     }
     // const url =`/job?${new URLSearchParams(filterParams)}`
-    // const url =`/job`    
+    // const url =`/job`
     // const filterurl = `/job?jobType=${action.payload.jobType}&limit=5&minExp=${action.payload.minExp}&maxExp=${action.payload.maxExp}&minSalary=${action.payload.minSalary}`;
     const response = yield call(makeApiRequest, {
       endpoint: url,
@@ -45,13 +46,12 @@ function* getJob(action) {
       payload: response,
       accessToken: token.token.accessToken,
     });
-    console.log('in saga get job',response.total)
+    console.log("in saga get job", response.total);
   } catch (error) {
     console.log("API call error:", error);
     yield put({ type: GET_JOB_FAILURE, payload: error });
   }
 }
-
 
 export default function* watchgetJobRequest() {
   yield takeLatest(types.GET_JOB_REQUEST, getJob);

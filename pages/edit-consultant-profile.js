@@ -10,6 +10,7 @@ const EditConsultantProfile = dynamic(
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          width: "100%",
         }}
       >
         <CircularProgress sx={{ color: "#EF4444" }} />
@@ -20,7 +21,7 @@ const EditConsultantProfile = dynamic(
 
 const EditConsultantProfilePage = () => {
   return (
-    <div>
+    <div className="bg-[#2B373C1C] w-full">
       <EditConsultantProfile />
     </div>
   );

@@ -275,7 +275,7 @@ const ShortlistedConsultant = () => {
         <Popoverr text={"Select and add into shortlist"}>
           <button
             onClick={() => handleShortlistClick(selectedCard)}
-            className="flex justify-end px-3 py-3"
+            className="flex justify-end sm:px-3 sm:py-3 mr-2 sm:mr-0"
           >
             <img src="/Assets/tick.svg" alt="tick" />
           </button>
@@ -298,11 +298,11 @@ const ShortlistedConsultant = () => {
 
   return (
     <div className=" grid lg:grid-cols-12 sm:grid-col-span-2 bg-[#2B373C1C] py-5 px-2 sm:px-2">
-      <div className="lg:col-start-1 lg:col-end-12  sm:col-span-3">
+      <div className="lg:col-start-1 lg:col-end-12  sm:col-span-12">
         <div className="grid gap-4 mx-2 sm:mx-6 bg-white border px-4 py-4">
           <div className="flex items-center">
-            <div className="flex flex-row items-center">
-              <p className="text-[26px] text-[#2B373C] sm:text-2xl font-bold">
+            <div className="flex flex-row items-center my-4">
+              <p className="text-[20px] text-[#2B373C] sm:text-[25px] lg:text-[20px] xl:text-2xl font-bold">
                 Shortlisted Consultants
                 <span>
                   {shortlistedConsultantData?.jobTitle
@@ -312,8 +312,8 @@ const ShortlistedConsultant = () => {
               </p>
             </div>
           </div>
-          <div className="  lg:col-span-8 sm:col-span-2">
-            {/* <div>
+          {/* <div className="  lg:col-span-8 sm:col-span-2"> */}
+          {/* <div>
               <select
                 id="experience1"
                 required
@@ -337,7 +337,7 @@ const ShortlistedConsultant = () => {
                 <option value="three">3 years</option>
               </select>
             </div> */}
-          </div>
+          {/* </div> */}
         </div>
 
         <div className="grid lg:grid-cols-12  gap-4 mx-2 sm:mx-6 bg-[#F9F6EE] border px-4 py-4 items-center">
@@ -395,7 +395,7 @@ const ShortlistedConsultant = () => {
               }
               endAdornment={
                 <Button
-                  className={`${styles.searchbtn}`}
+                  className={`${styles.searchbtn3}`}
                   onClick={() => {
                     handleChange();
                   }}
@@ -412,22 +412,22 @@ const ShortlistedConsultant = () => {
             />
           </div>
           <div className="lg:col-span-8">
-            <div className="flex gap-4 items-center ">
-              <p className="text-[16px] text-[#2B373C]">
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center ">
+              <p className="text-[15px] sm:text-[15px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px] text-[#2B373C]">
                 {shortlistedConsultantData?.minExp} -{" "}
                 {shortlistedConsultantData?.maxExp}yrs experience
               </p>
-              <span className="dot"></span>
-              <p className="text-[16px] text-[#2B373C]">
+              <span className="dot hidden sm:inline-block"></span>
+              <p className="text-[15px] sm:text-[15px] lg:text-[14px] xl:text-[16px] 2xl:text-[16px] text-[#2B373C]">
                 {shortlistedConsultantData?.jobType}
               </p>
-              <span className="dot"></span>
-              <p className="text-[16px] text-[#2B373C]">
+              <span className="dot hidden sm:inline-block"></span>
+              <p className="text-[15px] sm:text-[15px] lg:text-[14px] xl:text-[16px] 2xl:text-[16px] text-[#2B373C]">
                 {shortlistedConsultantData?.minSalary}-
                 {shortlistedConsultantData?.maxSalary} /hr
               </p>
-              <span className="dot"></span>
-              <p className="text-[16px] text-[#2B373C]">
+              <span className="dot hidden sm:inline-block"></span>
+              <p className="text-[15px] sm:text-[15px] lg:text-[14px] xl:text-[16px] 2xl:text-[16px] text-[#2B373C]">
                 {moment(shortlistedConsultantData?.deadline)
                   .utc()
                   .format("YYYY-MM-DD")}
@@ -439,10 +439,10 @@ const ShortlistedConsultant = () => {
         <div className=" bg-white mx-2 sm:mx-6 lg-mx-8 border rounded-xl rounded-t-none grid lg:grid-cols-8">
           {/* first section */}
           <div
-            className="flex flex-col lg:col-span-3 py-6"
+            className="flex flex-col lg:col-span-3 pt-6 pb-4 lg:py-6 max-h-[640px] overflow-y-scroll lg:max-h-none"
             // style={{ borderRight: "2px solid #D8D8DD" }}
           >
-            <div className="flex px-3">
+            <div className="flex px-3 mb-4 lg:mb-0">
               <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
                 {`${shortlistedConsultantcount?.total}`}
                 <span className="ml-[4px]">Consultant</span>
@@ -452,7 +452,7 @@ const ShortlistedConsultant = () => {
               </div>
             </div>
             <div
-              className="h-[550px] overflow-auto"
+              className="lg:h-[550px] lg:overflow-auto"
               style={{ scrollbarWidth: "thin" }}
             >
               {shortlistedData?.length > 0 ? (
@@ -506,14 +506,14 @@ const ShortlistedConsultant = () => {
           </div> */}
 
           <div
-            className={`lg:col-span-4 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll ${
+            className={`lg:col-span-4 mx-auto lg:mx-0 lg:mt-0 max-h-[719px] w-full sm:w-auto overflow-y-scroll ${
               singleConsulantData === null
-                ? "border-l-2 border-gray-800"
+                ? "lg:border-l-2 border-gray-800"
                 : "border-gray-800 border-[2px]"
             } `}
           >
             {singleConsulantData === null ? (
-              <h1 className="lg:text-2xl font-bold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px]  h-[19px] mb-[15px] mt-[15px] text-[#000000] text-left font-sans">
+              <h1 className="lg:text-2xl font-bold  xl:pl-[17px] lg:pl-[17px] sm:pl-[17px] md:pl-[17px] pl-[5px] h-[19px] my-8 lg:mb-[15px] lg:mt-[15px] text-[#000000] text-left font-sans">
                 Please Select Any Consultant
               </h1>
             ) : (
@@ -786,17 +786,20 @@ const ShortlistedConsultant = () => {
           {singleConsulantData === null ? (
             <h1></h1>
           ) : (
-            <div className="flex lg:flex-col lg:items-center sm:flex-row  py-6 px-3 lg:col-span-1 lg:ml-0 sm:ml-0">
-              <div className="flex items-center justify-center mt-2">
-                <div className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] lg:ml-[-50px] sm:ml-[0px]">
+            <div
+              className="flex lg:flex-col lg:items-center sm:flex-row  py-6 px-3 lg:col-span-1 lg:ml-0 relative mx-auto"
+              style={{ width: "auto" }}
+            >
+              <div className="flex items-center justify-center sm:mt-2 relative ">
+                <div className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] ml-[-50px] absolute left-[3rem] bottom-[4rem] sm:left-[4rem] sm:bottom-[5rem] lg:left-auto lg:bottom-auto lg:relative ">
                   <p className="font-bold">{shortlistMessage}</p>
                   <p>{new Date().toLocaleDateString("en-US")}</p>
                 </div>
               </div>
               {shcheduleMessage ? (
                 <>
-                  <div className="flex items-center justify-center mt-2">
-                    <p className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[150px] lg:ml-[-50px] sm:ml-[0px]">
+                  <div className="flex items-center justify-center mt-2 relative">
+                    <p className="mt-2 px-4 py-2 bg-[#EAE9EA] text-[#131523] border rounded border-gray-300 shadow w-[200px] lg:w-[150px] lg:ml-[-50px] sm:ml-[0px] absolute left-[7rem] bottom-[4rem] sm:left-[11rem] sm:bottom-[5rem] lg:left-auto lg:bottom-auto lg:relative">
                       {shcheduleMessage}
                     </p>
                   </div>
@@ -804,7 +807,7 @@ const ShortlistedConsultant = () => {
                     <Popoverr text={"Remove from schedule list"}>
                       <button
                         onClick={handleRemoveSheduled}
-                        className="flex justify-end px-3 py-3"
+                        className="flex justify-end sm:px-3 sm:py-3 mr-2 sm:mr-0"
                       >
                         <img
                           src="/Assets/removeShortlistedButton.svg"
@@ -829,7 +832,7 @@ const ShortlistedConsultant = () => {
                   <Popoverr text={"Add into schedule list"}>
                     <button
                       onClick={() => handleScheduleClick(selectedCard)}
-                      className="flex justify-end px-3 py-3"
+                      className="flex justify-end sm:px-3 sm:py-3 mr-2 sm:mr-0"
                     >
                       <img src="/Assets/sheduleIcon.svg" alt="tick" />
                     </button>
@@ -837,7 +840,7 @@ const ShortlistedConsultant = () => {
                   <Popoverr text={"Remove from Shortlist"}>
                     <button
                       onClick={handleRemoveShortlisted}
-                      className="flex justify-end px-3 py-3"
+                      className="flex justify-end sm:px-3 sm:py-3 mr-2 sm:mr-0"
                     >
                       <img src="/Assets/crossBtn.svg" alt="tick" />
                     </button>
@@ -853,22 +856,22 @@ const ShortlistedConsultant = () => {
               )}
 
               <hr />
-              <addConsultant />
+              {/* <addConsultant /> */}
               <Popoverr text={"Send mail invite for interview"}>
                 <button
-                  className="flex justify-end px-3 py-3"
+                  className="flex justify-end sm:px-3 sm:py-3 mr-2 sm:mr-0"
                   onClick={sendEmailInvite}
                 >
                   <img src="/Assets/mailBtn.svg" alt="tick" />
                 </button>
               </Popoverr>
               <Popoverr text={"Chat with consultant"}>
-                <button className="flex justify-end px-3 py-3">
+                <button className="flex justify-end sm:px-3 sm:py-3 mr-2 sm:mr-0">
                   <img src="/Assets/chat.svg" alt="tick" />
                 </button>
               </Popoverr>
               <Popoverr text={"Send E-mail"}>
-                <button className="flex justify-end px-3 py-3">
+                <button className="flex justify-end sm:px-3 sm:py-3">
                   <img src="/Assets/mail2.svg" alt="tick" />
                 </button>
               </Popoverr>

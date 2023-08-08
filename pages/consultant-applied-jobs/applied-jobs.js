@@ -18,6 +18,7 @@ const AppliedJobs = () => {
         background: "#F3F5F8",
         px: { xs: ".8rem", sm: "2rem", lg: "5rem" },
         height: "100vh",
+        width: "100%",
       }}
     >
       <Stack

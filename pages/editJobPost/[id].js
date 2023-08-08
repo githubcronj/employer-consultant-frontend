@@ -243,18 +243,18 @@ const EditJobPost = () => {
             </Link>
             <p className="text-lg sm:text-2xl font-bold">Edit Job Post</p>
           </div>
-          <div className="sm:flex gap-2 sm:gap-5">
+          <div className="flex gap-2 sm:gap-5">
             <div>
               <button
                 onClick={handleSave}
-                className="px-11 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3"
+                className="sm:px-11 px-5 py-3 bg-red-500 text-white rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3"
               >
                 Save
               </button>
             </div>
             <div>
               <Link href={`/viewjobpost/${id}`}>
-                <button className="px-8 py-3 bg-white border border-red-500 text-red-500 rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
+                <button className="sm:px-8 px-2 py-3 bg-white border border-red-500 text-red-500 rounded-[16px] inline-flex gap-4 items-center tracking-wide uppercase my-3">
                   Cancel
                 </button>
               </Link>
@@ -262,7 +262,7 @@ const EditJobPost = () => {
           </div>
         </div>
         {/* form section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mx-3 lg:mx-20 lg:px-10 xl:px-20 py-8 my-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mx-3 lg:px-0 py-8 my-3">
           <div className="relative">
             <label
               className="absolute top-[-8px] left-0 ml-2 mt-px  bg-white px-1 text-[#1E0F3B] text-xs font-bold"
@@ -314,14 +314,14 @@ const EditJobPost = () => {
           {/* min max */}
           <div className="flex gap-3 justify-evenly md:justify-normal">
             {/* min */}
-            <div className="relative">
+            <div className="relative flex-1">
               <input
                 type="text"
                 id="minExp"
                 placeholder=" "
                 style={errors.minExp ? { borderColor: "red" } : {}}
                 required
-                className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px]  border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
                 `}
                 value={editJobPostData.minExp}
                 onChange={handleChange}
@@ -331,19 +331,19 @@ const EditJobPost = () => {
                 for="minExp"
                 className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
-                Minimum Experience
+                Min Exp
               </label>
               {renderErrorMessage("minExp")}
             </div>
             {/* max */}
-            <div className="relative">
+            <div className="relative flex-1">
               <input
                 type="text"
                 id="maxExp"
                 placeholder=" "
                 required
                 style={errors.maxExp ? { borderColor: "red" } : {}}
-                className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px] border-[#D8D8DD] border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
+                className={`block py-5 px-4 w-full text-sm text-gray-900  border rounded-[10px]  border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer
                         `}
                 value={editJobPostData.maxExp}
                 onChange={handleChange}
@@ -353,7 +353,7 @@ const EditJobPost = () => {
                 for="maxExp"
                 className="absolute my-1 text-gray-500  duration-300 transform -translate-y-4 scale-75 top-4 origin-[0] left-2.5 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
               >
-                Maximum Experience
+                Max Exp
               </label>
               {renderErrorMessage("maxExp")}
             </div>

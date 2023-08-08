@@ -95,6 +95,14 @@ const UserChat = ({ handleChatClose, finaldata }) => {
     };
   }, []);
 
+  // Function to receive new messages from the socket and update the state
+  const receiveMessage = (newMessage) => {
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { message: newMessage.message, user: newMessage.user === "consultant" },
+    ]);
+  };
+
   useEffect(() => {
     socket.current.on(`past-messages-${consultantUserId}`, (messageDoc) => {
       console.log(messageDoc);
@@ -105,12 +113,31 @@ const UserChat = ({ handleChatClose, finaldata }) => {
       }));
 
       setMessages(mappedMessages);
-    });
+    }); // Subscribe to new messages received from the socket
+
+    socket.current.on("message", receiveMessage);
 
     return () => {
-      socket.current.off();
+      socket.current.off("message", receiveMessage); // ...
     };
-  }, [messages]);
+  }, []);
+
+  // useEffect(() => {
+  //   socket.current.on(`past-messages-${consultantUserId}`, (messageDoc) => {
+  //     console.log(messageDoc);
+
+  //     const mappedMessages = messageDoc[0].messages.map((item) => ({
+  //       message: item.message,
+  //       user: item.user === "consultant",
+  //     }));
+
+  //     setMessages(mappedMessages);
+  //   });
+
+  //   return () => {
+  //     socket.current.off();
+  //   };
+  // }, [messages]);
 
   return (
     <Box className={styles.appliedChat} sx={{ backgroundColor: "#F9F6EE" }}>

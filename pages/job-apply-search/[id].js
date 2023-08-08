@@ -173,7 +173,7 @@ const JobSearchDetails = () => {
 
   return (
     <div
-      className="bg-[#2B373C1C] flex flex-col items-center "
+      className="bg-[#2B373C1C] flex flex-col items-center w-full "
       style={{
         height: `${
           screenSize.height < 900 ? "900px" : `${screenSize.height}px`

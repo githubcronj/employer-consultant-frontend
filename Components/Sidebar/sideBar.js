@@ -10,7 +10,8 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import cross from "../../public/Assets/x.png";
 import { Router, useRouter } from "next/router";
-export const SideBar = () => {
+import withEmployerAuth from "Components/ProtectedRoute/withEmployerAuth";
+const SideBar = () => {
   const [display, setDisplay] = useState(true);
   const [homebg, setHomebg] = useState(true);
   const [shortlistedbg, setShortlistedbg] = useState(false);
@@ -21,6 +22,7 @@ export const SideBar = () => {
   const [scheduledbg, setScheduledbg] = useState(false);
   const [modal, setModal] = useState(false);
   const [isfixed, setIsfixed] = useState(false);
+  const [sidebarWidth, setSidebarWidth] = useState("");
   const router = useRouter();
   const click = (id) => {
     if (id == 0) {
@@ -85,8 +87,39 @@ export const SideBar = () => {
     }
   };
 
+  // const handleResize = () => {
+  //   setSidebarWidth(window.innerWidth);
+  //   if (window.innerWidth < 1024) {
+  //     setDisplay(false);
+  //     setModal(true);
+  //   } else {
+  //     setDisplay(true);
+  //     setModal(false);
+  //   }
+  // };
+  // useEffect(() => {
+  //   window.addEventListener("resize", handleResize);
+  // }, [display]);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scroll = window.scrollY;
+
+  //     if (scroll > 10) {
+  //       setIsfixed(true);
+  //     } else {
+  //       setIsfixed(false);
+  //     }
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
+
   const handleResize = () => {
-    if (window.innerWidth < 640) {
+    if (window.innerWidth < 1024) {
       setDisplay(false);
       setModal(true);
     } else {
@@ -94,10 +127,13 @@ export const SideBar = () => {
       setModal(false);
     }
   };
+
   useEffect(() => {
+    // Set initial sidebar width
+    handleResize();
+
     window.addEventListener("resize", handleResize);
-  }, [setDisplay]);
-  useEffect(() => {
+    // const handleScroll = () => setIsFixed(window.scrollY > 10);
     const handleScroll = () => {
       const scroll = window.scrollY;
 
@@ -107,18 +143,19 @@ export const SideBar = () => {
         setIsfixed(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll);
 
+    // Clean up event listeners
     return () => {
+      window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
-    <div className="w-auto z-10 h-full">
+    <div className="w-auto z-20 lg:h-full ">
       <div
-        className="cursor-pointer mt-3 ml-3 z-0 xl:hidden lg:hidden md:hidden sm:hidden"
+        className="cursor-pointer mt-3 ml-3 z-0 pb-3 lg:hidden"
         onClick={() => setDisplay(!display)}
       >
         {!display && (
@@ -140,7 +177,7 @@ export const SideBar = () => {
             isfixed ? "top-0" : "top-15"
           } `}
           style={{
-            boxShadow: modal ? "rgba(0, 0, 0, 0.20) 212px 38px 0px 245px" : "",
+            boxShadow: modal ? `rgba(0, 0, 0, 0.20) 212px 38px 0px 1024px` : "",
           }}
         >
           <div
@@ -280,3 +317,5 @@ export const SideBar = () => {
     </div>
   );
 };
+
+export default withEmployerAuth(SideBar);
