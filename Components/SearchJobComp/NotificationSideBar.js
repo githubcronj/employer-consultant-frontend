@@ -125,7 +125,7 @@ const NotificationSideBar = () => {
                 alignItems: "center",
               }}
             >
-              Notifications{" "}
+              Notifications
               <span
                 style={{
                   background: "#F9F6EE",
@@ -188,6 +188,7 @@ const NotificationSideBar = () => {
                         justifyContent: "center",
                         gap: "1rem",
                         marginBottom: "10px",
+                        paddingRight: "2px",
                       }}
                     >
                       {/* <Image src={spotify} alt="logo" width="32" height="32" /> */}
@@ -203,7 +204,16 @@ const NotificationSideBar = () => {
                         {/* 3d */}
                         {formatDate(item.createdAt)}
                       </Typography>
-                      <Typography sx={{ fontSize: "14px" }}>
+                      <Typography
+                        sx={{
+                          fontSize: "14px",
+                          marginRight: "1rem",
+                          "@media screen and (min-width: 1200px) and (max-width: 1215px)":
+                            {
+                              paddingRight: "12px",
+                            },
+                        }}
+                      >
                         {/* 10 new jobs for UX designer in Bengaluru */}
                         {item.message}
                       </Typography>
