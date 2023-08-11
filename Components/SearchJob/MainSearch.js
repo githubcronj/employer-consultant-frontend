@@ -22,6 +22,7 @@ import {
 
 import unsaveJob from "../../asset/images/unsaveJob.svg";
 import AboutCompanyModal from "Components/JobAlertModal/AboutCompanyModal";
+import { fetchJobsRequest } from "store/action/recommandedJobAction";
 
 const MainSearch = ({
   finaldata,
@@ -37,6 +38,7 @@ const MainSearch = ({
   const [open, setOpen] = React.useState(false);
 
   const dispatch = useDispatch();
+
   const getToken = () => {
     if (typeof window !== "undefined" && localStorage.getItem("CurrentUser")) {
       const storedData = localStorage.getItem("CurrentUser");
@@ -46,30 +48,28 @@ const MainSearch = ({
   };
   const finaltoken = getToken();
 
-  const handleApply = () => {
-    const payload = { jobId: finaldata[0]?._id, finaltoken };
-    dispatch({ type: APPLY_JOB_SUCCESS, payload });
-    setShowApply(false);
-  };
+  // console.log(finaldata[0]);
 
   useEffect(() => {
-    const isJobApplied = appliedJobData.some(
-      (job) => job._id === finaldata[0]?._id
-    );
-    const savedJobId = localStorage.getItem("savedJobId");
-
-    if (savedJobId === finaldata[0]?._id) {
+    // const isJobApplied = appliedJobData.some(
+    //   (job) => job._id === finaldata[0]?._id
+    // );
+    const savedJobId = finaldata[0]?.isSaved;
+    if (savedJobId) {
       setSavejob(false);
     } else {
       setSavejob(true);
     }
+
+    const isJobApplied = finaldata[0]?.isApplied;
+    // console.log(isJobApplied);
 
     if (isJobApplied) {
       setShowApply(false);
     } else {
       setShowApply(true);
     }
-  }, [appliedJobData, finaldata]);
+  }, [finaldata]);
 
   // const handleApply = () => {
   //   const payload = { jobId: finaldata[0]?._id, finaltoken };
@@ -78,26 +78,42 @@ const MainSearch = ({
 
   // };
 
+  const handleApply = () => {
+    const payload = { jobId: finaldata[0]?._id, finaltoken };
+    dispatch({ type: APPLY_JOB_SUCCESS, payload });
+    setTimeout(() => {
+      dispatch(fetchJobsRequest(finaldata, finaltoken));
+    }, 500);
+    setShowApply(false);
+  };
+
   const handleCancel = () => {
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: CANCEL_JOB_SUCCESS, payload });
-
+    setTimeout(() => {
+      dispatch(fetchJobsRequest(finaldata, finaltoken));
+    }, 500);
     setShowApply(true);
   };
 
   const saveData = () => {
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: SAVE_JOB_SUCCESS, payload });
+
+    setTimeout(() => {
+      dispatch(fetchJobsRequest(finaldata, finaltoken));
+    }, 500);
     setSavejob(false);
-    localStorage.setItem("savedJobId", finaldata[0]?._id);
   };
+
   const unsaveData = () => {
     const payload = { jobId: finaldata[0]?._id, finaltoken };
     dispatch({ type: UNSAVE_JOB_REQUEST, payload });
-    setSavejob(true);
 
-    // Remove the saved job ID from local storage
-    localStorage.removeItem("savedJobId");
+    setTimeout(() => {
+      dispatch(fetchJobsRequest(finaldata, finaltoken));
+    }, 500);
+    setSavejob(true);
   };
 
   return (

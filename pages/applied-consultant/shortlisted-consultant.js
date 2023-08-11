@@ -31,7 +31,7 @@ const ShortlistedConsultant = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const id = router.query;
-  console.log(id, "roterid");
+  // console.log(id, "roterid");
   const [selectedCard, setSelectedCard] = useState(null);
   const [shortlistedCards, setShortlistedCards] = useState([]);
 
@@ -41,9 +41,10 @@ const ShortlistedConsultant = () => {
   const [yesClicked, setYesClicked] = useState(false);
   const [errors, setErrors] = useState({});
   const [search, setsearch] = useState("");
-  const [jobId, setJobId] = useState();
+  const [jobId, setJobId] = useState("");
   const [currentJob, setCurrentJob] = useState();
   const [singleConsulantData, setSingleConsulantData] = useState(null);
+  const [searchFlag, setSearchFlag] = useState(false);
   // const [employerJobId, setEmployerJobId] = useState(null);
 
   // useEffect(() => {
@@ -67,7 +68,7 @@ const ShortlistedConsultant = () => {
 
   // Create the scheduled date string in the desired format
   const scheduledDate = `${year}-${formattedMonth}-${formattedDay} ${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-  console.log(scheduledDate, "scheduledDate");
+  // console.log(scheduledDate, "scheduledDate");
   const handleCloseModal = () => {
     setModalOpen(false);
   };
@@ -91,10 +92,10 @@ const ShortlistedConsultant = () => {
   };
   const accessToken = getToken();
 
-  useEffect(() => {
-    const JobId = localStorage.getItem("jobId");
-    setJobId(JobId);
-  }, [jobId]);
+  // useEffect(() => {
+  //   const JobIdLocalStorage = localStorage.getItem("jobId");
+  //   setJobId(JobIdLocalStorage);
+  // }, [jobId]);
 
   useEffect(() => {
     // dispatch({
@@ -102,31 +103,36 @@ const ShortlistedConsultant = () => {
     //   payload: jobId,
     //   accessToken,
     // });
-    const payload = {
-      payload: jobId,
-      accessToken,
-      // search: search,
-    };
-    dispatch(fetchshortlistconsultantRequest(payload));
+    if (typeof window !== "undefined" && localStorage.getItem("jobId")) {
+      const jobIdLocalStorage = localStorage.getItem("jobId");
+      setJobId(jobIdLocalStorage);
+      // const payload = {
+      //   payload: JobIdLocalStorage,
+      //   accessToken,
+      //   // search: search,
+      // };
+
+      dispatch(fetchshortlistconsultantRequest(jobIdLocalStorage, accessToken));
+    }
   }, [jobId]);
 
-  const onSearch = (e) => {
-    setsearch(e.target.value);
+  // const onSearch = (e) => {
+  //   setsearch(e.target.value);
 
-    dispatch({
-      type: FETCH_SHORTLISTED_COSULTANT_REQUEST,
-      payload: jobId,
-      accessToken,
-      search: e.target.value,
-    });
-  };
+  //   dispatch({
+  //     type: FETCH_SHORTLISTED_COSULTANT_REQUEST,
+  //     payload: jobId,
+  //     accessToken,
+  //     search: e.target.value,
+  //   });
+  // };
   const handleChange = () => {
     const payload = {
       payload: jobId,
       accessToken,
       search: search,
     };
-    dispatch(fetchshortlistconsultantRequest(payload));
+    dispatch(fetchshortlistconsultantRequest(jobId, accessToken, search));
     // dispatch({
     //   type: FETCH_SHORTLISTED_COSULTANT_REQUEST,
     //   payload: jobId,
@@ -141,18 +147,34 @@ const ShortlistedConsultant = () => {
       accessToken,
       search: search,
     };
-    dispatch(fetchshortlistconsultantRequest(payload));
+    setsearch("");
+    dispatch(fetchshortlistconsultantRequest(jobId, accessToken));
   };
 
-  useEffect(() => {
+  const handleInputChange = (e) => {
+    setsearch(e.target.value);
     if (!search) {
+      console.log("inside handlechange");
+      setSearchFlag(!searchFlag);
+    }
+  };
+
+  const handleInputBlur = () => {
+    if (search === "") {
       clearFilters();
       console.log("clearFilters");
     }
-  }, [search]);
+  };
+
+  // useEffect(() => {
+  //   if (searchFlag) {
+  //     clearFilters();
+  //     console.log("clearFilters");
+  //   }
+  // }, [search]);
 
   const response = useSelector((state) => state?.getjobReducer?.selectedJob);
-  console.log(response, "sweta");
+  // console.log(response, "sweta");
 
   useEffect(() => {
     if (response) {
@@ -189,11 +211,11 @@ const ShortlistedConsultant = () => {
     (state) => state.shortlistConsultantReducer.fetchshortlistedconsultant
   );
 
-  console.log(shortlistedConsultantcount, "shortlistedConsultantcount");
+  // console.log(shortlistedConsultantcount, "shortlistedConsultantcount");
 
-  const consultantId = shortlistedData?.length > 0 && shortlistedData[0]?._id;
+  const consultantId = singleConsulantData?.consultantId?._id;
 
-  console.log(consultantId, "cosultantid");
+  // console.log(consultantId, "cosultantid");
   const handleCardClick = (id) => {
     setSelectedCard(id);
   };
@@ -283,7 +305,6 @@ const ShortlistedConsultant = () => {
       );
     }
   };
-  console.log(singleConsulantData?.consultantId?.email);
 
   const sendEmailInvite = () => {
     const payload = {
@@ -300,7 +321,7 @@ const ShortlistedConsultant = () => {
     <div className=" grid lg:grid-cols-12 sm:grid-col-span-2 bg-[#2B373C1C] py-5 px-2 sm:px-2">
       <div className="lg:col-start-1 lg:col-end-12  sm:col-span-12">
         <div className="grid gap-4 mx-2 sm:mx-6 bg-white border px-4 py-4">
-          <div className="flex items-center">
+          <div className="flex flex-col items-start">
             <div className="flex flex-row items-center my-4">
               <p className="text-[20px] text-[#2B373C] sm:text-[25px] lg:text-[20px] xl:text-2xl font-bold">
                 Shortlisted Consultants
@@ -311,60 +332,39 @@ const ShortlistedConsultant = () => {
                 </span>
               </p>
             </div>
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center ">
+              <p className="text-[15px] sm:text-[15px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px] text-[#2B373C]">
+                {shortlistedConsultantData?.minExp
+                  ? shortlistedConsultantData?.minExp -
+                    shortlistedConsultantData?.maxExp
+                  : ""}{" "}
+                yrs experience
+              </p>
+              <span className="dot hidden sm:inline-block"></span>
+              <p className="text-[15px] sm:text-[15px] lg:text-[14px] xl:text-[16px] 2xl:text-[16px] text-[#2B373C]">
+                {shortlistedConsultantData?.jobType}
+              </p>
+              <span className="dot hidden sm:inline-block"></span>
+              <p className="text-[15px] sm:text-[15px] lg:text-[14px] xl:text-[16px] 2xl:text-[16px] text-[#2B373C]">
+                {shortlistedConsultantData?.minSalary}-
+                {shortlistedConsultantData?.maxSalary} /hr
+              </p>
+              <span className="dot hidden sm:inline-block"></span>
+              <p className="text-[15px] sm:text-[15px] lg:text-[14px] xl:text-[16px] 2xl:text-[16px] text-[#2B373C]">
+                {moment(shortlistedConsultantData?.deadline)
+                  .utc()
+                  .format("YYYY-MM-DD")}
+              </p>
+            </div>
           </div>
-          {/* <div className="  lg:col-span-8 sm:col-span-2"> */}
-          {/* <div>
-              <select
-                id="experience1"
-                required
-                className="py-2 px-5 border rounded-[10px] border-[#D8D8DD] lg:w-[310px] sm:w-[300px] custom-select"
-                style={{
-                  WebkitAppearance: "none",
-                  MozAppearance: "none",
-                  appearance: "none",
-                  backgroundImage: "none",
-                  backgroundColor: "#E8E7EB",
-                  backgroundImage: "url(/Assets/down-arrow.svg)",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "95% center",
-                  paddingRight: "20px",
-                  ...(errors.experience ? { borderColor: "red" } : {}),
-                }}
-              >
-                <option value="">UX Designer</option>
-                <option value="one">1 year</option>
-                <option value="two">2 years</option>
-                <option value="three">3 years</option>
-              </select>
-            </div> */}
-          {/* </div> */}
         </div>
 
-        <div className="grid lg:grid-cols-12  gap-4 mx-2 sm:mx-6 bg-[#F9F6EE] border px-4 py-4 items-center">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mx-2 sm:mx-6 bg-[#F9F6EE] border px-4 py-4">
           <div className="lg:col-span-4">
-            {/* <div className="relative w-full">
-              <input
-                type="text"
-                id="simple-search"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-4 py-2.5 "
-                placeholder="Search"
-                required
-              />
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Image
-                  src="/Assets/searchIcon.svg"
-                  alt="Search Icon"
-                  width={16}
-                  height={16}
-                />
-              </div>
-            </div> */}
-
             <InputBase
               name="location"
-              onChange={(e) => {
-                setsearch(e.target.value);
-              }}
+              onChange={handleInputChange}
+              onBlur={handleInputBlur}
               className="rounded-[13px]"
               value={search}
               sx={{
@@ -411,28 +411,25 @@ const ShortlistedConsultant = () => {
               }
             />
           </div>
+
           <div className="lg:col-span-8">
-            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center ">
-              <p className="text-[15px] sm:text-[15px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px] text-[#2B373C]">
-                {shortlistedConsultantData?.minExp} -{" "}
-                {shortlistedConsultantData?.maxExp}yrs experience
-              </p>
-              <span className="dot hidden sm:inline-block"></span>
-              <p className="text-[15px] sm:text-[15px] lg:text-[14px] xl:text-[16px] 2xl:text-[16px] text-[#2B373C]">
-                {shortlistedConsultantData?.jobType}
-              </p>
-              <span className="dot hidden sm:inline-block"></span>
-              <p className="text-[15px] sm:text-[15px] lg:text-[14px] xl:text-[16px] 2xl:text-[16px] text-[#2B373C]">
-                {shortlistedConsultantData?.minSalary}-
-                {shortlistedConsultantData?.maxSalary} /hr
-              </p>
-              <span className="dot hidden sm:inline-block"></span>
-              <p className="text-[15px] sm:text-[15px] lg:text-[14px] xl:text-[16px] 2xl:text-[16px] text-[#2B373C]">
-                {moment(shortlistedConsultantData?.deadline)
-                  .utc()
-                  .format("YYYY-MM-DD")}
-              </p>
-            </div>
+            {" "}
+            <button
+              type="submit"
+              className={`flex px-8 py-2 bg-transparent rounded-[16px] gap-4 items-center tracking-wide  mr-1 sm:mr-3 border  ${
+                search === ""
+                  ? "border-[#A7A7A7] text-[#A7A7A7]"
+                  : "border-black text-black"
+              }`}
+              onClick={clearFilters}
+            >
+              <img
+                src="/Assets/crossIcon.svg"
+                alt="Image"
+                className="w-4 h-4"
+              />
+              Clear
+            </button>
           </div>
         </div>
 
@@ -460,9 +457,9 @@ const ShortlistedConsultant = () => {
                   <Box key={index}>
                     <ConsultantCard
                       key={card._id}
-                      name={card.fullName}
-                      jobTitle={card.jobRole}
-                      experience={card.totalExperience}
+                      name={card.consultantId.fullName}
+                      jobTitle={card.consultantId.jobRole}
+                      experience={card.consultantId.totalExperience}
                       // imageSrc={card.imageSrc}
                       selected={card._id === selectedCard}
                       shortlisted={shortlistedCards.includes(card._id)}
@@ -506,7 +503,7 @@ const ShortlistedConsultant = () => {
           </div> */}
 
           <div
-            className={`lg:col-span-4 mx-auto lg:mx-0 lg:mt-0 max-h-[719px] w-full sm:w-auto overflow-y-scroll ${
+            className={`lg:col-span-4 mx-auto lg:mx-0 lg:mt-0 max-h-[735px] w-full sm:w-auto ${
               singleConsulantData === null
                 ? "lg:border-l-2 border-gray-800"
                 : "border-gray-800 border-[2px]"
@@ -520,6 +517,7 @@ const ShortlistedConsultant = () => {
               <div
                 className="lg:col-span-2 mx-auto mt-8 lg:mx-0 lg:mt-0 max-h-[719px] overflow-y-scroll max-w-[700px] "
                 id="templateOneContent"
+                style={{ scrollbarWidth: "thin" }}
               >
                 {/* resume */}
                 <div className="sm:flex items-center bg-gray-500 lg:px-4">
@@ -533,10 +531,10 @@ const ShortlistedConsultant = () => {
 
                   <div className="w-[68%] px-3 py-4 bg-gray-500">
                     <div className="text-[24px] font-bold mb-[10px] text-white break-words">
-                      {singleConsulantData?.fullName}
+                      {singleConsulantData?.consultantId?.fullName}
                     </div>
                     <div className="text-[16px] w-[fit-content] font-medium text-white bg-gray-500 p-1 break-words">
-                      {singleConsulantData?.jobRole}
+                      {singleConsulantData?.consultantId?.jobRole}
                       <span>- job role</span>
                     </div>
                     <div className="grid grid-cols-2 gap-2 my-10">
@@ -546,7 +544,7 @@ const ShortlistedConsultant = () => {
                           Phone:
                         </div>
                         <div className="text-[16px] text-white break-words">
-                          {singleConsulantData?.phoneNumber}
+                          {singleConsulantData?.consultantId?.phoneNumber}
                         </div>
                       </div>
                       {/* 2 */}
@@ -555,7 +553,7 @@ const ShortlistedConsultant = () => {
                           Email
                         </div>
                         <div className="text-[16px] text-white break-words">
-                          {singleConsulantData?.email}
+                          {singleConsulantData?.consultantId?.email}
                         </div>
                       </div>
 
@@ -565,7 +563,7 @@ const ShortlistedConsultant = () => {
                           Gender:
                         </div>
                         <div className="text-[16px] text-white break-words">
-                          {singleConsulantData?.gender}
+                          {singleConsulantData?.consultantId?.gender}
                         </div>
                       </div>
                       <div>
@@ -573,13 +571,14 @@ const ShortlistedConsultant = () => {
                           Loaction:
                         </div>
                         <div className="text-[16px] text-white break-words">
-                          {singleConsulantData?.location}
+                          {singleConsulantData?.consultantId?.location}
                         </div>
                       </div>
                       {/* 2 */}
                       <div>
                         <div className="text-[14px] text-white font-bold break-words">
-                          Year of Experience
+                          Year of Experience -{" "}
+                          {singleConsulantData?.consultantId?.totalExperience}
                         </div>
                       </div>
                     </div>
@@ -591,33 +590,37 @@ const ShortlistedConsultant = () => {
 
                   <div className="flex items-center py-10 pl-4 sm:w-[32%]">
                     <div>
-                      {/* <div className="text-[20px] font-bold mb-[10px] break-words">
+                      <div className="text-[20px] font-bold mb-[10px] break-words">
                         Education
                       </div>
-                      {singleConsulantData?.education.length > 0 &&
-                        singleConsulantData?.education.map((item, index) => {
-                          return (
-                            <div className="my-3" key={index}>
-                              <div className="text-[15px] break-words">
-                                {item.year}
+                      {singleConsulantData?.consultantId?.education.length >
+                        0 &&
+                        singleConsulantData?.consultantId?.education.map(
+                          (item, index) => {
+                            return (
+                              <div className="my-3" key={index}>
+                                <div className="text-[15px] break-words">
+                                  {item.year}
+                                </div>
+                                <div className="text-[15px] font-bold break-words">
+                                  {item.level} in {item.degreeName}
+                                </div>
+                                <div className="text-[15px] break-words">
+                                  {item.institutionName}
+                                </div>
                               </div>
-                              <div className="text-[15px] font-bold break-words">
-                                {item.level} in {item.degreeName}
-                              </div>
-                              <div className="text-[15px] break-words">
-                                {item.institutionName}
-                              </div>
-                            </div>
-                          );
-                        })} */}
+                            );
+                          }
+                        )}
 
                       {/* skills */}
 
                       <div className="text-[20px] font-bold mt-8 break-words">
                         Skills
                       </div>
-                      {singleConsulantData?.skill?.skillName.length &&
-                        singleConsulantData?.skill?.skillName.map(
+                      {singleConsulantData?.consultantId?.skill?.skillName
+                        .length &&
+                        singleConsulantData?.consultantId?.skill?.skillName.map(
                           (item, index) => {
                             return (
                               <div
@@ -644,14 +647,15 @@ const ShortlistedConsultant = () => {
                   </div>
                   {/* expe and projects */}
 
-                  <div className="px-3 py-10 sm:w-[68%] bg-gray-200">
+                  <div className="px-3 py-10 sm:w-[68%] bg-stone-300">
                     <div>
                       <div>
                         <h2 className="text-[20px] font-bold mb-[10px] break-words">
                           Experience
                         </h2>
-                        {singleConsulantData?.experience?.length &&
-                          singleConsulantData?.experience?.map(
+                        {singleConsulantData?.consultantId?.experience
+                          ?.length &&
+                          singleConsulantData?.consultantId?.experience?.map(
                             (item, index) => {
                               return (
                                 <div
@@ -686,61 +690,64 @@ const ShortlistedConsultant = () => {
 
                       {/* Projects */}
 
-                      {/* <div>
+                      <div>
                         <h2 className="text-[20px] font-bold mb-[10px] break-words">
                           Projects
                         </h2>
-                        {singleConsulantData?.project.length &&
-                          singleConsulantData?.project?.map((item, index) => {
-                            return (
-                              <div
-                                className="grid sm:grid-cols-5 gap-2 my-2"
-                                key={index}
-                              >
-                                <div className="sm:col-span-2">
-                                  <div className="text-[15px] break-words">
-                                    {moment(item?.startDate)
-                                      .utc()
-                                      .format("YYYY-MM-DD")}
-                                    <span> to </span>
-                                    {moment(item?.endDate)
-                                      .utc()
-                                      .format("YYYY-MM-DD")}
+                        {singleConsulantData?.consultantId?.project.length &&
+                          singleConsulantData?.consultantId?.project?.map(
+                            (item, index) => {
+                              return (
+                                <div
+                                  className="grid sm:grid-cols-5 gap-2 my-2"
+                                  key={index}
+                                >
+                                  <div className="sm:col-span-2">
+                                    <div className="text-[15px] break-words">
+                                      {moment(item?.startDate)
+                                        .utc()
+                                        .format("YYYY-MM-DD")}
+                                      <span> to </span>
+                                      {moment(item?.endDate)
+                                        .utc()
+                                        .format("YYYY-MM-DD")}
+                                    </div>
+                                    <div className="text-[15px] font-bold break-words">
+                                      {item.projectName}
+                                    </div>
                                   </div>
-                                  <div className="text-[15px] font-bold break-words">
-                                    {item.projectName}
-                                  </div>
-                                </div>
 
-                                <div className="sm:col-span-3">
-                                  <div className="text-[15px] font-bold break-words">
-                                    <a
-                                      href={item.projectUrl}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="text-blue-400 underline italic break-words "
-                                    >
-                                      link
-                                    </a>
-                                  </div>
-                                  <div className="text-[15px] w-full break-words ">
-                                    {item.projectDescription}
+                                  <div className="sm:col-span-3">
+                                    <div className="text-[15px] font-bold break-words">
+                                      <a
+                                        href={item.projectUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-blue-400 underline italic break-words "
+                                      >
+                                        link
+                                      </a>
+                                    </div>
+                                    <div className="text-[15px] w-full break-words ">
+                                      {item.projectDescription}
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            );
-                          })}
-                      </div> */}
+                              );
+                            }
+                          )}
+                      </div>
 
                       {/* skills */}
-                      {/* <div>
-                        {singleConsulantData?.certification.length != 0 && (
+                      <div>
+                        {singleConsulantData?.consultantId?.certification
+                          .length != 0 && (
                           <div className="text-[20px] font-bold mt-8">
                             Certfication
                           </div>
                         )}
 
-                        {singleConsulantData?.certification?.map(
+                        {singleConsulantData?.consultantId?.certification?.map(
                           (item, index) => {
                             return (
                               <div key={index}>
@@ -776,7 +783,7 @@ const ShortlistedConsultant = () => {
                             );
                           }
                         )}
-                      </div> */}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -856,7 +863,7 @@ const ShortlistedConsultant = () => {
               )}
 
               <hr />
-              {/* <addConsultant /> */}
+
               <Popoverr text={"Send mail invite for interview"}>
                 <button
                   className="flex justify-end sm:px-3 sm:py-3 mr-2 sm:mr-0"
@@ -870,11 +877,11 @@ const ShortlistedConsultant = () => {
                   <img src="/Assets/chat.svg" alt="tick" />
                 </button>
               </Popoverr>
-              <Popoverr text={"Send E-mail"}>
+              {/* <Popoverr text={"Send E-mail"}>
                 <button className="flex justify-end sm:px-3 sm:py-3">
                   <img src="/Assets/mail2.svg" alt="tick" />
                 </button>
-              </Popoverr>
+              </Popoverr> */}
             </div>
           )}
         </div>

@@ -51,12 +51,12 @@ function* unsaveJobData(action) {
     });
 
     yield put({ type: UNSAVE_JOB_SUCCESS, payload: response.data });
-    toast.success("Job remove successful");
+    toast.success("Job removed successfull");
     console.log("test in saga", response.data);
   } catch (error) {
     console.log("API call error:", error);
     yield put({ type: UNSAVE_JOB_FAILURE, payload: error });
-    // toast.error(error.message);
+    toast.error(error.message);
   }
 }
 

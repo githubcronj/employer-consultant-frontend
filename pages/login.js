@@ -58,16 +58,14 @@ const Login = () => {
   //   localStorage.setItem("role", "consultant");
   // }, []);
   useEffect(() => {
-    const role = localStorage.getItem('role')
-    if(role == "consultant"){
+    const role = localStorage.getItem("role");
+    if (role == "consultant") {
       localStorage.setItem("role", "consultant");
-      setRole("consultant")
-    }
-    else{
+      setRole("consultant");
+    } else {
       localStorage.setItem("role", "employer");
-      setRole("employer") 
+      setRole("employer");
     }
-   
   }, []);
   const passwordclick = () => {
     setDisplayPassword(displayPassword == "password" ? "text" : "password");
@@ -128,9 +126,7 @@ const Login = () => {
   return (
     <>
       <div
-        className={`max-w-[1536px]   mx-auto flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row
-        lg:items-center lg:justify-center md:flex-col
-         lg:gap-12 xl:gap-0 h-[100%] lg:h-auto ${styles.desk}`}
+        className={`max-w-[1536px] mx-auto flex flex-col  xl:flex-row xl:items-center justify-center lg:flex-row lg:items-center lg:justify-center md:flex-col lg:gap-12 xl:gap-0 h-[100%] lg:h-auto 2xl:gap-[10rem] ${styles.desk}`}
       >
         <div className="xl:mt-0  flex flex-col items-center justify-center align-middle sm:pl-0  sm:mr-[2px] md:mr-[2px] mb-3 xl:-mb-7 flex-1 ">
           <div
@@ -175,8 +171,7 @@ const Login = () => {
                 style={{
                   padding: role == "consultant" ? "12px" : "12px",
                   borderRadius: "15px",
-                  backgroundColor:
-                    role == "consultant" ? "#ffffff" : "#EEEFEF",
+                  backgroundColor: role == "consultant" ? "#ffffff" : "#EEEFEF",
                   fontWeight: role == "consultant" ? "700" : "400",
                   margin: "5px",
                   width: "140px",
@@ -295,12 +290,12 @@ const Login = () => {
 
         {alignment == "web" && (
           <div
-            className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg}`}
+            className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] 2xl:w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg}`}
           ></div>
         )}
         {alignment != "web" && (
           <div
-            className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg2}`}
+            className={`hidden m-0 lg:flex p-0 md:w-full max-w-[600px] xl:max-w-[720px] 2xl:w-[720px] lg:h-[100vh] xl:h-[100vh]  xl:m-0 xl:p-0 ${styles.loginimgbg2}`}
           ></div>
         )}
       </div>
@@ -308,4 +303,3 @@ const Login = () => {
   );
 };
 export default withAuthRedirect(Login);
-

@@ -1,6 +1,11 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { makeApiRequest } from "../../utils/api";
-import { APPLY_JOB_SUCCESS, JOB_FAILURE, JOB_SUCCESS } from "store/type/applyJobType";
+import {
+  APPLY_JOB_SUCCESS,
+  JOB_FAILURE,
+  JOB_SUCCESS,
+} from "store/type/applyJobType";
+import { toast } from "react-toastify";
 
 function* applyJobData(action) {
   try {
@@ -19,14 +24,17 @@ function* applyJobData(action) {
     });
 
     yield put({ type: JOB_SUCCESS, payload: response.data });
-    console.log("test in saga", response.data);
+    toast.success("Job applied successful", {
+      autoClose: 3000,
+    });
   } catch (error) {
-    console.log("API call error:", error);
     yield put({ type: JOB_FAILURE, payload: error });
+    toast.error(error, {
+      autoClose: 3000,
+    });
   }
 }
 
 export default function* watchApplyJob() {
   yield takeLatest(APPLY_JOB_SUCCESS, applyJobData);
 }
-

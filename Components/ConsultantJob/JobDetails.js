@@ -4,7 +4,11 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { appliedJobSuccess } from "store/action/applyJobAction";
-import { CANCEL_JOB_SUCCESS, SAVE_JOB_SUCCESS } from "store/type/applyJobType";
+import {
+  CANCEL_JOB_SUCCESS,
+  SAVE_JOB_SUCCESS,
+  UNSAVE_JOB_REQUEST,
+} from "store/type/applyJobType";
 import ChatComponent from "../../Components/ChatComponent/AppliedChat";
 import Popover from "Components/PopOver/chatOver";
 import UserChat from "Components/ChatComponent/UserChat";
@@ -41,22 +45,37 @@ const JobDetails = ({ detail, setRemove }) => {
     dispatch(appliedJobSuccess(finaltoken));
   }, []);
 
+  const finalData = jobData?.filter((index, item) => index?._id == detail);
+  useEffect(() => {
+    const savedJobId = finalData[0]?.isSaved;
+    if (savedJobId) {
+      setSavejob(false);
+    } else {
+      setSavejob(true);
+    }
+
+    // const isJobApplied = jobData?.isApplied;
+    // console.log(isJobApplied);
+
+    // if (isJobApplied) {
+    //   setShowApply(false);
+    // } else {
+    //   setShowApply(true);
+    // }
+  }, [finalData]);
+
   const saveData = () => {
-    const payload = { jobId: jobData?._id, finaltoken };
+    const payload = { jobId: finalData[0]?._id, finaltoken };
     dispatch({ type: SAVE_JOB_SUCCESS, payload });
     setSavejob(false);
-    // localStorage.setItem("savedJobId", finaldata[0]?._id);
+    dispatch(appliedJobSuccess(finaltoken));
   };
   const unsaveData = () => {
-    // const payload = { jobId: finaldata[0]?._id, finaltoken };
-    // dispatch({ type: UNSAVE_JOB_REQUEST, payload });
+    const payload = { jobId: finalData[0]?._id, finaltoken };
+    dispatch({ type: UNSAVE_JOB_REQUEST, payload });
     setSavejob(true);
-    // localStorage.removeItem("savedJobId");
+    dispatch(appliedJobSuccess(finaltoken));
   };
-
-  const finalData = jobData?.filter((index, item) => index?._id == detail);
-
-  // console.log("detail", finalData);
 
   const handleCancel = () => {
     const payload = { jobId: finalData[0]?._id, finaltoken };
@@ -129,7 +148,7 @@ const JobDetails = ({ detail, setRemove }) => {
                     <Typography
                       sx={{
                         fontWeight: "bold",
-                        fontSize: { xs: "18px", sm: "26px" },
+                        fontSize: { xs: "18px", sm: "26px", md: "20px" },
                       }}
                     >
                       {finalData[0]?.jobTitle ? finalData[0]?.jobTitle : "NA"}
@@ -153,14 +172,14 @@ const JobDetails = ({ detail, setRemove }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Box sx={{}}>
+                  <Box className="flex">
                     <Button
                       style={{ background: "#f9f6ee" }}
                       sx={{
                         fontWeight: "bold",
                         color: "#1E0F3B",
                         py: "1rem",
-                        px: "26px",
+                        px: { sm: "15px", lg: "26px" },
                         mx: 1,
                         borderRadius: "15px",
                       }}
@@ -173,7 +192,7 @@ const JobDetails = ({ detail, setRemove }) => {
                         fontWeight: "bold",
                         color: "#ffffff",
                         py: "1rem",
-                        px: "26px",
+                        px: { sm: "15px", lg: "26px" },
                         mx: 1,
                         borderRadius: "15px",
                       }}

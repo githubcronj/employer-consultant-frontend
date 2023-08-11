@@ -79,16 +79,16 @@ const JobSearchRight = ({
   };
   const handleClickExp = (option) => {
     // setExp(option);
-    setJobType("");
-    setOnsite("");
-    setSelectedOption("");
+    // setJobType("");
+    // setOnsite("");
+    // setSelectedOption("");
     dispatch(fetchJobsRequest(expData, finaltoken));
     console.log(expData, "expData");
   };
   const handleClickJobType = (option) => {
     setJobType(option);
-    setOnsite("");
-    setSelectedOption("");
+    // setOnsite("");
+    // setSelectedOption("");
     dispatch(fetchJobsRequest(option, finaltoken));
   };
   const handleClickonsite = (option) => {
@@ -96,9 +96,9 @@ const JobSearchRight = ({
   };
 
   const handleClickSalary = (option) => {
-    setJobType("");
-    setOnsite("");
-    setSelectedOption("");
+    // setJobType("");
+    // setOnsite("");
+    // setSelectedOption("");
     dispatch(fetchJobsRequest(salaryData, finaltoken));
   };
 
@@ -108,6 +108,11 @@ const JobSearchRight = ({
     setOnsite("");
     setSelectedOption("");
     setSalaryData("");
+    setOpen(false);
+    setExpOpen(false);
+    setJobtypeOpen(false);
+    setOnsiteOpen(false);
+    setSalaryOpen(false);
     dispatch(fetchJobsRequest(jobData, finaltoken));
   };
   return (

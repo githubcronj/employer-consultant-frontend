@@ -33,7 +33,6 @@ const JobSearchDetails = () => {
   const finaltoken = getToken();
   const jobData = useSelector((state) => state.jobsReducer.GetjobData);
   const appliedJobData = useSelector((state) => state.appliedJobReducer.data);
-  // console.log("data", jobData);
 
   useEffect(() => {
     dispatch(fetchJobsRequest(jobData, finaltoken));
@@ -62,15 +61,17 @@ const JobSearchDetails = () => {
     setRecommanddata(recommanddata);
   }, [recommanddata]);
 
-  useEffect(() => {
-    setIsgetJobData(isgetdata);
-  }, [isgetdata]);
+  // useEffect(() => {
+  //   setIsgetJobData(isgetdata);
+  // }, [isgetdata]);
 
   useEffect(() => {
     setRecommandJobsdata(recommandJobsData);
     // const id = recommandJobsData[0]?._id;
     // router.push(`/job-apply-search/${id}`);
   }, [recommandJobsData]);
+
+  console.log(recommandJobsvalue[0]);
 
   const searchOnChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -94,24 +95,50 @@ const JobSearchDetails = () => {
 
     if (finaltoken) {
       dispatch(fetchRecommendJobs(searchData, finaltoken));
-      // console.log(isgetdata, "isGetData");
-      if (isgetJobData) {
-        const id = searchId.current;
-        router.push(`/job-apply-search/${searchId.current}`);
-      }
+
+      const id = searchId.current;
+
+      router.push(`/job-apply-search/${recommandJobsvalue[0]?._id}`);
     } else {
       router.push(`/job-apply-search/no-data-available`);
       return;
     }
   };
 
-  useEffect(() => {
-    if (isgetdata) {
-      // const id = recommandJobsvalue[0]?._id;
-      // router.push(`/job-apply-search/${id}`);
-      searchSubmitHandler();
-    }
-  }, [isgetJobData]);
+  // const searchSubmitHandler = async () => {
+  //   if (!finaltoken) {
+  //     // router.push(`/job-apply-search/no-data-available`);
+  //     return;
+  //   }
+
+  //   await dispatch(fetchRecommendJobs(searchData, finaltoken));
+
+  //   // After the dispatch has completed and data is updated, handle redirection
+  //   const id = recommandJobsvalue[0]?._id;
+  //   if (id) {
+  //     router.push(`/job-apply-search/${id}`);
+  //   } else {
+  //     router.push(`/job-apply-search/no-data-available`);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   // Check if recommandJobsvalue[0] has a valid _id before building the URL
+  //   if (recommandJobsvalue[0]?._id) {
+  //     const id = recommandJobsvalue[0]._id;
+  //     router.push(`/job-apply-search/${id}`);
+  //   } else {
+  //     router.push(`/job-apply-search/no-data-available`);
+  //   }
+  // }, [recommandJobsvalue]);
+
+  // useEffect(() => {
+  //   if (isgetdata) {
+  //     // const id = recommandJobsvalue[0]?._id;
+  //     // router.push(`/job-apply-search/${id}`);
+  //     searchSubmitHandler();
+  //   }
+  // }, [isgetJobData]);
 
   useEffect(() => {
     if (recommandvalue) {
@@ -169,7 +196,6 @@ const JobSearchDetails = () => {
   );
   const employerUserId = finaldata[0]?.userId;
   const consultantUserId = userData?.userId;
-  console.log({ employerUserId, consultantUserId });
 
   return (
     <div
@@ -180,44 +206,55 @@ const JobSearchDetails = () => {
       //   }`,
       // }}
     >
-      <Stack
-        direction="row"
-        mb={3}
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          marginBottom: "0px",
-          marginTop: "20px",
-          display: "flex",
-          width: "100%",
-          justifyContent: "center",
-        }}
-      >
-        <Image
-          src="/Assets/backbtn.svg"
-          alt="back button"
-          width={42}
-          height={42}
-          className="cursor-pointer -ml-[15rem]"
-          onClick={() => router.push("/search_job")}
-        />
-        <Typography
+      <div className="lg:grid lg:grid-cols-12 md:grid-cols-12 w-full gap-4 max-w-[415px] sm:max-w-[700px] lg:max-w-none ">
+        <Stack
+          className="lg:col-start-4 lg:col-end-10 lg:mx-[45px] mt-[30px] mb-4 sm:px-[2.5rem] lg:px-0 lg:mb-0 mx-auto "
+          direction="row"
           sx={{
-            color: "#2B373C",
-            fontSize: "26px",
-            fontWeight: "bold",
-            marginLeft: "10.5rem",
+            // width: {
+            //   xl: "38rem",
+            // },
+            justifyContent: "space-between",
           }}
         >
-          Search Jobs
-        </Typography>
-      </Stack>
+          <Image
+            src="/Assets/backbtn.svg"
+            alt="back button"
+            width={42}
+            height={42}
+            className="cursor-pointer "
+            onClick={() => router.push("/search_job")}
+          />
+          <Typography
+            sx={{
+              color: "#2B373C",
+              fontSize: "26px",
+              fontWeight: "bold",
+              marginLeft: {
+                // lg: "10.5rem",
+              },
+            }}
+          >
+            Search Jobs
+          </Typography>
+        </Stack>
+      </div>
       <div className="pt-1 px-3 sm:px-10 h-fit lg:max-w-[1400px] ">
         <div className="xl:hidden lg:hidden ">
-          <JobSearchHeader />
+          {/* <JobSearchHeader /> */}
+          <div className="relative w-full">
+            <SearchOver>
+              <SearchJobInput
+                handleBox1Click={handleBox1Click}
+                showBox1={showBox1}
+                searchOnChangeHandler={searchOnChangeHandler}
+                searchSubmitHandler={searchSubmitHandler}
+                searchData={searchData}
+              />
+            </SearchOver>
+          </div>
         </div>
-        <div class="lg:grid lg:grid-cols-12 md:grid-cols-3  gap-4">
+        <div class="lg:grid lg:grid-cols-12 md:grid-cols-3 gap-4">
           <div class="col-span-3 lg:col-span-3 md:col-span-12 ">
             <div className="mt-[20px] sm:mt-[30px] justify-center  xl:block lg:block">
               <JobSearchLeft jobId={id} />

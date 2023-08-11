@@ -36,6 +36,7 @@ import PostJobAlertReducer from "./postJobAlertReducer";
 import editJobAlertReducer from "./editJobAlertReducer";
 import userNotificationReducer from "./userNotificationReducer";
 import emailInviteReducer from "./emailInviteReducer";
+import selectedConsultantReducer from "store/reducer/selectConsultantReducer";
 const rootReducer = combineReducers({
   LoginReducer,
   registerReducer,
@@ -74,6 +75,7 @@ const rootReducer = combineReducers({
   editJobAlertReducer,
   userNotificationReducer,
   emailInviteReducer,
+  selectedConsultantReducer,
 });
 
 export default rootReducer;

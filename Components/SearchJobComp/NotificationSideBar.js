@@ -28,7 +28,6 @@ const NotificationSideBar = () => {
   const notificationData = useSelector(
     (state) => state?.userNotificationReducer?.notificationData
   );
-  console.log(notificationData);
 
   const toggleView = () => {
     setShowAllItems((prevShowAllItems) => !prevShowAllItems);
@@ -177,7 +176,7 @@ const NotificationSideBar = () => {
               }}
             >
               {notificationData
-                .slice(0, showAllItems ? notificationData.length : 4)
+                ?.slice(0, showAllItems ? notificationData?.length : 4)
                 .map((item, index) => (
                   <div key={index}>
                     <Box

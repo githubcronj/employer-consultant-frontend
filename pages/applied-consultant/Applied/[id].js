@@ -617,7 +617,9 @@ const AppliedConsultant = () => {
           >
             <div className="flex px-3 mb-4 lg:mb-0">
               <p className=" text-[26px] text-[#2B373C] sm:text-2xl font-bold">
-                {appliedjobData?.total ? appliedjobData?.total : "NA"}
+                {appliedjobData?.data?.appliedConsultant?.length
+                  ? appliedjobData?.data?.appliedConsultant?.length
+                  : "NA"}
                 <span className="ml-[3px]">Consultant</span>
               </p>
               <div className="bg-[#5E9AF8] ml-2 px-2 py-1 border rounded text-[#ffffff]">
@@ -628,15 +630,15 @@ const AppliedConsultant = () => {
               className="lg:h-[550px] lg:overflow-auto"
               style={{ scrollbarWidth: "thin" }}
             >
-              {appliedjobData?.data?.appliedConsultant.length > 0 ? (
+              {appliedjobData?.data?.appliedConsultant?.length > 0 ? (
                 appliedjobData?.data?.appliedConsultant?.map((card, index) => (
                   <Box key={index}>
                     <ConsultantCard
                       key={card?._id}
-                      name={card?.fullName}
-                      jobTitle={card?.jobRole}
-                      experience={card?.totalExperience}
-                      imageSrc={card.imageSrc}
+                      name={card?.consultantId?.fullName}
+                      jobTitle={card?.consultantId?.jobRole}
+                      experience={card?.consultantId?.totalExperience}
+                      imageSrc={card?.consultantId?.imageSrc}
                       selected={card?._id === selectedCard}
                       shortlisted={shortlistedCards.includes(card?._id)}
                       onClick={() => {
@@ -693,10 +695,10 @@ const AppliedConsultant = () => {
 
                   <div className="w-[68%] px-3 py-4 bg-gray-500">
                     <div className="text-[24px] font-bold mb-[10px] text-white break-words">
-                      {singleConsulantData?.fullName}
+                      {singleConsulantData?.consultantId?.fullName}
                     </div>
                     <div className="text-[16px] w-[fit-content] font-medium text-white bg-gray-500 p-1 break-words">
-                      {singleConsulantData?.jobRole}
+                      {singleConsulantData?.consultantId?.jobRole}
                       <span>- job role</span>
                     </div>
                     <div className="grid grid-cols-2 gap-2 my-10">
@@ -706,7 +708,7 @@ const AppliedConsultant = () => {
                           Phone:
                         </div>
                         <div className="text-[16px] text-white break-words">
-                          {singleConsulantData?.phoneNumber}
+                          {singleConsulantData?.consultantId?.phoneNumber}
                         </div>
                       </div>
                       {/* 2 */}
@@ -715,7 +717,7 @@ const AppliedConsultant = () => {
                           Email
                         </div>
                         <div className="text-[16px] text-white break-words">
-                          {singleConsulantData?.email}
+                          {singleConsulantData?.consultantId?.email}
                         </div>
                       </div>
 
@@ -725,7 +727,7 @@ const AppliedConsultant = () => {
                           Gender:
                         </div>
                         <div className="text-[16px] text-white break-words">
-                          {singleConsulantData?.gender}
+                          {singleConsulantData?.consultantId?.gender}
                         </div>
                       </div>
                       <div>
@@ -733,13 +735,14 @@ const AppliedConsultant = () => {
                           Loaction:
                         </div>
                         <div className="text-[16px] text-white break-words">
-                          {singleConsulantData?.location}
+                          {singleConsulantData?.consultantId?.location}
                         </div>
                       </div>
                       {/* 2 */}
                       <div>
                         <div className="text-[14px] text-white font-bold break-words">
-                          Year of Experience
+                          Year of Experience -{" "}
+                          {singleConsulantData?.consultantId?.totalExperience}
                         </div>
                       </div>
                     </div>
@@ -754,33 +757,37 @@ const AppliedConsultant = () => {
                       <div className="text-[20px] font-bold mb-[10px] break-words">
                         Education
                       </div>
-                      {singleConsulantData?.education?.length > 0 &&
-                        singleConsulantData?.education.map((item, index) => {
-                          return (
-                            <div className="my-3" key={index}>
-                              <div className="text-[15px] break-words">
-                                {item.year}
-                                {/* 2020 */}
+                      {singleConsulantData?.consultantId?.education?.length >
+                        0 &&
+                        singleConsulantData?.consultantId?.education.map(
+                          (item, index) => {
+                            return (
+                              <div className="my-3" key={index}>
+                                <div className="text-[15px] break-words">
+                                  {item.year}
+                                  {/* 2020 */}
+                                </div>
+                                <div className="text-[15px] font-bold break-words">
+                                  {item.level} in {item.degreeName}
+                                  {/* BCA in Bachelor Degree */}
+                                </div>
+                                <div className="text-[15px] break-words">
+                                  {item.institutionName}
+                                  {/* Mumbai University */}
+                                </div>
                               </div>
-                              <div className="text-[15px] font-bold break-words">
-                                {item.level} in {item.degreeName}
-                                {/* BCA in Bachelor Degree */}
-                              </div>
-                              <div className="text-[15px] break-words">
-                                {item.institutionName}
-                                {/* Mumbai University */}
-                              </div>
-                            </div>
-                          );
-                        })}
+                            );
+                          }
+                        )}
 
                       {/* skills */}
 
                       <div className="text-[20px] font-bold mt-8 break-words">
                         Skills
                       </div>
-                      {singleConsulantData?.skill?.skillName.length &&
-                        singleConsulantData?.skill?.skillName.map(
+                      {singleConsulantData?.consultantId?.skill?.skillName
+                        .length &&
+                        singleConsulantData?.consultantId?.skill?.skillName.map(
                           (item, index) => {
                             return (
                               <div
@@ -807,14 +814,15 @@ const AppliedConsultant = () => {
                   </div>
                   {/* expe and projects */}
 
-                  <div className="px-3 py-10 sm:w-[68%] bg-gray-200">
+                  <div className="px-3 py-10 sm:w-[68%] bg-stone-300">
                     <div>
                       <div>
                         <h2 className="text-[20px] font-bold mb-[10px] break-words">
                           Experience
                         </h2>
-                        {singleConsulantData?.experience?.length &&
-                          singleConsulantData?.experience?.map(
+                        {singleConsulantData?.consultantId?.experience
+                          ?.length &&
+                          singleConsulantData?.consultantId?.experience?.map(
                             (item, index) => {
                               return (
                                 <div
@@ -863,59 +871,62 @@ const AppliedConsultant = () => {
                         <h2 className="text-[20px] font-bold mb-[10px] break-words">
                           Projects
                         </h2>
-                        {singleConsulantData?.project?.length &&
-                          singleConsulantData?.project?.map((item, index) => {
-                            return (
-                              <div
-                                className="grid sm:grid-cols-5 gap-2 my-2"
-                                key={index}
-                              >
-                                {/* 1 */}
-                                <div className="sm:col-span-2">
-                                  <div className="text-[15px] break-words">
-                                    {moment(item?.startDate)
-                                      .utc()
-                                      .format("YYYY-MM-DD")}
-                                    <span> to </span>
-                                    {moment(item?.endDate)
-                                      .utc()
-                                      .format("YYYY-MM-DD")}
-                                    {/* 2020 to 2021 */}
+                        {singleConsulantData?.consultantId?.project?.length &&
+                          singleConsulantData?.consultantId?.project?.map(
+                            (item, index) => {
+                              return (
+                                <div
+                                  className="grid sm:grid-cols-5 gap-2 my-2"
+                                  key={index}
+                                >
+                                  {/* 1 */}
+                                  <div className="sm:col-span-2">
+                                    <div className="text-[15px] break-words">
+                                      {moment(item?.startDate)
+                                        .utc()
+                                        .format("YYYY-MM-DD")}
+                                      <span> to </span>
+                                      {moment(item?.endDate)
+                                        .utc()
+                                        .format("YYYY-MM-DD")}
+                                      {/* 2020 to 2021 */}
+                                    </div>
+                                    <div className="text-[15px] font-bold break-words">
+                                      {item.projectName}
+                                    </div>
                                   </div>
-                                  <div className="text-[15px] font-bold break-words">
-                                    {item.projectName}
+                                  {/* 2 */}
+                                  <div className="sm:col-span-3">
+                                    <div className="text-[15px] font-bold break-words">
+                                      <a
+                                        href={item.projectUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-blue-400 underline italic break-words "
+                                      >
+                                        link
+                                      </a>
+                                    </div>
+                                    <div className="text-[15px] w-full break-words ">
+                                      {item.projectDescription}
+                                    </div>
                                   </div>
                                 </div>
-                                {/* 2 */}
-                                <div className="sm:col-span-3">
-                                  <div className="text-[15px] font-bold break-words">
-                                    <a
-                                      href={item.projectUrl}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="text-blue-400 underline italic break-words "
-                                    >
-                                      link
-                                    </a>
-                                  </div>
-                                  <div className="text-[15px] w-full break-words ">
-                                    {item.projectDescription}
-                                  </div>
-                                </div>
-                              </div>
-                            );
-                          })}
+                              );
+                            }
+                          )}
                       </div>
 
                       {/* skills */}
                       <div>
-                        {singleConsulantData?.certification?.length != 0 && (
+                        {singleConsulantData?.consultantId?.certification
+                          ?.length != 0 && (
                           <div className="text-[20px] font-bold mt-8">
                             Certfication
                           </div>
                         )}
 
-                        {singleConsulantData?.certification?.map(
+                        {singleConsulantData?.consultantId?.certification?.map(
                           (item, index) => {
                             return (
                               <div key={index}>

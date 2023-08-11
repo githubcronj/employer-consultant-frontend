@@ -1,4 +1,5 @@
 import * as types from "../type/shortlistType";
+
 export function addintoshortlistRequest(payload) {
   console.log(payload, "action for shortlist");
   return {
@@ -6,7 +7,6 @@ export function addintoshortlistRequest(payload) {
     payload: payload,
   };
 }
-
 export function addintoshortlistSuccess(payload) {
   return {
     type: types.ADD_SHORTLIST_SUCCESS,
@@ -15,7 +15,6 @@ export function addintoshortlistSuccess(payload) {
     },
   };
 }
-
 export function addintoshortlistFailure(payload) {
   return {
     type: types.ADD_SHORTLIST_FAILURE,
@@ -23,11 +22,13 @@ export function addintoshortlistFailure(payload) {
   };
 }
 
-export function fetchshortlistconsultantRequest(payload) {
-  console.log("paylod action", payload);
+export function fetchshortlistconsultantRequest(jobId, accessToken, search) {
+  // console.log("paylod action", payload);
   return {
     type: types.FETCH_SHORTLISTED_COSULTANT_REQUEST,
-    payload: payload,
+    jobId: jobId,
+    accessToken: accessToken,
+    search: search,
   };
 }
 export function fetchshortlistconsultantSuccess(payload) {

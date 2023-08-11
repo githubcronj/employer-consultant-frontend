@@ -77,7 +77,7 @@ const SearchJobInput = ({
         autoComplete="off"
         startAdornment={
           <InputAdornment sx={{ padding: ".8rem 1rem 1rem 1rem" }}>
-            <Image src={locationIcon} alt="suitcase" width="18" height="18" />
+            <Image src={locationIcon} alt="suitcase" width="25" height="25" />
           </InputAdornment>
         }
         endAdornment={
@@ -85,7 +85,9 @@ const SearchJobInput = ({
             className={`${styles.searchbtn}`}
             // onClick={handleBox1Click}
             onClick={() => {
-              searchSubmitHandler();
+              if (searchData.jobTitle || searchData.location) {
+                searchSubmitHandler();
+              }
             }}
             style={{
               background: "red",
