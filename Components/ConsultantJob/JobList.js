@@ -85,6 +85,7 @@ const JobList = ({ setDetail }) => {
                 background: isSelected
                   ? "linear-gradient(to left, #5e9af800, #5e9af833)"
                   : "transparent",
+                cursor: "pointer",
                 // backgroundColor: isSelected ? "blue" : "transparent",
               }}
             >

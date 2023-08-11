@@ -51,14 +51,14 @@ function* shortlistConsultantSaga(action) {
 
 function* fetchShortlistedConsultantSaga(action) {
   try {
-    const jobId = action?.payload?.payload;
-    console.log(action.payload, "action");
-    console.log(jobId, "jobID");
+    const jobId = action?.jobId;
+    console.log(action, "action in saga");
+    // console.log(jobId, "jobID");
 
     const queryParams = new URLSearchParams();
 
-    if (jobId && action?.payload?.search) {
-      queryParams.set("search", action?.payload?.search);
+    if (jobId && action?.search) {
+      queryParams.set("search", action?.search);
     }
 
     const queryString = queryParams.toString();
@@ -69,7 +69,7 @@ function* fetchShortlistedConsultantSaga(action) {
       }jobId=${jobId}`,
       method: "GET",
       headers: {
-        Authorization: `Bearer ${action?.payload?.accessToken}`,
+        Authorization: `Bearer ${action?.accessToken}`,
       },
     });
     yield put(fetchshortlistconsultantSuccess(response));
@@ -77,6 +77,7 @@ function* fetchShortlistedConsultantSaga(action) {
     yield put(fetchshortlistconsultantfailure(error.message));
   }
 }
+
 function* rejectSheduledConsultantSaga(action) {
   try {
     const { payload } = action;
@@ -99,6 +100,7 @@ function* rejectSheduledConsultantSaga(action) {
     yield put(rejectsheduledconsultantfailure(error.message));
   }
 }
+
 export function* watchshortlistConsultantSaga() {
   yield takeLatest(ADD_SHORTLIST_REQUEST, shortlistConsultantSaga);
   yield takeLatest(

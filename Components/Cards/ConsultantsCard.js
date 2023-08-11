@@ -111,8 +111,7 @@ const ConsultantCard = ({
               {jobTitle} . {experience} yr Exp
             </p>
           </div>
-          <div>
-            {" "}
+          {/* <div>
             {showCheckbox && (
               <input
                 type="checkbox"
@@ -121,7 +120,7 @@ const ConsultantCard = ({
                 className="cursor-pointer lg:ml-[75px] sm:ml-[200px]"
               />
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     </>

@@ -43,7 +43,7 @@ const RecentSearch = () => {
   useEffect(() => {
     setIsRecentJob(isGetRecentJob);
   }, [isGetRecentJob]);
-  console.log(recentJobs);
+  // console.log(recentJobs);
 
   useEffect(() => {
     dispatch(fetchRecentJobs(finaltoken));
@@ -138,7 +138,6 @@ const RecentSearch = () => {
                     </Box>
                   </Grid>
                 </Grid>
-                {console.log(index, recentJobs.length)}
                 {!(index === recentJobs.length - 1) && <Divider />}
               </div>
             );

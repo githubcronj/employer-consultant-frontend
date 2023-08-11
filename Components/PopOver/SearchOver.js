@@ -22,6 +22,10 @@ const SearchOver = ({ children, onClick, id }) => {
     setIsOpen(true);
   };
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [isgetdata]);
+
   const handleClickOutside = (event) => {
     if (dropdownRef2.current && !dropdownRef2.current.contains(event.target)) {
       setIsOpen(false);
@@ -46,9 +50,9 @@ const SearchOver = ({ children, onClick, id }) => {
           isOpen
             ? `${
                 id == 1
-                  ? "mx-[1rem] md:mx-auto md:w-[700px] lg:w-[684px] xl:w-[850px]"
-                  : "w-[600px]"
-              } mx-auto mt-[32rem] md:mt-[28rem] lg:mt-[11rem] `
+                  ? "mx-[1rem] md:mx-auto md:w-[700px] lg:w-[684px] xl:w-[850px] mt-[32rem] md:mt-[28rem] lg:mt-[10rem]"
+                  : "md:mx-auto md:w-[700px] lg:w-[600px] mt-[6rem] "
+              } mx-auto  px-[2rem] `
             : ""
         }`}
         ref={dropdownRef2}

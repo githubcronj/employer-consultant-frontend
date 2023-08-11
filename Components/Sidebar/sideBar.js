@@ -23,9 +23,41 @@ const SideBar = () => {
   const [modal, setModal] = useState(false);
   const [isfixed, setIsfixed] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState("");
+  const [activeMenuItem, setActiveMenuItem] = useState("home");
   const router = useRouter();
-  const click = (id) => {
-    if (id == 0) {
+
+  useEffect(() => {
+    const currentPath = router.pathname;
+    let activeItem = "";
+
+    if (currentPath === "/") {
+      activeItem = "home";
+    } else if (currentPath === "/applied-consultant/shortlisted-consultant") {
+      activeItem = "shortlisted";
+    } else if (currentPath === "/applied-consultant/scheduled-intrview") {
+      activeItem = "scheduled";
+    } else if (currentPath === "/applied-consultant/selected-consultant") {
+      activeItem = "consultant";
+    } else if (currentPath === "/applied-consultant/task-management") {
+      activeItem = "task";
+    } else if (currentPath === "/applied-consultant/chat") {
+      activeItem = "communication";
+    } else if (currentPath === "/applied-consultant/subscription") {
+      activeItem = "subscription";
+    }
+
+    setActiveMenuItem(activeItem);
+  }, [router.pathname]);
+
+  const getMenuItemStyle = (menuItem) => {
+    return activeMenuItem === menuItem
+      ? "bg-[linear-gradient-to-right] from-[rgba(230,100,101,0.35)] to-[rgba(230,100,101,0.10)]"
+      : "";
+  };
+
+  const click = (menuItem) => {
+    setActiveMenuItem(menuItem);
+    if (menuItem == "home") {
       setCommunicationbg(false);
       setConsultantbg(false);
       setSubscriptionbg(false);
@@ -34,7 +66,7 @@ const SideBar = () => {
       setScheduledbg(false);
       setHomebg(true);
       router.push("/");
-    } else if (id == 1) {
+    } else if (menuItem == "shortlisted") {
       setHomebg(false);
       setCommunicationbg(false);
       setConsultantbg(false);
@@ -43,7 +75,7 @@ const SideBar = () => {
       setScheduledbg(false);
       setShortlistedbg(true);
       router.push(`/applied-consultant/shortlisted-consultant`);
-    } else if (id == 2) {
+    } else if (menuItem == "scheduled") {
       setHomebg(false);
       setCommunicationbg(false);
       setConsultantbg(false);
@@ -52,7 +84,7 @@ const SideBar = () => {
       setShortlistedbg(false);
       setScheduledbg(true);
       router.push(`/applied-consultant/scheduled-intrview`);
-    } else if (id == 3) {
+    } else if (menuItem == "consultant") {
       setHomebg(false);
       setCommunicationbg(false);
       setSubscriptionbg(false);
@@ -60,7 +92,7 @@ const SideBar = () => {
       setShortlistedbg(false);
       setScheduledbg(false);
       setConsultantbg(true);
-    } else if (id == 4) {
+    } else if (menuItem == "task") {
       setHomebg(false);
       setCommunicationbg(false);
       setConsultantbg(false);
@@ -68,7 +100,7 @@ const SideBar = () => {
       setShortlistedbg(false);
       setScheduledbg(false);
       setTaskbg(true);
-    } else if (id == 5) {
+    } else if (menuItem == "communication") {
       setHomebg(false);
       setConsultantbg(false);
       setSubscriptionbg(false);
@@ -76,7 +108,7 @@ const SideBar = () => {
       setShortlistedbg(false);
       setScheduledbg(false);
       setCommunicationbg(true);
-    } else if (id == 6) {
+    } else if (menuItem == "subscription") {
       setHomebg(false);
       setCommunicationbg(false);
       setConsultantbg(false);
@@ -181,14 +213,16 @@ const SideBar = () => {
           }}
         >
           <div
-            className="flex items-center align-middle justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[245px]"
+            className={`flex items-center align-middle justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[245px] ${getMenuItemStyle(
+              "home"
+            )}`}
             style={{
               background: homebg
                 ? "linear-gradient(to right,rgba(230,100,101,0.35),rgba(230,100,101,0.10)  )"
                 : "",
               borderLeft: homebg ? "2px solid red" : "",
             }}
-            onClick={() => click(0)}
+            onClick={() => click("home")}
           >
             <img
               className="h-[20px] w-[21.04px] bg-transparent opacity-[1]"
@@ -205,8 +239,10 @@ const SideBar = () => {
                 : "",
               borderLeft: shortlistedbg ? "2px solid red" : "",
             }}
-            onClick={() => click(1)}
-            className="flex items-center align-middle -mt-[9px] justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[245px]"
+            onClick={() => click("shortlisted")}
+            className={`flex items-center align-middle justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[245px] ${getMenuItemStyle(
+              "shortlisted"
+            )}`}
           >
             <img
               className="h-[20px] w-[21.04px] bg-transparent opacity-[1]"
@@ -224,8 +260,10 @@ const SideBar = () => {
                 : "",
               borderLeft: scheduledbg ? "2px solid red" : "",
             }}
-            onClick={() => click(2)}
-            className="flex items-center align-middle -mt-[9px] justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[245px]"
+            onClick={() => click("scheduled")}
+            className={`flex items-center align-middle justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[245px] ${getMenuItemStyle(
+              "scheduled"
+            )}`}
           >
             <img
               className="h-[20px] w-[21.04px] bg-transparent opacity-[1]"
@@ -243,8 +281,10 @@ const SideBar = () => {
                 : "",
               borderLeft: consultantbg ? "2px solid red" : "",
             }}
-            onClick={() => click(3)}
-            className="flex items-center align-middle -mt-[9px] justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[245px]"
+            onClick={() => click("consultant")}
+            className={`flex items-center align-middle justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[245px] ${getMenuItemStyle(
+              "consultant"
+            )}`}
           >
             <img
               className="h-[20px] w-[21.04px] bg-transparent opacity-[1]"
@@ -262,8 +302,10 @@ const SideBar = () => {
                 : "",
               borderLeft: taskbg ? "2px solid red" : "",
             }}
-            onClick={() => click(4)}
-            className="flex items-center align-middle -mt-[9px] justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[245px]"
+            onClick={() => click("task")}
+            className={`flex items-center align-middle justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[245px] ${getMenuItemStyle(
+              "task"
+            )}`}
           >
             <img
               className="h-[20px] w-[21.04px] bg-transparent opacity-[1]"
@@ -281,8 +323,10 @@ const SideBar = () => {
                 : "",
               borderLeft: communicationbg ? "2px solid red" : "",
             }}
-            onClick={() => click(5)}
-            className="flex items-center align-middle -mt-[9px] justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[245px]"
+            onClick={() => click("communication")}
+            className={`flex items-center align-middle justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[245px] ${getMenuItemStyle(
+              "communication"
+            )}`}
           >
             <img
               className="h-[20px] w-[21.04px] bg-transparent opacity-[1]"
@@ -300,8 +344,10 @@ const SideBar = () => {
                 : "",
               borderLeft: subscriptionbg ? "2px solid red" : "",
             }}
-            onClick={() => click(6)}
-            className="flex items-center align-middle -mt-[9px] justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[245px]"
+            onClick={() => click("subscription")}
+            className={`flex items-center align-middle justify-baseline h-[52px] pl-[20.74px] cursor-pointer w-[245px] ${getMenuItemStyle(
+              "subscription"
+            )}`}
           >
             <img
               className="h-[20px] w-[21.04px] bg-transparent opacity-[1]"
